@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V14</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +44,7 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col">
 
-  <!-- TOP HEADER NAVBAR (FULL WIDTH) -->
+  <!-- TOP HEADER NAVBAR (FULL SCREEN) -->
   <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800 w-full">
     <div class="w-full px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
@@ -53,8 +53,8 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V14</h1>
-            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Full Screen Edition</span>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V15</h1>
+            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Good Luck</span>
           </div>
           <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
         </div>
@@ -81,10 +81,15 @@
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             พื้นที่แสดงผลตัวอย่าง (<span id="canvasDimLabel">1080 x 1080 px</span>)
           </span>
-          <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
-            <input type="checkbox" id="transparentBgToggle" onchange="renderCanvas()" class="rounded text-indigo-600 focus:ring-indigo-500">
-            ซ่อนพื้นหลัง (PNG ใส)
-          </label>
+          <div class="flex items-center gap-2">
+            <button onclick="openFullscreenModal()" class="text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-xl border border-indigo-200 transition flex items-center gap-1 cursor-pointer">
+              🔍 ดูภาพเต็มจอ
+            </button>
+            <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
+              <input type="checkbox" id="transparentBgToggle" onchange="renderCanvas()" class="rounded text-indigo-600 focus:ring-indigo-500">
+              ซ่อนพื้นหลัง (PNG ใส)
+            </label>
+          </div>
         </div>
 
         <!-- ASPECT RATIO SELECTOR -->
@@ -189,7 +194,7 @@
           </div>
         </div>
 
-        <!-- USER GUIDE CARD (PLACED IN TAB 1 RIGHT PANEL) -->
+        <!-- USER GUIDE CARD (RIGHT PANEL UNDER TAB 1) -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
             <span>📖</span> คู่มือการใช้งานเบื้องต้น
@@ -498,6 +503,32 @@
 
   </main>
 
+  <!-- FULLSCREEN PREVIEW MODAL -->
+  <div id="fullscreenModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full p-5 flex flex-col items-center gap-4 shadow-2xl relative">
+      <div class="flex items-center justify-between w-full pb-2 border-b border-slate-800">
+        <h3 class="text-white font-bold text-base flex items-center gap-2">
+          <span>🔍</span> ตัวอย่างภาพเต็มจอ (Fullscreen Preview)
+        </h3>
+        <button onclick="closeFullscreenModal()" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition cursor-pointer">
+          ✕
+        </button>
+      </div>
+      <div class="relative max-h-[75vh] overflow-auto flex items-center justify-center w-full p-2 bg-slate-950/50 rounded-2xl border border-slate-800">
+        <img id="fullscreenImg" src="" alt="Full Preview" class="max-w-full max-h-[70vh] object-contain rounded-xl shadow-lg">
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-sm shadow-lg shadow-yellow-400/20 transition flex items-center gap-2 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          ดาวน์โหลดภาพ (PNG HD)
+        </button>
+        <button onclick="closeFullscreenModal()" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition cursor-pointer">
+          ปิดหน้าต่าง
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const canvas = document.getElementById('prCanvas');
     const ctx = canvas.getContext('2d');
@@ -536,6 +567,21 @@
     let historyStack = [];
     let historyStep = -1;
     let isPerformingHistoryAction = false;
+
+    function openFullscreenModal() {
+      renderCanvas(false);
+      const dataUrl = canvas.toDataURL('image/png');
+      document.getElementById('fullscreenImg').src = dataUrl;
+      const modal = document.getElementById('fullscreenModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeFullscreenModal() {
+      const modal = document.getElementById('fullscreenModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
 
     function captureState() {
       return {
