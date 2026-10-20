@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (PR Studio V12 Pro)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V13</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,6 @@
     canvas {
       touch-action: none;
     }
-    /* Custom scrollbar for clean UI */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -54,10 +53,10 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO</h1>
-            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">V12 Ultimate</span>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V13</h1>
+            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Edition</span>
           </div>
-          <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเครม!!</p>
+          <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
         </div>
       </div>
 
@@ -81,10 +80,10 @@
     <div class="lg:col-span-6 flex flex-col gap-5">
       <div class="bg-white p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200 sticky top-20 space-y-4">
         
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            พื้นที่แสดงผลตัวอย่าง (1080 x 1080 px)
+            พื้นที่แสดงผลตัวอย่าง (<span id="canvasDimLabel">1080 x 1080 px</span>)
           </span>
           <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
             <input type="checkbox" id="transparentBgToggle" onchange="renderCanvas()" class="rounded text-indigo-600 focus:ring-indigo-500">
@@ -92,25 +91,52 @@
           </label>
         </div>
 
-        <!-- CANVAS STAGE -->
-        <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group">
-          <canvas id="prCanvas" width="1080" height="1080" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
-          <div class="absolute bottom-3 left-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] px-3.5 py-2 rounded-xl shadow-lg pointer-events-none opacity-90 group-hover:opacity-100 transition flex items-center justify-between">
-            <span>💡 <strong>วิธีใช้:</strong> คลิกลากที่ตัวหนังสือ หรือคลิกลากที่รูปภาพเพื่อขยับตำแหน่งได้อิสระ</span>
-            <span class="bg-yellow-400 text-slate-950 font-black px-1.5 py-0.5 rounded text-[9px]">LIVE</span>
-          </div>
+        <!-- ASPECT RATIO SELECTOR -->
+        <div class="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 text-xs">
+          <button id="ratioBtn1" onclick="setAspectRatio('1:1', 1080, 1080)" class="py-2 px-2 rounded-xl font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>🔲</span> 1:1 (FB/IG)
+          </button>
+          <button id="ratioBtn2" onclick="setAspectRatio('16:9', 1200, 675)" class="py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>🖥️</span> 16:9 (Cover)
+          </button>
+          <button id="ratioBtn3" onclick="setAspectRatio('9:16', 1080, 1920)" class="py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
+            <span>📱</span> 9:16 (Story)
+          </button>
         </div>
 
-        <!-- QUICK ACTION BAR -->
-        <div class="grid grid-cols-2 gap-2.5 pt-1">
-          <button onclick="resetTextPositions()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer">
-            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            รีเซ็ตตำแหน่งข้อความ
+        <!-- CANVAS STAGE -->
+        <div id="canvasContainer" class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5">
+          <canvas id="prCanvas" width="1080" height="1080" class="max-w-full max-h-full object-contain cursor-grab active:cursor-grabbing"></canvas>
+        </div>
+
+        <!-- UNDO / REDO & QUICK ACTION BAR -->
+        <div class="grid grid-cols-4 gap-2 pt-1">
+          <button onclick="undoAction()" id="undoBtn" disabled class="bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-slate-700 font-semibold py-2.5 px-2 rounded-xl text-xs transition flex items-center justify-center gap-1 cursor-pointer" title="ย้อนกลับ (Undo)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+            Undo
           </button>
-          <button onclick="resetImageTransform()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer">
-            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            รีเซ็ตตำแหน่งภาพ
+          <button onclick="redoAction()" id="redoBtn" disabled class="bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-slate-700 font-semibold py-2.5 px-2 rounded-xl text-xs transition flex items-center justify-center gap-1 cursor-pointer" title="ทำซ้ำ (Redo)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10H11a8 8 0 00-8 8v2m18-10l-6 6m6-6l-6-6"/></svg>
+            Redo
           </button>
+          <button onclick="resetTextPositions()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-2 rounded-xl text-xs transition flex items-center justify-center gap-1 cursor-pointer">
+            รีเซ็ตข้อความ
+          </button>
+          <button onclick="resetImageTransform()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-2 rounded-xl text-xs transition flex items-center justify-center gap-1 cursor-pointer">
+            รีเซ็ตภาพ
+          </button>
+        </div>
+
+        <!-- USER GUIDE CARD -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-2 text-xs text-slate-700">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5">
+            <span>📖</span> คู่มือการใช้งานเบื้องต้น
+          </div>
+          <ul class="list-disc pl-4 space-y-1 text-slate-600">
+            <li><strong>ขยับรูป/ข้อความ:</strong> คลิกลากเมาส์ที่ตัวหนังสือหรือรูปภาพบนจอเพื่อย้ายตำแหน่งได้ทันที</li>
+            <li><strong>ประวัติการแก้:</strong> ใช้ปุ่ม Undo/Redo ด้านบนเพื่อย้อนกลับหรือทำซ้ำการขยับได้ตลอดเวลา</li>
+            <li><strong>เปลี่ยนสัดส่วน:</strong> เลือกปุ่ม 1:1, 16:9 หรือ 9:16 ด้านบนเพื่อปรับขนาดภาพตามการใช้งาน</li>
+          </ul>
         </div>
 
       </div>
@@ -238,7 +264,7 @@
                 <span class="text-slate-600 font-medium">แสงฟุ้งด้านบน (Glow)</span>
                 <span id="glowVal" class="text-slate-500 font-bold">35%</span>
               </div>
-              <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
 
@@ -259,7 +285,7 @@
             </label>
             <div class="flex flex-col justify-center space-y-2 text-xs font-semibold text-slate-700 bg-slate-50 p-3 rounded-2xl border border-slate-200">
               <label class="inline-flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="showLogo" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+                <input type="checkbox" id="showLogo" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
                 แสดงโลโก้บนภาพ
               </label>
               <button onclick="clearCustomLogo()" class="text-red-600 hover:text-red-800 text-left underline cursor-pointer">
@@ -272,11 +298,11 @@
             <span class="font-semibold text-slate-600">ตำแหน่งโลโก้:</span>
             <div class="flex gap-4">
               <label class="inline-flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" id="logoTopLeft" onchange="renderCanvas()" class="rounded text-indigo-600">
+                <input type="checkbox" id="logoTopLeft" onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
                 มุมซ้ายบน
               </label>
               <label class="inline-flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" id="logoBottomFooter" onchange="renderCanvas()" class="rounded text-indigo-600">
+                <input type="checkbox" id="logoBottomFooter" onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
                 ด้านล่างคู่ชื่อ
               </label>
             </div>
@@ -295,7 +321,7 @@
               ปรับแต่งข้อความ & ฟอนต์
             </h2>
             <label class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 cursor-pointer">
-              <input type="checkbox" id="showAllText" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+              <input type="checkbox" id="showAllText" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
               แสดงข้อความทั้งหมด
             </label>
           </div>
@@ -304,12 +330,12 @@
           <div class="p-3.5 rounded-2xl bg-orange-50/70 border border-orange-200/80 space-y-2">
             <div class="flex items-center justify-between">
               <label class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-950 cursor-pointer">
-                <input type="checkbox" id="showDateRibbon" onchange="renderCanvas()" class="rounded text-orange-600">
+                <input type="checkbox" id="showDateRibbon" onchange="renderCanvas(); saveHistoryState();" class="rounded text-orange-600">
                 แสดงป้ายแถบวันที่ด้านขวา
               </label>
-              <input type="color" id="ribbonColor" value="#EA580C" oninput="renderCanvas()" class="h-6 w-8 rounded border border-orange-300 cursor-pointer bg-white p-0.5">
+              <input type="color" id="ribbonColor" value="#EA580C" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-6 w-8 rounded border border-orange-300 cursor-pointer bg-white p-0.5">
             </div>
-            <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" class="w-full border border-orange-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-800 bg-white outline-none">
+            <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-orange-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-800 bg-white outline-none">
           </div>
 
           <!-- Headline Line 1 -->
@@ -317,24 +343,24 @@
             <div class="flex items-center justify-between">
               <label class="text-xs font-bold text-slate-700">พาดหัวหลัก (บรรทัดที่ 1)</label>
               <div class="flex items-center gap-2">
-                <select id="font1" onchange="renderCanvas()" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
+                <select id="font1" onchange="renderCanvas(); saveHistoryState();" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                   <option value="Prompt">Prompt</option>
                   <option value="Kanit">Kanit</option>
                   <option value="Sarabun">Sarabun</option>
                   <option value="Chakra Petch">Chakra Petch</option>
                 </select>
                 <label class="inline-flex items-center gap-1 text-xs text-slate-600 cursor-pointer">
-                  <input type="checkbox" id="strokeLine1" onchange="renderCanvas()" class="rounded text-red-600"> ขอบแดง
+                  <input type="checkbox" id="strokeLine1" onchange="renderCanvas(); saveHistoryState();" class="rounded text-red-600"> ขอบแดง
                 </label>
               </div>
             </div>
             <div class="flex gap-2">
-              <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 bg-white outline-none">
-              <input type="color" id="colorLine1" value="#FFE600" oninput="renderCanvas()" class="h-10 w-11 rounded-xl border cursor-pointer p-0.5 bg-white flex-shrink-0">
+              <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 bg-white outline-none">
+              <input type="color" id="colorLine1" value="#FFE600" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-10 w-11 rounded-xl border cursor-pointer p-0.5 bg-white flex-shrink-0">
             </div>
             <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
               <span>ขนาด: <strong id="size1Val">92px</strong></span>
-              <input type="range" id="size1Range" min="40" max="140" value="92" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="size1Range" min="40" max="140" value="92" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
 
@@ -342,17 +368,17 @@
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
               <label class="text-xs font-bold text-slate-700">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
-              <select id="font2" onchange="renderCanvas()" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
+              <select id="font2" onchange="renderCanvas(); saveHistoryState();" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                 <option value="Prompt">Prompt</option>
                 <option value="Kanit">Kanit</option>
                 <option value="Sarabun">Sarabun</option>
                 <option value="Chakra Petch">Chakra Petch</option>
               </select>
             </div>
-            <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 bg-white outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
+            <textarea id="textLine2" rows="2" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 bg-white outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
             <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
               <span>ขนาด: <strong id="size2Val">46px</strong></span>
-              <input type="range" id="size2Range" min="28" max="80" value="46" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="size2Range" min="28" max="80" value="46" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
 
@@ -360,7 +386,7 @@
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
               <label class="text-xs font-bold text-slate-700">ข้อความเน้นสีเหลืองทอง</label>
-              <select id="font3" onchange="renderCanvas()" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
+              <select id="font3" onchange="renderCanvas(); saveHistoryState();" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                 <option value="Prompt">Prompt</option>
                 <option value="Kanit">Kanit</option>
                 <option value="Sarabun">Sarabun</option>
@@ -368,12 +394,12 @@
               </select>
             </div>
             <div class="flex gap-2">
-              <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 bg-white outline-none leading-snug">ครั้งที่ 5/2569</textarea>
-              <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded-xl border cursor-pointer p-0.5 bg-white flex-shrink-0">
+              <textarea id="textLine3" rows="2" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 bg-white outline-none leading-snug">ครั้งที่ 5/2569</textarea>
+              <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-12 w-11 rounded-xl border cursor-pointer p-0.5 bg-white flex-shrink-0">
             </div>
             <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
               <span>ขนาด: <strong id="size3Val">42px</strong></span>
-              <input type="range" id="size3Range" min="26" max="75" value="42" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="size3Range" min="26" max="75" value="42" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
 
@@ -381,7 +407,7 @@
           <div class="pt-3 border-t border-slate-100 space-y-3">
             <div class="flex items-center justify-between">
               <label class="text-xs font-bold text-slate-700">ส่วนใต้เส้นคั่น</label>
-              <select id="footerMode" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-xl px-3 py-1.5 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
+              <select id="footerMode" onchange="renderCanvas(); saveHistoryState();" class="text-xs border border-slate-300 rounded-xl px-3 py-1.5 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
                 <option value="style1">แบบที่ 1: สถานที่ + โซเชียล</option>
                 <option value="style2">แบบที่ 2: ชื่อผู้บริหาร + ตำแหน่ง</option>
                 <option value="style3">แบบที่ 3: โลโก้ + ชื่อหน่วยงาน</option>
@@ -390,22 +416,22 @@
 
             <div>
               <label class="block text-xs font-medium text-slate-600 mb-1">บรรทัดใต้เส้นคั่น</label>
-              <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 outline-none">
+              <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 outline-none">
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div class="sm:col-span-2">
                 <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อหน่วยงาน / ตำแหน่ง</label>
-                <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 outline-none">
+                <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 outline-none">
               </div>
               <div>
                 <label class="block text-xs font-medium text-slate-600 mb-1">วันที่มุมขวาล่าง</label>
-                <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 outline-none">
+                <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 outline-none">
               </div>
             </div>
 
             <label class="inline-flex items-center gap-2 cursor-pointer pt-2 text-xs font-semibold text-slate-700">
-              <input type="checkbox" id="showSocial" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+              <input type="checkbox" id="showSocial" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
               แสดงไอคอนโซเชียลด้านล่าง
             </label>
           </div>
@@ -423,8 +449,8 @@
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">สีแถบไล่ระดับ</label>
               <div class="flex items-center gap-2">
-                <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" class="h-8 w-10 rounded-xl border cursor-pointer p-0.5 bg-white">
-                <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" class="h-8 w-10 rounded-xl border cursor-pointer p-0.5 bg-white">
+                <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-8 w-10 rounded-xl border cursor-pointer p-0.5 bg-white">
+                <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-8 w-10 rounded-xl border cursor-pointer p-0.5 bg-white">
                 <span class="text-xs text-slate-500 font-medium">เกรเดียนต์มืด</span>
               </div>
             </div>
@@ -433,14 +459,14 @@
                 <span class="text-slate-600 font-medium">ความสูงแถบสี</span>
                 <span id="gradHeightVal" class="text-slate-500 font-bold">55%</span>
               </div>
-              <input type="range" id="gradHeight" min="35" max="75" value="55" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="gradHeight" min="35" max="75" value="55" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
 
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
               <span>🎛️ สไตล์เส้นคั่น</span>
-              <select id="dividerStyle" onchange="renderCanvas()" class="text-xs border rounded-xl px-2.5 py-1 bg-white font-semibold text-indigo-700 cursor-pointer">
+              <select id="dividerStyle" onchange="renderCanvas(); saveHistoryState();" class="text-xs border rounded-xl px-2.5 py-1 bg-white font-semibold text-indigo-700 cursor-pointer">
                 <option value="gold">สีทองเมทัลลิก</option>
                 <option value="red">สีแดงสด</option>
                 <option value="custom">กำหนดสีเอง</option>
@@ -450,21 +476,21 @@
             <div class="grid grid-cols-3 gap-3 pt-1">
               <div id="customColorBox">
                 <label class="block text-[10px] font-medium text-slate-600 mb-1">สีเส้น</label>
-                <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" class="h-7 w-9 rounded-xl border cursor-pointer p-0.5 bg-white">
+                <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-7 w-9 rounded-xl border cursor-pointer p-0.5 bg-white">
               </div>
               <div>
                 <div class="flex justify-between text-[10px] mb-1">
                   <span>ความหนา</span>
                   <span id="divHeightVal" class="font-bold">12px</span>
                 </div>
-                <input type="range" id="dividerHeight" min="4" max="24" value="12" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+                <input type="range" id="dividerHeight" min="4" max="24" value="12" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
               </div>
               <div>
                 <div class="flex justify-between text-[10px] mb-1">
                   <span>ความกว้าง</span>
                   <span id="divWidthVal" class="font-bold">928px</span>
                 </div>
-                <input type="range" id="dividerWidth" min="600" max="1020" value="928" step="10" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+                <input type="range" id="dividerWidth" min="600" max="1020" value="928" step="10" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
               </div>
             </div>
           </div>
@@ -483,6 +509,11 @@
     let currentStyle = 1;
     let customLogoImg = null;
     let activeLayer = 'bg';
+
+    // Canvas Aspect Ratio Config
+    let currentAspectName = '1:1';
+    let canvasWidth = 1080;
+    let canvasHeight = 1080;
     
     let bgImg = new Image();
     let bgLoaded = false;
@@ -506,6 +537,162 @@
       gold: { x: 0, y: 0 },
       footer: { x: 0, y: 0 }
     };
+
+    // HISTORY STACK FOR UNDO / REDO
+    let historyStack = [];
+    let historyStep = -1;
+    let isPerformingHistoryAction = false;
+
+    function captureState() {
+      return {
+        canvasWidth,
+        canvasHeight,
+        currentAspectName,
+        bgState: { ...bgState },
+        fg1State: { ...fg1State },
+        fg2State: { ...fg2State },
+        textOffsets: JSON.parse(JSON.stringify(textOffsets)),
+        inputs: {
+          textLine1: document.getElementById('textLine1').value,
+          textLine2: document.getElementById('textLine2').value,
+          textLine3: document.getElementById('textLine3').value,
+          textLine4: document.getElementById('textLine4').value,
+          textOrg: document.getElementById('textOrg').value,
+          textDate: document.getElementById('textDate').value,
+          ribbonText: document.getElementById('ribbonText').value,
+          showDateRibbon: document.getElementById('showDateRibbon').checked,
+          showLogo: document.getElementById('showLogo').checked,
+          logoTopLeft: document.getElementById('logoTopLeft').checked,
+          logoBottomFooter: document.getElementById('logoBottomFooter').checked,
+          showSocial: document.getElementById('showSocial').checked,
+          showAllText: document.getElementById('showAllText').checked,
+          strokeLine1: document.getElementById('strokeLine1').checked,
+          size1Range: document.getElementById('size1Range').value,
+          size2Range: document.getElementById('size2Range').value,
+          size3Range: document.getElementById('size3Range').value,
+          topGlow: document.getElementById('topGlow').value,
+          gradHeight: document.getElementById('gradHeight').value,
+          dividerHeight: document.getElementById('dividerHeight').value,
+          dividerWidth: document.getElementById('dividerWidth').value
+        }
+      };
+    }
+
+    function saveHistoryState() {
+      if (isPerformingHistoryAction) return;
+      // Truncate any future steps if we are in the middle of stack
+      historyStack = historyStack.slice(0, historyStep + 1);
+      historyStack.push(captureState());
+      historyStep = historyStack.length - 1;
+      updateUndoRedoButtons();
+    }
+
+    function undoAction() {
+      if (historyStep > 0) {
+        historyStep--;
+        isPerformingHistoryAction = true;
+        restoreState(historyStack[historyStep]);
+        isPerformingHistoryAction = false;
+        renderCanvas();
+        updateUndoRedoButtons();
+      }
+    }
+
+    function redoAction() {
+      if (historyStep < historyStack.length - 1) {
+        historyStep++;
+        isPerformingHistoryAction = true;
+        restoreState(historyStack[historyStep]);
+        isPerformingHistoryAction = false;
+        renderCanvas();
+        updateUndoRedoButtons();
+      }
+    }
+
+    function updateUndoRedoButtons() {
+      document.getElementById('undoBtn').disabled = historyStep <= 0;
+      document.getElementById('redoBtn').disabled = historyStep >= historyStack.length - 1;
+    }
+
+    function restoreState(state) {
+      canvasWidth = state.canvasWidth;
+      canvasHeight = state.canvasHeight;
+      currentAspectName = state.currentAspectName;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+
+      const container = document.getElementById('canvasContainer');
+      if (currentAspectName === '1:1') {
+        container.className = 'relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        document.getElementById('canvasDimLabel').textContent = '1080 x 1080 px';
+      } else if (currentAspectName === '16:9') {
+        container.className = 'relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        document.getElementById('canvasDimLabel').textContent = '1200 x 675 px';
+      } else {
+        container.className = 'relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        document.getElementById('canvasDimLabel').textContent = '1080 x 1920 px';
+      }
+
+      bgState = { ...state.bgState };
+      fg1State = { ...state.fg1State };
+      fg2State = { ...state.fg2State };
+      textOffsets = JSON.parse(JSON.stringify(state.textOffsets));
+
+      const inp = state.inputs;
+      document.getElementById('textLine1').value = inp.textLine1;
+      document.getElementById('textLine2').value = inp.textLine2;
+      document.getElementById('textLine3').value = inp.textLine3;
+      document.getElementById('textLine4').value = inp.textLine4;
+      document.getElementById('textOrg').value = inp.textOrg;
+      document.getElementById('textDate').value = inp.textDate;
+      document.getElementById('ribbonText').value = inp.ribbonText;
+      document.getElementById('showDateRibbon').checked = inp.showDateRibbon;
+      document.getElementById('showLogo').checked = inp.showLogo;
+      document.getElementById('logoTopLeft').checked = inp.logoTopLeft;
+      document.getElementById('logoBottomFooter').checked = inp.logoBottomFooter;
+      document.getElementById('showSocial').checked = inp.showSocial;
+      document.getElementById('showAllText').checked = inp.showAllText;
+      document.getElementById('strokeLine1').checked = inp.strokeLine1;
+      document.getElementById('size1Range').value = inp.size1Range;
+      document.getElementById('size2Range').value = inp.size2Range;
+      document.getElementById('size3Range').value = inp.size3Range;
+      document.getElementById('topGlow').value = inp.topGlow;
+      document.getElementById('gradHeight').value = inp.gradHeight;
+      document.getElementById('dividerHeight').value = inp.dividerHeight;
+      document.getElementById('dividerWidth').value = inp.dividerWidth;
+    }
+
+    function setAspectRatio(aspectName, w, h) {
+      currentAspectName = aspectName;
+      canvasWidth = w;
+      canvasHeight = h;
+      canvas.width = w;
+      canvas.height = h;
+
+      ['1:1', '16:9', '9:16'].forEach((asp, idx) => {
+        const btn = document.getElementById('ratioBtn' + (idx + 1));
+        if (asp === aspectName) {
+          btn.className = 'py-2 px-2 rounded-xl font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+        } else {
+          btn.className = 'py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        }
+      });
+
+      const container = document.getElementById('canvasContainer');
+      if (aspectName === '1:1') {
+        container.className = 'relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        document.getElementById('canvasDimLabel').textContent = '1080 x 1080 px';
+      } else if (aspectName === '16:9') {
+        container.className = 'relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        document.getElementById('canvasDimLabel').textContent = '1200 x 675 px';
+      } else {
+        container.className = 'relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        document.getElementById('canvasDimLabel').textContent = '1080 x 1920 px';
+      }
+
+      renderCanvas();
+      saveHistoryState();
+    }
 
     function switchTab(tabNum) {
       [1, 2, 3].forEach(n => {
@@ -622,6 +809,7 @@
       bgImg.onload = () => {
         bgLoaded = true;
         renderCanvas();
+        saveHistoryState();
       };
       bgImg.src = off.toDataURL();
     }
@@ -738,6 +926,7 @@
           bgLoaded = true;
           setActiveLayer('bg');
           renderCanvas();
+          saveHistoryState();
         };
         img.src = evt.target.result;
       };
@@ -755,6 +944,7 @@
           fg1Loaded = true;
           setActiveLayer('fg1');
           renderCanvas();
+          saveHistoryState();
         };
         img.src = evt.target.result;
       };
@@ -772,6 +962,7 @@
           fg2Loaded = true;
           setActiveLayer('fg2');
           renderCanvas();
+          saveHistoryState();
         };
         img.src = evt.target.result;
       };
@@ -788,6 +979,7 @@
           customLogoImg = img;
           document.getElementById('showLogo').checked = true;
           renderCanvas();
+          saveHistoryState();
         };
         img.src = evt.target.result;
       };
@@ -798,6 +990,7 @@
       customLogoImg = null;
       document.getElementById('showLogo').checked = true;
       renderCanvas();
+      saveHistoryState();
     }
 
     function setActiveLayer(layer) {
@@ -837,6 +1030,7 @@
       }
       setActiveLayer(activeLayer);
       renderCanvas();
+      saveHistoryState();
     }
 
     function resetTextPositions() {
@@ -847,6 +1041,7 @@
         footer: { x: 0, y: 0 }
       };
       renderCanvas();
+      saveHistoryState();
     }
 
     function updateTransformFromSlider() {
@@ -859,19 +1054,23 @@
       renderCanvas();
     }
 
+    // Save history state on pointerup when dragging finishes
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
-      const scaleFactor = 1080 / rect.width;
+      const scaleFactor = canvasWidth / rect.width;
       const clickX = (e.clientX - rect.left) * scaleFactor;
       const clickY = (e.clientY - rect.top) * scaleFactor;
 
-      if (clickY > 750) {
+      const scaleY = canvasHeight / rect.height;
+      const normY = clickY * (1080 / canvasHeight); // normalize coordinate mapping
+
+      if (normY > 750) {
         draggingTarget = 'footer';
-      } else if (clickY > 620) {
+      } else if (normY > 620) {
         draggingTarget = 'headline';
-      } else if (clickY > 450) {
+      } else if (normY > 450) {
         draggingTarget = 'topic';
-      } else if (clickY > 300) {
+      } else if (normY > 300) {
         draggingTarget = 'gold';
       } else {
         draggingTarget = activeLayer;
@@ -891,7 +1090,7 @@
     canvas.addEventListener('pointermove', (e) => {
       if (!draggingTarget) return;
       const rect = canvas.getBoundingClientRect();
-      const scaleFactor = 1080 / rect.width;
+      const scaleFactor = canvasWidth / rect.width;
       const currentX = (e.clientX - rect.left) * scaleFactor;
       const currentY = (e.clientY - rect.top) * scaleFactor;
 
@@ -907,7 +1106,10 @@
     });
 
     canvas.addEventListener('pointerup', () => {
-      draggingTarget = null;
+      if (draggingTarget) {
+        draggingTarget = null;
+        saveHistoryState();
+      }
     });
 
     function hexToRgba(hex, alpha) {
@@ -979,42 +1181,48 @@
 
       document.getElementById('customColorBox').style.display = dividerStyle === 'custom' ? 'block' : 'none';
 
-      ctx.clearRect(0, 0, 1080, 1080);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+      // Scale coordinate helper relative to 1080x1080 design base
+      const scaleX = canvasWidth / 1080;
+      const scaleY = canvasHeight / 1080;
+
+      ctx.save();
+      // If 16:9 or 9:16, center elements accordingly
       if (!isTransparent && bgLoaded) {
         ctx.save();
         const imgRatio = bgImg.width / bgImg.height;
-        let drawW = 1080, drawH = 1080;
-        if (imgRatio > 1) drawW = 1080 * imgRatio;
-        else drawH = 1080 / imgRatio;
+        let drawW = canvasWidth, drawH = canvasHeight;
+        if (imgRatio > (canvasWidth / canvasHeight)) drawH = canvasWidth / imgRatio;
+        else drawW = canvasHeight * imgRatio;
         drawW *= bgState.scale;
         drawH *= bgState.scale;
 
-        const drawX = (1080 - drawW) / 2 + bgState.x;
-        const drawY = (1080 - drawH) / 2 + bgState.y;
+        const drawX = (canvasWidth - drawW) / 2 + bgState.x;
+        const drawY = (canvasHeight - drawH) / 2 + bgState.y;
         ctx.drawImage(bgImg, drawX, drawY, drawW, drawH);
         ctx.restore();
       }
 
-      const gradStartY = 1080 * (1 - gradHeightPct / 100);
-      const mainGrad = ctx.createLinearGradient(0, gradStartY, 0, 1080);
+      const gradStartY = canvasHeight * (1 - gradHeightPct / 100);
+      const mainGrad = ctx.createLinearGradient(0, gradStartY, 0, canvasHeight);
       mainGrad.addColorStop(0, hexToRgba(gradColor1, 0));
       mainGrad.addColorStop(0.25, hexToRgba(gradColor1, 0.82));
       mainGrad.addColorStop(0.55, hexToRgba(gradColor2, 0.96));
       mainGrad.addColorStop(1, hexToRgba(gradColor2, 1));
 
       ctx.fillStyle = mainGrad;
-      ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
+      ctx.fillRect(0, gradStartY, canvasWidth, canvasHeight - gradStartY);
 
       if (!isTransparent && fg1Loaded) {
         ctx.save();
         const fgRatio = fg1Img.width / fg1Img.height;
-        let fgW = 600, fgH = 600 / fgRatio;
+        let fgW = 600 * scaleX, fgH = (600 / fgRatio) * scaleY;
         fgW *= fg1State.scale;
         fgH *= fg1State.scale;
 
-        const fgX = (1080 - fgW) / 2 + fg1State.x;
-        const fgY = (1080 - fgH) / 2 + 70 + fg1State.y;
+        const fgX = (canvasWidth - fgW) / 2 + fg1State.x;
+        const fgY = (canvasHeight - fgH) / 2 + (70 * scaleY) + fg1State.y;
         ctx.drawImage(fg1Img, fgX, fgY, fgW, fgH);
         ctx.restore();
       }
@@ -1022,56 +1230,58 @@
       if (!isTransparent && fg2Loaded) {
         ctx.save();
         const fgRatio = fg2Img.width / fg2Img.height;
-        let fgW = 600, fgH = 600 / fgRatio;
+        let fgW = 600 * scaleX, fgH = (600 / fgRatio) * scaleY;
         fgW *= fg2State.scale;
         fgH *= fg2State.scale;
 
-        const fgX = (1080 - fgW) / 2 + fg2State.x;
-        const fgY = (1080 - fgH) / 2 + 70 + fg2State.y;
+        const fgX = (canvasWidth - fgW) / 2 + fg2State.x;
+        const fgY = (canvasHeight - fgH) / 2 + (70 * scaleY) + fg2State.y;
         ctx.drawImage(fg2Img, fgX, fgY, fgW, fgH);
         ctx.restore();
       }
 
       if (document.getElementById('showLogo').checked && document.getElementById('logoTopLeft').checked) {
-        drawNongKhaiEmblem(ctx, 76, 76, 62);
+        drawNongKhaiEmblem(ctx, 76 * scaleX, 76 * scaleY, 62 * Math.min(scaleX, scaleY));
       }
 
       const showRibbon = document.getElementById('showDateRibbon').checked;
       const ribbonText = document.getElementById('ribbonText').value.trim();
       const ribbonColor = document.getElementById('ribbonColor').value;
       if (showRibbon) {
-        const ribY = 582;
-        const ribH = 76;
-        const ribStartX = 430;
-        const ribGrad = ctx.createLinearGradient(ribStartX, ribY, 1080, ribY);
+        const ribY = 582 * scaleY;
+        const ribH = 76 * scaleY;
+        const ribStartX = 430 * scaleX;
+        const ribGrad = ctx.createLinearGradient(ribStartX, ribY, canvasWidth, ribY);
         ribGrad.addColorStop(0, hexToRgba(ribbonColor, 0));
         ribGrad.addColorStop(0.5, hexToRgba(ribbonColor, 0.95));
         ribGrad.addColorStop(1, hexToRgba(ribbonColor, 1));
 
         ctx.save();
         ctx.fillStyle = ribGrad;
-        ctx.fillRect(ribStartX, ribY, 1080 - ribStartX, ribH);
+        ctx.fillRect(ribStartX, ribY, canvasWidth - ribStartX, ribH);
 
         if (document.getElementById('showAllText').checked && ribbonText) {
-          ctx.font = `700 40px "${font1}", sans-serif`;
+          ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`;
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'middle';
           ctx.shadowColor = 'rgba(0,0,0,0.45)';
           ctx.shadowBlur = 8;
-          ctx.fillText(ribbonText, 1055, ribY + ribH / 2 + 2);
+          ctx.fillText(ribbonText, canvasWidth - 25, ribY + ribH / 2 + 2);
         }
         ctx.restore();
       }
 
       const footerMode = document.getElementById('footerMode').value;
-      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+      const baseLineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+      const lineY = baseLineY * scaleY;
 
       if (dividerStyle !== 'none') {
-        const lineX = (1080 - dividerWidth) / 2;
+        const currentDivW = dividerWidth * scaleX;
+        const lineX = (canvasWidth - currentDivW) / 2;
         ctx.save();
         if (dividerStyle === 'gold') {
-          const goldGrad = ctx.createLinearGradient(lineX, lineY, lineX + dividerWidth, lineY);
+          const goldGrad = ctx.createLinearGradient(lineX, lineY, lineX + currentDivW, lineY);
           goldGrad.addColorStop(0, '#C79627');
           goldGrad.addColorStop(0.5, '#F5CE52');
           goldGrad.addColorStop(1, '#C79627');
@@ -1083,7 +1293,7 @@
         }
         ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
         ctx.shadowBlur = 8;
-        ctx.fillRect(lineX, lineY, dividerWidth, dividerHeight);
+        ctx.fillRect(lineX, lineY, currentDivW, dividerHeight * scaleY);
         ctx.restore();
       }
 
@@ -1100,11 +1310,12 @@
         const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
         const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
 
-        let cursorY = lineY - 32;
+        let cursorY = lineY - (32 * scaleY);
 
         if (t3Lines.length > 0) {
           ctx.save();
-          ctx.font = `700 ${size3}px "${font3}", sans-serif`;
+          const curSize3 = size3 * scaleY;
+          ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
           ctx.fillStyle = colorGoldText;
           ctx.shadowColor = 'rgba(0,0,0,0.7)';
           ctx.shadowBlur = 12;
@@ -1112,15 +1323,16 @@
           let goldY = cursorY + textOffsets.gold.y;
           let tempY = goldY;
           for (let i = t3Lines.length - 1; i >= 0; i--) {
-            ctx.fillText(t3Lines[i], 540 + textOffsets.gold.x, tempY);
-            tempY -= (size3 + 8);
+            ctx.fillText(t3Lines[i], (canvasWidth / 2) + textOffsets.gold.x, tempY);
+            tempY -= (curSize3 + (8 * scaleY));
           }
           ctx.restore();
-          cursorY -= (t3Lines.length * (size3 + 8) + 10);
+          cursorY -= (t3Lines.length * (curSize3 + (8 * scaleY)) + (10 * scaleY));
         }
 
         if (t2Lines.length > 0) {
           ctx.save();
+          const curSize2 = size2 * scaleY;
           ctx.fillStyle = '#FFFFFF';
           ctx.shadowColor = 'rgba(0,0,0,0.8)';
           ctx.shadowBlur = 14;
@@ -1128,25 +1340,26 @@
           let topicY = cursorY + textOffsets.topic.y;
           let tempY = topicY;
           for (let i = t2Lines.length - 1; i >= 0; i--) {
-            ctx.font = `700 ${size2}px "${font2}", sans-serif`;
-            ctx.fillText(t2Lines[i], 540 + textOffsets.topic.x, tempY);
-            tempY -= (size2 + 12);
+            ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
+            ctx.fillText(t2Lines[i], (canvasWidth / 2) + textOffsets.topic.x, tempY);
+            tempY -= (curSize2 + (12 * scaleY));
           }
           ctx.restore();
-          cursorY -= (t2Lines.length * (size2 + 12) + 16);
+          cursorY -= (t2Lines.length * (curSize2 + (12 * scaleY)) + (16 * scaleY));
         }
 
         if (t1) {
           ctx.save();
-          ctx.font = `800 ${size1}px "${font1}", sans-serif`;
+          const curSize1 = size1 * scaleY;
+          ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
           ctx.shadowColor = 'rgba(0,0,0,0.85)';
           ctx.shadowBlur = 22;
-          const headX = 540 + textOffsets.headline.x;
+          const headX = (canvasWidth / 2) + textOffsets.headline.x;
           const headY = cursorY + textOffsets.headline.y;
 
           if (strokeLine1) {
             ctx.strokeStyle = '#D91B1B';
-            ctx.lineWidth = 16;
+            ctx.lineWidth = 16 * scaleY;
             ctx.strokeText(t1, headX, headY);
           }
           ctx.fillStyle = colorLine1;
@@ -1166,26 +1379,26 @@
       if (footerMode === 'style1') {
         if (showText && line4Text) {
           ctx.save();
-          ctx.font = `400 35px "${font1}", sans-serif`;
+          ctx.font = `400 ${Math.round(35 * scaleY)}px "${font1}", sans-serif`;
           ctx.fillStyle = colorGoldText;
           ctx.textAlign = 'center';
-          ctx.fillText(line4Text, 540 + footerOffsetX, 946 + footerOffsetY);
+          ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (946 * scaleY) + footerOffsetY);
           ctx.restore();
         }
         if (showSocial || (showText && orgText)) {
           ctx.save();
-          ctx.font = `400 24px "${font1}", sans-serif`;
+          ctx.font = `400 ${Math.round(24 * scaleY)}px "${font1}", sans-serif`;
           const textWidth = showText ? ctx.measureText(orgText).width : 0;
-          const totalFooterWidth = 150 + textWidth;
-          const startX = (1080 - totalFooterWidth) / 2 + footerOffsetX;
-          const centerY = 1026 + footerOffsetY;
+          const totalFooterWidth = (150 * scaleX) + textWidth;
+          const startX = (canvasWidth - totalFooterWidth) / 2 + footerOffsetX;
+          const centerY = (1026 * scaleY) + footerOffsetY;
           let nextX = startX;
-          if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17, gradColor2);
+          if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17 * Math.min(scaleX, scaleY), gradColor2);
           if (showText && orgText) {
             ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText(orgText, nextX + 14, centerY + 1);
+            ctx.fillText(orgText, nextX + (14 * scaleX), centerY + 1);
           }
           ctx.restore();
         }
@@ -1194,42 +1407,43 @@
           ctx.save();
           ctx.textAlign = 'center';
           ctx.fillStyle = '#FFFFFF';
-          if (line4Text) { ctx.font = `700 40px "${font1}", sans-serif`; ctx.fillText(line4Text, 540 + footerOffsetX, 976 + footerOffsetY); }
-          if (orgText) { ctx.font = `600 31px "${font1}", sans-serif`; ctx.fillText(orgText, 540 + footerOffsetX, 1024 + footerOffsetY); }
+          if (line4Text) { ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`; ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (976 * scaleY) + footerOffsetY); }
+          if (orgText) { ctx.font = `600 ${Math.round(31 * scaleY)}px "${font1}", sans-serif`; ctx.fillText(orgText, (canvasWidth / 2) + footerOffsetX, (1024 * scaleY) + footerOffsetY); }
           ctx.restore();
         }
       } else if (footerMode === 'style3') {
         const showBottomLogo = document.getElementById('showLogo').checked && document.getElementById('logoBottomFooter').checked;
         ctx.save();
-        ctx.font = `500 43px "${font1}", sans-serif`;
+        ctx.font = `500 ${Math.round(43 * scaleY)}px "${font1}", sans-serif`;
         const textW = (showText && orgText) ? ctx.measureText(orgText).width : 0;
-        const totalW = (showBottomLogo ? 64 : 0) + textW;
-        const startX = (1080 - totalW) / 2 + footerOffsetX;
-        const centerY = 995 + footerOffsetY;
-        if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + 32, centerY, 32);
+        const totalW = (showBottomLogo ? (64 * scaleX) : 0) + textW;
+        const startX = (canvasWidth - totalW) / 2 + footerOffsetX;
+        const centerY = (995 * scaleY) + footerOffsetY;
+        if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + (32 * scaleX), centerY, 32 * Math.min(scaleX, scaleY));
         if (showText && orgText) {
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'left';
           ctx.textBaseline = 'middle';
-          ctx.fillText(orgText, startX + (showBottomLogo ? 82 : 0), centerY + 2);
+          ctx.fillText(orgText, startX + (showBottomLogo ? (82 * scaleX) : 0), centerY + 2);
         }
         ctx.restore();
       }
 
       if (showText && dateText) {
         ctx.save();
-        ctx.font = `700 25px "${font1}", sans-serif`;
+        ctx.font = `700 ${Math.round(25 * scaleY)}px "${font1}", sans-serif`;
         ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'right';
-        ctx.fillText(dateText, 1055 + footerOffsetX, 1058 + footerOffsetY);
+        ctx.fillText(dateText, canvasWidth - (25 * scaleX) + footerOffsetX, canvasHeight - (22 * scaleY) + footerOffsetY);
         ctx.restore();
       }
+      ctx.restore();
     }
 
     function downloadPNG(transparentOnly = false) {
       renderCanvas(transparentOnly);
       const link = document.createElement('a');
-      link.download = transparentOnly ? `canva-overlay-style${currentStyle}.png` : `pr-nongkhai-style${currentStyle}.png`;
+      link.download = transparentOnly ? `canva-overlay-${currentAspectName.replace(':', '-')}.png` : `pr-nongkhai-${currentAspectName.replace(':', '-')}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       renderCanvas(false);
@@ -1257,7 +1471,7 @@
       const size3 = parseInt(document.getElementById('size3Range').value, 10);
 
       const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
-      const gradStartY = Math.round(1080 * (1 - gradHeightPct / 100));
+      const gradStartY = Math.round(canvasHeight * (1 - gradHeightPct / 100));
       const gradColor1 = document.getElementById('gradColor1').value;
       const gradColor2 = document.getElementById('gradColor2').value;
       
@@ -1283,15 +1497,16 @@
       const tOrg = escXml(document.getElementById('textOrg').value.trim());
       const tDate = escXml(document.getElementById('textDate').value.trim());
 
-      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+      const scaleY = canvasHeight / 1080;
+      const lineY = (footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885)) * scaleY;
 
-      let cursorY = lineY - 32;
+      let cursorY = lineY - (32 * scaleY);
       let svgTextsGroup = '';
 
       if (t3Lines.length > 0) {
         let tempY = cursorY + textOffsets.gold.y;
         for (let i = t3Lines.length - 1; i >= 0; i--) {
-          svgTextsGroup += `  <g id="layer-text-gold-${i}">\n    <text x="${540 + textOffsets.gold.x}" y="${tempY}" text-anchor="middle" font-family="${font3}, sans-serif" font-weight="700" font-size="${size3}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n  </g>\n`;
+          svgTextsGroup += `  <g id="layer-text-gold-${i}">\n    <text x="${(canvasWidth / 2) + textOffsets.gold.x}" y="${tempY}" text-anchor="middle" font-family="${font3}, sans-serif" font-weight="700" font-size="${size3}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n  </g>\n`;
           tempY -= (size3 + 8);
         }
         cursorY -= (t3Lines.length * (size3 + 8) + 10);
@@ -1300,7 +1515,7 @@
       if (t2Lines.length > 0) {
         let tempY = cursorY + textOffsets.topic.y;
         for (let i = t2Lines.length - 1; i >= 0; i--) {
-          svgTextsGroup += `  <g id="layer-text-topic-${i}">\n    <text x="${540 + textOffsets.topic.x}" y="${tempY}" text-anchor="middle" font-family="${font2}, sans-serif" font-weight="700" font-size="${size2}" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n  </g>\n`;
+          svgTextsGroup += `  <g id="layer-text-topic-${i}">\n    <text x="${(canvasWidth / 2) + textOffsets.topic.x}" y="${tempY}" text-anchor="middle" font-family="${font2}, sans-serif" font-weight="700" font-size="${size2}" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n  </g>\n`;
           tempY -= (size2 + 12);
         }
         cursorY -= (t2Lines.length * (size2 + 12) + 16);
@@ -1308,21 +1523,21 @@
 
       if (t1Raw) {
         const strokeAttrs = strokeLine1 ? ` stroke="#D91B1B" stroke-width="16" paint-order="stroke fill" stroke-linejoin="round"` : '';
-        svgTextsGroup += `  <g id="layer-text-headline">\n    <text x="${540 + textOffsets.headline.x}" y="${cursorY + textOffsets.headline.y}" text-anchor="middle" font-family="${font1}, sans-serif" font-weight="800" font-size="${size1}" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n  </g>\n`;
+        svgTextsGroup += `  <g id="layer-text-headline">\n    <text x="${(canvasWidth / 2) + textOffsets.headline.x}" y="${cursorY + textOffsets.headline.y}" text-anchor="middle" font-family="${font1}, sans-serif" font-weight="800" font-size="${size1}" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n  </g>\n`;
       }
 
       let svgRibbon = '';
       if (showRibbon) {
         svgRibbon = `
   <g id="layer-date-ribbon">
-    <rect x="430" y="582" width="650" height="76" fill="url(#ribbonGrad)"/>
-    <text x="1055" y="632" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${ribbonText}</text>
+    <rect x="${430 * (canvasWidth / 1080)}" y="${582 * scaleY}" width="${650 * (canvasWidth / 1080)}" height="${76 * scaleY}" fill="url(#ribbonGrad)"/>
+    <text x="${canvasWidth - 25}" y="${632 * scaleY}" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${ribbonText}</text>
   </g>`;
       }
 
       let svgDivider = '';
       if (dividerStyle !== 'none') {
-        const divX = (1080 - dividerWidth) / 2;
+        const divX = (canvasWidth - dividerWidth) / 2;
         const divFill = dividerStyle === 'gold' ? 'url(#goldBar)' : (dividerStyle === 'red' ? '#D61F1F' : dividerColor);
         svgDivider = `  <g id="layer-divider-bar">\n    <rect x="${divX}" y="${lineY}" width="${dividerWidth}" height="${dividerHeight}" fill="${divFill}"/>\n  </g>`;
       }
@@ -1333,8 +1548,8 @@
       if (footerMode === 'style1') {
         svgFooter = `
   <g id="layer-footer-style1">
-    <text x="${540 + fx}" y="${946 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
-    <g transform="translate(${310 + fx}, ${1009 + fy})">
+    <text x="${(canvasWidth / 2) + fx}" y="${(946 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
+    <g transform="translate(${310 + fx}, ${(1009 * scaleY) + fy})">
       <circle cx="17" cy="17" r="17" fill="#FFFFFF"/>
       <circle cx="61" cy="17" r="17" fill="#FFFFFF"/>
       <circle cx="105" cy="17" r="17" fill="#FFFFFF"/>
@@ -1345,14 +1560,14 @@
       } else if (footerMode === 'style2') {
         svgFooter = `
   <g id="layer-footer-style2">
-    <text x="${540 + fx}" y="${976 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
-    <text x="${540 + fx}" y="${1024 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>
+    <text x="${(canvasWidth / 2) + fx}" y="${(976 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
+    <text x="${(canvasWidth / 2) + fx}" y="${(1024 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>
   </g>`;
       } else if (footerMode === 'style3') {
         svgFooter = `
   <g id="layer-footer-style3">
-    <circle cx="${215 + fx}" cy="${995 + fy}" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
-    <text x="${565 + fx}" y="${1010 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>
+    <circle cx="${215 + fx}" cy="${(995 * scaleY) + fy}" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
+    <text x="${565 + fx}" y="${(1010 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>
   </g>`;
       }
 
@@ -1361,7 +1576,7 @@
         : '';
 
       const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${canvasWidth} ${canvasHeight}" width="${canvasWidth}" height="${canvasHeight}">
   <defs>
     <linearGradient id="navyFade" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${gradColor1}" stop-opacity="0"/>
@@ -1385,7 +1600,7 @@
   </defs>
 
   <g id="layer-gradient-overlay">
-    <rect x="0" y="${gradStartY}" width="1080" height="${1080 - gradStartY}" fill="url(#navyFade)"/>
+    <rect x="0" y="${gradStartY}" width="${canvasWidth}" height="${canvasHeight - gradStartY}" fill="url(#navyFade)"/>
   </g>
 
 ${svgTopLogo}
@@ -1395,14 +1610,14 @@ ${svgTextsGroup}
 ${svgFooter}
 
   <g id="layer-date-bottom-right">
-    <text x="${1055 + fx}" y="${1058 + fy}" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
+    <text x="${canvasWidth - (25 * (canvasWidth / 1080)) + fx}" y="${canvasHeight - (22 * scaleY) + fy}" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
   </g>
 </svg>`;
 
       const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.download = `canva-template-style${currentStyle}-multilayer.svg`;
+      link.download = `canva-template-${currentAspectName.replace(':', '-')}-multilayer.svg`;
       link.href = url;
       link.click();
       URL.revokeObjectURL(url);
@@ -1410,6 +1625,7 @@ ${svgFooter}
 
     document.fonts.ready.then(() => {
       applyPreset(1);
+      saveHistoryState();
     });
   </script>
 </body>
