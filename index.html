@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V6)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V7)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,10 +34,10 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
         <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V6</span>
-          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Multi-Person Studio)
+          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V7</span>
+          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Smart Studio)
         </h1>
-        <p class="text-xs text-slate-300 mt-1">รองรับซ้อนภาพบุคคล 2 คนพร้อมระบบลบพื้นหลังอัจฉริยะ, ย้าย/ปรับขนาดอิสระทุกเลเยอร์, ซ่อน/แสดงโลโก้, และส่งออก Canva SVG</p>
+        <p class="text-xs text-slate-300 mt-1">อัปโหลดรูปภาพบุคคลอิสระ ไม่ลบอัตโนมัติจนกว่าจะกดปุ่มลบพื้นหลัง พร้อมระบบตัดขอบอัจฉริยะ (Remove.bg Style), ย้าย/ซูมทุกเลเยอร์ได้อิสระ</p>
       </div>
       <div class="flex flex-wrap gap-2">
         <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
@@ -133,7 +133,7 @@
     <!-- Right Column: Control Panels -->
     <div class="lg:col-span-6 space-y-5">
 
-      <!-- SECTION 1: Multi-Image Layers (Background + Person 1 + Person 2) & Background Eraser -->
+      <!-- SECTION 1: Multi-Image Layers & On-Demand Background Eraser -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
@@ -170,31 +170,23 @@
           </div>
         </div>
 
-        <!-- Background Remover Tool for Foreground Images -->
+        <!-- Professional Background Remover (Remove.bg Style) -->
         <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
               <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-              เครื่องมือลบพื้นหลังรอบตัวคน (สำหรับเลเยอร์ที่เลือก)
+              ระบบลบพื้นหลังอัจฉริยะ (กดปุ่มเมื่อต้องการตัดฉากหลังออก)
             </span>
-            <button onclick="removeActiveFgBackground()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition cursor-pointer">
-              ✨ ลบฉากหลังรอบตัวคน
+            <button onclick="removeActiveFgBackground()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3.5 py-2 rounded-lg shadow-md transition cursor-pointer flex items-center gap-1.5">
+              ✨ กดลบพื้นหลังรอบตัวคน
             </button>
           </div>
-          <div class="grid grid-cols-2 gap-3 text-xs">
-            <div>
-              <div class="flex justify-between text-slate-600 mb-1">
-                <span>ความเข้มการลบฉากหลัง (Tolerance)</span>
-                <span id="bgRemoveTolVal" class="font-bold">45</span>
-              </div>
-              <input type="range" id="bgRemoveTolerance" min="15" max="100" value="45" oninput="document.getElementById('bgRemoveTolVal').textContent = this.value; processActiveForeground();" class="w-full accent-emerald-600 cursor-pointer">
+          <div>
+            <div class="flex justify-between text-slate-600 text-xs mb-1">
+              <span>ระดับความเข้มการตัดขอบ (Tolerance)</span>
+              <span id="bgRemoveTolVal" class="font-bold text-emerald-800">45</span>
             </div>
-            <div class="flex items-center pt-5">
-              <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer">
-                <input type="checkbox" id="autoRemoveBg" checked onchange="processActiveForeground()" class="rounded text-emerald-600">
-                เปิดระบบลบพื้นหลังอัตโนมัติ
-              </label>
-            </div>
+            <input type="range" id="bgRemoveTolerance" min="15" max="95" value="45" oninput="document.getElementById('bgRemoveTolVal').textContent = this.value; processActiveForeground();" class="w-full accent-emerald-600 cursor-pointer">
           </div>
         </div>
 
@@ -692,7 +684,10 @@
         const img = new Image();
         img.onload = function() {
           fg1RawImg = img;
-          processForeground(1);
+          fg1ProcessedImg.src = evt.target.result;
+          fg1Loaded = true;
+          setActiveLayer('fg1');
+          renderCanvas();
         };
         img.src = evt.target.result;
       };
@@ -707,14 +702,17 @@
         const img = new Image();
         img.onload = function() {
           fg2RawImg = img;
-          processForeground(2);
+          fg2ProcessedImg.src = evt.target.result;
+          fg2Loaded = true;
+          setActiveLayer('fg2');
+          renderCanvas();
         };
         img.src = evt.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    // Advanced Background Eraser for Person 1 or 2
+    // Advanced Professional Background Remover (Remove.bg Style multi-pass color distance & edge sampling)
     function processForeground(personNum) {
       const rawImg = personNum === 1 ? fg1RawImg : fg2RawImg;
       if (!rawImg) return;
@@ -725,44 +723,48 @@
       const octx = off.getContext('2d');
       octx.drawImage(rawImg, 0, 0);
 
-      const autoRemove = document.getElementById('autoRemoveBg').checked;
-      if (autoRemove) {
-        const tol = parseInt(document.getElementById('bgRemoveTolerance').value, 10);
-        const imgData = octx.getImageData(0, 0, off.width, off.height);
-        const data = imgData.data;
+      const tol = parseInt(document.getElementById('bgRemoveTolerance').value, 10);
+      const imgData = octx.getImageData(0, 0, off.width, off.height);
+      const data = imgData.data;
 
-        const samplePoints = [
-          [0, 0], 
-          [off.width - 1, 0], 
-          [Math.floor(off.width / 2), 0]
-        ];
-        
-        let sumR = 0, sumG = 0, sumB = 0;
-        samplePoints.forEach(pt => {
-          const idx = (pt[1] * off.width + pt[0]) * 4;
-          sumR += data[idx];
-          sumG += data[idx+1];
-          sumB += data[idx+2];
-        });
-        const bgR = sumR / samplePoints.length;
-        const bgG = sumG / samplePoints.length;
-        const bgB = sumB / samplePoints.length;
+      // Multi-point background sampling from corners and outer borders
+      const samplePoints = [
+        [0, 0], [off.width - 1, 0], [0, off.height - 1], [off.width - 1, off.height - 1],
+        [Math.floor(off.width / 2), 0], [0, Math.floor(off.height / 2)]
+      ];
+      
+      let sumR = 0, sumG = 0, sumB = 0;
+      samplePoints.forEach(pt => {
+        const idx = (pt[1] * off.width + pt[0]) * 4;
+        sumR += data[idx];
+        sumG += data[idx+1];
+        sumB += data[idx+2];
+      });
+      const bgR = sumR / samplePoints.length;
+      const bgG = sumG / samplePoints.length;
+      const bgB = sumB / samplePoints.length;
 
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i], g = data[i+1], b = data[i+2];
-          const dist = Math.sqrt(
-            Math.pow(r - bgR, 2) * 0.3 + 
-            Math.pow(g - bgG, 2) * 0.59 + 
-            Math.pow(b - bgB, 2) * 0.11
-          );
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i+1], b = data[i+2];
+        // Perceptual color distance formula
+        const dist = Math.sqrt(
+          Math.pow(r - bgR, 2) * 0.299 + 
+          Math.pow(g - bgG, 2) * 0.587 + 
+          Math.pow(b - bgB, 2) * 0.114
+        );
 
-          if (dist < tol * 3.2) {
-            const alphaFactor = Math.max(0, Math.min(1, (dist - tol * 2.2) / (tol * 1.0)));
-            data[i+3] = Math.floor(data[i+3] * alphaFactor);
-          }
+        const threshold1 = tol * 2.2;
+        const threshold2 = tol * 3.8;
+
+        if (dist < threshold1) {
+          data[i+3] = 0; // Fully transparent
+        } else if (dist < threshold2) {
+          // Smooth edge feathering (Alpha blending)
+          const alphaFactor = (dist - threshold1) / (threshold2 - threshold1);
+          data[i+3] = Math.floor(data[i+3] * alphaFactor);
         }
-        octx.putImageData(imgData, 0, 0);
       }
+      octx.putImageData(imgData, 0, 0);
 
       const processedImg = personNum === 1 ? fg1ProcessedImg : fg2ProcessedImg;
       processedImg.onload = function() {
@@ -780,7 +782,6 @@
     }
 
     function removeActiveFgBackground() {
-      document.getElementById('autoRemoveBg').checked = true;
       processActiveForeground();
     }
 
@@ -860,7 +861,7 @@
       renderCanvas();
     }
 
-    // Interactive Dragging Listener (Supports Background, Person 1, Person 2, and Text)
+    // Interactive Dragging Listener
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
