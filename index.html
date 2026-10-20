@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V5.1)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V6)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,10 +34,10 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
         <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V5.1</span>
-          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Ultimate Studio)
+          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V6</span>
+          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Multi-Person Studio)
         </h1>
-        <p class="text-xs text-slate-300 mt-1">ซ้อน 2 ภาพ, ระบบลบพื้นหลังรอบตัวคนอัตโนมัติ, ขยับข้อความได้ทุกบรรทัด, ซ่อน/ใส่/อัปโหลดโลโก้ และส่งออก Canva SVG</p>
+        <p class="text-xs text-slate-300 mt-1">รองรับซ้อนภาพบุคคล 2 คนพร้อมระบบลบพื้นหลังอัจฉริยะ, ย้าย/ปรับขนาดอิสระทุกเลเยอร์, ซ่อน/แสดงโลโก้, และส่งออก Canva SVG</p>
       </div>
       <div class="flex flex-wrap gap-2">
         <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
@@ -117,7 +117,7 @@
         <div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-inner border border-slate-300 checkerboard group">
           <canvas id="prCanvas" width="1080" height="1080" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
           <div class="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2.5 py-1 rounded-md backdrop-blur-sm pointer-events-none opacity-80 group-hover:opacity-100 transition">
-            💡 คลิกลากเพื่อเลื่อนตำแหน่งรูปภาพ หรือ ลากข้อความบนภาพได้อิสระ
+            💡 คลิกลากเพื่อเลื่อนตำแหน่งภาพหรือข้อความบนภาพได้อิสระ
           </div>
         </div>
 
@@ -133,46 +133,51 @@
     <!-- Right Column: Control Panels -->
     <div class="lg:col-span-6 space-y-5">
 
-      <!-- SECTION 1: Dual Image Layers & Background Eraser -->
+      <!-- SECTION 1: Multi-Image Layers (Background + Person 1 + Person 2) & Background Eraser -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">1</span>
-            จัดการเลเยอร์รูปภาพ & ลบพื้นหลังรอบตัวคน
+            จัดการเลเยอร์รูปภาพ (ห้องประชุม + บุคคลที่ 1 & บุคคลที่ 2)
           </h2>
-          <button onclick="resetImageTransform()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งรูป</button>
+          <button onclick="resetImageTransform()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งเลเยอร์นี้</button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-3 text-center transition">
-            <span class="text-xs font-bold text-indigo-600 block">🏛️ 1. รูปพื้นหลัง (ห้องประชุม)</span>
-            <span class="text-[11px] text-slate-400">ภาพบรรยากาศการประชุม</span>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-2.5 text-center transition">
+            <span class="text-[11px] font-bold text-indigo-600 block">🏛️ 1. พื้นหลังห้องประชุม</span>
             <input type="file" id="bgUpload" accept="image/*" class="hidden" onchange="handleBgUpload(event)">
           </label>
 
-          <label class="block w-full cursor-pointer bg-emerald-50/60 hover:bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-xl p-3 text-center transition">
-            <span class="text-xs font-bold text-emerald-700 block">👤 2. รูปบุคคลด้านหน้า (ลบฉากหลัง)</span>
-            <span class="text-[11px] text-slate-400">ภาพคนครึ่งตัวซ้อนหน้า</span>
-            <input type="file" id="fgUpload" accept="image/*" class="hidden" onchange="handleFgUpload(event)">
+          <label class="block w-full cursor-pointer bg-emerald-50/60 hover:bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-xl p-2.5 text-center transition">
+            <span class="text-[11px] font-bold text-emerald-700 block">👤 2. รูปบุคคลคนที่ 1</span>
+            <input type="file" id="fg1Upload" accept="image/*" class="hidden" onchange="handleFg1Upload(event)">
+          </label>
+
+          <label class="block w-full cursor-pointer bg-teal-50/60 hover:bg-teal-50 border-2 border-dashed border-teal-300 rounded-xl p-2.5 text-center transition">
+            <span class="text-[11px] font-bold text-teal-700 block">👥 3. รูปบุคคลคนที่ 2</span>
+            <input type="file" id="fg2Upload" accept="image/*" class="hidden" onchange="handleFg2Upload(event)">
           </label>
         </div>
 
+        <!-- Layer Selector Tabs -->
         <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs">
           <span class="font-semibold text-slate-700">กำลังปรับแต่งเลเยอร์:</span>
-          <div class="flex gap-2">
-            <button id="tabBgCtrl" onclick="setActiveLayer('bg')" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer">พื้นหลังห้อง</button>
-            <button id="tabFgCtrl" onclick="setActiveLayer('fg')" class="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer">รูปบุคคลด้านหน้า</button>
+          <div class="flex gap-1.5 flex-wrap">
+            <button id="tabBgCtrl" onclick="setActiveLayer('bg')" class="px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer text-xs">พื้นหลังห้อง</button>
+            <button id="tabFg1Ctrl" onclick="setActiveLayer('fg1')" class="px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 1</button>
+            <button id="tabFg2Ctrl" onclick="setActiveLayer('fg2')" class="px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 2</button>
           </div>
         </div>
 
-        <!-- Background Remover Tool for Foreground Image -->
+        <!-- Background Remover Tool for Foreground Images -->
         <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
               <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-              เครื่องมือลบพื้นหลังรอบตัวคนอัตโนมัติ (Chroma Key)
+              เครื่องมือลบพื้นหลังรอบตัวคน (สำหรับเลเยอร์ที่เลือก)
             </span>
-            <button onclick="removeFgBackground()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition cursor-pointer">
+            <button onclick="removeActiveFgBackground()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition cursor-pointer">
               ✨ ลบฉากหลังรอบตัวคน
             </button>
           </div>
@@ -182,12 +187,12 @@
                 <span>ความเข้มการลบฉากหลัง (Tolerance)</span>
                 <span id="bgRemoveTolVal" class="font-bold">45</span>
               </div>
-              <input type="range" id="bgRemoveTolerance" min="15" max="100" value="45" oninput="document.getElementById('bgRemoveTolVal').textContent = this.value; processForegroundImage();" class="w-full accent-emerald-600 cursor-pointer">
+              <input type="range" id="bgRemoveTolerance" min="15" max="100" value="45" oninput="document.getElementById('bgRemoveTolVal').textContent = this.value; processActiveForeground();" class="w-full accent-emerald-600 cursor-pointer">
             </div>
             <div class="flex items-center pt-5">
               <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer">
-                <input type="checkbox" id="autoRemoveBg" checked onchange="processForegroundImage()" class="rounded text-emerald-600">
-                เปิดระบบลบพื้นหลังรอบตัวคน
+                <input type="checkbox" id="autoRemoveBg" checked onchange="processActiveForeground()" class="rounded text-emerald-600">
+                เปิดระบบลบพื้นหลังอัตโนมัติ
               </label>
             </div>
           </div>
@@ -433,16 +438,22 @@
     let currentStyle = 1;
     let customLogoImg = null;
 
-    // Dual Image Layer States
-    let activeLayer = 'bg'; // 'bg' or 'fg'
+    // Multi-Layer States (Background + Person 1 + Person 2)
+    let activeLayer = 'bg'; // 'bg', 'fg1', or 'fg2'
+    
     let bgImg = new Image();
     let bgLoaded = false;
     let bgState = { x: 0, y: 0, scale: 1 };
 
-    let fgRawImg = null;
-    let fgProcessedImg = new Image();
-    let fgLoaded = false;
-    let fgState = { x: 0, y: 0, scale: 1 };
+    let fg1RawImg = null;
+    let fg1ProcessedImg = new Image();
+    let fg1Loaded = false;
+    let fg1State = { x: -180, y: 0, scale: 1 };
+
+    let fg2RawImg = null;
+    let fg2ProcessedImg = new Image();
+    let fg2Loaded = false;
+    let fg2State = { x: 180, y: 0, scale: 1 };
 
     // Interactive Dragging State
     let draggingTarget = null; 
@@ -673,29 +684,46 @@
       reader.readAsDataURL(file);
     }
 
-    function handleFgUpload(e) {
+    function handleFg1Upload(e) {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(evt) {
         const img = new Image();
         img.onload = function() {
-          fgRawImg = img;
-          processForegroundImage();
+          fg1RawImg = img;
+          processForeground(1);
         };
         img.src = evt.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    // Advanced Auto Background Eraser (Chroma Key & Edge Cleaner for Person Cutout)
-    function processForegroundImage() {
-      if (!fgRawImg) return;
+    function handleFg2Upload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          fg2RawImg = img;
+          processForeground(2);
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Advanced Background Eraser for Person 1 or 2
+    function processForeground(personNum) {
+      const rawImg = personNum === 1 ? fg1RawImg : fg2RawImg;
+      if (!rawImg) return;
+
       const off = document.createElement('canvas');
-      off.width = fgRawImg.width;
-      off.height = fgRawImg.height;
+      off.width = rawImg.width;
+      off.height = rawImg.height;
       const octx = off.getContext('2d');
-      octx.drawImage(fgRawImg, 0, 0);
+      octx.drawImage(rawImg, 0, 0);
 
       const autoRemove = document.getElementById('autoRemoveBg').checked;
       if (autoRemove) {
@@ -703,7 +731,6 @@
         const imgData = octx.getImageData(0, 0, off.width, off.height);
         const data = imgData.data;
 
-        // Sample corner background color (top-left and top-right average)
         const samplePoints = [
           [0, 0], 
           [off.width - 1, 0], 
@@ -723,7 +750,6 @@
 
         for (let i = 0; i < data.length; i += 4) {
           const r = data[i], g = data[i+1], b = data[i+2];
-          // Euclidean color distance from sampled background
           const dist = Math.sqrt(
             Math.pow(r - bgR, 2) * 0.3 + 
             Math.pow(g - bgG, 2) * 0.59 + 
@@ -731,7 +757,6 @@
           );
 
           if (dist < tol * 3.2) {
-            // Smooth edge feathering
             const alphaFactor = Math.max(0, Math.min(1, (dist - tol * 2.2) / (tol * 1.0)));
             data[i+3] = Math.floor(data[i+3] * alphaFactor);
           }
@@ -739,17 +764,24 @@
         octx.putImageData(imgData, 0, 0);
       }
 
-      fgProcessedImg.onload = function() {
-        fgLoaded = true;
-        setActiveLayer('fg');
+      const processedImg = personNum === 1 ? fg1ProcessedImg : fg2ProcessedImg;
+      processedImg.onload = function() {
+        if (personNum === 1) fg1Loaded = true;
+        else fg2Loaded = true;
+        setActiveLayer('fg' + personNum);
         renderCanvas();
       };
-      fgProcessedImg.src = off.toDataURL();
+      processedImg.src = off.toDataURL();
     }
 
-    function removeFgBackground() {
+    function processActiveForeground() {
+      if (activeLayer === 'fg1' && fg1RawImg) processForeground(1);
+      if (activeLayer === 'fg2' && fg2RawImg) processForeground(2);
+    }
+
+    function removeActiveFgBackground() {
       document.getElementById('autoRemoveBg').checked = true;
-      processForegroundImage();
+      processActiveForeground();
     }
 
     function handleLogoUpload(e) {
@@ -777,27 +809,37 @@
     function setActiveLayer(layer) {
       activeLayer = layer;
       const btnBg = document.getElementById('tabBgCtrl');
-      const btnFg = document.getElementById('tabFgCtrl');
+      const btnFg1 = document.getElementById('tabFg1Ctrl');
+      const btnFg2 = document.getElementById('tabFg2Ctrl');
       const zoomInput = document.getElementById('imgZoom');
 
+      btnBg.className = 'px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      btnFg1.className = 'px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      btnFg2.className = 'px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+
+      let currentScale = 1;
       if (layer === 'bg') {
-        btnBg.className = 'px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer';
-        btnFg.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer';
-        zoomInput.value = Math.round(bgState.scale * 100);
-        document.getElementById('zoomVal').textContent = Math.round(bgState.scale * 100) + '%';
-      } else {
-        btnFg.className = 'px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold transition cursor-pointer';
-        btnBg.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer';
-        zoomInput.value = Math.round(fgState.scale * 100);
-        document.getElementById('zoomVal').textContent = Math.round(fgState.scale * 100) + '%';
+        btnBg.className = 'px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer text-xs';
+        currentScale = bgState.scale;
+      } else if (layer === 'fg1') {
+        btnFg1.className = 'px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white font-bold transition cursor-pointer text-xs';
+        currentScale = fg1State.scale;
+      } else if (layer === 'fg2') {
+        btnFg2.className = 'px-2.5 py-1.5 rounded-lg bg-teal-600 text-white font-bold transition cursor-pointer text-xs';
+        currentScale = fg2State.scale;
       }
+
+      zoomInput.value = Math.round(currentScale * 100);
+      document.getElementById('zoomVal').textContent = Math.round(currentScale * 100) + '%';
     }
 
     function resetImageTransform() {
       if (activeLayer === 'bg') {
         bgState.x = 0; bgState.y = 0; bgState.scale = 1;
-      } else {
-        fgState.x = 0; fgState.y = 0; fgState.scale = 1;
+      } else if (activeLayer === 'fg1') {
+        fg1State.x = -180; fg1State.y = 0; fg1State.scale = 1;
+      } else if (activeLayer === 'fg2') {
+        fg2State.x = 180; fg2State.y = 0; fg2State.scale = 1;
       }
       setActiveLayer(activeLayer);
       renderCanvas();
@@ -811,15 +853,14 @@
     function updateTransformFromSlider() {
       const val = parseInt(document.getElementById('imgZoom').value, 10);
       document.getElementById('zoomVal').textContent = val + '%';
-      if (activeLayer === 'bg') {
-        bgState.scale = val / 100;
-      } else {
-        fgState.scale = val / 100;
-      }
+      const scale = val / 100;
+      if (activeLayer === 'bg') bgState.scale = scale;
+      else if (activeLayer === 'fg1') fg1State.scale = scale;
+      else if (activeLayer === 'fg2') fg2State.scale = scale;
       renderCanvas();
     }
 
-    // Interactive Dragging Listener (Supports Images and Text Blocks)
+    // Interactive Dragging Listener (Supports Background, Person 1, Person 2, and Text)
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
@@ -832,7 +873,7 @@
         draggingTarget = activeLayer;
       }
 
-      const targetState = activeLayer === 'bg' ? bgState : fgState;
+      const targetState = activeLayer === 'bg' ? bgState : (activeLayer === 'fg1' ? fg1State : fg2State);
       dragStartX = clickX - (draggingTarget === 'text' ? 0 : targetState.x);
       dragStartY = clickY - (draggingTarget === 'text' ? 0 : targetState.y);
       canvas.setPointerCapture(e.pointerId);
@@ -850,7 +891,7 @@
         textOffsets.line1 += deltaY * 0.2;
         dragStartY = currentY;
       } else {
-        const targetState = activeLayer === 'bg' ? bgState : fgState;
+        const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
         targetState.x = currentX - dragStartX;
         targetState.y = currentY - dragStartY;
       }
@@ -951,17 +992,31 @@
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
 
-      // LAYER 3: Foreground Person Image (Overlaid in front with background removed)
-      if (!isTransparent && fgLoaded) {
+      // LAYER 3: Foreground Person 1 Overlay
+      if (!isTransparent && fg1Loaded) {
         ctx.save();
-        const fgRatio = fgProcessedImg.width / fgProcessedImg.height;
-        let fgW = 750, fgH = 750 / fgRatio;
-        fgW *= fgState.scale;
-        fgH *= fgState.scale;
+        const fgRatio = fg1ProcessedImg.width / fg1ProcessedImg.height;
+        let fgW = 600, fgH = 600 / fgRatio;
+        fgW *= fg1State.scale;
+        fgH *= fg1State.scale;
 
-        const fgX = (1080 - fgW) / 2 + fgState.x;
-        const fgY = (1080 - fgH) / 2 + 80 + fgState.y;
-        ctx.drawImage(fgProcessedImg, fgX, fgY, fgW, fgH);
+        const fgX = (1080 - fgW) / 2 + fg1State.x;
+        const fgY = (1080 - fgH) / 2 + 70 + fg1State.y;
+        ctx.drawImage(fg1ProcessedImg, fgX, fgY, fgW, fgH);
+        ctx.restore();
+      }
+
+      // LAYER 4: Foreground Person 2 Overlay
+      if (!isTransparent && fg2Loaded) {
+        ctx.save();
+        const fgRatio = fg2ProcessedImg.width / fg2ProcessedImg.height;
+        let fgW = 600, fgH = 600 / fgRatio;
+        fgW *= fg2State.scale;
+        fgH *= fg2State.scale;
+
+        const fgX = (1080 - fgW) / 2 + fg2State.x;
+        const fgY = (1080 - fgH) / 2 + 70 + fg2State.y;
+        ctx.drawImage(fg2ProcessedImg, fgX, fgY, fgW, fgH);
         ctx.restore();
       }
 
@@ -1022,7 +1077,7 @@
         ctx.restore();
       }
 
-      // LAYER 4: Typography
+      // LAYER 5: Typography
       const showText = document.getElementById('showAllText').checked;
       const colorLine1 = document.getElementById('colorLine1').value;
       const strokeLine1 = document.getElementById('strokeLine1').checked;
@@ -1085,7 +1140,7 @@
         }
       }
 
-      // LAYER 5: Footer
+      // LAYER 6: Footer
       const line4Text = document.getElementById('textLine4').value.trim();
       const orgText = document.getElementById('textOrg').value.trim();
       const dateText = document.getElementById('textDate').value.trim();
