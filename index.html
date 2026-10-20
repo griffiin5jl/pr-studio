@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V11)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (PR Studio V12 Pro)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,417 +11,469 @@
   <style>
     body {
       font-family: 'Prompt', sans-serif;
-      background-color: #f1f5f9;
+      background-color: #f8fafc;
     }
     .checkerboard {
       background-color: #ffffff;
       background-image: 
-        linear-gradient(45deg, #cbd5e1 25%, transparent 25%), 
-        linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #cbd5e1 75%), 
-        linear-gradient(-45deg, transparent 75%, #cbd5e1 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
+        linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
     }
     canvas {
       touch-action: none;
     }
+    /* Custom scrollbar for clean UI */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 pb-20">
+<body class="min-h-screen text-slate-800 flex flex-col">
 
-  <header class="bg-slate-900 text-white py-4 px-6 shadow-xl sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-      <div>
-        <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V11</span>
-          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (ย้ายและปรับขนาดข้อความอิสระ)
-        </h1>
-        <p class="text-xs text-slate-300 mt-1">คลิกลากขยับข้อความบนภาพได้อิสระ ปรับขนาดฟอนต์แต่ละบรรทัดได้ตามต้องการ พร้อมส่งออก SVG แยกเลเยอร์ 100%</p>
+  <!-- TOP HEADER NAVBAR -->
+  <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+          <svg class="w-6 h-6 text-slate-950 font-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">PR STUDIO PRO</h1>
+            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">V12 Ultimate</span>
+          </div>
+          <p class="text-xs text-slate-400">ระบบสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (ซ้อนเลเยอร์ภาพ & จัดวางข้อความอิสระ)</p>
+        </div>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
+
+      <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+        <button onclick="downloadPNG(false)" class="flex-1 sm:flex-none bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
           ดาวน์โหลดภาพ (PNG HD)
         </button>
-        <button onclick="downloadSVG()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
+        <button onclick="downloadSVG()" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-indigo-600/20 transition flex items-center justify-center gap-2 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          ส่งออกเข้า Canva (SVG แยกเลเยอร์)
+          ส่งออกเข้า Canva (SVG)
         </button>
       </div>
     </div>
   </header>
 
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-6">
-    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200">
-      <div class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-        <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-        เลือกรูปแบบเทมเพลตมาตรฐาน (คลิกสลับดีไซน์ทันที)
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <button id="btnStyle1" onclick="applyPreset(1)" class="template-btn text-left p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition flex items-start gap-3 cursor-pointer">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-b from-blue-900 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-yellow-400/50 shadow-sm">
-            <span class="text-[9px] font-extrabold text-yellow-300 leading-none">อบจ.</span>
-            <span class="w-6 h-0.5 bg-yellow-400 my-1"></span>
-            <span class="text-[7px] text-white leading-none">STYLE 1</span>
-          </div>
-          <div>
-            <div class="font-bold text-sm text-slate-900">แบบที่ 1: โทนน้ำเงิน-เส้นทอง</div>
-            <div class="text-xs text-slate-500 mt-0.5">พาดหัวเหลือง เส้นทอง + โซเชียลด้านล่าง</div>
-          </div>
-        </button>
-
-        <button id="btnStyle2" onclick="applyPreset(2)" class="template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-900 via-blue-950 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-red-500/50 shadow-sm">
-            <span class="text-[9px] font-extrabold text-white drop-shadow-[0_1px_2px_rgba(220,38,38,1)] leading-none">นายก</span>
-            <span class="w-6 h-0.5 bg-red-600 my-1"></span>
-            <span class="text-[7px] text-yellow-300 leading-none">STYLE 2</span>
-          </div>
-          <div>
-            <div class="font-bold text-sm text-slate-900">แบบที่ 2: โทนเขียวน้ำเงิน-ขอบแดง</div>
-            <div class="text-xs text-slate-500 mt-0.5">โลโก้มุมซ้าย พาดหัวขาวขอบแดง + ชื่อผู้บริหาร</div>
-          </div>
-        </button>
-
-        <button id="btnStyle3" onclick="applyPreset(3)" class="template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-b from-stone-800 to-black flex-shrink-0 flex flex-col items-center justify-center border border-orange-500/50 shadow-sm">
-            <span class="w-7 h-2 bg-orange-500 rounded-l-sm self-end mb-0.5"></span>
-            <span class="w-6 h-0.5 bg-red-600 my-0.5"></span>
-            <span class="text-[7px] text-yellow-400 leading-none">STYLE 3</span>
-          </div>
-          <div>
-            <div class="font-bold text-sm text-slate-900">แบบที่ 3: โทนดำ-แถบวันที่สีส้ม</div>
-            <div class="text-xs text-slate-500 mt-0.5">ป้ายวันที่สีส้มขวา เส้นคั่นแดง + โลโก้คู่ชื่อหน่วยงาน</div>
-          </div>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <!-- MAIN WORKSPACE -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
     
-    <!-- Left Column: Canvas Preview -->
-    <div class="lg:col-span-6 flex flex-col items-center">
-      <div class="w-full bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 sticky top-24 space-y-4">
+    <!-- LEFT PANEL: CANVAS PREVIEW & QUICK TOOLS -->
+    <div class="lg:col-span-6 flex flex-col gap-5">
+      <div class="bg-white p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200 sticky top-20 space-y-4">
+        
         <div class="flex items-center justify-between">
-          <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-            ตัวอย่างภาพจริง (1080 x 1080 px)
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            พื้นที่แสดงผลตัวอย่าง (1080 x 1080 px)
           </span>
-          <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none">
+          <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
             <input type="checkbox" id="transparentBgToggle" onchange="renderCanvas()" class="rounded text-indigo-600 focus:ring-indigo-500">
-            ซ่อนรูปพื้นหลัง (ทำกรอบ PNG ใส)
+            ซ่อนพื้นหลัง (PNG ใส)
           </label>
         </div>
 
-        <div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-inner border border-slate-300 checkerboard group">
+        <!-- CANVAS STAGE -->
+        <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group">
           <canvas id="prCanvas" width="1080" height="1080" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
-          <div class="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2.5 py-1 rounded-md backdrop-blur-sm pointer-events-none opacity-80 group-hover:opacity-100 transition">
-            💡 <strong>วิธีใช้:</strong> คลิกลากที่รูปภาพเพื่อขยับฉาก หรือคลิกลากที่ตัวหนังสือบรรทัดต่างๆ เพื่อย้ายตำแหน่งบนภาพได้อิสระ
+          <div class="absolute bottom-3 left-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] px-3.5 py-2 rounded-xl shadow-lg pointer-events-none opacity-90 group-hover:opacity-100 transition flex items-center justify-between">
+            <span>💡 <strong>วิธีใช้:</strong> คลิกลากที่ตัวหนังสือ หรือคลิกลากที่รูปภาพเพื่อขยับตำแหน่งได้อิสระ</span>
+            <span class="bg-yellow-400 text-slate-950 font-black px-1.5 py-0.5 rounded text-[9px]">LIVE</span>
           </div>
         </div>
 
-        <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-          <div>📥 <strong>ไฟล์ Canva SVG:</strong> แยกเลเยอร์อิสระ 100%</div>
-          <button onclick="downloadPNG(true)" class="text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer">
-            ดาวน์โหลดเฉพาะกรอบใส (Transparent)
+        <!-- QUICK ACTION BAR -->
+        <div class="grid grid-cols-2 gap-2.5 pt-1">
+          <button onclick="resetTextPositions()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            รีเซ็ตตำแหน่งข้อความ
+          </button>
+          <button onclick="resetImageTransform()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            รีเซ็ตตำแหน่งภาพ
           </button>
         </div>
+
       </div>
     </div>
 
-    <!-- Right Column: Control Panels -->
+    <!-- RIGHT PANEL: CLEAN TABBED CONTROLS -->
     <div class="lg:col-span-6 space-y-5">
 
-      <!-- SECTION 1: Multi-Image Layers & Quick Remove.bg Link -->
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-        <div class="flex items-center justify-between">
-          <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">1</span>
-            จัดการเลเยอร์รูปภาพ & ตัดฉากหลัง
-          </h2>
-          <button onclick="resetImageTransform()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งเลเยอร์นี้</button>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 text-white flex items-center justify-between shadow-md">
-          <div class="space-y-0.5">
-            <div class="text-xs font-bold">✂️ ตัดฉากหลังรูปคนออกเพื่อนำมาซ้อนทับ</div>
-            <div class="text-[11px] text-teal-100">คลิกเพื่อเปิดเว็บ remove.bg ตัดฉากหลังฟรี</div>
-          </div>
-          <a href="https://www.remove.bg/th" target="_blank" class="bg-white text-teal-900 hover:bg-teal-50 font-bold text-xs px-3.5 py-2 rounded-lg shadow transition flex-shrink-0 flex items-center gap-1.5 cursor-pointer">
-            ไปที่ Remove.bg ↗
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-          <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-2.5 text-center transition">
-            <span class="text-[11px] font-bold text-indigo-600 block">🏛️ 1. พื้นหลังห้องประชุม</span>
-            <input type="file" id="bgUpload" accept="image/*" class="hidden" onchange="handleBgUpload(event)">
-          </label>
-
-          <label class="block w-full cursor-pointer bg-emerald-50/60 hover:bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-xl p-2.5 text-center transition">
-            <span class="text-[11px] font-bold text-emerald-700 block">👤 2. รูปบุคคลคนที่ 1</span>
-            <input type="file" id="fg1Upload" accept="image/*" class="hidden" onchange="handleFg1Upload(event)">
-          </label>
-
-          <label class="block w-full cursor-pointer bg-teal-50/60 hover:bg-teal-50 border-2 border-dashed border-teal-300 rounded-xl p-2.5 text-center transition">
-            <span class="text-[11px] font-bold text-teal-700 block">👥 3. รูปบุคคลคนที่ 2</span>
-            <input type="file" id="fg2Upload" accept="image/*" class="hidden" onchange="handleFg2Upload(event)">
-          </label>
-        </div>
-
-        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs">
-          <span class="font-semibold text-slate-700">กำลังเลือกปรับแต่งเลเยอร์นี้:</span>
-          <div class="flex gap-1.5 flex-wrap">
-            <button id="tabBgCtrl" onclick="setActiveLayer('bg')" class="px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer text-xs">พื้นหลังห้อง</button>
-            <button id="tabFg1Ctrl" onclick="setActiveLayer('fg1')" class="px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 1</button>
-            <button id="tabFg2Ctrl" onclick="setActiveLayer('fg2')" class="px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 2</button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 pt-1">
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span class="text-slate-600 font-medium">ซูมภาพ (Zoom)</span>
-              <span id="zoomVal" class="text-slate-500 font-bold">100%</span>
-            </div>
-            <input type="range" id="imgZoom" min="30" max="300" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
-          </div>
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span class="text-slate-600 font-medium">แสงฟุ้งด้านบน (Glow)</span>
-              <span id="glowVal" class="text-slate-500 font-bold">35%</span>
-            </div>
-            <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
-          </div>
-        </div>
+      <!-- TAB NAVIGATION BUTTONS -->
+      <div class="bg-slate-200/80 p-1.5 rounded-2xl grid grid-cols-3 gap-1 shadow-inner">
+        <button id="tabBtn1" onclick="switchTab(1)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5">
+          <span>🎨</span> เลือกเทมเพลต
+        </button>
+        <button id="tabBtn2" onclick="switchTab(2)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
+          <span>🖼️</span> เลเยอร์ภาพ & โลโก้
+        </button>
+        <button id="tabBtn3" onclick="switchTab(3)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
+          <span>✍️</span> จัดการข้อความ
+        </button>
       </div>
 
-      <!-- SECTION 2: Logo Manager -->
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
-          จัดการโลโก้ (ซ่อน, แสดง, อัปโหลด, ลบ)
-        </h2>
+      <!-- TAB 1: TEMPLATE PRESETS -->
+      <div id="tabContent1" class="space-y-4">
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          <div class="text-xs font-extrabold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+            เลือกรูปแบบเทมเพลตมาตรฐาน อบจ.หนองคาย
+          </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-3 text-center transition">
-            <span class="text-xs font-bold text-indigo-600 block">🛡️ อัปโหลดโลโก้ส่วนตัว</span>
-            <span class="text-[11px] text-slate-400">แทนที่ตราสัญลักษณ์ อบจ.</span>
-            <input type="file" id="logoUpload" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
-          </label>
-          <div class="flex flex-col justify-center space-y-2 text-xs font-semibold text-slate-700">
-            <label class="inline-flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" id="showLogo" checked onchange="renderCanvas()" class="rounded text-indigo-600">
-              แสดงโลโก้บนภาพ
-            </label>
-            <button onclick="clearCustomLogo()" class="text-red-600 hover:text-red-800 text-left underline cursor-pointer">
-              🔄 รีเซ็ตกลับเป็นตรา อบจ.หนองคาย
+          <div class="grid grid-cols-1 gap-3">
+            <button id="btnStyle1" onclick="applyPreset(1)" class="template-btn text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50 transition flex items-center gap-4 cursor-pointer hover:shadow-md">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-b from-blue-900 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-yellow-400/50 shadow-sm">
+                <span class="text-[10px] font-extrabold text-yellow-300 leading-none">อบจ.</span>
+                <span class="w-7 h-0.5 bg-yellow-400 my-1"></span>
+                <span class="text-[8px] text-white leading-none">STYLE 1</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-bold text-sm text-slate-900">แบบที่ 1: โทนน้ำเงิน-เส้นทอง</div>
+                <div class="text-xs text-slate-500 mt-0.5">พาดหัวเหลือง เส้นทอง + โซเชียลด้านล่างมาตรฐาน</div>
+              </div>
+            </button>
+
+            <button id="btnStyle2" onclick="applyPreset(2)" class="template-btn text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-center gap-4 cursor-pointer hover:shadow-md">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-900 via-blue-950 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-red-500/50 shadow-sm">
+                <span class="text-[10px] font-extrabold text-white leading-none">นายก</span>
+                <span class="w-7 h-0.5 bg-red-600 my-1"></span>
+                <span class="text-[8px] text-yellow-300 leading-none">STYLE 2</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-bold text-sm text-slate-900">แบบที่ 2: โทนเขียวน้ำเงิน-ขอบแดง</div>
+                <div class="text-xs text-slate-500 mt-0.5">โลโก้มุมซ้าย พาดหัวขาวขอบแดง + ชื่อผู้บริหาร</div>
+              </div>
+            </button>
+
+            <button id="btnStyle3" onclick="applyPreset(3)" class="template-btn text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-center gap-4 cursor-pointer hover:shadow-md">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-b from-stone-800 to-black flex-shrink-0 flex flex-col items-center justify-center border border-orange-500/50 shadow-sm">
+                <span class="w-8 h-2.5 bg-orange-500 rounded-l-sm self-end mb-0.5"></span>
+                <span class="w-7 h-0.5 bg-red-600 my-0.5"></span>
+                <span class="text-[8px] text-yellow-400 leading-none">STYLE 3</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-bold text-sm text-slate-900">แบบที่ 3: โทนดำ-แถบวันที่สีส้ม</div>
+                <div class="text-xs text-slate-500 mt-0.5">ป้ายวันที่สีส้มขวา เส้นคั่นแดง + โลโก้คู่ชื่อหน่วยงาน</div>
+              </div>
             </button>
           </div>
         </div>
-
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
-          <span class="font-semibold text-slate-600">ตำแหน่งโลโก้:</span>
-          <div class="flex gap-4">
-            <label class="inline-flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="logoTopLeft" onchange="renderCanvas()" class="rounded text-indigo-600">
-              มุมซ้ายบน
-            </label>
-            <label class="inline-flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="logoBottomFooter" onchange="renderCanvas()" class="rounded text-indigo-600">
-              ด้านล่างคู่ชื่อ
-            </label>
-          </div>
-        </div>
       </div>
 
-      <!-- SECTION 3: Typography, Sizes & Position Controls -->
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-        <div class="flex items-center justify-between">
-          <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
-            ปรับแต่งข้อความ, ขนาดฟอนต์ & ย้ายตำแหน่งอิสระ
-          </h2>
-          <button onclick="resetTextPositions()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งข้อความ</button>
-        </div>
-
-        <!-- Optional Date Ribbon -->
-        <div class="p-3 rounded-xl bg-orange-50/70 border border-orange-200/80 space-y-2">
+      <!-- TAB 2: IMAGE LAYERS & LOGOS -->
+      <div id="tabContent2" class="space-y-4 hidden">
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          
           <div class="flex items-center justify-between">
-            <label class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-950 cursor-pointer">
-              <input type="checkbox" id="showDateRibbon" onchange="renderCanvas()" class="rounded text-orange-600">
-              แสดงป้ายแถบวันที่ด้านขวา
-            </label>
-            <input type="color" id="ribbonColor" value="#EA580C" oninput="renderCanvas()" class="h-6 w-8 rounded border border-orange-300 cursor-pointer bg-white p-0.5">
+            <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">1</span>
+              จัดการเลเยอร์ภาพ & ตัดฉากหลัง
+            </h2>
+            <a href="https://www.remove.bg/th" target="_blank" class="text-xs font-bold text-teal-700 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-xl border border-teal-200 transition flex items-center gap-1 cursor-pointer">
+              ✂️ เปิดเว็บ Remove.bg ↗
+            </a>
           </div>
-          <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" class="w-full border border-orange-200 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800 bg-white outline-none">
+
+          <!-- UPLOAD BUTTONS GRID -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <label class="block cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-2xl p-3 text-center transition">
+              <span class="text-xs font-bold text-indigo-600 block">🏛️ พื้นหลังห้องประชุม</span>
+              <span class="text-[10px] text-slate-400">อัปโหลดฉากหลัง</span>
+              <input type="file" id="bgUpload" accept="image/*" class="hidden" onchange="handleBgUpload(event)">
+            </label>
+
+            <label class="block cursor-pointer bg-emerald-50/60 hover:bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-2xl p-3 text-center transition">
+              <span class="text-xs font-bold text-emerald-700 block">👤 รูปบุคคลคนที่ 1</span>
+              <span class="text-[10px] text-emerald-500">ตัดฉากหลังแล้ว</span>
+              <input type="file" id="fg1Upload" accept="image/*" class="hidden" onchange="handleFg1Upload(event)">
+            </label>
+
+            <label class="block cursor-pointer bg-teal-50/60 hover:bg-teal-50 border-2 border-dashed border-teal-300 rounded-2xl p-3 text-center transition">
+              <span class="text-xs font-bold text-teal-700 block">👥 รูปบุคคลคนที่ 2</span>
+              <span class="text-[10px] text-teal-500">ตัดฉากหลังแล้ว</span>
+              <input type="file" id="fg2Upload" accept="image/*" class="hidden" onchange="handleFg2Upload(event)">
+            </label>
+          </div>
+
+          <!-- LAYER SELECTOR TABS -->
+          <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-2xl border border-slate-200 text-xs">
+            <span class="font-semibold text-slate-700">เลือกปรับแต่งเลเยอร์:</span>
+            <div class="flex gap-1.5 flex-wrap">
+              <button id="tabBgCtrl" onclick="setActiveLayer('bg')" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-bold transition cursor-pointer text-xs">พื้นหลัง</button>
+              <button id="tabFg1Ctrl" onclick="setActiveLayer('fg1')" class="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 1</button>
+              <button id="tabFg2Ctrl" onclick="setActiveLayer('fg2')" class="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 2</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600 font-medium">ซูมภาพ (Zoom)</span>
+                <span id="zoomVal" class="text-slate-500 font-bold">100%</span>
+              </div>
+              <input type="range" id="imgZoom" min="30" max="300" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600 font-medium">แสงฟุ้งด้านบน (Glow)</span>
+                <span id="glowVal" class="text-slate-500 font-bold">35%</span>
+              </div>
+              <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+
         </div>
 
-        <!-- Headline Line 1 -->
-        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+        <!-- LOGO MANAGEMENT SECTION -->
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
+            การจัดการโลโก้ (แสดง / ซ่อน / อัปโหลด)
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="block cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-2xl p-3 text-center transition">
+              <span class="text-xs font-bold text-indigo-600 block">🛡️ อัปโหลดโลโก้ส่วนตัว</span>
+              <span class="text-[10px] text-slate-400">แทนที่ตรา อบจ.หนองคาย</span>
+              <input type="file" id="logoUpload" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+            </label>
+            <div class="flex flex-col justify-center space-y-2 text-xs font-semibold text-slate-700 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+              <label class="inline-flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="showLogo" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+                แสดงโลโก้บนภาพ
+              </label>
+              <button onclick="clearCustomLogo()" class="text-red-600 hover:text-red-800 text-left underline cursor-pointer">
+                🔄 รีเซ็ตกลับเป็นตรา อบจ.หนองคาย
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
+            <span class="font-semibold text-slate-600">ตำแหน่งโลโก้:</span>
+            <div class="flex gap-4">
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input type="checkbox" id="logoTopLeft" onchange="renderCanvas()" class="rounded text-indigo-600">
+                มุมซ้ายบน
+              </label>
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input type="checkbox" id="logoBottomFooter" onchange="renderCanvas()" class="rounded text-indigo-600">
+                ด้านล่างคู่ชื่อ
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 3: TEXT EDITING & TYPOGRAPHY -->
+      <div id="tabContent3" class="space-y-4 hidden">
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          
           <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">พาดหัวหลัก (บรรทัดที่ 1)</label>
-            <div class="flex items-center gap-2">
-              <select id="font1" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-white font-bold">
+            <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
+              ปรับแต่งข้อความ & ฟอนต์
+            </h2>
+            <label class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 cursor-pointer">
+              <input type="checkbox" id="showAllText" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+              แสดงข้อความทั้งหมด
+            </label>
+          </div>
+
+          <!-- Date Ribbon (Style 3) -->
+          <div class="p-3.5 rounded-2xl bg-orange-50/70 border border-orange-200/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-950 cursor-pointer">
+                <input type="checkbox" id="showDateRibbon" onchange="renderCanvas()" class="rounded text-orange-600">
+                แสดงป้ายแถบวันที่ด้านขวา
+              </label>
+              <input type="color" id="ribbonColor" value="#EA580C" oninput="renderCanvas()" class="h-6 w-8 rounded border border-orange-300 cursor-pointer bg-white p-0.5">
+            </div>
+            <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" class="w-full border border-orange-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-800 bg-white outline-none">
+          </div>
+
+          <!-- Headline Line 1 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-700">พาดหัวหลัก (บรรทัดที่ 1)</label>
+              <div class="flex items-center gap-2">
+                <select id="font1" onchange="renderCanvas()" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
+                  <option value="Prompt">Prompt</option>
+                  <option value="Kanit">Kanit</option>
+                  <option value="Sarabun">Sarabun</option>
+                  <option value="Chakra Petch">Chakra Petch</option>
+                </select>
+                <label class="inline-flex items-center gap-1 text-xs text-slate-600 cursor-pointer">
+                  <input type="checkbox" id="strokeLine1" onchange="renderCanvas()" class="rounded text-red-600"> ขอบแดง
+                </label>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 bg-white outline-none">
+              <input type="color" id="colorLine1" value="#FFE600" oninput="renderCanvas()" class="h-10 w-11 rounded-xl border cursor-pointer p-0.5 bg-white flex-shrink-0">
+            </div>
+            <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
+              <span>ขนาด: <strong id="size1Val">92px</strong></span>
+              <input type="range" id="size1Range" min="40" max="140" value="92" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+
+          <!-- Topic Lines -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-700">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
+              <select id="font2" onchange="renderCanvas()" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                 <option value="Prompt">Prompt</option>
                 <option value="Kanit">Kanit</option>
                 <option value="Sarabun">Sarabun</option>
                 <option value="Chakra Petch">Chakra Petch</option>
               </select>
-              <label class="inline-flex items-center gap-1 text-xs text-slate-600 cursor-pointer">
-                <input type="checkbox" id="strokeLine1" onchange="renderCanvas()" class="rounded text-red-600"> ขอบแดง
-              </label>
+            </div>
+            <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 bg-white outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
+            <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
+              <span>ขนาด: <strong id="size2Val">46px</strong></span>
+              <input type="range" id="size2Range" min="28" max="80" value="46" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
-          <div class="flex gap-2">
-            <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 bg-white outline-none">
-            <input type="color" id="colorLine1" value="#FFE600" oninput="renderCanvas()" class="h-9 w-10 rounded border cursor-pointer p-0.5 bg-white">
-          </div>
-          <div class="flex items-center gap-3 pt-1 text-xs text-slate-600">
-            <span>ขนาดฟอนต์: <strong id="size1Val">92px</strong></span>
-            <input type="range" id="size1Range" min="40" max="140" value="92" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
-          </div>
-        </div>
 
-        <!-- Topic Lines -->
-        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
-            <select id="font2" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-white font-bold">
-              <option value="Prompt">Prompt</option>
-              <option value="Kanit">Kanit</option>
-              <option value="Sarabun">Sarabun</option>
-              <option value="Chakra Petch">Chakra Petch</option>
-            </select>
-          </div>
-          <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 bg-white outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
-          <div class="flex items-center gap-3 pt-1 text-xs text-slate-600">
-            <span>ขนาดฟอนต์: <strong id="size2Val">46px</strong></span>
-            <input type="range" id="size2Range" min="28" max="80" value="46" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
-          </div>
-        </div>
-
-        <!-- Gold Subtext -->
-        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">ข้อความเน้นสีเหลืองทอง</label>
-            <select id="font3" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-white font-bold">
-              <option value="Prompt">Prompt</option>
-              <option value="Kanit">Kanit</option>
-              <option value="Sarabun">Sarabun</option>
-              <option value="Chakra Petch">Chakra Petch</option>
-            </select>
-          </div>
-          <div class="flex gap-2">
-            <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 bg-white outline-none leading-snug">ครั้งที่ 5/2569</textarea>
-            <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded border cursor-pointer p-0.5 bg-white">
-          </div>
-          <div class="flex items-center gap-3 pt-1 text-xs text-slate-600">
-            <span>ขนาดฟอนต์: <strong id="size3Val">42px</strong></span>
-            <input type="range" id="size3Range" min="26" max="75" value="42" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
-          </div>
-        </div>
-
-        <!-- Footer Section -->
-        <div class="pt-2 border-t border-slate-100 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">ส่วนใต้เส้นคั่น (สถานที่ / ชื่อผู้บริหาร / หน่วยงาน)</label>
-            <select id="footerMode" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-lg px-2 py-1 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
-              <option value="style1">แบบที่ 1: สถานที่ + โซเชียล</option>
-              <option value="style2">แบบที่ 2: ชื่อผู้บริหาร + ตำแหน่ง</option>
-              <option value="style3">แบบที่ 3: โลโก้ + ชื่อหน่วยงานใหญ่</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-600 mb-1">บรรทัดใต้เส้นคั่น</label>
-            <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 outline-none">
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อหน่วยงาน / ตำแหน่งด้านล่าง</label>
-              <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 outline-none">
+          <!-- Gold Subtext -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-700">ข้อความเน้นสีเหลืองทอง</label>
+              <select id="font3" onchange="renderCanvas()" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
+                <option value="Prompt">Prompt</option>
+                <option value="Kanit">Kanit</option>
+                <option value="Sarabun">Sarabun</option>
+                <option value="Chakra Petch">Chakra Petch</option>
+              </select>
             </div>
+            <div class="flex gap-2">
+              <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 bg-white outline-none leading-snug">ครั้งที่ 5/2569</textarea>
+              <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded-xl border cursor-pointer p-0.5 bg-white flex-shrink-0">
+            </div>
+            <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
+              <span>ขนาด: <strong id="size3Val">42px</strong></span>
+              <input type="range" id="size3Range" min="26" max="75" value="42" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+
+          <!-- Footer Section -->
+          <div class="pt-3 border-t border-slate-100 space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-slate-700">ส่วนใต้เส้นคั่น</label>
+              <select id="footerMode" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-xl px-3 py-1.5 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
+                <option value="style1">แบบที่ 1: สถานที่ + โซเชียล</option>
+                <option value="style2">แบบที่ 2: ชื่อผู้บริหาร + ตำแหน่ง</option>
+                <option value="style3">แบบที่ 3: โลโก้ + ชื่อหน่วยงาน</option>
+              </select>
+            </div>
+
             <div>
-              <label class="block text-xs font-medium text-slate-600 mb-1">วันที่มุมขวาล่าง</label>
-              <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-800 outline-none">
+              <label class="block text-xs font-medium text-slate-600 mb-1">บรรทัดใต้เส้นคั่น</label>
+              <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 outline-none">
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- SECTION 4: Background Gradient & Divider Controls -->
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
-        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">4</span>
-          ตั้งค่าโทนสีพื้นหลัง & เส้นคั่น (Divider)
-        </h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">สีแถบไล่ระดับ (บน / ล่าง)</label>
-            <div class="flex items-center gap-2">
-              <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" class="h-8 w-10 rounded border cursor-pointer p-0.5 bg-white">
-              <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" class="h-8 w-10 rounded border cursor-pointer p-0.5 bg-white">
-              <div class="text-[11px] text-slate-500 font-medium">เกรเดียนต์มืด</div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span class="text-slate-600 font-medium">ความสูงแถบสีด้านล่าง</span>
-              <span id="gradHeightVal" class="text-slate-500 font-bold">55%</span>
-            </div>
-            <input type="range" id="gradHeight" min="35" max="75" value="55" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
-          </div>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-          <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-            <span>🎛️ ปรับแต่งเส้นคั่น (Divider Bar)</span>
-            <select id="dividerStyle" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded px-2 py-1 bg-white font-semibold text-indigo-700 cursor-pointer">
-              <option value="gold">สไตล์: สีทองเมทัลลิก</option>
-              <option value="red">สไตล์: สีแดงสด</option>
-              <option value="custom">สไตล์: กำหนดสีเอง</option>
-              <option value="none">ซ่อนเส้นคั่น</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-3 gap-3 pt-1">
-            <div id="customColorBox">
-              <label class="block text-[11px] font-medium text-slate-600 mb-1">สีเส้นคั่น</label>
-              <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" class="h-7 w-9 rounded border cursor-pointer p-0.5 bg-white">
-            </div>
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span>ความหนา</span>
-                <span id="divHeightVal" class="font-bold">12px</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อหน่วยงาน / ตำแหน่ง</label>
+                <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 outline-none">
               </div>
-              <input type="range" id="dividerHeight" min="4" max="24" value="12" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-1">วันที่มุมขวาล่าง</label>
+                <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 outline-none">
+              </div>
+            </div>
+
+            <label class="inline-flex items-center gap-2 cursor-pointer pt-2 text-xs font-semibold text-slate-700">
+              <input type="checkbox" id="showSocial" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+              แสดงไอคอนโซเชียลด้านล่าง
+            </label>
+          </div>
+
+        </div>
+
+        <!-- BACKGROUND GRADIENT & DIVIDER SETTINGS -->
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">4</span>
+            สีพื้นหลัง & เส้นคั่น (Divider)
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">สีแถบไล่ระดับ</label>
+              <div class="flex items-center gap-2">
+                <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" class="h-8 w-10 rounded-xl border cursor-pointer p-0.5 bg-white">
+                <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" class="h-8 w-10 rounded-xl border cursor-pointer p-0.5 bg-white">
+                <span class="text-xs text-slate-500 font-medium">เกรเดียนต์มืด</span>
+              </div>
             </div>
             <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span>ความกว้าง</span>
-                <span id="divWidthVal" class="font-bold">928px</span>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-600 font-medium">ความสูงแถบสี</span>
+                <span id="gradHeightVal" class="text-slate-500 font-bold">55%</span>
               </div>
-              <input type="range" id="dividerWidth" min="600" max="1020" value="928" step="10" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="gradHeight" min="35" max="75" value="55" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
+              <span>🎛️ สไตล์เส้นคั่น</span>
+              <select id="dividerStyle" onchange="renderCanvas()" class="text-xs border rounded-xl px-2.5 py-1 bg-white font-semibold text-indigo-700 cursor-pointer">
+                <option value="gold">สีทองเมทัลลิก</option>
+                <option value="red">สีแดงสด</option>
+                <option value="custom">กำหนดสีเอง</option>
+                <option value="none">ซ่อนเส้นคั่น</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-3 gap-3 pt-1">
+              <div id="customColorBox">
+                <label class="block text-[10px] font-medium text-slate-600 mb-1">สีเส้น</label>
+                <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" class="h-7 w-9 rounded-xl border cursor-pointer p-0.5 bg-white">
+              </div>
+              <div>
+                <div class="flex justify-between text-[10px] mb-1">
+                  <span>ความหนา</span>
+                  <span id="divHeightVal" class="font-bold">12px</span>
+                </div>
+                <input type="range" id="dividerHeight" min="4" max="24" value="12" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between text-[10px] mb-1">
+                  <span>ความกว้าง</span>
+                  <span id="divWidthVal" class="font-bold">928px</span>
+                </div>
+                <input type="range" id="dividerWidth" min="600" max="1020" value="928" step="10" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="pt-2 border-t border-slate-100 flex flex-wrap gap-4 text-xs font-medium text-slate-700">
-          <label class="inline-flex items-center gap-1.5 cursor-pointer">
-            <input type="checkbox" id="showSocial" checked onchange="renderCanvas()" class="rounded text-indigo-600">
-            แสดงไอคอนโซเชียล
-          </label>
-          <label class="inline-flex items-center gap-1.5 cursor-pointer">
-            <input type="checkbox" id="showAllText" checked onchange="renderCanvas()" class="rounded text-indigo-600">
-            แสดงข้อความทั้งหมดบนภาพ
-          </label>
-        </div>
       </div>
 
     </div>
+
   </main>
 
   <script>
@@ -430,7 +482,6 @@
 
     let currentStyle = 1;
     let customLogoImg = null;
-
     let activeLayer = 'bg';
     
     let bgImg = new Image();
@@ -449,13 +500,21 @@
     let dragStartX = 0;
     let dragStartY = 0;
 
-    // Independent Text offsets for dragging any line
     let textOffsets = {
       headline: { x: 0, y: 0 },
       topic: { x: 0, y: 0 },
       gold: { x: 0, y: 0 },
       footer: { x: 0, y: 0 }
     };
+
+    function switchTab(tabNum) {
+      [1, 2, 3].forEach(n => {
+        document.getElementById('tabContent' + n).classList.add('hidden');
+        document.getElementById('tabBtn' + n).className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+      });
+      document.getElementById('tabContent' + tabNum).classList.remove('hidden');
+      document.getElementById('tabBtn' + tabNum).className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+    }
 
     function drawNongKhaiEmblem(ctx, cx, cy, radius) {
       ctx.save();
@@ -573,9 +632,9 @@
       [1, 2, 3].forEach(n => {
         const btn = document.getElementById('btnStyle' + n);
         if (n === styleNum) {
-          btn.className = 'template-btn text-left p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition flex items-start gap-3 cursor-pointer';
+          btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50 transition flex items-center gap-4 cursor-pointer hover:shadow-md';
         } else {
-          btn.className = 'template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer';
+          btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-center gap-4 cursor-pointer hover:shadow-md';
         }
       });
 
@@ -748,19 +807,19 @@
       const btnFg2 = document.getElementById('tabFg2Ctrl');
       const zoomInput = document.getElementById('imgZoom');
 
-      btnBg.className = 'px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
-      btnFg1.className = 'px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
-      btnFg2.className = 'px-2.5 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      btnBg.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      btnFg1.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      btnFg2.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
 
       let currentScale = 1;
       if (layer === 'bg') {
-        btnBg.className = 'px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer text-xs';
+        btnBg.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-bold transition cursor-pointer text-xs';
         currentScale = bgState.scale;
       } else if (layer === 'fg1') {
-        btnFg1.className = 'px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white font-bold transition cursor-pointer text-xs';
+        btnFg1.className = 'px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-bold transition cursor-pointer text-xs';
         currentScale = fg1State.scale;
       } else if (layer === 'fg2') {
-        btnFg2.className = 'px-2.5 py-1.5 rounded-lg bg-teal-600 text-white font-bold transition cursor-pointer text-xs';
+        btnFg2.className = 'px-3 py-1.5 rounded-xl bg-teal-600 text-white font-bold transition cursor-pointer text-xs';
         currentScale = fg2State.scale;
       }
 
@@ -800,14 +859,12 @@
       renderCanvas();
     }
 
-    // Interactive pointer drag events (supports both image layers and text lines)
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
       const clickX = (e.clientX - rect.left) * scaleFactor;
       const clickY = (e.clientY - rect.top) * scaleFactor;
 
-      // Detect what user clicked on
       if (clickY > 750) {
         draggingTarget = 'footer';
       } else if (clickY > 620) {
@@ -1045,7 +1102,6 @@
 
         let cursorY = lineY - 32;
 
-        // Render Gold Subtext (with independent offset)
         if (t3Lines.length > 0) {
           ctx.save();
           ctx.font = `700 ${size3}px "${font3}", sans-serif`;
@@ -1063,7 +1119,6 @@
           cursorY -= (t3Lines.length * (size3 + 8) + 10);
         }
 
-        // Render Topic Lines (with independent offset)
         if (t2Lines.length > 0) {
           ctx.save();
           ctx.fillStyle = '#FFFFFF';
@@ -1081,7 +1136,6 @@
           cursorY -= (t2Lines.length * (size2 + 12) + 16);
         }
 
-        // Render Headline Line 1 (with independent offset)
         if (t1) {
           ctx.save();
           ctx.font = `800 ${size1}px "${font1}", sans-serif`;
@@ -1101,7 +1155,6 @@
         }
       }
 
-      // Render Footer (with independent offset)
       const line4Text = document.getElementById('textLine4').value.trim();
       const orgText = document.getElementById('textOrg').value.trim();
       const dateText = document.getElementById('textDate').value.trim();
@@ -1194,7 +1247,6 @@
       });
     }
 
-    // Canva Multi-Layer SVG Exporter with independent positions & sizes
     function downloadSVG() {
       const font1 = document.getElementById('font1').value;
       const font2 = document.getElementById('font2').value;
