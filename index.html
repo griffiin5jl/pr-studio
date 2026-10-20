@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V17</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V18</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +44,7 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col">
 
+  <!-- TOP HEADER NAVBAR (FULL SCREEN) -->
   <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800 w-full">
     <div class="w-full px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
@@ -52,8 +53,8 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V17</h1>
-            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Master Edition</span>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V18</h1>
+            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Advanced Edition</span>
           </div>
           <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
         </div>
@@ -71,6 +72,7 @@
     </div>
   </header>
 
+  <!-- MAIN WORKSPACE (FULL WIDTH) -->
   <main class="w-full px-4 sm:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
     
     <!-- LEFT COLUMN: CANVAS PREVIEW & QUICK TOOLS -->
@@ -147,6 +149,7 @@
       </div>
     </div>
 
+    <!-- RIGHT COLUMN: CLEAN TABBED CONTROLS -->
     <div class="lg:col-span-6 space-y-5">
 
       <!-- TAB NAVIGATION BUTTONS -->
@@ -215,8 +218,8 @@
             <span>📖</span> คู่มือการใช้งานเบื้องต้น
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>โหมดแก้ไขข้อความ:</strong> ติ๊กเลือกวิทยุ <strong>"✍️ ติ๊กเพื่อแก้ไขข้อความ"</strong> ด้านบนจอเพื่อคลิกลากย้ายตำแหน่งตัวหนังสือ</li>
-            <li><strong>โหมดแก้ไขรูปภาพ:</strong> ติ๊กเลือก <strong>"🖼️ แก้ไขรูปภาพอย่างเดียว"</strong> เพื่อลากเลื่อนตำแหน่งรูปภาพฉากหลังหรือบุคคล</li>
+            <li><strong>เปิด/ปิด หรือลบข้อความ:</strong> ติ๊กเลือกแสดง/ซ่อนบรรทัดข้อความได้อิสระในแท็บจัดการข้อความ</li>
+            <li><strong>โหมดแก้ไขข้อความ:</strong> ติ๊กเลือกวิทยุ <strong>"✍️ ติ๊กเพื่อแก้ไขข้อความ"</strong> เพื่อคลิกลากย้ายตำแหน่งตัวหนังสือ</li>
             <li><strong>ประวัติการแก้:</strong> ใช้ปุ่ม Undo/Redo ใต้ภาพเพื่อย้อนกลับหรือทำซ้ำการขยับได้ตลอดเวลา</li>
           </ul>
         </div>
@@ -327,18 +330,15 @@
 
       </div>
 
+      <!-- TAB 3: TEXT EDITING & TYPOGRAPHY -->
       <div id="tabContent3" class="space-y-4 hidden">
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           
           <div class="flex items-center justify-between">
             <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
               <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
-              ปรับแต่งข้อความ & ฟอนต์
+              ปรับแต่งข้อความ & ฟอนต์ (เปิด/ปิดบรรทัดได้)
             </h2>
-            <label class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 cursor-pointer">
-              <input type="checkbox" id="showAllText" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
-              แสดงข้อความทั้งหมด
-            </label>
           </div>
 
           <!-- Date Ribbon (Style 3) -->
@@ -356,7 +356,10 @@
           <!-- Headline Line 1 -->
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-700">พาดหัวหลัก (บรรทัดที่ 1)</label>
+              <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                <input type="checkbox" id="showHeadline" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                พาดหัวหลัก (บรรทัดที่ 1)
+              </label>
               <div class="flex items-center gap-2">
                 <select id="font1" onchange="renderCanvas(); saveHistoryState();" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                   <option value="Prompt">Prompt</option>
@@ -382,7 +385,10 @@
           <!-- Topic Lines -->
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-700">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
+              <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                <input type="checkbox" id="showTopic" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                หัวข้อกิจกรรม/รายละเอียด (สีขาว)
+              </label>
               <select id="font2" onchange="renderCanvas(); saveHistoryState();" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                 <option value="Prompt">Prompt</option>
                 <option value="Kanit">Kanit</option>
@@ -400,7 +406,10 @@
           <!-- Gold Subtext -->
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-700">ข้อความเน้นสีเหลืองทอง</label>
+              <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                <input type="checkbox" id="showGold" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                ข้อความเน้นสีเหลืองทอง
+              </label>
               <select id="font3" onchange="renderCanvas(); saveHistoryState();" class="text-[11px] border rounded-lg px-2 py-1 bg-white font-bold text-slate-700">
                 <option value="Prompt">Prompt</option>
                 <option value="Kanit">Kanit</option>
@@ -421,7 +430,10 @@
           <!-- Footer Section -->
           <div class="pt-3 border-t border-slate-100 space-y-3">
             <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-slate-700">ส่วนใต้เส้นคั่น</label>
+              <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                <input type="checkbox" id="showFooter" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                แสดงส่วนใต้เส้นคั่น (Footer)
+              </label>
               <select id="footerMode" onchange="renderCanvas(); saveHistoryState();" class="text-xs border border-slate-300 rounded-xl px-3 py-1.5 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
                 <option value="style1">แบบที่ 1: สถานที่ + โซเชียล</option>
                 <option value="style2">แบบที่ 2: ชื่อผู้บริหาร + ตำแหน่ง</option>
@@ -636,7 +648,6 @@
     }
 
     function submitReport() {
-      const msg = document.getElementById('reportMessage').value.trim();
       document.getElementById('reportMessage').value = '';
       closeReportModal();
     }
@@ -663,7 +674,10 @@
           logoTopLeft: document.getElementById('logoTopLeft').checked,
           logoBottomFooter: document.getElementById('logoBottomFooter').checked,
           showSocial: document.getElementById('showSocial').checked,
-          showAllText: document.getElementById('showAllText').checked,
+          showHeadline: document.getElementById('showHeadline').checked,
+          showTopic: document.getElementById('showTopic').checked,
+          showGold: document.getElementById('showGold').checked,
+          showFooter: document.getElementById('showFooter').checked,
           strokeLine1: document.getElementById('strokeLine1').checked,
           size1Range: document.getElementById('size1Range').value,
           size2Range: document.getElementById('size2Range').value,
@@ -748,7 +762,10 @@
       document.getElementById('logoTopLeft').checked = inp.logoTopLeft;
       document.getElementById('logoBottomFooter').checked = inp.logoBottomFooter;
       document.getElementById('showSocial').checked = inp.showSocial;
-      document.getElementById('showAllText').checked = inp.showAllText;
+      document.getElementById('showHeadline').checked = inp.showHeadline;
+      document.getElementById('showTopic').checked = inp.showTopic;
+      document.getElementById('showGold').checked = inp.showGold;
+      document.getElementById('showFooter').checked = inp.showFooter;
       document.getElementById('strokeLine1').checked = inp.strokeLine1;
       document.getElementById('size1Range').value = inp.size1Range;
       document.getElementById('size2Range').value = inp.size2Range;
@@ -927,6 +944,10 @@
         document.getElementById('logoTopLeft').checked = false;
         document.getElementById('logoBottomFooter').checked = false;
         document.getElementById('showDateRibbon').checked = false;
+        document.getElementById('showHeadline').checked = true;
+        document.getElementById('showTopic').checked = true;
+        document.getElementById('showGold').checked = true;
+        document.getElementById('showFooter').checked = true;
 
         document.getElementById('textLine1').value = 'อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFE600';
@@ -955,6 +976,10 @@
         document.getElementById('logoTopLeft').checked = true;
         document.getElementById('logoBottomFooter').checked = false;
         document.getElementById('showDateRibbon').checked = false;
+        document.getElementById('showHeadline').checked = true;
+        document.getElementById('showTopic').checked = true;
+        document.getElementById('showGold').checked = true;
+        document.getElementById('showFooter').checked = true;
 
         document.getElementById('textLine1').value = 'นายก อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFFFFF';
@@ -983,6 +1008,11 @@
         document.getElementById('logoTopLeft').checked = false;
         document.getElementById('logoBottomFooter').checked = true;
         document.getElementById('showDateRibbon').checked = true;
+        document.getElementById('showHeadline').checked = false;
+        document.getElementById('showTopic').checked = true;
+        document.getElementById('showGold').checked = true;
+        document.getElementById('showFooter').checked = true;
+
         document.getElementById('ribbonColor').value = '#EA580C';
         document.getElementById('ribbonText').value = 'วันพุธที่ 07 ตุลาคม พ.ศ. 2569';
 
@@ -1354,7 +1384,7 @@
         ctx.fillStyle = ribGrad;
         ctx.fillRect(ribStartX, ribY, canvasWidth - ribStartX, ribH);
 
-        if (document.getElementById('showAllText').checked && ribbonText) {
+        if (ribbonText) {
           ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`;
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'right';
@@ -1391,75 +1421,77 @@
         ctx.restore();
       }
 
-      const showText = document.getElementById('showAllText').checked;
+      const showHeadline = document.getElementById('showHeadline').checked;
+      const showTopic = document.getElementById('showTopic').checked;
+      const showGold = document.getElementById('showGold').checked;
+      const showFooter = document.getElementById('showFooter').checked;
+
       const colorLine1 = document.getElementById('colorLine1').value;
       const strokeLine1 = document.getElementById('strokeLine1').checked;
       const colorGoldText = document.getElementById('colorGoldText').value;
 
-      if (showText) {
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'alphabetic';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
 
-        const t1 = document.getElementById('textLine1').value.trim();
-        const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
-        const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const t1 = document.getElementById('textLine1').value.trim();
+      const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
 
-        let cursorY = lineY - (32 * scaleY);
+      let cursorY = lineY - (32 * scaleY);
 
-        if (t3Lines.length > 0) {
-          ctx.save();
-          const curSize3 = size3 * scaleY;
-          ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
-          ctx.fillStyle = colorGoldText;
-          ctx.shadowColor = 'rgba(0,0,0,0.7)';
-          ctx.shadowBlur = 12;
+      if (showGold && t3Lines.length > 0) {
+        ctx.save();
+        const curSize3 = size3 * scaleY;
+        ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
+        ctx.fillStyle = colorGoldText;
+        ctx.shadowColor = 'rgba(0,0,0,0.7)';
+        ctx.shadowBlur = 12;
 
-          let goldY = cursorY + textOffsets.gold.y;
-          let tempY = goldY;
-          for (let i = t3Lines.length - 1; i >= 0; i--) {
-            ctx.fillText(t3Lines[i], (canvasWidth / 2) + textOffsets.gold.x, tempY);
-            tempY -= (curSize3 + (8 * scaleY));
-          }
-          ctx.restore();
-          cursorY -= (t3Lines.length * (curSize3 + (8 * scaleY)) + (10 * scaleY));
+        let goldY = cursorY + textOffsets.gold.y;
+        let tempY = goldY;
+        for (let i = t3Lines.length - 1; i >= 0; i--) {
+          ctx.fillText(t3Lines[i], (canvasWidth / 2) + textOffsets.gold.x, tempY);
+          tempY -= (curSize3 + (8 * scaleY));
         }
+        ctx.restore();
+        cursorY -= (t3Lines.length * (curSize3 + (8 * scaleY)) + (10 * scaleY));
+      }
 
-        if (t2Lines.length > 0) {
-          ctx.save();
-          const curSize2 = size2 * scaleY;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.shadowColor = 'rgba(0,0,0,0.8)';
-          ctx.shadowBlur = 14;
+      if (showTopic && t2Lines.length > 0) {
+        ctx.save();
+        const curSize2 = size2 * scaleY;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.shadowBlur = 14;
 
-          let topicY = cursorY + textOffsets.topic.y;
-          let tempY = topicY;
-          for (let i = t2Lines.length - 1; i >= 0; i--) {
-            ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
-            ctx.fillText(t2Lines[i], (canvasWidth / 2) + textOffsets.topic.x, tempY);
-            tempY -= (curSize2 + (12 * scaleY));
-          }
-          ctx.restore();
-          cursorY -= (t2Lines.length * (curSize2 + (12 * scaleY)) + (16 * scaleY));
+        let topicY = cursorY + textOffsets.topic.y;
+        let tempY = topicY;
+        for (let i = t2Lines.length - 1; i >= 0; i--) {
+          ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
+          ctx.fillText(t2Lines[i], (canvasWidth / 2) + textOffsets.topic.x, tempY);
+          tempY -= (curSize2 + (12 * scaleY));
         }
+        ctx.restore();
+        cursorY -= (t2Lines.length * (curSize2 + (12 * scaleY)) + (16 * scaleY));
+      }
 
-        if (t1) {
-          ctx.save();
-          const curSize1 = size1 * scaleY;
-          ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
-          ctx.shadowColor = 'rgba(0,0,0,0.85)';
-          ctx.shadowBlur = 22;
-          const headX = (canvasWidth / 2) + textOffsets.headline.x;
-          const headY = cursorY + textOffsets.headline.y;
+      if (showHeadline && t1) {
+        ctx.save();
+        const curSize1 = size1 * scaleY;
+        ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
+        ctx.shadowColor = 'rgba(0,0,0,0.85)';
+        ctx.shadowBlur = 22;
+        const headX = (canvasWidth / 2) + textOffsets.headline.x;
+        const headY = cursorY + textOffsets.headline.y;
 
-          if (strokeLine1) {
-            ctx.strokeStyle = '#D91B1B';
-            ctx.lineWidth = 16 * scaleY;
-            ctx.strokeText(t1, headX, headY);
-          }
-          ctx.fillStyle = colorLine1;
-          ctx.fillText(t1, headX, headY);
-          ctx.restore();
+        if (strokeLine1) {
+          ctx.strokeStyle = '#D91B1B';
+          ctx.lineWidth = 16 * scaleY;
+          ctx.strokeText(t1, headX, headY);
         }
+        ctx.fillStyle = colorLine1;
+        ctx.fillText(t1, headX, headY);
+        ctx.restore();
       }
 
       const line4Text = document.getElementById('textLine4').value.trim();
@@ -1470,66 +1502,66 @@
       const footerOffsetX = textOffsets.footer.x;
       const footerOffsetY = textOffsets.footer.y;
 
-      if (footerMode === 'style1') {
-        if (showText && line4Text) {
-          ctx.save();
-          ctx.font = `400 ${Math.round(35 * scaleY)}px "${font1}", sans-serif`;
-          ctx.fillStyle = colorGoldText;
-          ctx.textAlign = 'center';
-          ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (946 * scaleY) + footerOffsetY);
-          ctx.restore();
-        }
-        if (showSocial || (showText && orgText)) {
-          ctx.save();
-          ctx.font = `400 ${Math.round(24 * scaleY)}px "${font1}", sans-serif`;
-          const textWidth = showText ? ctx.measureText(orgText).width : 0;
-          const totalFooterWidth = (150 * scaleX) + textWidth;
-          const startX = (canvasWidth - totalFooterWidth) / 2 + footerOffsetX;
-          const centerY = (1026 * scaleY) + footerOffsetY;
-          let nextX = startX;
-          if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17 * Math.min(scaleX, scaleY), gradColor2);
-          if (showText && orgText) {
-            ctx.fillStyle = '#FFFFFF';
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(orgText, nextX + (14 * scaleX), centerY + 1);
+      if (showFooter) {
+        if (footerMode === 'style1') {
+          if (line4Text) {
+            ctx.save();
+            ctx.font = `400 ${Math.round(35 * scaleY)}px "${font1}", sans-serif`;
+            ctx.fillStyle = colorGoldText;
+            ctx.textAlign = 'center';
+            ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (946 * scaleY) + footerOffsetY);
+            ctx.restore();
           }
-          ctx.restore();
-        }
-      } else if (footerMode === 'style2') {
-        if (showText) {
+          if (showSocial || orgText) {
+            ctx.save();
+            ctx.font = `400 ${Math.round(24 * scaleY)}px "${font1}", sans-serif`;
+            const textWidth = orgText ? ctx.measureText(orgText).width : 0;
+            const totalFooterWidth = (150 * scaleX) + textWidth;
+            const startX = (canvasWidth - totalFooterWidth) / 2 + footerOffsetX;
+            const centerY = (1026 * scaleY) + footerOffsetY;
+            let nextX = startX;
+            if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17 * Math.min(scaleX, scaleY), gradColor2);
+            if (orgText) {
+              ctx.fillStyle = '#FFFFFF';
+              ctx.textAlign = 'left';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(orgText, nextX + (14 * scaleX), centerY + 1);
+            }
+            ctx.restore();
+          }
+        } else if (footerMode === 'style2') {
           ctx.save();
           ctx.textAlign = 'center';
           ctx.fillStyle = '#FFFFFF';
           if (line4Text) { ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`; ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (976 * scaleY) + footerOffsetY); }
           if (orgText) { ctx.font = `600 ${Math.round(31 * scaleY)}px "${font1}", sans-serif`; ctx.fillText(orgText, (canvasWidth / 2) + footerOffsetX, (1024 * scaleY) + footerOffsetY); }
           ctx.restore();
+        } else if (footerMode === 'style3') {
+          const showBottomLogo = document.getElementById('showLogo').checked && document.getElementById('logoBottomFooter').checked;
+          ctx.save();
+          ctx.font = `500 ${Math.round(43 * scaleY)}px "${font1}", sans-serif`;
+          const textW = orgText ? ctx.measureText(orgText).width : 0;
+          const totalW = (showBottomLogo ? (64 * scaleX) : 0) + textW;
+          const startX = (canvasWidth - totalW) / 2 + footerOffsetX;
+          const centerY = (995 * scaleY) + footerOffsetY;
+          if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + (32 * scaleX), centerY, 32 * Math.min(scaleX, scaleY));
+          if (orgText) {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(orgText, startX + (showBottomLogo ? (82 * scaleX) : 0), centerY + 2);
+          }
+          ctx.restore();
         }
-      } else if (footerMode === 'style3') {
-        const showBottomLogo = document.getElementById('showLogo').checked && document.getElementById('logoBottomFooter').checked;
-        ctx.save();
-        ctx.font = `500 ${Math.round(43 * scaleY)}px "${font1}", sans-serif`;
-        const textW = (showText && orgText) ? ctx.measureText(orgText).width : 0;
-        const totalW = (showBottomLogo ? (64 * scaleX) : 0) + textW;
-        const startX = (canvasWidth - totalW) / 2 + footerOffsetX;
-        const centerY = (995 * scaleY) + footerOffsetY;
-        if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + (32 * scaleX), centerY, 32 * Math.min(scaleX, scaleY));
-        if (showText && orgText) {
-          ctx.fillStyle = '#FFFFFF';
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(orgText, startX + (showBottomLogo ? (82 * scaleX) : 0), centerY + 2);
-        }
-        ctx.restore();
-      }
 
-      if (showText && dateText) {
-        ctx.save();
-        ctx.font = `700 ${Math.round(25 * scaleY)}px "${font1}", sans-serif`;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.textAlign = 'right';
-        ctx.fillText(dateText, canvasWidth - (25 * scaleX) + footerOffsetX, canvasHeight - (22 * scaleY) + footerOffsetY);
-        ctx.restore();
+        if (dateText) {
+          ctx.save();
+          ctx.font = `700 ${Math.round(25 * scaleY)}px "${font1}", sans-serif`;
+          ctx.fillStyle = '#FFFFFF';
+          ctx.textAlign = 'right';
+          ctx.fillText(dateText, canvasWidth - (25 * scaleX) + footerOffsetX, canvasHeight - (22 * scaleY) + footerOffsetY);
+          ctx.restore();
+        }
       }
       ctx.restore();
     }
