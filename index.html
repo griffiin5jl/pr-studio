@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V8)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V10)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,10 +34,10 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
         <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V8</span>
-          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Smart Studio)
+          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V10</span>
+          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Canva Multi-Layer Pro)
         </h1>
-        <p class="text-xs text-slate-300 mt-1">อัปโหลดรูปภาพบุคคลอิสระหลายเลเยอร์ พร้อมลิงก์ด่วนตัดฉากหลัง remove.bg และย้าย/ซูมทุกเลเยอร์ได้อิสระ</p>
+        <p class="text-xs text-slate-300 mt-1">อัปโหลดภาพบุคคลอิสระหลายเลเยอร์ พร้อมลิงก์ตัดฉากหลัง remove.bg และส่งออก SVG แยกเลเยอร์อิสระ 100% สำหรับ Canva</p>
       </div>
       <div class="flex flex-wrap gap-2">
         <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
@@ -46,7 +46,7 @@
         </button>
         <button onclick="downloadSVG()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          ส่งออกเข้า Canva (SVG)
+          ส่งออกเข้า Canva (SVG แยกเลเยอร์อิสระ)
         </button>
       </div>
     </div>
@@ -122,7 +122,7 @@
         </div>
 
         <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-          <div>📥 <strong>ไฟล์ Canva SVG:</strong> โหลดไปเปิดในเว็บ Canva เพื่อแยกแก้ไขแต่ละเลเยอร์ได้</div>
+          <div>📥 <strong>ไฟล์ Canva SVG:</strong> ทุกข้อความแยกเลเยอร์อิสระใน Canva ปรับขนาดและย้ายได้ทันที</div>
           <button onclick="downloadPNG(true)" class="text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer">
             ดาวน์โหลดเฉพาะกรอบใส (Transparent)
           </button>
@@ -421,8 +421,7 @@
     let currentStyle = 1;
     let customLogoImg = null;
 
-    // Multi-Layer States (Background + Person 1 + Person 2)
-    let activeLayer = 'bg'; // 'bg', 'fg1', or 'fg2'
+    let activeLayer = 'bg';
     
     let bgImg = new Image();
     let bgLoaded = false;
@@ -436,7 +435,6 @@
     let fg2Loaded = false;
     let fg2State = { x: 180, y: 0, scale: 1 };
 
-    // Interactive Dragging State
     let draggingTarget = null; 
     let dragStartX = 0;
     let dragStartY = 0;
@@ -775,7 +773,6 @@
       renderCanvas();
     }
 
-    // Interactive Dragging Listener
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
@@ -880,7 +877,6 @@
 
       ctx.clearRect(0, 0, 1080, 1080);
 
-      // LAYER 1: Background Meeting Room Image
       if (!isTransparent && bgLoaded) {
         ctx.save();
         const imgRatio = bgImg.width / bgImg.height;
@@ -896,7 +892,6 @@
         ctx.restore();
       }
 
-      // LAYER 2: Bottom Gradient Overlay
       const gradStartY = 1080 * (1 - gradHeightPct / 100);
       const mainGrad = ctx.createLinearGradient(0, gradStartY, 0, 1080);
       mainGrad.addColorStop(0, hexToRgba(gradColor1, 0));
@@ -907,7 +902,6 @@
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
 
-      // LAYER 3: Foreground Person 1 Overlay
       if (!isTransparent && fg1Loaded) {
         ctx.save();
         const fgRatio = fg1Img.width / fg1Img.height;
@@ -921,7 +915,6 @@
         ctx.restore();
       }
 
-      // LAYER 4: Foreground Person 2 Overlay
       if (!isTransparent && fg2Loaded) {
         ctx.save();
         const fgRatio = fg2Img.width / fg2Img.height;
@@ -935,7 +928,6 @@
         ctx.restore();
       }
 
-      // Logo rendering (If enabled)
       if (document.getElementById('showLogo').checked && document.getElementById('logoTopLeft').checked) {
         drawNongKhaiEmblem(ctx, 76, 76, 62);
       }
@@ -992,7 +984,6 @@
         ctx.restore();
       }
 
-      // LAYER 5: Typography
       const showText = document.getElementById('showAllText').checked;
       const colorLine1 = document.getElementById('colorLine1').value;
       const strokeLine1 = document.getElementById('strokeLine1').checked;
@@ -1055,7 +1046,6 @@
         }
       }
 
-      // LAYER 6: Footer
       const line4Text = document.getElementById('textLine4').value.trim();
       const orgText = document.getElementById('textOrg').value.trim();
       const dateText = document.getElementById('textDate').value.trim();
@@ -1133,12 +1123,175 @@
       renderCanvas(false);
     }
 
+    function escXml(unsafe) {
+      return unsafe.replace(/[<>&'"]/g, c => {
+        switch (c) {
+          case '<': return '&lt;';
+          case '>': return '&gt;';
+          case '&': return '&amp;';
+          case '\'': return '&apos;';
+          case '"': return '&quot;';
+        }
+      });
+    }
+
+    // Canva Multi-Layer SVG Exporter (Every element wrapped in independent group tag)
     function downloadSVG() {
-      renderCanvas();
+      const font1 = document.getElementById('font1').value;
+      const font2 = document.getElementById('font2').value;
+      const font3 = document.getElementById('font3').value;
+
+      const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
+      const gradStartY = Math.round(1080 * (1 - gradHeightPct / 100));
+      const gradColor1 = document.getElementById('gradColor1').value;
+      const gradColor2 = document.getElementById('gradColor2').value;
+      
+      const colorLine1 = document.getElementById('colorLine1').value;
+      const strokeLine1 = document.getElementById('strokeLine1').checked;
+      const colorGoldText = document.getElementById('colorGoldText').value;
+
+      const dividerStyle = document.getElementById('dividerStyle').value;
+      const dividerColor = document.getElementById('dividerColor').value;
+      const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
+      const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
+
+      const footerMode = document.getElementById('footerMode').value;
+      const showRibbon = document.getElementById('showDateRibbon').checked;
+      const ribbonColor = document.getElementById('ribbonColor').value;
+      const ribbonText = escXml(document.getElementById('ribbonText').value.trim());
+
+      const t1Raw = document.getElementById('textLine1').value.trim();
+      const t1 = escXml(t1Raw);
+      const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const t4 = escXml(document.getElementById('textLine4').value.trim());
+      const tOrg = escXml(document.getElementById('textOrg').value.trim());
+      const tDate = escXml(document.getElementById('textDate').value.trim());
+
+      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+
+      let cursorY = lineY - 32;
+      let svgTextsGroup = '';
+
+      if (t3Lines.length > 0) {
+        const goldFontSize = 42;
+        for (let i = t3Lines.length - 1; i >= 0; i--) {
+          svgTextsGroup += `  <g id="layer-text-gold-${i}">\n    <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font3}, sans-serif" font-weight="700" font-size="${goldFontSize}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n  </g>\n`;
+          cursorY -= 50;
+        }
+        cursorY -= 10;
+      }
+
+      if (t2Lines.length > 0) {
+        for (let i = t2Lines.length - 1; i >= 0; i--) {
+          svgTextsGroup += `  <g id="layer-text-topic-${i}">\n    <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font2}, sans-serif" font-weight="700" font-size="46" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n  </g>\n`;
+          cursorY -= 58;
+        }
+        cursorY -= 16;
+      }
+
+      if (t1Raw) {
+        const strokeAttrs = strokeLine1 ? ` stroke="#D91B1B" stroke-width="16" paint-order="stroke fill" stroke-linejoin="round"` : '';
+        svgTextsGroup += `  <g id="layer-text-headline">\n    <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font1}, sans-serif" font-weight="800" font-size="92" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n  </g>\n`;
+      }
+
+      let svgRibbon = '';
+      if (showRibbon) {
+        svgRibbon = `
+  <g id="layer-date-ribbon">
+    <rect x="430" y="582" width="650" height="76" fill="url(#ribbonGrad)"/>
+    <text x="1055" y="632" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${ribbonText}</text>
+  </g>`;
+      }
+
+      let svgDivider = '';
+      if (dividerStyle !== 'none') {
+        const divX = (1080 - dividerWidth) / 2;
+        const divFill = dividerStyle === 'gold' ? 'url(#goldBar)' : (dividerStyle === 'red' ? '#D61F1F' : dividerColor);
+        svgDivider = `  <g id="layer-divider-bar">\n    <rect x="${divX}" y="${lineY}" width="${dividerWidth}" height="${dividerHeight}" fill="${divFill}"/>\n  </g>`;
+      }
+
+      let svgFooter = '';
+      if (footerMode === 'style1') {
+        svgFooter = `
+  <g id="layer-footer-style1">
+    <text x="540" y="946" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
+    <g transform="translate(310, 1009)">
+      <circle cx="17" cy="17" r="17" fill="#FFFFFF"/>
+      <circle cx="61" cy="17" r="17" fill="#FFFFFF"/>
+      <circle cx="105" cy="17" r="17" fill="#FFFFFF"/>
+      <circle cx="149" cy="17" r="17" fill="#FFFFFF"/>
+      <text x="180" y="25" font-family="Prompt, sans-serif" font-weight="400" font-size="24" fill="#FFFFFF">${tOrg}</text>
+    </g>
+  </g>`;
+      } else if (footerMode === 'style2') {
+        svgFooter = `
+  <g id="layer-footer-style2">
+    <text x="540" y="976" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
+    <text x="540" y="1024" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>
+  </g>`;
+      } else if (footerMode === 'style3') {
+        svgFooter = `
+  <g id="layer-footer-style3">
+    <circle cx="215" cy="995" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
+    <text x="565" y="1010" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>
+  </g>`;
+      }
+
+      const svgTopLogo = document.getElementById('showLogo').checked && document.getElementById('logoTopLeft').checked
+        ? `  <g id="layer-top-logo">\n    <circle cx="76" cy="76" r="62" fill="#EAB308" stroke="#713F12" stroke-width="3"/>\n  </g>`
+        : '';
+
+      const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <linearGradient id="navyFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${gradColor1}" stop-opacity="0"/>
+      <stop offset="28%" stop-color="${gradColor1}" stop-opacity="0.82"/>
+      <stop offset="55%" stop-color="${gradColor2}" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="${gradColor2}" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="goldBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C79627"/>
+      <stop offset="22%" stop-color="#E0B236"/>
+      <stop offset="35%" stop-color="#FFF394"/>
+      <stop offset="50%" stop-color="#D29F26"/>
+      <stop offset="75%" stop-color="#F5CE52"/>
+      <stop offset="100%" stop-color="#C79627"/>
+    </linearGradient>
+    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${ribbonColor}" stop-opacity="0"/>
+      <stop offset="25%" stop-color="${ribbonColor}" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="${ribbonColor}" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer: Bottom Gradient Overlay -->
+  <g id="layer-gradient-overlay">
+    <rect x="0" y="${gradStartY}" width="1080" height="${1080 - gradStartY}" fill="url(#navyFade)"/>
+  </g>
+
+${svgTopLogo}
+${svgRibbon}
+${svgDivider}
+
+  <!-- Layers: Separated Texts -->
+${svgTextsGroup}
+
+${svgFooter}
+
+  <g id="layer-date-bottom-right">
+    <text x="1055" y="1058" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
+  </g>
+</svg>`;
+
+      const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.download = `canva-template-style${currentStyle}.svg`;
-      link.href = canvas.toDataURL('image/svg+xml');
+      link.download = `canva-template-style${currentStyle}-multilayer.svg`;
+      link.href = url;
       link.click();
+      URL.revokeObjectURL(url);
     }
 
     document.fonts.ready.then(() => {
