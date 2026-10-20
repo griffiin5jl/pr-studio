@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ A0FTA STUDIO0 PR0</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V14</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,39 +44,35 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col">
 
-  <!-- TOP HEADER NAVBAR -->
-  <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <!-- TOP HEADER NAVBAR (FULL WIDTH) -->
+  <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800 w-full">
+    <div class="w-full px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/20">
           <svg class="w-6 h-6 text-slate-950 font-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V13</h1>
-            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Good Luck</span>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V14</h1>
+            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Full Screen Edition</span>
           </div>
           <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-        <button onclick="downloadPNG(false)" class="flex-1 sm:flex-none bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer">
+        <button onclick="downloadPNG(false)" class="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
           ดาวน์โหลดภาพ (PNG HD)
-        </button>
-        <button onclick="downloadSVG()" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-indigo-600/20 transition flex items-center justify-center gap-2 cursor-pointer">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          ส่งออกเข้า Canva (SVG)
         </button>
       </div>
     </div>
   </header>
 
-  <!-- MAIN WORKSPACE -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
+  <!-- MAIN WORKSPACE (FULL WIDTH) -->
+  <main class="w-full px-4 sm:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
     
-    <!-- LEFT PANEL: CANVAS PREVIEW & QUICK TOOLS -->
+    <!-- LEFT COLUMN: CANVAS PREVIEW & QUICK TOOLS -->
     <div class="lg:col-span-6 flex flex-col gap-5">
       <div class="bg-white p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-200 sticky top-20 space-y-4">
         
@@ -130,7 +126,7 @@
       </div>
     </div>
 
-    <!-- RIGHT PANEL: CLEAN TABBED CONTROLS -->
+    <!-- RIGHT COLUMN: CLEAN TABBED CONTROLS -->
     <div class="lg:col-span-6 space-y-5">
 
       <!-- TAB NAVIGATION BUTTONS -->
@@ -1440,180 +1436,6 @@
       link.href = canvas.toDataURL('image/png');
       link.click();
       renderCanvas(false);
-    }
-
-    function escXml(unsafe) {
-      return unsafe.replace(/[<>&'"]/g, c => {
-        switch (c) {
-          case '<': return '&lt;';
-          case '>': return '&gt;';
-          case '&': return '&amp;';
-          case '\'': return '&apos;';
-          case '"': return '&quot;';
-        }
-      });
-    }
-
-    function downloadSVG() {
-      const font1 = document.getElementById('font1').value;
-      const font2 = document.getElementById('font2').value;
-      const font3 = document.getElementById('font3').value;
-
-      const size1 = parseInt(document.getElementById('size1Range').value, 10);
-      const size2 = parseInt(document.getElementById('size2Range').value, 10);
-      const size3 = parseInt(document.getElementById('size3Range').value, 10);
-
-      const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
-      const gradStartY = Math.round(canvasHeight * (1 - gradHeightPct / 100));
-      const gradColor1 = document.getElementById('gradColor1').value;
-      const gradColor2 = document.getElementById('gradColor2').value;
-      
-      const colorLine1 = document.getElementById('colorLine1').value;
-      const strokeLine1 = document.getElementById('strokeLine1').checked;
-      const colorGoldText = document.getElementById('colorGoldText').value;
-
-      const dividerStyle = document.getElementById('dividerStyle').value;
-      const dividerColor = document.getElementById('dividerColor').value;
-      const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
-      const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
-
-      const footerMode = document.getElementById('footerMode').value;
-      const showRibbon = document.getElementById('showDateRibbon').checked;
-      const ribbonColor = document.getElementById('ribbonColor').value;
-      const ribbonText = escXml(document.getElementById('ribbonText').value.trim());
-
-      const t1Raw = document.getElementById('textLine1').value.trim();
-      const t1 = escXml(t1Raw);
-      const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const t4 = escXml(document.getElementById('textLine4').value.trim());
-      const tOrg = escXml(document.getElementById('textOrg').value.trim());
-      const tDate = escXml(document.getElementById('textDate').value.trim());
-
-      const scaleY = canvasHeight / 1080;
-      const lineY = (footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885)) * scaleY;
-
-      let cursorY = lineY - (32 * scaleY);
-      let svgTextsGroup = '';
-
-      if (t3Lines.length > 0) {
-        let tempY = cursorY + textOffsets.gold.y;
-        for (let i = t3Lines.length - 1; i >= 0; i--) {
-          svgTextsGroup += `  <g id="layer-text-gold-${i}">\n    <text x="${(canvasWidth / 2) + textOffsets.gold.x}" y="${tempY}" text-anchor="middle" font-family="${font3}, sans-serif" font-weight="700" font-size="${size3}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n  </g>\n`;
-          tempY -= (size3 + 8);
-        }
-        cursorY -= (t3Lines.length * (size3 + 8) + 10);
-      }
-
-      if (t2Lines.length > 0) {
-        let tempY = cursorY + textOffsets.topic.y;
-        for (let i = t2Lines.length - 1; i >= 0; i--) {
-          svgTextsGroup += `  <g id="layer-text-topic-${i}">\n    <text x="${(canvasWidth / 2) + textOffsets.topic.x}" y="${tempY}" text-anchor="middle" font-family="${font2}, sans-serif" font-weight="700" font-size="${size2}" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n  </g>\n`;
-          tempY -= (size2 + 12);
-        }
-        cursorY -= (t2Lines.length * (size2 + 12) + 16);
-      }
-
-      if (t1Raw) {
-        const strokeAttrs = strokeLine1 ? ` stroke="#D91B1B" stroke-width="16" paint-order="stroke fill" stroke-linejoin="round"` : '';
-        svgTextsGroup += `  <g id="layer-text-headline">\n    <text x="${(canvasWidth / 2) + textOffsets.headline.x}" y="${cursorY + textOffsets.headline.y}" text-anchor="middle" font-family="${font1}, sans-serif" font-weight="800" font-size="${size1}" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n  </g>\n`;
-      }
-
-      let svgRibbon = '';
-      if (showRibbon) {
-        svgRibbon = `
-  <g id="layer-date-ribbon">
-    <rect x="${430 * (canvasWidth / 1080)}" y="${582 * scaleY}" width="${650 * (canvasWidth / 1080)}" height="${76 * scaleY}" fill="url(#ribbonGrad)"/>
-    <text x="${canvasWidth - 25}" y="${632 * scaleY}" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${ribbonText}</text>
-  </g>`;
-      }
-
-      let svgDivider = '';
-      if (dividerStyle !== 'none') {
-        const divX = (canvasWidth - dividerWidth) / 2;
-        const divFill = dividerStyle === 'gold' ? 'url(#goldBar)' : (dividerStyle === 'red' ? '#D61F1F' : dividerColor);
-        svgDivider = `  <g id="layer-divider-bar">\n    <rect x="${divX}" y="${lineY}" width="${dividerWidth}" height="${dividerHeight}" fill="${divFill}"/>\n  </g>`;
-      }
-
-      let svgFooter = '';
-      const fx = textOffsets.footer.x;
-      const fy = textOffsets.footer.y;
-      if (footerMode === 'style1') {
-        svgFooter = `
-  <g id="layer-footer-style1">
-    <text x="${(canvasWidth / 2) + fx}" y="${(946 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
-    <g transform="translate(${310 + fx}, ${(1009 * scaleY) + fy})">
-      <circle cx="17" cy="17" r="17" fill="#FFFFFF"/>
-      <circle cx="61" cy="17" r="17" fill="#FFFFFF"/>
-      <circle cx="105" cy="17" r="17" fill="#FFFFFF"/>
-      <circle cx="149" cy="17" r="17" fill="#FFFFFF"/>
-      <text x="180" y="25" font-family="Prompt, sans-serif" font-weight="400" font-size="24" fill="#FFFFFF">${tOrg}</text>
-    </g>
-  </g>`;
-      } else if (footerMode === 'style2') {
-        svgFooter = `
-  <g id="layer-footer-style2">
-    <text x="${(canvasWidth / 2) + fx}" y="${(976 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
-    <text x="${(canvasWidth / 2) + fx}" y="${(1024 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>
-  </g>`;
-      } else if (footerMode === 'style3') {
-        svgFooter = `
-  <g id="layer-footer-style3">
-    <circle cx="${215 + fx}" cy="${(995 * scaleY) + fy}" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
-    <text x="${565 + fx}" y="${(1010 * scaleY) + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>
-  </g>`;
-      }
-
-      const svgTopLogo = document.getElementById('showLogo').checked && document.getElementById('logoTopLeft').checked
-        ? `  <g id="layer-top-logo">\n    <circle cx="76" cy="76" r="62" fill="#EAB308" stroke="#713F12" stroke-width="3"/>\n  </g>`
-        : '';
-
-      const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${canvasWidth} ${canvasHeight}" width="${canvasWidth}" height="${canvasHeight}">
-  <defs>
-    <linearGradient id="navyFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${gradColor1}" stop-opacity="0"/>
-      <stop offset="28%" stop-color="${gradColor1}" stop-opacity="0.82"/>
-      <stop offset="55%" stop-color="${gradColor2}" stop-opacity="0.96"/>
-      <stop offset="100%" stop-color="${gradColor2}" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="goldBar" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#C79627"/>
-      <stop offset="22%" stop-color="#E0B236"/>
-      <stop offset="35%" stop-color="#FFF394"/>
-      <stop offset="50%" stop-color="#D29F26"/>
-      <stop offset="75%" stop-color="#F5CE52"/>
-      <stop offset="100%" stop-color="#C79627"/>
-    </linearGradient>
-    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${ribbonColor}" stop-opacity="0"/>
-      <stop offset="25%" stop-color="${ribbonColor}" stop-opacity="0.75"/>
-      <stop offset="100%" stop-color="${ribbonColor}" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
-
-  <g id="layer-gradient-overlay">
-    <rect x="0" y="${gradStartY}" width="${canvasWidth}" height="${canvasHeight - gradStartY}" fill="url(#navyFade)"/>
-  </g>
-
-${svgTopLogo}
-${svgRibbon}
-${svgDivider}
-${svgTextsGroup}
-${svgFooter}
-
-  <g id="layer-date-bottom-right">
-    <text x="${canvasWidth - (25 * (canvasWidth / 1080)) + fx}" y="${canvasHeight - (22 * scaleY) + fy}" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
-  </g>
-</svg>`;
-
-      const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.download = `canva-template-${currentAspectName.replace(':', '-')}-multilayer.svg`;
-      link.href = url;
-      link.click();
-      URL.revokeObjectURL(url);
     }
 
     document.fonts.ready.then(() => {
