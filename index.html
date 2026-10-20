@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V21</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V21.3</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,7 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V21</h1>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V21.3</h1>
             <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Advanced Edition</span>
           </div>
           <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
@@ -679,6 +679,7 @@
     }
 
     function submitReport() {
+      const msg = document.getElementById('reportMessage').value.trim();
       document.getElementById('reportMessage').value = '';
       closeReportModal();
     }
@@ -693,35 +694,35 @@
         fg2State: { ...fg2State },
         textOffsets: JSON.parse(JSON.stringify(textOffsets)),
         inputs: {
-          textLine1: document.getElementById('textLine1').value,
-          textLine2: document.getElementById('textLine2').value,
-          textLine3: document.getElementById('textLine3').value,
-          textLine4: document.getElementById('textLine4').value,
-          textOrg: document.getElementById('textOrg').value,
-          textDate: document.getElementById('textDate').value,
-          ribbonText: document.getElementById('ribbonText').value,
-          showDateRibbon: document.getElementById('showDateRibbon').checked,
-          showLogo: document.getElementById('showLogo').checked,
-          logoTopLeft: document.getElementById('logoTopLeft').checked,
-          logoBottomFooter: document.getElementById('logoBottomFooter').checked,
-          showSocial: document.getElementById('showSocial').checked,
-          showHeadline: document.getElementById('showHeadline').checked,
-          showTopic: document.getElementById('showTopic').checked,
-          showGold: document.getElementById('showGold').checked,
-          showFooter: document.getElementById('showFooter').checked,
-          showFooterLine4: document.getElementById('showFooterLine4').checked,
-          showFooterOrg: document.getElementById('showFooterOrg').checked,
-          strokeLine1: document.getElementById('strokeLine1').checked,
-          size1Range: document.getElementById('size1Range').value,
-          size2Range: document.getElementById('size2Range').value,
-          size3Range: document.getElementById('size3Range').value,
-          size4Range: document.getElementById('size4Range').value,
-          sizeOrgRange: document.getElementById('sizeOrgRange').value,
-          topGlow: document.getElementById('topGlow').value,
-          gradHeight: document.getElementById('gradHeight').value,
-          dividerHeight: document.getElementById('dividerHeight').value,
-          dividerWidth: document.getElementById('dividerWidth').value,
-          dividerYOffset: document.getElementById('dividerYOffset').value
+          textLine1: document.getElementById('textLine1')?.value || '',
+          textLine2: document.getElementById('textLine2')?.value || '',
+          textLine3: document.getElementById('textLine3')?.value || '',
+          textLine4: document.getElementById('textLine4')?.value || '',
+          textOrg: document.getElementById('textOrg')?.value || '',
+          textDate: document.getElementById('textDate')?.value || '',
+          ribbonText: document.getElementById('ribbonText')?.value || '',
+          showDateRibbon: document.getElementById('showDateRibbon')?.checked || false,
+          showLogo: document.getElementById('showLogo')?.checked || false,
+          logoTopLeft: document.getElementById('logoTopLeft')?.checked || false,
+          logoBottomFooter: document.getElementById('logoBottomFooter')?.checked || false,
+          showSocial: document.getElementById('showSocial')?.checked || false,
+          showHeadline: document.getElementById('showHeadline')?.checked || false,
+          showTopic: document.getElementById('showTopic')?.checked || false,
+          showGold: document.getElementById('showGold')?.checked || false,
+          showFooter: document.getElementById('showFooter')?.checked || false,
+          showFooterLine4: document.getElementById('showFooterLine4')?.checked || false,
+          showFooterOrg: document.getElementById('showFooterOrg')?.checked || false,
+          strokeLine1: document.getElementById('strokeLine1')?.checked || false,
+          size1Range: document.getElementById('size1Range')?.value || 92,
+          size2Range: document.getElementById('size2Range')?.value || 46,
+          size3Range: document.getElementById('size3Range')?.value || 42,
+          size4Range: document.getElementById('size4Range')?.value || 35,
+          sizeOrgRange: document.getElementById('sizeOrgRange')?.value || 31,
+          topGlow: document.getElementById('topGlow')?.value || 35,
+          gradHeight: document.getElementById('gradHeight')?.value || 55,
+          dividerHeight: document.getElementById('dividerHeight')?.value || 12,
+          dividerWidth: document.getElementById('dividerWidth')?.value || 928,
+          dividerYOffset: document.getElementById('dividerYOffset')?.value || 0
         }
       };
     }
@@ -757,8 +758,10 @@
     }
 
     function updateUndoRedoButtons() {
-      document.getElementById('undoBtn').disabled = historyStep <= 0;
-      document.getElementById('redoBtn').disabled = historyStep >= historyStack.length - 1;
+      const undoBtn = document.getElementById('undoBtn');
+      const redoBtn = document.getElementById('redoBtn');
+      if (undoBtn) undoBtn.disabled = historyStep <= 0;
+      if (redoBtn) redoBtn.disabled = historyStep >= historyStack.length - 1;
     }
 
     function restoreState(state) {
@@ -769,15 +772,18 @@
       canvas.height = canvasHeight;
 
       const container = document.getElementById('canvasContainer');
-      if (currentAspectName === '1:1') {
-        container.className = 'relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
-        document.getElementById('canvasDimLabel').textContent = '1080 x 1080 px';
-      } else if (currentAspectName === '16:9') {
-        container.className = 'relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
-        document.getElementById('canvasDimLabel').textContent = '1200 x 675 px';
-      } else {
-        container.className = 'relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
-        document.getElementById('canvasDimLabel').textContent = '1080 x 1920 px';
+      if (container) {
+        if (currentAspectName === '1:1') {
+          container.className = 'relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        } else if (currentAspectName === '16:9') {
+          container.className = 'relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        } else {
+          container.className = 'relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        }
+      }
+      const dimLabel = document.getElementById('canvasDimLabel');
+      if (dimLabel) {
+        dimLabel.textContent = `${canvasWidth} x ${canvasHeight} px`;
       }
 
       bgState = { ...state.bgState };
@@ -786,35 +792,38 @@
       textOffsets = JSON.parse(JSON.stringify(state.textOffsets));
 
       const inp = state.inputs;
-      document.getElementById('textLine1').value = inp.textLine1;
-      document.getElementById('textLine2').value = inp.textLine2;
-      document.getElementById('textLine3').value = inp.textLine3;
-      document.getElementById('textLine4').value = inp.textLine4;
-      document.getElementById('textOrg').value = inp.textOrg;
-      document.getElementById('textDate').value = inp.textDate;
-      document.getElementById('ribbonText').value = inp.ribbonText;
-      document.getElementById('showDateRibbon').checked = inp.showDateRibbon;
-      document.getElementById('showLogo').checked = inp.showLogo;
-      document.getElementById('logoTopLeft').checked = inp.logoTopLeft;
-      document.getElementById('logoBottomFooter').checked = inp.logoBottomFooter;
-      document.getElementById('showSocial').checked = inp.showSocial;
-      document.getElementById('showHeadline').checked = inp.showHeadline;
-      document.getElementById('showTopic').checked = inp.showTopic;
-      document.getElementById('showGold').checked = inp.showGold;
-      document.getElementById('showFooter').checked = inp.showFooter;
-      document.getElementById('showFooterLine4').checked = inp.showFooterLine4;
-      document.getElementById('showFooterOrg').checked = inp.showFooterOrg;
-      document.getElementById('strokeLine1').checked = inp.strokeLine1;
-      document.getElementById('size1Range').value = inp.size1Range;
-      document.getElementById('size2Range').value = inp.size2Range;
-      document.getElementById('size3Range').value = inp.size3Range;
-      document.getElementById('size4Range').value = inp.size4Range;
-      document.getElementById('sizeOrgRange').value = inp.sizeOrgRange;
-      document.getElementById('topGlow').value = inp.topGlow;
-      document.getElementById('gradHeight').value = inp.gradHeight;
-      document.getElementById('dividerHeight').value = inp.dividerHeight;
-      document.getElementById('dividerWidth').value = inp.dividerWidth;
-      document.getElementById('dividerYOffset').value = inp.dividerYOffset;
+      const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+      const setCheck = (id, val) => { const el = document.getElementById(id); if (el) el.checked = val; };
+
+      setVal('textLine1', inp.textLine1);
+      setVal('textLine2', inp.textLine2);
+      setVal('textLine3', inp.textLine3);
+      setVal('textLine4', inp.textLine4);
+      setVal('textOrg', inp.textOrg);
+      setVal('textDate', inp.textDate);
+      setVal('ribbonText', inp.ribbonText);
+      setCheck('showDateRibbon', inp.showDateRibbon);
+      setCheck('showLogo', inp.showLogo);
+      setCheck('logoTopLeft', inp.logoTopLeft);
+      setCheck('logoBottomFooter', inp.logoBottomFooter);
+      setCheck('showSocial', inp.showSocial);
+      setCheck('showHeadline', inp.showHeadline);
+      setCheck('showTopic', inp.showTopic);
+      setCheck('showGold', inp.showGold);
+      setCheck('showFooter', inp.showFooter);
+      setCheck('showFooterLine4', inp.showFooterLine4);
+      setCheck('showFooterOrg', inp.showFooterOrg);
+      setCheck('strokeLine1', inp.strokeLine1);
+      setVal('size1Range', inp.size1Range);
+      setVal('size2Range', inp.size2Range);
+      setVal('size3Range', inp.size3Range);
+      setVal('size4Range', inp.size4Range);
+      setVal('sizeOrgRange', inp.sizeOrgRange);
+      setVal('topGlow', inp.topGlow);
+      setVal('gradHeight', inp.gradHeight);
+      setVal('dividerHeight', inp.dividerHeight);
+      setVal('dividerWidth', inp.dividerWidth);
+      setVal('dividerYOffset', inp.dividerYOffset);
     }
 
     function setAspectRatio(aspectName, w, h) {
@@ -826,23 +835,28 @@
 
       ['1:1', '16:9', '9:16'].forEach((asp, idx) => {
         const btn = document.getElementById('ratioBtn' + (idx + 1));
-        if (asp === aspectName) {
-          btn.className = 'py-2 px-2 rounded-xl font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
-        } else {
-          btn.className = 'py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        if (btn) {
+          if (asp === aspectName) {
+            btn.className = 'py-2 px-2 rounded-xl font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+          } else {
+            btn.className = 'py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+          }
         }
       });
 
       const container = document.getElementById('canvasContainer');
-      if (aspectName === '1:1') {
-        container.className = 'relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
-        document.getElementById('canvasDimLabel').textContent = '1080 x 1080 px';
-      } else if (aspectName === '16:9') {
-        container.className = 'relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
-        document.getElementById('canvasDimLabel').textContent = '1200 x 675 px';
-      } else {
-        container.className = 'relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
-        document.getElementById('canvasDimLabel').textContent = '1080 x 1920 px';
+      if (container) {
+        if (aspectName === '1:1') {
+          container.className = 'relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        } else if (aspectName === '16:9') {
+          container.className = 'relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        } else {
+          container.className = 'relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border border-slate-300 checkerboard group flex items-center justify-center bg-slate-900/5';
+        }
+      }
+      const dimLabel = document.getElementById('canvasDimLabel');
+      if (dimLabel) {
+        dimLabel.textContent = `${w} x ${h} px`;
       }
 
       renderCanvas();
@@ -851,11 +865,15 @@
 
     function switchTab(tabNum) {
       [1, 2, 3].forEach(n => {
-        document.getElementById('tabContent' + n).classList.add('hidden');
-        document.getElementById('tabBtn' + n).className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        const content = document.getElementById('tabContent' + n);
+        const btn = document.getElementById('tabBtn' + n);
+        if (content) content.classList.add('hidden');
+        if (btn) btn.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
       });
-      document.getElementById('tabContent' + tabNum).classList.remove('hidden');
-      document.getElementById('tabBtn' + tabNum).className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+      const activeContent = document.getElementById('tabContent' + tabNum);
+      const activeBtn = document.getElementById('tabBtn' + tabNum);
+      if (activeContent) activeContent.classList.remove('hidden');
+      if (activeBtn) activeBtn.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
     }
 
     function drawNongKhaiEmblem(ctx, cx, cy, radius) {
@@ -974,124 +992,129 @@
 
       [1, 2, 3].forEach(n => {
         const btn = document.getElementById('btnStyle' + n);
-        if (n === styleNum) {
-          btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50 transition flex items-center gap-4 cursor-pointer hover:shadow-md';
-        } else {
-          btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-center gap-4 cursor-pointer hover:shadow-md';
+        if (btn) {
+          if (n === styleNum) {
+            btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50 transition flex items-center gap-4 cursor-pointer hover:shadow-md';
+          } else {
+            btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-center gap-4 cursor-pointer hover:shadow-md';
+          }
         }
       });
 
+      const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+      const setCheck = (id, val) => { const el = document.getElementById(id); if (el) el.checked = val; };
+
       if (styleNum === 1) {
-        document.getElementById('logoTopLeft').checked = false;
-        document.getElementById('logoBottomFooter').checked = false;
-        document.getElementById('showDateRibbon').checked = false;
-        document.getElementById('showHeadline').checked = true;
-        document.getElementById('showTopic').checked = true;
-        document.getElementById('showGold').checked = true;
-        document.getElementById('showFooter').checked = true;
-        document.getElementById('showFooterLine4').checked = true;
-        document.getElementById('showFooterOrg').checked = true;
+        setCheck('logoTopLeft', false);
+        setCheck('logoBottomFooter', false);
+        setCheck('showDateRibbon', false);
+        setCheck('showHeadline', true);
+        setCheck('showTopic', true);
+        setCheck('showGold', true);
+        setCheck('showFooter', true);
+        setCheck('showFooterLine4', true);
+        setCheck('showFooterOrg', true);
 
-        document.getElementById('textLine1').value = 'อบจ.หนองคาย';
-        document.getElementById('colorLine1').value = '#FFE600';
-        document.getElementById('strokeLine1').checked = false;
-        document.getElementById('size1Range').value = 92;
+        setVal('textLine1', 'อบจ.หนองคาย');
+        setVal('colorLine1', '#FFE600');
+        setCheck('strokeLine1', false);
+        setVal('size1Range', 92);
 
-        document.getElementById('textLine2').value = 'ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น';
-        document.getElementById('size2Range').value = 46;
+        setVal('textLine2', 'ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น');
+        setVal('size2Range', 46);
 
-        document.getElementById('textLine3').value = 'ครั้งที่ 5/2569';
-        document.getElementById('colorGoldText').value = '#FFCC00';
-        document.getElementById('size3Range').value = 42;
+        setVal('textLine3', 'ครั้งที่ 5/2569');
+        setVal('colorGoldText', '#FFCC00');
+        setVal('size3Range', 42);
 
-        document.getElementById('dividerStyle').value = 'gold';
-        document.getElementById('footerMode').value = 'style1';
-        document.getElementById('textLine4').value = 'ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย';
-        document.getElementById('size4Range').value = 35;
-        document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
-        document.getElementById('sizeOrgRange').value = 31;
-        document.getElementById('textDate').value = '15/10/2569';
-        document.getElementById('showSocial').checked = true;
+        setVal('dividerStyle', 'gold');
+        setVal('footerMode', 'style1');
+        setVal('textLine4', 'ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย');
+        setVal('size4Range', 35);
+        setVal('textOrg', 'องค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('sizeOrgRange', 31);
+        setVal('textDate', '15/10/2569');
+        setCheck('showSocial', true);
 
-        document.getElementById('gradColor1').value = '#031B59';
-        document.getElementById('gradColor2').value = '#010922';
-        document.getElementById('gradHeight').value = 55;
-        document.getElementById('topGlow').value = 40;
-        document.getElementById('dividerYOffset').value = 0;
+        setVal('gradColor1', '#031B59');
+        setVal('gradColor2', '#010922');
+        setVal('gradHeight', 55);
+        setVal('topGlow', 40);
+        setVal('dividerYOffset', 0);
       } else if (styleNum === 2) {
-        document.getElementById('logoTopLeft').checked = true;
-        document.getElementById('logoBottomFooter').checked = false;
-        document.getElementById('showDateRibbon').checked = false;
-        document.getElementById('showHeadline').checked = true;
-        document.getElementById('showTopic').checked = true;
-        document.getElementById('showGold').checked = true;
-        document.getElementById('showFooter').checked = true;
-        document.getElementById('showFooterLine4').checked = true;
-        document.getElementById('showFooterOrg').checked = true;
+        setCheck('logoTopLeft', true);
+        setCheck('logoBottomFooter', false);
+        setCheck('showDateRibbon', false);
+        setCheck('showHeadline', true);
+        setCheck('showTopic', true);
+        setCheck('showGold', true);
+        setCheck('showFooter', true);
+        setCheck('showFooterLine4', true);
+        setCheck('showFooterOrg', true);
 
-        document.getElementById('textLine1').value = 'นายก อบจ.หนองคาย';
-        document.getElementById('colorLine1').value = '#FFFFFF';
-        document.getElementById('strokeLine1').checked = true;
-        document.getElementById('size1Range').value = 85;
+        setVal('textLine1', 'นายก อบจ.หนองคาย');
+        setVal('colorLine1', '#FFFFFF');
+        setCheck('strokeLine1', true);
+        setVal('size1Range', 85);
 
-        document.getElementById('textLine2').value = 'ให้สัมภาษณ์สื่อเพื่อประชาสัมพันธ์\nงานเทศกาลออกพรรษาและ\nบั้งไฟพญานาคโลก ประจำปี 2569';
-        document.getElementById('size2Range').value = 42;
+        setVal('textLine2', 'ให้สัมภาษณ์สื่อเพื่อประชาสัมพันธ์\nงานเทศกาลออกพรรษาและ\nบั้งไฟพญานาคโลก ประจำปี 2569');
+        setVal('size2Range', 42);
 
-        document.getElementById('textLine3').value = 'โดยชี้แจงถึงบทบาทและการสนับสนุนของ\nองค์การบริหารส่วนจังหวัดหนองคาย';
-        document.getElementById('colorGoldText').value = '#FFCC00';
-        document.getElementById('size3Range').value = 36;
+        setVal('textLine3', 'โดยชี้แจงถึงบทบาทและการสนับสนุนของ\nองค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('colorGoldText', '#FFCC00');
+        setVal('size3Range', 36);
 
-        document.getElementById('dividerStyle').value = 'red';
-        document.getElementById('footerMode').value = 'style2';
-        document.getElementById('textLine4').value = '"นายวุฒิไกร ช่างเหล็ก"';
-        document.getElementById('size4Range').value = 40;
-        document.getElementById('textOrg').value = 'นายกองค์การบริหารส่วนจังหวัดหนองคาย';
-        document.getElementById('sizeOrgRange').value = 31;
-        document.getElementById('textDate').value = '14/10/2569';
-        document.getElementById('showSocial').checked = false;
+        setVal('dividerStyle', 'red');
+        setVal('footerMode', 'style2');
+        setVal('textLine4', '"นายวุฒิไกร ช่างเหล็ก"');
+        setVal('size4Range', 40);
+        setVal('textOrg', 'นายกองค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('sizeOrgRange', 31);
+        setVal('textDate', '14/10/2569');
+        setCheck('showSocial', false);
 
-        document.getElementById('gradColor1').value = '#0B4F5C';
-        document.getElementById('gradColor2').value = '#01071A';
-        document.getElementById('gradHeight').value = 60;
-        document.getElementById('topGlow').value = 15;
-        document.getElementById('dividerYOffset').value = 0;
+        setVal('gradColor1', '#0B4F5C');
+        setVal('gradColor2', '#01071A');
+        setVal('gradHeight', 60);
+        setVal('topGlow', 15);
+        setVal('dividerYOffset', 0);
       } else if (styleNum === 3) {
-        document.getElementById('logoTopLeft').checked = false;
-        document.getElementById('logoBottomFooter').checked = true;
-        document.getElementById('showDateRibbon').checked = true;
-        document.getElementById('showHeadline').checked = false;
-        document.getElementById('showTopic').checked = true;
-        document.getElementById('showGold').checked = true;
-        document.getElementById('showFooter').checked = true;
-        document.getElementById('showFooterLine4').checked = false;
-        document.getElementById('showFooterOrg').checked = true;
+        setCheck('logoTopLeft', false);
+        setCheck('logoBottomFooter', true);
+        setCheck('showDateRibbon', true);
+        setCheck('showHeadline', false);
+        setCheck('showTopic', true);
+        setCheck('showGold', true);
+        setCheck('showFooter', true);
+        setCheck('showFooterLine4', false);
+        setCheck('showFooterOrg', true);
 
-        document.getElementById('ribbonColor').value = '#EA580C';
-        document.getElementById('ribbonText').value = 'วันพุธที่ 07 ตุลาคม พ.ศ. 2569';
+        setVal('ribbonColor', '#EA580C');
+        setVal('ribbonText', 'วันพุธที่ 07 ตุลาคม พ.ศ. 2569');
 
-        document.getElementById('textLine1').value = '';
-        document.getElementById('strokeLine1').checked = false;
+        setVal('textLine1', '');
+        setCheck('strokeLine1', false);
 
-        document.getElementById('textLine2').value = 'การประชุมคณะกรรมการที่ปรึกษาเพื่อสนับสนุน\nการขับเคลื่อนนโยบายองค์การบริหารส่วนจังหวัดหนองคาย';
-        document.getElementById('size2Range').value = 44;
+        setVal('textLine2', 'การประชุมคณะกรรมการที่ปรึกษาเพื่อสนับสนุน\nการขับเคลื่อนนโยบายองค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('size2Range', 44);
 
-        document.getElementById('textLine3').value = 'เพื่อติดตามการดำเนินงานของกองช่าง';
-        document.getElementById('colorGoldText').value = '#F5B800';
-        document.getElementById('size3Range').value = 40;
+        setVal('textLine3', 'เพื่อติดตามการดำเนินงานของกองช่าง');
+        setVal('colorGoldText', '#F5B800');
+        setVal('size3Range', 40);
 
-        document.getElementById('dividerStyle').value = 'red';
-        document.getElementById('footerMode').value = 'style3';
-        document.getElementById('textLine4').value = '';
-        document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
-        document.getElementById('sizeOrgRange').value = 43;
-        document.getElementById('textDate').value = '';
-        document.getElementById('showSocial').checked = false;
+        setVal('dividerStyle', 'red');
+        setVal('footerMode', 'style3');
+        setVal('textLine4', '');
+        setVal('textOrg', 'องค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('sizeOrgRange', 43);
+        setVal('textDate', '');
+        setCheck('showSocial', false);
 
-        document.getElementById('gradColor1').value = '#0A0A0A';
-        document.getElementById('gradColor2').value = '#000000';
-        document.getElementById('gradHeight').value = 54;
-        document.getElementById('topGlow').value = 30;
-        document.getElementById('dividerYOffset').value = 0;
+        setVal('gradColor1', '#0A0A0A');
+        setVal('gradColor2', '#000000');
+        setVal('gradHeight', 54);
+        setVal('topGlow', 30);
+        setVal('dividerYOffset', 0);
       }
 
       generateDefaultScene(styleNum);
@@ -1159,7 +1182,8 @@
         const img = new Image();
         img.onload = function() {
           customLogoImg = img;
-          document.getElementById('showLogo').checked = true;
+          const showLogoEl = document.getElementById('showLogo');
+          if (showLogoEl) showLogoEl.checked = true;
           renderCanvas();
           saveHistoryState();
         };
@@ -1170,7 +1194,8 @@
 
     function clearCustomLogo() {
       customLogoImg = null;
-      document.getElementById('showLogo').checked = true;
+      const showLogoEl = document.getElementById('showLogo');
+      if (showLogoEl) showLogoEl.checked = true;
       renderCanvas();
       saveHistoryState();
     }
@@ -1182,24 +1207,25 @@
       const btnFg2 = document.getElementById('tabFg2Ctrl');
       const zoomInput = document.getElementById('imgZoom');
 
-      btnBg.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
-      btnFg1.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
-      btnFg2.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      if (btnBg) btnBg.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      if (btnFg1) btnFg1.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
+      if (btnFg2) btnFg2.className = 'px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs';
 
       let currentScale = 1;
       if (layer === 'bg') {
-        btnBg.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-bold transition cursor-pointer text-xs';
+        if (btnBg) btnBg.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-bold transition cursor-pointer text-xs';
         currentScale = bgState.scale;
       } else if (layer === 'fg1') {
-        btnFg1.className = 'px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-bold transition cursor-pointer text-xs';
+        if (btnFg1) btnFg1.className = 'px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-bold transition cursor-pointer text-xs';
         currentScale = fg1State.scale;
       } else if (layer === 'fg2') {
-        btnFg2.className = 'px-3 py-1.5 rounded-xl bg-teal-600 text-white font-bold transition cursor-pointer text-xs';
+        if (btnFg2) btnFg2.className = 'px-3 py-1.5 rounded-xl bg-teal-600 text-white font-bold transition cursor-pointer text-xs';
         currentScale = fg2State.scale;
       }
 
-      zoomInput.value = Math.round(currentScale * 100);
-      document.getElementById('zoomVal').textContent = Math.round(currentScale * 100) + '%';
+      if (zoomInput) zoomInput.value = Math.round(currentScale * 100);
+      const zoomVal = document.getElementById('zoomVal');
+      if (zoomVal) zoomVal.textContent = Math.round(currentScale * 100) + '%';
     }
 
     function resetImageTransform() {
@@ -1227,8 +1253,11 @@
     }
 
     function updateTransformFromSlider() {
-      const val = parseInt(document.getElementById('imgZoom').value, 10);
-      document.getElementById('zoomVal').textContent = val + '%';
+      const zoomInput = document.getElementById('imgZoom');
+      const zoomVal = document.getElementById('zoomVal');
+      if (!zoomInput) return;
+      const val = parseInt(zoomInput.value, 10);
+      if (zoomVal) zoomVal.textContent = val + '%';
       const scale = val / 100;
       if (activeLayer === 'bg') bgState.scale = scale;
       else if (activeLayer === 'fg1') fg1State.scale = scale;
@@ -1236,62 +1265,65 @@
       renderCanvas();
     }
 
-    canvas.addEventListener('pointerdown', (e) => {
-      const editMode = document.querySelector('input[name="editMode"]:checked').value;
-      const rect = canvas.getBoundingClientRect();
-      const scaleFactor = canvasWidth / rect.width;
-      const clickX = (e.clientX - rect.left) * scaleFactor;
-      const clickY = (e.clientY - rect.top) * scaleFactor;
-      const normY = clickY * (1080 / canvasHeight);
+    if (canvas) {
+      canvas.addEventListener('pointerdown', (e) => {
+        const editModeEl = document.querySelector('input[name="editMode"]:checked');
+        const editMode = editModeEl ? editModeEl.value : 'image';
+        const rect = canvas.getBoundingClientRect();
+        const scaleFactor = canvasWidth / rect.width;
+        const clickX = (e.clientX - rect.left) * scaleFactor;
+        const clickY = (e.clientY - rect.top) * scaleFactor;
+        const normY = clickY * (1080 / canvasHeight);
 
-      if (editMode === 'text') {
-        if (normY > 750) {
-          draggingTarget = 'footer';
-        } else if (normY > 620) {
-          draggingTarget = 'headline';
-        } else if (normY > 450) {
-          draggingTarget = 'topic';
-        } else if (normY > 300) {
-          draggingTarget = 'gold';
+        if (editMode === 'text') {
+          if (normY > 750) {
+            draggingTarget = 'footer';
+          } else if (normY > 620) {
+            draggingTarget = 'headline';
+          } else if (normY > 450) {
+            draggingTarget = 'topic';
+          } else if (normY > 300) {
+            draggingTarget = 'gold';
+          } else {
+            return;
+          }
+          dragStartX = clickX - textOffsets[draggingTarget].x;
+          dragStartY = clickY - textOffsets[draggingTarget].y;
         } else {
-          return;
+          draggingTarget = activeLayer;
+          const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
+          dragStartX = clickX - targetState.x;
+          dragStartY = clickY - targetState.y;
         }
-        dragStartX = clickX - textOffsets[draggingTarget].x;
-        dragStartY = clickY - textOffsets[draggingTarget].y;
-      } else {
-        draggingTarget = activeLayer;
-        const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
-        dragStartX = clickX - targetState.x;
-        dragStartY = clickY - targetState.y;
-      }
 
-      canvas.setPointerCapture(e.pointerId);
-    });
+        canvas.setPointerCapture(e.pointerId);
+      });
 
-    canvas.addEventListener('pointermove', (e) => {
-      if (!draggingTarget) return;
-      const rect = canvas.getBoundingClientRect();
-      const scaleFactor = canvasWidth / rect.width;
-      const currentX = (e.clientX - rect.left) * scaleFactor;
-      const currentY = (e.clientY - rect.top) * scaleFactor;
+      canvas.addEventListener('pointermove', (e) => {
+        if (!draggingTarget) return;
+        const rect = canvas.getBoundingClientRect();
+        const scaleFactor = canvasWidth / rect.width;
+        const currentX = (e.clientX - rect.left) * scaleFactor;
+        const currentY = (e.clientY - rect.top) * scaleFactor;
 
-      if (draggingTarget === 'footer' || draggingTarget === 'headline' || draggingTarget === 'topic' || draggingTarget === 'gold') {
-        textOffsets[draggingTarget].x = currentX - dragStartX;
-        textOffsets[draggingTarget].y = currentY - dragStartY;
-      } else {
-        const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
-        targetState.x = currentX - dragStartX;
-        targetState.y = currentY - dragStartY;
-      }
-      renderCanvas();
-    });
+        if (draggingTarget === 'footer' || draggingTarget === 'headline' || draggingTarget === 'topic' || draggingTarget === 'gold') {
+          textOffsets[draggingTarget].x = currentX - dragStartX;
+          textOffsets[draggingTarget].y = currentY - dragStartY;
+        } else {
+          const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
+          targetState.x = currentX - dragStartX;
+          targetState.y = currentY - dragStartY;
+        }
+        renderCanvas();
+      });
 
-    canvas.addEventListener('pointerup', () => {
-      if (draggingTarget) {
-        draggingTarget = null;
-        saveHistoryState();
-      }
-    });
+      canvas.addEventListener('pointerup', () => {
+        if (draggingTarget) {
+          draggingTarget = null;
+          saveHistoryState();
+        }
+      });
+    }
 
     function hexToRgba(hex, alpha) {
       const r = parseInt(hex.slice(1, 3), 16);
@@ -1300,7 +1332,7 @@
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
-    // Precise, Sharp Vector TikTok & Social Icons Renderer (No Distortion)
+    // Precise, Sharp Vector TikTok & Social Icons Renderer
     function drawSocialIcons(ctx, startX, centerY, radius, bgNavyColor) {
       const gap = 10;
       const diameter = radius * 2;
@@ -1319,15 +1351,10 @@
         ctx.strokeStyle = bgNavyColor;
 
         if (i === 0) {
-          // Sharp TikTok Vector Icon Path inside circle
-          ctx.beginPath();
-          ctx.fillStyle = '#000000';
-          // Clean TikTok note silhouette centered at (cx, cy)
           const scale = radius / 22;
           ctx.save();
           ctx.translate(cx, cy);
           ctx.scale(scale, scale);
-          // Path data for TikTok note
           ctx.beginPath();
           ctx.moveTo(3, -11);
           ctx.bezierCurveTo(3, -15, 7, -15, 9, -15);
@@ -1348,13 +1375,11 @@
           ctx.fill();
           ctx.restore();
         } else if (i === 1) {
-          // Facebook 'f'
           ctx.font = '800 26px sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('f', cx + 1, cy + 2.5);
         } else if (i === 2) {
-          // YouTube play button
           ctx.beginPath();
           ctx.roundRect(cx - 10, cy - 7, 20, 14, 4);
           ctx.fill();
@@ -1366,7 +1391,6 @@
           ctx.closePath();
           ctx.fill();
         } else if (i === 3) {
-          // Website Globe
           ctx.lineWidth = 2;
           ctx.beginPath();
           ctx.arc(cx, cy, 10, 0, Math.PI * 2);
@@ -1385,41 +1409,81 @@
     }
 
     function renderCanvas(forceTransparent = false) {
-      const isTransparent = forceTransparent || document.getElementById('transparentBgToggle').checked;
-      const font1 = document.getElementById('font1').value;
-      const font2 = document.getElementById('font2').value;
-      const font3 = document.getElementById('font3').value;
+      const transparentBgEl = document.getElementById('transparentBgToggle');
+      const isTransparent = forceTransparent || (transparentBgEl ? transparentBgEl.checked : false);
 
-      const topGlow = parseInt(document.getElementById('topGlow').value, 10);
-      const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
-      const gradColor1 = document.getElementById('gradColor1').value;
-      const gradColor2 = document.getElementById('gradColor2').value;
+      const font1 = document.getElementById('font1')?.value || 'Prompt';
+      const font2 = document.getElementById('font2')?.value || 'Prompt';
+      const font3 = document.getElementById('font3')?.value || 'Prompt';
 
-      const size1 = parseInt(document.getElementById('size1Range').value, 10);
-      const size2 = parseInt(document.getElementById('size2Range').value, 10);
-      const size3 = parseInt(document.getElementById('size3Range').value, 10);
-      const size4 = parseInt(document.getElementById('size4Range').value, 10);
-      const sizeOrg = parseInt(document.getElementById('sizeOrgRange').value, 10);
+      const topGlowEl = document.getElementById('topGlow');
+      const topGlow = topGlowEl ? parseInt(topGlowEl.value, 10) : 35;
 
-      document.getElementById('size1Val').textContent = size1 + 'px';
-      document.getElementById('size2Val').textContent = size2 + 'px';
-      document.getElementById('size3Val').textContent = size3 + 'px';
-      document.getElementById('size4Val').textContent = size4 + 'px';
-      document.getElementById('sizeOrgVal').textContent = sizeOrg + 'px';
+      const gradHeightEl = document.getElementById('gradHeight');
+      const gradHeightPct = gradHeightEl ? parseInt(gradHeightEl.value, 10) : 55;
 
-      const dividerStyle = document.getElementById('dividerStyle').value;
-      const dividerColor = document.getElementById('dividerColor').value;
-      const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
-      const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
-      const dividerYOffset = parseInt(document.getElementById('dividerYOffset').value, 10);
+      const gradColor1El = document.getElementById('gradColor1');
+      const gradColor1 = gradColor1El ? gradColor1El.value : '#031B59';
 
-      document.getElementById('glowVal').textContent = topGlow + '%';
-      document.getElementById('gradHeightVal').textContent = gradHeightPct + '%';
-      document.getElementById('divHeightVal').textContent = dividerHeight + 'px';
-      document.getElementById('divWidthVal').textContent = dividerWidth + 'px';
-      document.getElementById('divYVal').textContent = dividerYOffset + 'px';
+      const gradColor2El = document.getElementById('gradColor2');
+      const gradColor2 = gradColor2El ? gradColor2El.value : '#010922';
 
-      document.getElementById('customColorBox').style.display = dividerStyle === 'custom' ? 'block' : 'none';
+      const size1El = document.getElementById('size1Range');
+      const size1 = size1El ? parseInt(size1El.value, 10) : 92;
+
+      const size2El = document.getElementById('size2Range');
+      const size2 = size2El ? parseInt(size2El.value, 10) : 46;
+
+      const size3El = document.getElementById('size3Range');
+      const size3 = size3El ? parseInt(size3El.value, 10) : 42;
+
+      const size4El = document.getElementById('size4Range');
+      const size4 = size4El ? parseInt(size4El.value, 10) : 35;
+
+      const sizeOrgEl = document.getElementById('sizeOrgRange');
+      const sizeOrg = sizeOrgEl ? parseInt(sizeOrgEl.value, 10) : 31;
+
+      const size1Val = document.getElementById('size1Val');
+      const size2Val = document.getElementById('size2Val');
+      const size3Val = document.getElementById('size3Val');
+      const size4Val = document.getElementById('size4Val');
+      const sizeOrgVal = document.getElementById('sizeOrgVal');
+
+      if (size1Val) size1Val.textContent = size1 + 'px';
+      if (size2Val) size2Val.textContent = size2 + 'px';
+      if (size3Val) size3Val.textContent = size3 + 'px';
+      if (size4Val) size4Val.textContent = size4 + 'px';
+      if (sizeOrgVal) sizeOrgVal.textContent = sizeOrg + 'px';
+
+      const dividerStyleEl = document.getElementById('dividerStyle');
+      const dividerStyle = dividerStyleEl ? dividerStyleEl.value : 'gold';
+
+      const dividerColorEl = document.getElementById('dividerColor');
+      const dividerColor = dividerColorEl ? dividerColorEl.value : '#E0B236';
+
+      const dividerHeightEl = document.getElementById('dividerHeight');
+      const dividerHeight = dividerHeightEl ? parseInt(dividerHeightEl.value, 10) : 12;
+
+      const dividerWidthEl = document.getElementById('dividerWidth');
+      const dividerWidth = dividerWidthEl ? parseInt(dividerWidthEl.value, 10) : 928;
+
+      const dividerYOffsetEl = document.getElementById('dividerYOffset');
+      const dividerYOffset = dividerYOffsetEl ? parseInt(dividerYOffsetEl.value, 10) : 0;
+
+      const glowVal = document.getElementById('glowVal');
+      const gradHeightVal = document.getElementById('gradHeightVal');
+      const divHeightVal = document.getElementById('divHeightVal');
+      const divWidthVal = document.getElementById('divWidthVal');
+      const divYVal = document.getElementById('divYVal');
+
+      if (glowVal) glowVal.textContent = topGlow + '%';
+      if (gradHeightVal) gradHeightVal.textContent = gradHeightPct + '%';
+      if (divHeightVal) divHeightVal.textContent = dividerHeight + 'px';
+      if (divWidthVal) divWidthVal.textContent = dividerWidth + 'px';
+      if (divYVal) divYVal.textContent = dividerYOffset + 'px';
+
+      const customColorBox = document.getElementById('customColorBox');
+      if (customColorBox) customColorBox.style.display = dividerStyle === 'custom' ? 'block' : 'none';
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -1478,39 +1542,46 @@
         ctx.restore();
       }
 
-      if (document.getElementById('showLogo').checked && document.getElementById('logoTopLeft').checked) {
+      const showLogoEl = document.getElementById('showLogo');
+      const logoTopLeftEl = document.getElementById('logoTopLeft');
+      if (showLogoEl?.checked && logoTopLeftEl?.checked) {
         drawNongKhaiEmblem(ctx, 76 * scaleX, 76 * scaleY, 62 * Math.min(scaleX, scaleY));
       }
 
-      const showRibbon = document.getElementById('showDateRibbon').checked;
-      const ribbonText = document.getElementById('ribbonText').value.trim();
-      const ribbonColor = document.getElementById('ribbonColor').value;
-      if (showRibbon) {
+      const showRibbonEl = document.getElementById('showDateRibbon');
+      const ribbonTextEl = document.getElementById('ribbonText');
+      const ribbonColorEl = document.getElementById('ribbonColor');
+      const showAllTextEl = document.getElementById('showAllText');
+
+      if (showRibbonEl?.checked) {
         const ribY = 582 * scaleY;
         const ribH = 76 * scaleY;
         const ribStartX = 430 * scaleX;
+        const rColor = ribbonColorEl ? ribbonColorEl.value : '#EA580C';
         const ribGrad = ctx.createLinearGradient(ribStartX, ribY, canvasWidth, ribY);
-        ribGrad.addColorStop(0, hexToRgba(ribbonColor, 0));
-        ribGrad.addColorStop(0.5, hexToRgba(ribbonColor, 0.95));
-        ribGrad.addColorStop(1, hexToRgba(ribbonColor, 1));
+        ribGrad.addColorStop(0, hexToRgba(rColor, 0));
+        ribGrad.addColorStop(0.5, hexToRgba(rColor, 0.95));
+        ribGrad.addColorStop(1, hexToRgba(rColor, 1));
 
         ctx.save();
         ctx.fillStyle = ribGrad;
         ctx.fillRect(ribStartX, ribY, canvasWidth - ribStartX, ribH);
 
-        if (document.getElementById('showAllText').checked && ribbonText) {
+        const rText = ribbonTextEl ? ribbonTextEl.value.trim() : '';
+        if (showAllTextEl?.checked && rText) {
           ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`;
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'middle';
           ctx.shadowColor = 'rgba(0,0,0,0.45)';
           ctx.shadowBlur = 8;
-          ctx.fillText(ribbonText, canvasWidth - 25, ribY + ribH / 2 + 2);
+          ctx.fillText(rText, canvasWidth - 25, ribY + ribH / 2 + 2);
         }
         ctx.restore();
       }
 
-      const footerMode = document.getElementById('footerMode').value;
+      const footerModeEl = document.getElementById('footerMode');
+      const footerMode = footerModeEl ? footerModeEl.value : 'style1';
       const baseLineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
       const lineY = (baseLineY + dividerYOffset) * scaleY;
 
@@ -1535,25 +1606,35 @@
         ctx.restore();
       }
 
-      const showText = document.getElementById('showAllText').checked;
-      const showHeadline = document.getElementById('showHeadline').checked;
-      const showTopic = document.getElementById('showTopic').checked;
-      const showGold = document.getElementById('showGold').checked;
-      const showFooter = document.getElementById('showFooter').checked;
-      const showFooterLine4 = document.getElementById('showFooterLine4').checked;
-      const showFooterOrg = document.getElementById('showFooterOrg').checked;
+      const showText = showAllTextEl ? showAllTextEl.checked : true;
+      const showHeadlineEl = document.getElementById('showHeadline');
+      const showTopicEl = document.getElementById('showTopic');
+      const showGoldEl = document.getElementById('showGold');
 
-      const colorLine1 = document.getElementById('colorLine1').value;
-      const strokeLine1 = document.getElementById('strokeLine1').checked;
-      const colorGoldText = document.getElementById('colorGoldText').value;
+      const showHeadline = showHeadlineEl ? showHeadlineEl.checked : true;
+      const showTopic = showTopicEl ? showTopicEl.checked : true;
+      const showGold = showGoldEl ? showGoldEl.checked : true;
+
+      const colorLine1El = document.getElementById('colorLine1');
+      const colorLine1 = colorLine1El ? colorLine1El.value : '#FFE600';
+
+      const strokeLine1El = document.getElementById('strokeLine1');
+      const strokeLine1 = strokeLine1El ? strokeLine1El.checked : false;
+
+      const colorGoldTextEl = document.getElementById('colorGoldText');
+      const colorGoldText = colorGoldTextEl ? colorGoldTextEl.value : '#FFCC00';
 
       if (showText) {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'alphabetic';
 
-        const t1 = document.getElementById('textLine1').value.trim();
-        const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
-        const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const t1El = document.getElementById('textLine1');
+        const t2El = document.getElementById('textLine2');
+        const t3El = document.getElementById('textLine3');
+
+        const t1 = t1El ? t1El.value.trim() : '';
+        const t2Lines = t2El ? t2El.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
+        const t3Lines = t3El ? t3El.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
 
         let cursorY = lineY - (32 * scaleY);
 
@@ -1613,10 +1694,27 @@
         }
       }
 
-      const line4Text = document.getElementById('textLine4').value.trim();
-      const orgText = document.getElementById('textOrg').value.trim();
-      const dateText = document.getElementById('textDate').value.trim();
-      const showSocial = document.getElementById('showSocial').checked;
+      const showFooterEl = document.getElementById('showFooter');
+      const showFooterLine4El = document.getElementById('showFooterLine4');
+      const showFooterOrgEl = document.getElementById('showFooterOrg');
+      const showSocialEl = document.getElementById('showSocial');
+
+      const showFooter = showFooterEl ? showFooterEl.checked : true;
+      const showFooterLine4 = showFooterLine4El ? showFooterLine4El.checked : true;
+      const showFooterOrg = showFooterOrgEl ? showFooterOrgEl.checked : true;
+      const showSocial = showSocialEl ? showSocialEl.checked : true;
+
+      const t4El = document.getElementById('textLine4');
+      const tOrgEl = document.getElementById('textOrg');
+      const tDateEl = document.getElementById('textDate');
+      const size4ElInput = document.getElementById('size4Range');
+      const sizeOrgElInput = document.getElementById('sizeOrgRange');
+
+      const line4Text = t4El ? t4El.value.trim() : '';
+      const orgText = tOrgEl ? tOrgEl.value.trim() : '';
+      const dateText = tDateEl ? tDateEl.value.trim() : '';
+      const curSize4 = size4ElInput ? parseInt(size4ElInput.value, 10) * scaleY : 35 * scaleY;
+      const curOrgSize = sizeOrgElInput ? parseInt(sizeOrgElInput.value, 10) * scaleY : 31 * scaleY;
 
       const footerOffsetX = textOffsets.footer.x;
       const footerOffsetY = textOffsets.footer.y;
@@ -1625,7 +1723,6 @@
         if (footerMode === 'style1') {
           if (showFooterLine4 && line4Text) {
             ctx.save();
-            const curSize4 = size4 * scaleY;
             ctx.font = `400 ${curSize4}px "${font1}", sans-serif`;
             ctx.fillStyle = colorGoldText;
             ctx.textAlign = 'center';
@@ -1634,7 +1731,6 @@
           }
           if (showSocial || (showFooterOrg && orgText)) {
             ctx.save();
-            const curOrgSize = sizeOrg * scaleY;
             ctx.font = `400 ${curOrgSize}px "${font1}", sans-serif`;
             const textWidth = showFooterOrg && orgText ? ctx.measureText(orgText).width : 0;
             const totalFooterWidth = (150 * scaleX) + textWidth;
@@ -1655,20 +1751,17 @@
           ctx.textAlign = 'center';
           ctx.fillStyle = '#FFFFFF';
           if (showFooterLine4 && line4Text) { 
-            const curSize4 = size4 * scaleY;
             ctx.font = `700 ${curSize4}px "${font1}", sans-serif`; 
             ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (976 * scaleY) + footerOffsetY); 
           }
           if (showFooterOrg && orgText) { 
-            const curOrgSize = sizeOrg * scaleY;
             ctx.font = `600 ${curOrgSize}px "${font1}", sans-serif`; 
             ctx.fillText(orgText, (canvasWidth / 2) + footerOffsetX, (1024 * scaleY) + footerOffsetY); 
           }
           ctx.restore();
         } else if (footerMode === 'style3') {
-          const showBottomLogo = document.getElementById('showLogo').checked && document.getElementById('logoBottomFooter').checked;
+          const showBottomLogo = showLogoEl?.checked && document.getElementById('logoBottomFooter')?.checked;
           ctx.save();
-          const curOrgSize = sizeOrg * scaleY;
           ctx.font = `500 ${curOrgSize}px "${font1}", sans-serif`;
           const textW = showFooterOrg && orgText ? ctx.measureText(orgText).width : 0;
           const totalW = (showBottomLogo ? (64 * scaleX) : 0) + textW;
