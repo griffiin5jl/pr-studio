@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V3)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Kanit:wght@400;500;600;700;800&family=Prompt:wght@400;500;600;700;800&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background-color: #f1f5f9;
+    }
+    .checkerboard {
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(45deg, #cbd5e1 25%, transparent 25%), 
+        linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #cbd5e1 75%), 
+        linear-gradient(-45deg, transparent 75%, #cbd5e1 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    canvas {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800 pb-16">
+
+  <header class="bg-slate-900 text-white py-4 px-6 shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
+          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V3</span>
+          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio)
+        </h1>
+        <p class="text-xs text-slate-300 mt-1">รันใน VS Code หรือเปิดเบราว์เซอร์ได้ทันที เลือกเทมเพลต ปรับเส้นคั่น แต่งข้อความ และส่งออกภาพ/SVG ไป Canva</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          ดาวน์โหลดภาพ (PNG HD)
+        </button>
+        <button onclick="downloadSVG()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          ส่งออกเข้า Canva (SVG)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 mt-6">
+    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200">
+      <div class="text-xs font-extrabold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+        เลือกรูปแบบเทมเพลตมาตรฐาน (คลิกสลับดีไซน์ทันที)
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <!-- Style 1 -->
+        <button id="btnStyle1" onclick="applyPreset(1)" class="template-btn text-left p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition flex items-start gap-3 cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-b from-blue-900 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-yellow-400/50 shadow-sm">
+            <span class="text-[9px] font-extrabold text-yellow-300 leading-none">อบจ.</span>
+            <span class="w-6 h-0.5 bg-yellow-400 my-1"></span>
+            <span class="text-[7px] text-white leading-none">STYLE 1</span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900">แบบที่ 1: โทนน้ำเงิน-เส้นทอง</div>
+            <div class="text-xs text-slate-500 mt-0.5">พาดหัวเหลือง เส้นทอง + โซเชียลด้านล่าง</div>
+          </div>
+        </button>
+
+        <!-- Style 2 -->
+        <button id="btnStyle2" onclick="applyPreset(2)" class="template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-900 via-blue-950 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-red-500/50 shadow-sm">
+            <span class="text-[9px] font-extrabold text-white drop-shadow-[0_1px_2px_rgba(220,38,38,1)] leading-none">นายก</span>
+            <span class="w-6 h-0.5 bg-red-600 my-1"></span>
+            <span class="text-[7px] text-yellow-300 leading-none">STYLE 2</span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900">แบบที่ 2: โทนเขียวน้ำเงิน-ขอบแดง</div>
+            <div class="text-xs text-slate-500 mt-0.5">โลโก้มุมซ้าย พาดหัวขาวขอบแดง + ชื่อผู้บริหาร</div>
+          </div>
+        </button>
+
+        <!-- Style 3 -->
+        <button id="btnStyle3" onclick="applyPreset(3)" class="template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-b from-stone-800 to-black flex-shrink-0 flex flex-col items-center justify-center border border-orange-500/50 shadow-sm">
+            <span class="w-7 h-2 bg-orange-500 rounded-l-sm self-end mb-0.5"></span>
+            <span class="w-6 h-0.5 bg-red-600 my-0.5"></span>
+            <span class="text-[7px] text-yellow-400 leading-none">STYLE 3</span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900">แบบที่ 3: โทนดำ-แถบวันที่สีส้ม</div>
+            <div class="text-xs text-slate-500 mt-0.5">ป้ายวันที่สีส้มขวา เส้นคั่นแดง + โลโก้คู่ชื่อหน่วยงาน</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left Column: Live Canvas Preview -->
+    <div class="lg:col-span-6 flex flex-col items-center">
+      <div class="w-full bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 sticky top-24 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+            ตัวอย่างภาพจริง (1080 x 1080 px)
+          </span>
+          <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none">
+            <input type="checkbox" id="transparentBgToggle" onchange="renderCanvas()" class="rounded text-indigo-600 focus:ring-indigo-500">
+            ซ่อนรูปพื้นหลัง (ทำกรอบ PNG ใส)
+          </label>
+        </div>
+
+        <!-- Canvas Wrapper -->
+        <div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-inner border border-slate-300 checkerboard group">
+          <canvas id="prCanvas" width="1080" height="1080" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+          <div class="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2.5 py-1 rounded-md backdrop-blur-sm pointer-events-none opacity-80 group-hover:opacity-100 transition">
+            💡 คลิกลากที่รูปภาพเพื่อเลื่อนตำแหน่ง
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+          <div>📥 <strong>ไฟล์ Canva SVG:</strong> โหลดไปเปิดในเว็บ Canva เพื่อแยกแก้ไขแต่ละเลเยอร์ได้อิสระ</div>
+          <button onclick="downloadPNG(true)" class="text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer">
+            ดาวน์โหลดเฉพาะกรอบใส (Transparent)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Control Panels -->
+    <div class="lg:col-span-6 space-y-5">
+
+      <!-- SECTION 1: Image & Logo Settings -->
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">1</span>
+            รูปภาพพื้นหลัง & โลโก้หน่วยงาน
+          </h2>
+          <button onclick="resetImageTransform()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งรูป</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-3 text-center transition">
+            <span class="text-xs font-bold text-indigo-600 block">📸 อัปโหลดรูปภาพหลัก</span>
+            <span class="text-[11px] text-slate-400">คลิกลากบนภาพเพื่อจัดวาง</span>
+            <input type="file" id="imageUpload" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+          </label>
+
+          <label class="block w-full cursor-pointer bg-amber-50/50 hover:bg-amber-50 border-2 border-dashed border-amber-300 rounded-xl p-3 text-center transition">
+            <span class="text-xs font-bold text-amber-700 block">🛡️ อัปโหลดโลโก้ (ถ้ามี)</span>
+            <span class="text-[11px] text-slate-400">มีโลโก้ อบจ.หนองคาย ให้ในตัว</span>
+            <input type="file" id="logoUpload" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+          </label>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 pt-1">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-600 font-medium">ซูมรูปภาพ (Zoom)</span>
+              <span id="zoomVal" class="text-slate-500 font-bold">100%</span>
+            </div>
+            <input type="range" id="imgZoom" min="50" max="250" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-600 font-medium">แสงฟุ้งด้านบน (Glow)</span>
+              <span id="glowVal" class="text-slate-500 font-bold">35%</span>
+            </div>
+            <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
+          <span class="font-semibold text-slate-600">ตำแหน่งโลโก้ อบจ.:</span>
+          <div class="flex gap-4">
+            <label class="inline-flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="logoTopLeft" onchange="renderCanvas()" class="rounded text-indigo-600">
+              มุมซ้ายบน
+            </label>
+            <label class="inline-flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="logoBottomFooter" onchange="renderCanvas()" class="rounded text-indigo-600">
+              ด้านล่างคู่ชื่อ
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Typography & Content -->
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
+            แก้ไขข้อความในภาพ
+          </h2>
+          <select id="fontFamily" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-lg px-3 py-1.5 bg-slate-50 font-bold text-slate-700 cursor-pointer">
+            <option value="Prompt">ฟอนต์: Prompt (แนะนำ)</option>
+            <option value="Kanit">ฟอนต์: Kanit (คณิต)</option>
+            <option value="Sarabun">ฟอนต์: Sarabun (สารบัญ)</option>
+            <option value="Chakra Petch">ฟอนต์: Chakra Petch (จักรเพชร)</option>
+          </select>
+        </div>
+
+        <!-- Optional Date Ribbon -->
+        <div class="p-3 rounded-xl bg-orange-50/70 border border-orange-200/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-950 cursor-pointer">
+              <input type="checkbox" id="showDateRibbon" onchange="renderCanvas()" class="rounded text-orange-600">
+              แสดงป้ายแถบวันที่ด้านขวา (สไตล์แบบที่ 3)
+            </label>
+            <input type="color" id="ribbonColor" value="#EA580C" oninput="renderCanvas()" class="h-6 w-8 rounded border border-orange-300 cursor-pointer bg-white p-0.5">
+          </div>
+          <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" placeholder="เช่น วันพุธที่ 07 ตุลาคม พ.ศ. 2569" class="w-full border border-orange-200 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800 bg-white outline-none">
+        </div>
+
+        <!-- Headline Line 1 -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-semibold text-slate-600">พาดหัวหลัก (บรรทัดแรก)</label>
+            <label class="inline-flex items-center gap-1 text-xs text-slate-600 cursor-pointer">
+              <input type="checkbox" id="strokeLine1" onchange="renderCanvas()" class="rounded text-red-600">
+              ใส่ขอบตัวหนังสือ (สีแดง)
+            </label>
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" placeholder="เว้นว่างได้หากไม่ต้องการพาดหัวใหญ่" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+            <input type="color" id="colorLine1" value="#FFE600" title="สีตัวหนังสือ" oninput="renderCanvas()" class="h-9 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
+            <input type="color" id="strokeColorLine1" value="#D91B1B" title="สีขอบตัวหนังสือ" oninput="renderCanvas()" class="h-9 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
+          </div>
+        </div>
+
+        <!-- Topic Lines -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">หัวข้อกิจกรรม/รายละเอียด (สีขาว — กด Enter ขึ้นบรรทัดใหม่ได้)</label>
+          <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
+        </div>
+
+        <!-- Gold Subtext -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">ข้อความเน้นสีเหลืองทอง (เหนือเส้นคั่น — กด Enter ขึ้นบรรทัดใหม่ได้)</label>
+          <div class="flex gap-2">
+            <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none leading-snug">ครั้งที่ 5/2569</textarea>
+            <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
+          </div>
+        </div>
+
+        <!-- Footer / Below Divider Section -->
+        <div class="pt-2 border-t border-slate-100 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">ส่วนใต้เส้นคั่น (สถานที่ / ชื่อผู้บริหาร / หน่วยงาน)</label>
+            <select id="footerMode" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-lg px-2 py-1 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
+              <option value="style1">แบบที่ 1: สถานที่ + โซเชียล</option>
+              <option value="style2">แบบที่ 2: ชื่อผู้บริหาร + ตำแหน่ง</option>
+              <option value="style3">แบบที่ 3: โลโก้ + ชื่อหน่วยงานขนาดใหญ่</option>
+            </select>
+          </div>
+
+          <div id="boxLine4">
+            <label class="block text-xs font-medium text-slate-600 mb-1" id="labelLine4">บรรทัดใต้เส้นคั่น (สถานที่ หรือ ชื่อผู้บริหาร)</label>
+            <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-slate-600 mb-1" id="labelOrg">ชื่อหน่วยงาน / ตำแหน่งด้านล่าง</label>
+              <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-600 mb-1">วันที่มุมขวาล่าง</label>
+              <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" placeholder="เว้นว่างได้" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Background Gradient & Custom Divider Settings -->
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
+          ตั้งค่าโทนสีพื้นหลัง & ปรับแต่งเส้นคั่น (Divider)
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">สีแถบไล่ระดับ (บนสุด / ล่างสุด)</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" class="h-8 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white" title="สีบน (โปร่งใส)">
+              <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" class="h-8 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white" title="สีล่างสุด">
+              <div class="text-[11px] text-slate-500 font-medium">เกรเดียนต์มืด</div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-600 font-medium">ความสูงแถบสีด้านล่าง</span>
+              <span id="gradHeightVal" class="text-slate-500 font-bold">55%</span>
+            </div>
+            <input type="range" id="gradHeight" min="35" max="75" value="55" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: Custom Divider Controls -->
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
+            <span>🎛️ ปรับแต่งเส้นคั่น (Divider Bar)</span>
+            <select id="dividerStyle" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded px-2 py-1 bg-white font-semibold text-indigo-700 cursor-pointer">
+              <option value="gold">สไตล์: สีทองเมทัลลิก</option>
+              <option value="red">สไตล์: สีแดงสด</option>
+              <option value="custom">สไตล์: กำหนดสีเอง</option>
+              <option value="none">ซ่อนเส้นคั่น</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-1">
+            <div id="customColorBox">
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">สีเส้นคั่น</label>
+              <div class="flex items-center gap-1.5">
+                <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" class="h-7 w-9 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
+                <span class="text-[11px] text-slate-500">กำหนดเอง</span>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความหนา</span>
+                <span id="divHeightVal" class="text-slate-500 font-bold">12px</span>
+              </div>
+              <input type="range" id="dividerHeight" min="4" max="24" value="12" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความกว้าง</span>
+                <span id="divWidthVal" class="text-slate-500 font-bold">928px</span>
+              </div>
+              <input type="range" id="dividerWidth" min="600" max="1020" value="928" step="10" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 flex flex-wrap gap-4 text-xs font-medium text-slate-700">
+          <label class="inline-flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" id="showSocial" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+            แสดงไอคอนโซเชียล
+          </label>
+          <label class="inline-flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" id="showAllText" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+            แสดงข้อความทั้งหมดบนภาพ
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const canvas = document.getElementById('prCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let currentStyle = 1;
+    let hasCustomPhoto = false;
+    let customLogoImg = null;
+
+    let bgImage = new Image();
+    let imgLoaded = false;
+    let imgState = {
+      x: 0,
+      y: 0,
+      scale: 1,
+      isDragging: false,
+      startX: 0,
+      startY: 0
+    };
+
+    function drawNongKhaiEmblem(ctx, cx, cy, radius) {
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.45)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetY = 3;
+
+      if (customLogoImg) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(customLogoImg, cx - radius, cy - radius, radius * 2, radius * 2);
+        ctx.restore();
+        return;
+      }
+
+      const ringGrad = ctx.createRadialGradient(cx - radius * 0.2, cy - radius * 0.2, radius * 0.1, cx, cy, radius);
+      ringGrad.addColorStop(0, '#FFE875');
+      ringGrad.addColorStop(0.75, '#EAB308');
+      ringGrad.addColorStop(1, '#CA8A04');
+      ctx.fillStyle = ringGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.shadowColor = 'transparent';
+      ctx.strokeStyle = '#713F12';
+      ctx.lineWidth = Math.max(1.5, radius * 0.03);
+      ctx.stroke();
+
+      const innerR = radius * 0.66;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
+      ctx.clip();
+
+      const skyGrad = ctx.createLinearGradient(cx, cy - innerR, cx, cy + innerR);
+      skyGrad.addColorStop(0, '#38BDF8');
+      skyGrad.addColorStop(0.55, '#BAE6FD');
+      skyGrad.addColorStop(0.56, '#15803D');
+      skyGrad.addColorStop(1, '#FACC15');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(cx - innerR, cy - innerR, innerR * 2, innerR * 2);
+
+      ctx.fillStyle = '#065F46';
+      ctx.beginPath();
+      ctx.arc(cx + innerR * 0.55, cy - innerR * 0.2, innerR * 0.65, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = Math.max(1.2, radius * 0.025);
+      ctx.beginPath();
+      ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = Math.max(1.2, radius * 0.025);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - radius * 0.96);
+      ctx.lineTo(cx, cy - innerR * 0.85);
+      ctx.moveTo(cx - radius * 0.14, cy - radius * 0.82);
+      ctx.lineTo(cx + radius * 0.14, cy - radius * 0.82);
+      ctx.stroke();
+
+      const rimText = "องค์การบริหารส่วนจังหวัดหนองคาย";
+      ctx.fillStyle = '#422006';
+      ctx.font = `700 ${Math.round(radius * 0.155)}px Prompt, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const totalAngle = Math.PI * 1.18;
+      const startAngle = Math.PI / 2 + totalAngle / 2;
+      const textRadius = radius * 0.83;
+
+      for (let i = 0; i < rimText.length; i++) {
+        const ch = rimText[i];
+        const angle = startAngle - (i / (rimText.length - 1)) * totalAngle;
+        ctx.save();
+        ctx.translate(cx + Math.cos(angle) * textRadius, cy + Math.sin(angle) * textRadius);
+        ctx.rotate(angle - Math.PI / 2);
+        ctx.fillText(ch, 0, 0);
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
+    function generateDefaultScene(styleNum) {
+      const off = document.createElement('canvas');
+      off.width = 1080;
+      off.height = 1080;
+      const octx = off.getContext('2d');
+
+      if (styleNum === 1) {
+        const wallGrad = octx.createLinearGradient(0, 0, 0, 750);
+        wallGrad.addColorStop(0, '#f3e5d0');
+        wallGrad.addColorStop(1, '#cbb69d');
+        octx.fillStyle = wallGrad;
+        octx.fillRect(0, 0, 1080, 1080);
+
+        octx.fillStyle = '#625244';
+        octx.fillRect(0, 90, 480, 320);
+        octx.fillStyle = '#e2e8f0';
+        octx.beginPath(); octx.arc(65, 200, 48, 0, Math.PI * 2); octx.fill();
+        octx.fillStyle = '#8b9d77';
+        octx.beginPath(); octx.arc(240, 200, 56, 0, Math.PI * 2); octx.fill();
+        octx.fillStyle = '#fef08a';
+        octx.beginPath(); octx.arc(400, 200, 42, 0, Math.PI * 2); octx.fill();
+
+        octx.fillStyle = '#171c1a';
+        octx.beginPath();
+        octx.moveTo(270, 750);
+        octx.quadraticCurveTo(285, 420, 420, 395);
+        octx.lineTo(640, 395);
+        octx.quadraticCurveTo(790, 420, 820, 750);
+        octx.closePath();
+        octx.fill();
+
+        octx.fillStyle = '#f1c29b';
+        octx.beginPath();
+        octx.ellipse(530, 310, 96, 120, 0, 0, Math.PI * 2);
+        octx.fill();
+      } else if (styleNum === 2) {
+        const woodGrad = octx.createLinearGradient(0, 0, 1080, 700);
+        woodGrad.addColorStop(0, '#d99b66');
+        woodGrad.addColorStop(0.5, '#c6844e');
+        woodGrad.addColorStop(1, '#b3703b');
+        octx.fillStyle = woodGrad;
+        octx.fillRect(0, 0, 1080, 1080);
+
+        octx.fillStyle = '#4a3525';
+        octx.fillRect(520, 30, 145, 420);
+
+        octx.fillStyle = '#334155';
+        octx.beginPath();
+        octx.moveTo(0, 550);
+        octx.lineTo(360, 430);
+        octx.lineTo(800, 430);
+        octx.lineTo(920, 620);
+        octx.lineTo(0, 620);
+        octx.closePath();
+        octx.fill();
+
+        octx.fillStyle = '#1e3a5f';
+        octx.beginPath();
+        octx.roundRect(480, 290, 170, 160, 30);
+        octx.fill();
+        octx.fillStyle = '#f3cbb0';
+        octx.beginPath();
+        octx.ellipse(565, 235, 45, 58, 0, 0, Math.PI * 2);
+        octx.fill();
+
+        octx.fillStyle = '#cbd5e1';
+        octx.beginPath(); octx.roundRect(20, 310, 175, 220, 40); octx.fill();
+        octx.fillStyle = '#0f172a';
+        octx.beginPath(); octx.roundRect(840, 290, 150, 220, 40); octx.fill();
+      } else {
+        const blindGrad = octx.createLinearGradient(0, 0, 1080, 650);
+        blindGrad.addColorStop(0, '#f5d0a9');
+        blindGrad.addColorStop(0.5, '#d69e6c');
+        blindGrad.addColorStop(1, '#f3d2b3');
+        octx.fillStyle = blindGrad;
+        octx.fillRect(0, 0, 1080, 1080);
+
+        octx.fillStyle = '#1e293b';
+        octx.beginPath();
+        octx.roundRect(530, 300, 480, 330, 20);
+        octx.fill();
+
+        octx.fillStyle = '#111827';
+        octx.beginPath();
+        octx.roundRect(500, 310, 450, 340, 60);
+        octx.fill();
+
+        octx.fillStyle = '#eab696';
+        octx.beginPath();
+        octx.ellipse(725, 230, 78, 98, 0, 0, Math.PI * 2);
+        octx.fill();
+      }
+
+      octx.fillStyle = 'rgba(15, 23, 42, 0.72)';
+      octx.beginPath();
+      octx.roundRect(330, 65, 420, 56, 28);
+      octx.fill();
+      octx.fillStyle = '#ffffff';
+      octx.font = '600 22px Prompt, sans-serif';
+      octx.textAlign = 'center';
+      octx.fillText('📸 อัปโหลดรูปภาพหลักของคุณได้ที่เมนูด้านขวา', 540, 101);
+
+      bgImage.onload = () => {
+        imgLoaded = true;
+        renderCanvas();
+      };
+      bgImage.src = off.toDataURL();
+    }
+
+    function applyPreset(styleNum) {
+      currentStyle = styleNum;
+
+      [1, 2, 3].forEach(n => {
+        const btn = document.getElementById('btnStyle' + n);
+        if (n === styleNum) {
+          btn.className = 'template-btn text-left p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition flex items-start gap-3 cursor-pointer';
+        } else {
+          btn.className = 'template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer';
+        }
+      });
+
+      if (styleNum === 1) {
+        document.getElementById('logoTopLeft').checked = false;
+        document.getElementById('logoBottomFooter').checked = false;
+        document.getElementById('showDateRibbon').checked = false;
+
+        document.getElementById('textLine1').value = 'อบจ.หนองคาย';
+        document.getElementById('colorLine1').value = '#FFE600';
+        document.getElementById('strokeLine1').checked = false;
+
+        document.getElementById('textLine2').value = 'ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น';
+        document.getElementById('textLine3').value = 'ครั้งที่ 5/2569';
+        document.getElementById('colorGoldText').value = '#FFCC00';
+
+        document.getElementById('dividerStyle').value = 'gold';
+        document.getElementById('dividerHeight').value = 12;
+        document.getElementById('dividerWidth').value = 928;
+        
+        document.getElementById('footerMode').value = 'style1';
+        document.getElementById('textLine4').value = 'ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย';
+        document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('textDate').value = '15/10/2569';
+        document.getElementById('showSocial').checked = true;
+
+        document.getElementById('gradColor1').value = '#031B59';
+        document.getElementById('gradColor2').value = '#010922';
+        document.getElementById('gradHeight').value = 55;
+        document.getElementById('topGlow').value = 40;
+
+      } else if (styleNum === 2) {
+        document.getElementById('logoTopLeft').checked = true;
+        document.getElementById('logoBottomFooter').checked = false;
+        document.getElementById('showDateRibbon').checked = false;
+
+        document.getElementById('textLine1').value = 'นายก อบจ.หนองคาย';
+        document.getElementById('colorLine1').value = '#FFFFFF';
+        document.getElementById('strokeLine1').checked = true;
+        document.getElementById('strokeColorLine1').value = '#D91B1B';
+
+        document.getElementById('textLine2').value = 'ให้สัมภาษณ์สื่อเพื่อประชาสัมพันธ์\nงานเทศกาลออกพรรษาและ\nบั้งไฟพญานาคโลก ประจำปี 2569';
+        document.getElementById('textLine3').value = 'โดยชี้แจงถึงบทบาทและการสนับสนุนของ\nองค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('colorGoldText').value = '#FFCC00';
+
+        document.getElementById('dividerStyle').value = 'red';
+        document.getElementById('dividerHeight').value = 12;
+        document.getElementById('dividerWidth').value = 928;
+
+        document.getElementById('footerMode').value = 'style2';
+        document.getElementById('textLine4').value = '"นายวุฒิไกร ช่างเหล็ก"';
+        document.getElementById('textOrg').value = 'นายกองค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('textDate').value = '14/10/2569';
+        document.getElementById('showSocial').checked = false;
+
+        document.getElementById('gradColor1').value = '#0B4F5C';
+        document.getElementById('gradColor2').value = '#01071A';
+        document.getElementById('gradHeight').value = 60;
+        document.getElementById('topGlow').value = 15;
+
+      } else if (styleNum === 3) {
+        document.getElementById('logoTopLeft').checked = false;
+        document.getElementById('logoBottomFooter').checked = true;
+        document.getElementById('showDateRibbon').checked = true;
+        document.getElementById('ribbonColor').value = '#EA580C';
+        document.getElementById('ribbonText').value = 'วันพุธที่ 07 ตุลาคม พ.ศ. 2569';
+
+        document.getElementById('textLine1').value = '';
+        document.getElementById('strokeLine1').checked = false;
+
+        document.getElementById('textLine2').value = 'การประชุมคณะกรรมการที่ปรึกษาเพื่อสนับสนุน\nการขับเคลื่อนนโยบายองค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('textLine3').value = 'เพื่อติดตามการดำเนินงานของกองช่าง';
+        document.getElementById('colorGoldText').value = '#F5B800';
+
+        document.getElementById('dividerStyle').value = 'red';
+        document.getElementById('dividerHeight').value = 12;
+        document.getElementById('dividerWidth').value = 928;
+
+        document.getElementById('footerMode').value = 'style3';
+        document.getElementById('textLine4').value = '';
+        document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('textDate').value = '';
+        document.getElementById('showSocial').checked = false;
+
+        document.getElementById('gradColor1').value = '#0A0A0A';
+        document.getElementById('gradColor2').value = '#000000';
+        document.getElementById('gradHeight').value = 54;
+        document.getElementById('topGlow').value = 30;
+      }
+
+      if (!hasCustomPhoto) {
+        generateDefaultScene(styleNum);
+      } else {
+        renderCanvas();
+      }
+    }
+
+    function handleImageUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          bgImage = img;
+          imgLoaded = true;
+          hasCustomPhoto = true;
+          resetImageTransform();
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleLogoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          customLogoImg = img;
+          renderCanvas();
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetImageTransform() {
+      imgState.x = 0;
+      imgState.y = 0;
+      imgState.scale = 1;
+      document.getElementById('imgZoom').value = 100;
+      document.getElementById('zoomVal').textContent = '100%';
+      renderCanvas();
+    }
+
+    function updateTransformFromSlider() {
+      const val = parseInt(document.getElementById('imgZoom').value, 10);
+      document.getElementById('zoomVal').textContent = val + '%';
+      imgState.scale = val / 100;
+      renderCanvas();
+    }
+
+    canvas.addEventListener('pointerdown', (e) => {
+      imgState.isDragging = true;
+      const rect = canvas.getBoundingClientRect();
+      const scaleFactor = 1080 / rect.width;
+      imgState.startX = (e.clientX - rect.left) * scaleFactor - imgState.x;
+      imgState.startY = (e.clientY - rect.top) * scaleFactor - imgState.y;
+      canvas.setPointerCapture(e.pointerId);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!imgState.isDragging) return;
+      const rect = canvas.getBoundingClientRect();
+      const scaleFactor = 1080 / rect.width;
+      imgState.x = (e.clientX - rect.left) * scaleFactor - imgState.startX;
+      imgState.y = (e.clientY - rect.top) * scaleFactor - imgState.startY;
+      renderCanvas();
+    });
+
+    canvas.addEventListener('pointerup', () => {
+      imgState.isDragging = false;
+    });
+
+    function hexToRgba(hex, alpha) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function drawSocialIcons(ctx, startX, centerY, radius, bgNavyColor) {
+      const gap = 10;
+      const diameter = radius * 2;
+
+      for (let i = 0; i < 4; i++) {
+        const cx = startX + radius + i * (diameter + gap);
+        const cy = centerY;
+
+        ctx.save();
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = bgNavyColor;
+        ctx.strokeStyle = bgNavyColor;
+
+        if (i === 0) {
+          ctx.lineWidth = 3.2;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.arc(cx - 2, cy + 4, 4.5, 0.2 * Math.PI, 1.65 * Math.PI);
+          ctx.lineTo(cx + 2.5, cy - 8.5);
+          ctx.quadraticCurveTo(cx + 4, cy - 3.5, cx + 8.5, cy - 3);
+          ctx.stroke();
+        } else if (i === 1) {
+          ctx.font = '800 26px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('f', cx + 1, cy + 2.5);
+        } else if (i === 2) {
+          ctx.beginPath();
+          ctx.roundRect(cx - 10, cy - 7, 20, 14, 4);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.beginPath();
+          ctx.moveTo(cx - 2.5, cy - 4);
+          ctx.lineTo(cx + 4.5, cy);
+          ctx.lineTo(cx - 2.5, cy + 4);
+          ctx.closePath();
+          ctx.fill();
+        } else if (i === 3) {
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, 5, 10, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(cx - 9.5, cy - 3.5); ctx.lineTo(cx + 9.5, cy - 3.5);
+          ctx.moveTo(cx - 9.5, cy + 3.5); ctx.lineTo(cx + 9.5, cy + 3.5);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      return startX + 4 * diameter + 3 * gap;
+    }
+
+    function renderCanvas(forceTransparent = false) {
+      const isTransparent = forceTransparent || document.getElementById('transparentBgToggle').checked;
+      const font = document.getElementById('fontFamily').value;
+      const topGlow = parseInt(document.getElementById('topGlow').value, 10);
+      const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
+      const gradColor1 = document.getElementById('gradColor1').value;
+      const gradColor2 = document.getElementById('gradColor2').value;
+
+      // Divider parameters
+      const dividerStyle = document.getElementById('dividerStyle').value;
+      const dividerColor = document.getElementById('dividerColor').value;
+      const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
+      const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
+
+      document.getElementById('glowVal').textContent = topGlow + '%';
+      document.getElementById('gradHeightVal').textContent = gradHeightPct + '%';
+      document.getElementById('divHeightVal').textContent = dividerHeight + 'px';
+      document.getElementById('divWidthVal').textContent = dividerWidth + 'px';
+
+      document.getElementById('customColorBox').style.display = dividerStyle === 'custom' ? 'block' : 'none';
+
+      ctx.clearRect(0, 0, 1080, 1080);
+
+      // LAYER 1: Background Image + Glow
+      if (!isTransparent && imgLoaded) {
+        ctx.save();
+        const imgRatio = bgImage.width / bgImage.height;
+        let drawW = 1080;
+        let drawH = 1080;
+        if (imgRatio > 1) {
+          drawW = 1080 * imgRatio;
+        } else {
+          drawH = 1080 / imgRatio;
+        }
+        drawW *= imgState.scale;
+        drawH *= imgState.scale;
+
+        const drawX = (1080 - drawW) / 2 + imgState.x;
+        const drawY = (1080 - drawH) / 2 + imgState.y;
+
+        ctx.drawImage(bgImage, drawX, drawY, drawW, drawH);
+
+        if (topGlow > 0) {
+          const alpha = (topGlow / 100) * 0.65;
+          if (currentStyle === 3) {
+            const flareGrad = ctx.createRadialGradient(430, 150, 20, 430, 150, 420);
+            flareGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+            flareGrad.addColorStop(0.5, `rgba(255, 237, 213, ${alpha * 0.45})`);
+            flareGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = flareGrad;
+            ctx.fillRect(0, 0, 1080, 600);
+          } else {
+            const topGrad = ctx.createLinearGradient(0, 0, 0, 260);
+            topGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+            topGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = topGrad;
+            ctx.fillRect(0, 0, 1080, 260);
+          }
+        }
+        ctx.restore();
+      }
+
+      // LAYER 2: Bottom Gradient Overlay
+      const gradStartY = 1080 * (1 - gradHeightPct / 100);
+      const mainGrad = ctx.createLinearGradient(0, gradStartY, 0, 1080);
+      mainGrad.addColorStop(0, hexToRgba(gradColor1, 0));
+      mainGrad.addColorStop(0.25, hexToRgba(gradColor1, 0.82));
+      mainGrad.addColorStop(0.55, hexToRgba(gradColor2, 0.96));
+      mainGrad.addColorStop(1, hexToRgba(gradColor2, 1));
+
+      ctx.fillStyle = mainGrad;
+      ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
+
+      if (currentStyle === 2) {
+        const sideGlow = ctx.createRadialGradient(120, 740, 20, 180, 760, 520);
+        sideGlow.addColorStop(0, hexToRgba(gradColor1, 0.85));
+        sideGlow.addColorStop(1, hexToRgba(gradColor2, 0));
+        ctx.fillStyle = sideGlow;
+        ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
+      }
+
+      if (document.getElementById('logoTopLeft').checked) {
+        drawNongKhaiEmblem(ctx, 76, 76, 62);
+      }
+
+      const showRibbon = document.getElementById('showDateRibbon').checked;
+      const ribbonText = document.getElementById('ribbonText').value.trim();
+      const ribbonColor = document.getElementById('ribbonColor').value;
+      if (showRibbon) {
+        const ribY = 582;
+        const ribH = 76;
+        const ribStartX = 430;
+        const ribGrad = ctx.createLinearGradient(ribStartX, ribY, 1080, ribY);
+        ribGrad.addColorStop(0, hexToRgba(ribbonColor, 0));
+        ribGrad.addColorStop(0.18, hexToRgba(ribbonColor, 0.65));
+        ribGrad.addColorStop(0.5, hexToRgba(ribbonColor, 0.95));
+        ribGrad.addColorStop(1, hexToRgba(ribbonColor, 1));
+
+        ctx.save();
+        ctx.fillStyle = ribGrad;
+        ctx.fillRect(ribStartX, ribY, 1080 - ribStartX, ribH);
+
+        if (document.getElementById('showAllText').checked && ribbonText) {
+          ctx.font = `700 40px "${font}", sans-serif`;
+          ctx.fillStyle = '#FFFFFF';
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'middle';
+          ctx.shadowColor = 'rgba(0,0,0,0.45)';
+          ctx.shadowBlur = 8;
+          ctx.fillText(ribbonText, 1055, ribY + ribH / 2 + 2);
+        }
+        ctx.restore();
+      }
+
+      const footerMode = document.getElementById('footerMode').value;
+      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+
+      if (dividerStyle !== 'none') {
+        const lineX = (1080 - dividerWidth) / 2;
+        const lineW = dividerWidth;
+        const lineH = dividerHeight;
+
+        ctx.save();
+        if (dividerStyle === 'gold') {
+          const goldGrad = ctx.createLinearGradient(lineX, lineY, lineX + lineW, lineY);
+          goldGrad.addColorStop(0, '#C79627');
+          goldGrad.addColorStop(0.22, '#E0B236');
+          goldGrad.addColorStop(0.35, '#FFF394');
+          goldGrad.addColorStop(0.5, '#D29F26');
+          goldGrad.addColorStop(0.75, '#F5CE52');
+          goldGrad.addColorStop(1, '#C79627');
+          ctx.fillStyle = goldGrad;
+        } else if (dividerStyle === 'red') {
+          ctx.fillStyle = '#D61F1F';
+        } else {
+          ctx.fillStyle = dividerColor;
+        }
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+        ctx.shadowBlur = 8;
+        ctx.shadowOffsetY = 2;
+        ctx.fillRect(lineX, lineY, lineW, lineH);
+        ctx.restore();
+      }
+
+      // LAYER 4: Typography
+      const showText = document.getElementById('showAllText').checked;
+      const colorLine1 = document.getElementById('colorLine1').value;
+      const strokeLine1 = document.getElementById('strokeLine1').checked;
+      const strokeColor1 = document.getElementById('strokeColorLine1').value;
+      const colorGoldText = document.getElementById('colorGoldText').value;
+
+      if (showText) {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+
+        const t1 = document.getElementById('textLine1').value.trim();
+        const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
+
+        let cursorY = lineY - 32;
+
+        if (t3Lines.length > 0) {
+          const goldFontSize = (t1 === '' && t3Lines.length === 1) ? 54 : (t3Lines.length > 1 ? 38 : 42);
+          const goldLineHeight = Math.round(goldFontSize * 1.24);
+          ctx.save();
+          ctx.font = `700 ${goldFontSize}px "${font}", sans-serif`;
+          ctx.fillStyle = colorGoldText;
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+          ctx.shadowBlur = 12;
+          ctx.shadowOffsetY = 3;
+
+          for (let i = t3Lines.length - 1; i >= 0; i--) {
+            ctx.fillText(t3Lines[i], 540, cursorY);
+            cursorY -= goldLineHeight;
+          }
+          ctx.restore();
+          cursorY -= 10;
+        }
+
+        if (t2Lines.length > 0) {
+          ctx.save();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+          ctx.shadowBlur = 14;
+          ctx.shadowOffsetY = 4;
+
+          for (let i = t2Lines.length - 1; i >= 0; i--) {
+            let fontSize = 46;
+            if (t1 === '' && t2Lines.length === 2) {
+              fontSize = (i === 0) ? 50 : 40;
+            } else if (t2Lines.length >= 3) {
+              fontSize = 47;
+            }
+            ctx.font = `700 ${fontSize}px "${font}", sans-serif`;
+            ctx.fillText(t2Lines[i], 540, cursorY);
+            cursorY -= Math.round(fontSize * 1.25);
+          }
+          ctx.restore();
+          cursorY -= 16;
+        }
+
+        if (t1) {
+          ctx.save();
+          const h1Size = t1.length > 14 ? 82 : 92;
+          ctx.font = `800 ${h1Size}px "${font}", sans-serif`;
+          ctx.lineJoin = 'round';
+          ctx.miterLimit = 2;
+
+          if (strokeLine1) {
+            ctx.save();
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            ctx.shadowBlur = 20;
+            ctx.shadowOffsetY = 5;
+            ctx.strokeStyle = strokeColor1;
+            ctx.lineWidth = 18;
+            ctx.strokeText(t1, 540, cursorY);
+            ctx.restore();
+          } else {
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+            ctx.shadowBlur = 22;
+            ctx.shadowOffsetY = 6;
+          }
+
+          ctx.fillStyle = colorLine1;
+          ctx.fillText(t1, 540, cursorY);
+          ctx.restore();
+        }
+      }
+
+      // LAYER 5: Footer
+      const line4Text = document.getElementById('textLine4').value.trim();
+      const orgText = document.getElementById('textOrg').value.trim();
+      const dateText = document.getElementById('textDate').value.trim();
+      const showSocial = document.getElementById('showSocial').checked;
+
+      if (footerMode === 'style1') {
+        if (showText && line4Text) {
+          ctx.save();
+          ctx.font = `400 35px "${font}", sans-serif`;
+          ctx.fillStyle = colorGoldText;
+          ctx.textAlign = 'center';
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+          ctx.shadowBlur = 8;
+          ctx.fillText(line4Text, 540, 946);
+          ctx.restore();
+        }
+
+        if (showSocial || (showText && orgText)) {
+          ctx.save();
+          ctx.font = `400 24px "${font}", sans-serif`;
+          const textWidth = showText ? ctx.measureText(orgText).width : 0;
+          const iconRadius = 17;
+          const iconsBlockWidth = showSocial ? (4 * (iconRadius * 2) + 3 * 10) : 0;
+          const gapBetween = (showSocial && showText && orgText) ? 14 : 0;
+          const totalFooterWidth = iconsBlockWidth + gapBetween + textWidth;
+
+          const startX = (1080 - totalFooterWidth) / 2;
+          const centerY = 1026;
+
+          let nextX = startX;
+          if (showSocial) {
+            nextX = drawSocialIcons(ctx, startX, centerY, iconRadius, gradColor2);
+          }
+
+          if (showText && orgText) {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(orgText, nextX + gapBetween, centerY + 1);
+          }
+          ctx.restore();
+        }
+      } else if (footerMode === 'style2') {
+        if (showText) {
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.shadowColor = 'rgba(0,0,0,0.75)';
+          ctx.shadowBlur = 10;
+
+          if (line4Text) {
+            ctx.font = `700 40px "${font}", sans-serif`;
+            ctx.fillText(line4Text, 540, 976);
+          }
+          if (orgText) {
+            ctx.font = `600 31px "${font}", sans-serif`;
+            ctx.fillText(orgText, 540, 1024);
+          }
+          ctx.restore();
+        }
+      } else if (footerMode === 'style3') {
+        const showBottomLogo = document.getElementById('logoBottomFooter').checked;
+        ctx.save();
+        ctx.font = `500 43px "${font}", sans-serif`;
+        const textW = (showText && orgText) ? ctx.measureText(orgText).width : 0;
+        const logoR = 32;
+        const logoW = showBottomLogo ? logoR * 2 : 0;
+        const gap = (showBottomLogo && showText && orgText) ? 18 : 0;
+        const totalW = logoW + gap + textW;
+        const startX = (1080 - totalW) / 2;
+        const centerY = 995;
+
+        if (showBottomLogo) {
+          drawNongKhaiEmblem(ctx, startX + logoR, centerY, logoR);
+        }
+        if (showText && orgText) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(orgText, startX + logoW + gap, centerY + 2);
+        }
+        ctx.restore();
+      }
+
+      if (showText && dateText) {
+        ctx.save();
+        ctx.font = `700 25px "${font}", sans-serif`;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText(dateText, 1055, 1058);
+        ctx.restore();
+      }
+    }
+
+    function downloadPNG(transparentOnly = false) {
+      renderCanvas(transparentOnly);
+      const link = document.createElement('a');
+      link.download = transparentOnly ? `canva-overlay-style${currentStyle}.png` : `pr-nongkhai-style${currentStyle}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      renderCanvas(false);
+    }
+
+    function escXml(unsafe) {
+      return unsafe.replace(/[<>&'"]/g, c => {
+        switch (c) {
+          case '<': return '&lt;';
+          case '>': return '&gt;';
+          case '&': return '&amp;';
+          case '\'': return '&apos;';
+          case '"': return '&quot;';
+        }
+      });
+    }
+
+    function downloadSVG() {
+      const font = document.getElementById('fontFamily').value;
+      const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
+      const gradStartY = Math.round(1080 * (1 - gradHeightPct / 100));
+      const gradColor1 = document.getElementById('gradColor1').value;
+      const gradColor2 = document.getElementById('gradColor2').value;
+      const colorLine1 = document.getElementById('colorLine1').value;
+      const strokeLine1 = document.getElementById('strokeLine1').checked;
+      const strokeColor1 = document.getElementById('strokeColorLine1').value;
+      const colorGoldText = document.getElementById('colorGoldText').value;
+
+      const dividerStyle = document.getElementById('dividerStyle').value;
+      const dividerColor = document.getElementById('dividerColor').value;
+      const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
+      const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
+
+      const footerMode = document.getElementById('footerMode').value;
+      const showRibbon = document.getElementById('showDateRibbon').checked;
+      const ribbonColor = document.getElementById('ribbonColor').value;
+      const ribbonText = escXml(document.getElementById('ribbonText').value.trim());
+
+      const t1Raw = document.getElementById('textLine1').value.trim();
+      const t1 = escXml(t1Raw);
+      const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const t4 = escXml(document.getElementById('textLine4').value.trim());
+      const tOrg = escXml(document.getElementById('textOrg').value.trim());
+      const tDate = escXml(document.getElementById('textDate').value.trim());
+
+      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+
+      let cursorY = lineY - 32;
+      let svgTexts = '';
+
+      if (t3Lines.length > 0) {
+        const goldFontSize = (t1Raw === '' && t3Lines.length === 1) ? 54 : (t3Lines.length > 1 ? 38 : 42);
+        const goldLineHeight = Math.round(goldFontSize * 1.24);
+        for (let i = t3Lines.length - 1; i >= 0; i--) {
+          svgTexts += `  <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font}, sans-serif" font-weight="700" font-size="${goldFontSize}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n`;
+          cursorY -= goldLineHeight;
+        }
+        cursorY -= 10;
+      }
+
+      if (t2Lines.length > 0) {
+        for (let i = t2Lines.length - 1; i >= 0; i--) {
+          let fontSize = 46;
+          if (t1Raw === '' && t2Lines.length === 2) {
+            fontSize = (i === 0) ? 50 : 40;
+          } else if (t2Lines.length >= 3) {
+            fontSize = 47;
+          }
+          svgTexts += `  <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font}, sans-serif" font-weight="700" font-size="${fontSize}" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n`;
+          cursorY -= Math.round(fontSize * 1.25);
+        }
+        cursorY -= 16;
+      }
+
+      if (t1Raw) {
+        const h1Size = t1Raw.length > 14 ? 82 : 92;
+        const strokeAttrs = strokeLine1 ? ` stroke="${strokeColor1}" stroke-width="16" paint-order="stroke fill" stroke-linejoin="round"` : '';
+        svgTexts += `  <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font}, sans-serif" font-weight="800" font-size="${h1Size}" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n`;
+      }
+
+      let svgRibbon = '';
+      if (showRibbon) {
+        svgRibbon = `
+  <rect x="430" y="582" width="650" height="76" fill="url(#ribbonGrad)"/>
+  <text x="1055" y="632" text-anchor="end" font-family="${font}, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${ribbonText}</text>`;
+      }
+
+      let svgDivider = '';
+      if (dividerStyle !== 'none') {
+        const divX = (1080 - dividerWidth) / 2;
+        const divFill = dividerStyle === 'gold' ? 'url(#goldBar)' : (dividerStyle === 'red' ? '#D61F1F' : dividerColor);
+        svgDivider = `  <rect x="${divX}" y="${lineY}" width="${dividerWidth}" height="${dividerHeight}" fill="${divFill}"/>`;
+      }
+
+      let svgFooter = '';
+      if (footerMode === 'style1') {
+        svgFooter = `
+  <text x="540" y="946" text-anchor="middle" font-family="${font}, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
+  <g transform="translate(310, 1009)">
+    <circle cx="17" cy="17" r="17" fill="#FFFFFF"/>
+    <circle cx="61" cy="17" r="17" fill="#FFFFFF"/>
+    <circle cx="105" cy="17" r="17" fill="#FFFFFF"/>
+    <circle cx="149" cy="17" r="17" fill="#FFFFFF"/>
+    <text x="180" y="25" font-family="${font}, sans-serif" font-weight="400" font-size="24" fill="#FFFFFF">${tOrg}</text>
+  </g>`;
+      } else if (footerMode === 'style2') {
+        svgFooter = `
+  <text x="540" y="976" text-anchor="middle" font-family="${font}, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
+  <text x="540" y="1024" text-anchor="middle" font-family="${font}, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>`;
+      } else if (footerMode === 'style3') {
+        svgFooter = `
+  <circle cx="215" cy="995" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
+  <text x="565" y="1010" text-anchor="middle" font-family="${font}, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>`;
+      }
+
+      const svgTopLogo = document.getElementById('logoTopLeft').checked
+        ? `  <circle cx="76" cy="76" r="62" fill="#EAB308" stroke="#713F12" stroke-width="3"/>`
+        : '';
+
+      const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <linearGradient id="navyFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${gradColor1}" stop-opacity="0"/>
+      <stop offset="28%" stop-color="${gradColor1}" stop-opacity="0.82"/>
+      <stop offset="55%" stop-color="${gradColor2}" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="${gradColor2}" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="goldBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C79627"/>
+      <stop offset="22%" stop-color="#E0B236"/>
+      <stop offset="35%" stop-color="#FFF394"/>
+      <stop offset="50%" stop-color="#D29F26"/>
+      <stop offset="75%" stop-color="#F5CE52"/>
+      <stop offset="100%" stop-color="#C79627"/>
+    </linearGradient>
+    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${ribbonColor}" stop-opacity="0"/>
+      <stop offset="25%" stop-color="${ribbonColor}" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="${ribbonColor}" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="${gradStartY}" width="1080" height="${1080 - gradStartY}" fill="url(#navyFade)"/>
+${svgTopLogo}
+${svgRibbon}
+${svgDivider}
+${svgTexts}
+${svgFooter}
+  <text x="1055" y="1058" text-anchor="end" font-family="${font}, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
+</svg>`;
+
+      const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `canva-template-style${currentStyle}.svg`;
+      link.href = url;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.fonts.ready.then(() => {
+      applyPreset(1);
+    });
+  </script>
+</body>
+</html>
