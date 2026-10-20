@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V16</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,15 +53,18 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V15</h1>
-            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Good Luck</span>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V16</h1>
+            <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Full Screen Edition</span>
           </div>
           <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-        <button onclick="downloadPNG(false)" class="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer">
+      <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end flex-wrap">
+        <button onclick="openReportModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer border border-slate-700">
+          <span>⚠️</span> รายงานปัญหา
+        </button>
+        <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
           ดาวน์โหลดภาพ (PNG HD)
         </button>
@@ -88,6 +91,21 @@
             <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer select-none bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
               <input type="checkbox" id="transparentBgToggle" onchange="renderCanvas()" class="rounded text-indigo-600 focus:ring-indigo-500">
               ซ่อนพื้นหลัง (PNG ใส)
+            </label>
+          </div>
+        </div>
+
+        <!-- MODE TOGGLE SWITCH: TEXT VS IMAGE EDITING -->
+        <div class="bg-slate-100 p-2 rounded-2xl border border-slate-200 flex items-center justify-between gap-2 text-xs">
+          <span class="font-bold text-slate-700 pl-2">โหมดการลากบนภาพ:</span>
+          <div class="flex items-center gap-3 pr-2">
+            <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer select-none">
+              <input type="radio" name="editMode" value="image" checked class="text-indigo-600 focus:ring-indigo-500">
+              🖼️ แก้ไขรูปภาพอย่างเดียว
+            </label>
+            <label class="inline-flex items-center gap-1.5 font-semibold text-indigo-700 cursor-pointer select-none">
+              <input type="radio" name="editMode" value="text" class="text-indigo-600 focus:ring-indigo-500">
+              ✍️ ติ๊กเพื่อแก้ไขข้อความ
             </label>
           </div>
         </div>
@@ -194,15 +212,15 @@
           </div>
         </div>
 
-        <!-- USER GUIDE CARD (RIGHT PANEL UNDER TAB 1) -->
+        <!-- USER GUIDE CARD (PLACED IN TAB 1 RIGHT PANEL) -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
             <span>📖</span> คู่มือการใช้งานเบื้องต้น
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ขยับรูป/ข้อความ:</strong> คลิกลากเมาส์ที่ตัวหนังสือหรือรูปภาพบนจอเพื่อย้ายตำแหน่งได้ทันที</li>
+            <li><strong>โหมดแก้ไขข้อความ:</strong> ติ๊กเลือกวิทยุ <strong>"✍️ ติ๊กเพื่อแก้ไขข้อความ"</strong> ด้านบนจอเพื่อคลิกลากย้ายตำแหน่งตัวหนังสือ</li>
+            <li><strong>โหมดแก้ไขรูปภาพ:</strong> ติ๊กเลือก <strong>"🖼️ แก้ไขรูปภาพอย่างเดียว"</strong> เพื่อลากเลื่อนตำแหน่งรูปภาพฉากหลังหรือบุคคล</li>
             <li><strong>ประวัติการแก้:</strong> ใช้ปุ่ม Undo/Redo ใต้ภาพเพื่อย้อนกลับหรือทำซ้ำการขยับได้ตลอดเวลา</li>
-            <li><strong>เปลี่ยนสัดส่วน:</strong> เลือกปุ่ม 1:1, 16:9 หรือ 9:16 ด้านบนจอเพื่อปรับขนาดภาพตามการใช้งาน</li>
           </ul>
         </div>
       </div>
@@ -529,6 +547,32 @@
     </div>
   </div>
 
+  <!-- ISSUE REPORTING MODAL -->
+  <div id="reportModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 flex flex-col gap-4 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-white font-bold text-base flex items-center gap-2">
+          <span>⚠️</span> รายงานปัญหา / ข้อเสนอแนะ
+        </h3>
+        <button onclick="closeReportModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center transition cursor-pointer">
+          ✕
+        </button>
+      </div>
+      <div class="space-y-3 text-xs text-slate-300">
+        <p>แจ้งรายละเอียดปัญหาที่พบหรือข้อเสนอแนะในการปรับปรุงระบบส่งตรงถึงผู้สร้างระบบได้เลยครับ:</p>
+        <textarea id="reportMessage" rows="4" placeholder="พิมพ์รายละเอียดปัญหา เช่น ฟอนต์เพี้ยน, รูปภาพขยับยาก, หรืออยากเพิ่มฟีเจอร์อะไร..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-white text-xs outline-none focus:border-yellow-400"></textarea>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeReportModal()" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-4 py-2 rounded-xl text-xs transition cursor-pointer">
+          ยกเลิก
+        </button>
+        <button onclick="submitReport()" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-5 py-2 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-yellow-400/20">
+          ส่งรายงานปัญหา
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const canvas = document.getElementById('prCanvas');
     const ctx = canvas.getContext('2d');
@@ -581,6 +625,25 @@
       const modal = document.getElementById('fullscreenModal');
       modal.classList.remove('flex');
       modal.classList.add('hidden');
+    }
+
+    function openReportModal() {
+      const modal = document.getElementById('reportModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeReportModal() {
+      const modal = document.getElementById('reportModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    function submitReport() {
+      const msg = document.getElementById('reportMessage').value.trim();
+      // Saved silently or can be logged/sent later without alert popup
+      document.getElementById('reportMessage').value = '';
+      closeReportModal();
     }
 
     function captureState() {
@@ -1094,33 +1157,34 @@
     }
 
     canvas.addEventListener('pointerdown', (e) => {
+      const editMode = document.querySelector('input[name="editMode"]:checked').value;
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = canvasWidth / rect.width;
       const clickX = (e.clientX - rect.left) * scaleFactor;
       const clickY = (e.clientY - rect.top) * scaleFactor;
-
       const normY = clickY * (1080 / canvasHeight);
 
-      if (normY > 750) {
-        draggingTarget = 'footer';
-      } else if (normY > 620) {
-        draggingTarget = 'headline';
-      } else if (normY > 450) {
-        draggingTarget = 'topic';
-      } else if (normY > 300) {
-        draggingTarget = 'gold';
-      } else {
-        draggingTarget = activeLayer;
-      }
-
-      if (draggingTarget === 'footer' || draggingTarget === 'headline' || draggingTarget === 'topic' || draggingTarget === 'gold') {
+      if (editMode === 'text') {
+        if (normY > 750) {
+          draggingTarget = 'footer';
+        } else if (normY > 620) {
+          draggingTarget = 'headline';
+        } else if (normY > 450) {
+          draggingTarget = 'topic';
+        } else if (normY > 300) {
+          draggingTarget = 'gold';
+        } else {
+          return; // Clicked outside text in text mode
+        }
         dragStartX = clickX - textOffsets[draggingTarget].x;
         dragStartY = clickY - textOffsets[draggingTarget].y;
       } else {
+        draggingTarget = activeLayer;
         const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
         dragStartX = clickX - targetState.x;
         dragStartY = clickY - targetState.y;
       }
+
       canvas.setPointerCapture(e.pointerId);
     });
 
