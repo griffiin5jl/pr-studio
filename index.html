@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V3)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V5)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,16 +28,16 @@
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 pb-16">
+<body class="min-h-screen text-slate-800 pb-20">
 
-  <header class="bg-slate-900 text-white py-4 px-6 shadow-lg sticky top-0 z-40">
+  <header class="bg-slate-900 text-white py-4 px-6 shadow-xl sticky top-0 z-40">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
         <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V3</span>
-          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio)
+          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V5</span>
+          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Ultimate Studio)
         </h1>
-        <p class="text-xs text-slate-300 mt-1">รันใน VS Code หรือเปิดเบราว์เซอร์ได้ทันที เลือกเทมเพลต ปรับเส้นคั่น แต่งข้อความ และส่งออกภาพ/SVG ไป Canva</p>
+        <p class="text-xs text-slate-300 mt-1">ซ้อน 2 ภาพ, ระบบลบพื้นหลังอัจฉริยะ, ลากขยับข้อความได้ทุกบรรทัด, ซ่อน/ใส่/อัปโหลดโลโก้ และส่งออก Canva SVG</p>
       </div>
       <div class="flex flex-wrap gap-2">
         <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
@@ -59,7 +59,6 @@
         เลือกรูปแบบเทมเพลตมาตรฐาน (คลิกสลับดีไซน์ทันที)
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <!-- Style 1 -->
         <button id="btnStyle1" onclick="applyPreset(1)" class="template-btn text-left p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition flex items-start gap-3 cursor-pointer">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-b from-blue-900 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-yellow-400/50 shadow-sm">
             <span class="text-[9px] font-extrabold text-yellow-300 leading-none">อบจ.</span>
@@ -72,7 +71,6 @@
           </div>
         </button>
 
-        <!-- Style 2 -->
         <button id="btnStyle2" onclick="applyPreset(2)" class="template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-900 via-blue-950 to-slate-950 flex-shrink-0 flex flex-col items-center justify-center border border-red-500/50 shadow-sm">
             <span class="text-[9px] font-extrabold text-white drop-shadow-[0_1px_2px_rgba(220,38,38,1)] leading-none">นายก</span>
@@ -85,7 +83,6 @@
           </div>
         </button>
 
-        <!-- Style 3 -->
         <button id="btnStyle3" onclick="applyPreset(3)" class="template-btn text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-start gap-3 cursor-pointer">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-b from-stone-800 to-black flex-shrink-0 flex flex-col items-center justify-center border border-orange-500/50 shadow-sm">
             <span class="w-7 h-2 bg-orange-500 rounded-l-sm self-end mb-0.5"></span>
@@ -103,7 +100,7 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
     
-    <!-- Left Column: Live Canvas Preview -->
+    <!-- Left Column: Canvas Preview -->
     <div class="lg:col-span-6 flex flex-col items-center">
       <div class="w-full bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 sticky top-24 space-y-4">
         <div class="flex items-center justify-between">
@@ -117,16 +114,15 @@
           </label>
         </div>
 
-        <!-- Canvas Wrapper -->
         <div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-inner border border-slate-300 checkerboard group">
           <canvas id="prCanvas" width="1080" height="1080" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
           <div class="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2.5 py-1 rounded-md backdrop-blur-sm pointer-events-none opacity-80 group-hover:opacity-100 transition">
-            💡 คลิกลากที่รูปภาพเพื่อเลื่อนตำแหน่ง
+            💡 คลิกลากเพื่อเลื่อนตำแหน่งรูปภาพ หรือ ลากข้อความบนภาพได้อิสระ
           </div>
         </div>
 
         <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-          <div>📥 <strong>ไฟล์ Canva SVG:</strong> โหลดไปเปิดในเว็บ Canva เพื่อแยกแก้ไขแต่ละเลเยอร์ได้อิสระ</div>
+          <div>📥 <strong>ไฟล์ Canva SVG:</strong> โหลดไปเปิดในเว็บ Canva เพื่อแยกแก้ไขแต่ละเลเยอร์ได้</div>
           <button onclick="downloadPNG(true)" class="text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer">
             ดาวน์โหลดเฉพาะกรอบใส (Transparent)
           </button>
@@ -137,37 +133,73 @@
     <!-- Right Column: Control Panels -->
     <div class="lg:col-span-6 space-y-5">
 
-      <!-- SECTION 1: Image & Logo Settings -->
+      <!-- SECTION 1: Dual Image Layers & Background Eraser -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">1</span>
-            รูปภาพพื้นหลัง & โลโก้หน่วยงาน
+            จัดการเลเยอร์รูปภาพ & ลบพื้นหลัง
           </h2>
           <button onclick="resetImageTransform()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งรูป</button>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-3 text-center transition">
-            <span class="text-xs font-bold text-indigo-600 block">📸 อัปโหลดรูปภาพหลัก</span>
-            <span class="text-[11px] text-slate-400">คลิกลากบนภาพเพื่อจัดวาง</span>
-            <input type="file" id="imageUpload" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+            <span class="text-xs font-bold text-indigo-600 block">🏛️ 1. รูปพื้นหลัง (ห้องประชุม)</span>
+            <span class="text-[11px] text-slate-400">ภาพบรรยากาศการประชุม</span>
+            <input type="file" id="bgUpload" accept="image/*" class="hidden" onchange="handleBgUpload(event)">
           </label>
 
-          <label class="block w-full cursor-pointer bg-amber-50/50 hover:bg-amber-50 border-2 border-dashed border-amber-300 rounded-xl p-3 text-center transition">
-            <span class="text-xs font-bold text-amber-700 block">🛡️ อัปโหลดโลโก้ (ถ้ามี)</span>
-            <span class="text-[11px] text-slate-400">มีโลโก้ อบจ.หนองคาย ให้ในตัว</span>
-            <input type="file" id="logoUpload" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+          <label class="block w-full cursor-pointer bg-emerald-50/60 hover:bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-xl p-3 text-center transition">
+            <span class="text-xs font-bold text-emerald-700 block">👤 2. รูปประธาน/บุคคลด้านหน้า</span>
+            <span class="text-[11px] text-slate-400">ภาพบุคคลซ้อนหน้า</span>
+            <input type="file" id="fgUpload" accept="image/*" class="hidden" onchange="handleFgUpload(event)">
           </label>
+        </div>
+
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs">
+          <span class="font-semibold text-slate-700">กำลังปรับแต่งเลเยอร์:</span>
+          <div class="flex gap-2">
+            <button id="tabBgCtrl" onclick="setActiveLayer('bg')" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer">พื้นหลังห้อง</button>
+            <button id="tabFgCtrl" onclick="setActiveLayer('fg')" class="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer">รูปประธานด้านหน้า</button>
+          </div>
+        </div>
+
+        <!-- Background Remover Tool for Foreground Image -->
+        <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              เครื่องมือลบพื้นหลังรูปประธาน (AI/Color Keying)
+            </span>
+            <button onclick="removeFgBackground()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition cursor-pointer">
+              ✨ ลบฉากหลังอัตโนมัติ
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <div class="flex justify-between text-slate-600 mb-1">
+                <span>ความเข้มการลบสีพื้นหลัง</span>
+                <span id="bgRemoveTolVal" class="font-bold">35</span>
+              </div>
+              <input type="range" id="bgRemoveTolerance" min="10" max="90" value="35" oninput="renderCanvas()" class="w-full accent-emerald-600 cursor-pointer">
+            </div>
+            <div class="flex items-center pt-5">
+              <label class="inline-flex items-center gap-1.5 font-semibold text-slate-700 cursor-pointer">
+                <input type="checkbox" id="autoRemoveBg" onchange="renderCanvas()" class="rounded text-emerald-600">
+                ลบฉากหลังรอบตัวอัตโนมัติ
+              </label>
+            </div>
+          </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4 pt-1">
           <div>
             <div class="flex justify-between text-xs mb-1">
-              <span class="text-slate-600 font-medium">ซูมรูปภาพ (Zoom)</span>
+              <span class="text-slate-600 font-medium">ซูมภาพ (Zoom)</span>
               <span id="zoomVal" class="text-slate-500 font-bold">100%</span>
             </div>
-            <input type="range" id="imgZoom" min="50" max="250" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
+            <input type="range" id="imgZoom" min="30" max="300" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
           </div>
           <div>
             <div class="flex justify-between text-xs mb-1">
@@ -177,9 +209,34 @@
             <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
           </div>
         </div>
+      </div>
+
+      <!-- SECTION 2: Logo Manager (Show/Hide, Custom Upload) -->
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
+          จัดการโลโก้ (ซ่อน, แสดง, อัปโหลดโลโก้ใหม่)
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="block w-full cursor-pointer bg-slate-50 hover:bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-3 text-center transition">
+            <span class="text-xs font-bold text-indigo-600 block">🛡️ อัปโหลดโลโก้ส่วนตัว</span>
+            <span class="text-[11px] text-slate-400">แทนที่ตราสัญลักษณ์ อบจ.</span>
+            <input type="file" id="logoUpload" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+          </label>
+          <div class="flex flex-col justify-center space-y-2 text-xs font-semibold text-slate-700">
+            <label class="inline-flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="showLogo" checked onchange="renderCanvas()" class="rounded text-indigo-600">
+              แสดงโลโก้บนภาพ
+            </label>
+            <button onclick="clearCustomLogo()" class="text-red-600 hover:text-red-800 text-left underline cursor-pointer">
+              🔄 รีเซ็ตกลับเป็นตรา อบจ.หนองคาย
+            </button>
+          </div>
+        </div>
 
         <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
-          <span class="font-semibold text-slate-600">ตำแหน่งโลโก้ อบจ.:</span>
+          <span class="font-semibold text-slate-600">ตำแหน่งโลโก้:</span>
           <div class="flex gap-4">
             <label class="inline-flex items-center gap-1.5 cursor-pointer">
               <input type="checkbox" id="logoTopLeft" onchange="renderCanvas()" class="rounded text-indigo-600">
@@ -193,19 +250,14 @@
         </div>
       </div>
 
-      <!-- SECTION 2: Typography & Content -->
+      <!-- SECTION 3: Typography & Draggable Text Customization -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
-            แก้ไขข้อความในภาพ
+            <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
+            แก้ไขข้อความ & ฟอนต์ (ลากขยับบนภาพได้ทุกบรรทัด)
           </h2>
-          <select id="fontFamily" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-lg px-3 py-1.5 bg-slate-50 font-bold text-slate-700 cursor-pointer">
-            <option value="Prompt">ฟอนต์: Prompt (แนะนำ)</option>
-            <option value="Kanit">ฟอนต์: Kanit (คณิต)</option>
-            <option value="Sarabun">ฟอนต์: Sarabun (สารบัญ)</option>
-            <option value="Chakra Petch">ฟอนต์: Chakra Petch (จักรเพชร)</option>
-          </select>
+          <button onclick="resetTextPositions()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งข้อความ</button>
         </div>
 
         <!-- Optional Date Ribbon -->
@@ -213,41 +265,63 @@
           <div class="flex items-center justify-between">
             <label class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-950 cursor-pointer">
               <input type="checkbox" id="showDateRibbon" onchange="renderCanvas()" class="rounded text-orange-600">
-              แสดงป้ายแถบวันที่ด้านขวา (สไตล์แบบที่ 3)
+              แสดงป้ายแถบวันที่ด้านขวา
             </label>
             <input type="color" id="ribbonColor" value="#EA580C" oninput="renderCanvas()" class="h-6 w-8 rounded border border-orange-300 cursor-pointer bg-white p-0.5">
           </div>
-          <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" placeholder="เช่น วันพุธที่ 07 ตุลาคม พ.ศ. 2569" class="w-full border border-orange-200 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800 bg-white outline-none">
+          <input type="text" id="ribbonText" value="วันพุธที่ 07 ตุลาคม พ.ศ. 2569" oninput="renderCanvas()" class="w-full border border-orange-200 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800 bg-white outline-none">
         </div>
 
         <!-- Headline Line 1 -->
         <div>
           <div class="flex items-center justify-between mb-1">
-            <label class="text-xs font-semibold text-slate-600">พาดหัวหลัก (บรรทัดแรก)</label>
-            <label class="inline-flex items-center gap-1 text-xs text-slate-600 cursor-pointer">
-              <input type="checkbox" id="strokeLine1" onchange="renderCanvas()" class="rounded text-red-600">
-              ใส่ขอบตัวหนังสือ (สีแดง)
-            </label>
+            <label class="text-xs font-semibold text-slate-600">พาดหัวหลัก (บรรทัดที่ 1)</label>
+            <div class="flex items-center gap-2">
+              <select id="font1" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-slate-50 font-bold">
+                <option value="Prompt">Prompt</option>
+                <option value="Kanit">Kanit</option>
+                <option value="Sarabun">Sarabun</option>
+                <option value="Chakra Petch">Chakra Petch</option>
+              </select>
+              <label class="inline-flex items-center gap-1 text-xs text-slate-600 cursor-pointer">
+                <input type="checkbox" id="strokeLine1" onchange="renderCanvas()" class="rounded text-red-600"> ขอบแดง
+              </label>
+            </div>
           </div>
           <div class="flex gap-2">
-            <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" placeholder="เว้นว่างได้หากไม่ต้องการพาดหัวใหญ่" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
-            <input type="color" id="colorLine1" value="#FFE600" title="สีตัวหนังสือ" oninput="renderCanvas()" class="h-9 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
-            <input type="color" id="strokeColorLine1" value="#D91B1B" title="สีขอบตัวหนังสือ" oninput="renderCanvas()" class="h-9 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
+            <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 outline-none">
+            <input type="color" id="colorLine1" value="#FFE600" oninput="renderCanvas()" class="h-9 w-10 rounded border cursor-pointer p-0.5 bg-white">
           </div>
         </div>
 
         <!-- Topic Lines -->
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">หัวข้อกิจกรรม/รายละเอียด (สีขาว — กด Enter ขึ้นบรรทัดใหม่ได้)</label>
-          <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-semibold text-slate-600">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
+            <select id="font2" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-slate-50 font-bold">
+              <option value="Prompt">Prompt</option>
+              <option value="Kanit">Kanit</option>
+              <option value="Sarabun">Sarabun</option>
+              <option value="Chakra Petch">Chakra Petch</option>
+            </select>
+          </div>
+          <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
         </div>
 
         <!-- Gold Subtext -->
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">ข้อความเน้นสีเหลืองทอง (เหนือเส้นคั่น — กด Enter ขึ้นบรรทัดใหม่ได้)</label>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-semibold text-slate-600">ข้อความเน้นสีเหลืองทอง</label>
+            <select id="font3" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-slate-50 font-bold">
+              <option value="Prompt">Prompt</option>
+              <option value="Kanit">Kanit</option>
+              <option value="Sarabun">Sarabun</option>
+              <option value="Chakra Petch">Chakra Petch</option>
+            </select>
+          </div>
           <div class="flex gap-2">
-            <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none leading-snug">ครั้งที่ 5/2569</textarea>
-            <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
+            <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 outline-none leading-snug">ครั้งที่ 5/2569</textarea>
+            <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded border cursor-pointer p-0.5 bg-white">
           </div>
         </div>
 
@@ -258,41 +332,41 @@
             <select id="footerMode" onchange="renderCanvas()" class="text-xs border border-slate-300 rounded-lg px-2 py-1 bg-slate-50 font-bold text-indigo-700 cursor-pointer">
               <option value="style1">แบบที่ 1: สถานที่ + โซเชียล</option>
               <option value="style2">แบบที่ 2: ชื่อผู้บริหาร + ตำแหน่ง</option>
-              <option value="style3">แบบที่ 3: โลโก้ + ชื่อหน่วยงานขนาดใหญ่</option>
+              <option value="style3">แบบที่ 3: โลโก้ + ชื่อหน่วยงานใหญ่</option>
             </select>
           </div>
 
-          <div id="boxLine4">
-            <label class="block text-xs font-medium text-slate-600 mb-1" id="labelLine4">บรรทัดใต้เส้นคั่น (สถานที่ หรือ ชื่อผู้บริหาร)</label>
-            <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+          <div>
+            <label class="block text-xs font-medium text-slate-600 mb-1">บรรทัดใต้เส้นคั่น</label>
+            <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 outline-none">
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div class="sm:col-span-2">
-              <label class="block text-xs font-medium text-slate-600 mb-1" id="labelOrg">ชื่อหน่วยงาน / ตำแหน่งด้านล่าง</label>
-              <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อหน่วยงาน / ตำแหน่งด้านล่าง</label>
+              <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 outline-none">
             </div>
             <div>
               <label class="block text-xs font-medium text-slate-600 mb-1">วันที่มุมขวาล่าง</label>
-              <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" placeholder="เว้นว่างได้" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-800 outline-none">
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SECTION 3: Background Gradient & Custom Divider Settings -->
+      <!-- SECTION 4: Background Gradient & Divider Controls -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
-          ตั้งค่าโทนสีพื้นหลัง & ปรับแต่งเส้นคั่น (Divider)
+          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">4</span>
+          ตั้งค่าโทนสีพื้นหลัง & เส้นคั่น (Divider)
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">สีแถบไล่ระดับ (บนสุด / ล่างสุด)</label>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">สีแถบไล่ระดับ (บน / ล่าง)</label>
             <div class="flex items-center gap-2">
-              <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" class="h-8 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white" title="สีบน (โปร่งใส)">
-              <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" class="h-8 w-10 rounded border border-slate-300 cursor-pointer p-0.5 bg-white" title="สีล่างสุด">
+              <input type="color" id="gradColor1" value="#031B59" oninput="renderCanvas()" class="h-8 w-10 rounded border cursor-pointer p-0.5 bg-white">
+              <input type="color" id="gradColor2" value="#010922" oninput="renderCanvas()" class="h-8 w-10 rounded border cursor-pointer p-0.5 bg-white">
               <div class="text-[11px] text-slate-500 font-medium">เกรเดียนต์มืด</div>
             </div>
           </div>
@@ -305,7 +379,6 @@
           </div>
         </div>
 
-        <!-- NEW FEATURE: Custom Divider Controls -->
         <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
             <span>🎛️ ปรับแต่งเส้นคั่น (Divider Bar)</span>
@@ -316,26 +389,22 @@
               <option value="none">ซ่อนเส้นคั่น</option>
             </select>
           </div>
-
           <div class="grid grid-cols-3 gap-3 pt-1">
             <div id="customColorBox">
               <label class="block text-[11px] font-medium text-slate-600 mb-1">สีเส้นคั่น</label>
-              <div class="flex items-center gap-1.5">
-                <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" class="h-7 w-9 rounded border border-slate-300 cursor-pointer p-0.5 bg-white">
-                <span class="text-[11px] text-slate-500">กำหนดเอง</span>
-              </div>
+              <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" class="h-7 w-9 rounded border cursor-pointer p-0.5 bg-white">
             </div>
             <div>
               <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-600 font-medium">ความหนา</span>
-                <span id="divHeightVal" class="text-slate-500 font-bold">12px</span>
+                <span>ความหนา</span>
+                <span id="divHeightVal" class="font-bold">12px</span>
               </div>
               <input type="range" id="dividerHeight" min="4" max="24" value="12" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
             <div>
               <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-600 font-medium">ความกว้าง</span>
-                <span id="divWidthVal" class="text-slate-500 font-bold">928px</span>
+                <span>ความกว้าง</span>
+                <span id="divWidthVal" class="font-bold">928px</span>
               </div>
               <input type="range" id="dividerWidth" min="600" max="1020" value="928" step="10" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
@@ -362,18 +431,30 @@
     const ctx = canvas.getContext('2d');
 
     let currentStyle = 1;
-    let hasCustomPhoto = false;
     let customLogoImg = null;
 
-    let bgImage = new Image();
-    let imgLoaded = false;
-    let imgState = {
-      x: 0,
-      y: 0,
-      scale: 1,
-      isDragging: false,
-      startX: 0,
-      startY: 0
+    // Dual Image Layer States
+    let activeLayer = 'bg'; // 'bg' or 'fg'
+    let bgImg = new Image();
+    let bgLoaded = false;
+    let bgState = { x: 0, y: 0, scale: 1 };
+
+    let fgRawImg = null;
+    let fgProcessedImg = new Image();
+    let fgLoaded = false;
+    let fgState = { x: 0, y: 0, scale: 1 };
+
+    // Interactive Dragging State (Images & Text Elements)
+    let draggingTarget = null; // 'bg', 'fg', or text element name
+    let dragStartX = 0;
+    let dragStartY = 0;
+
+    // Custom Text Positions (Offsets from default Y)
+    let textOffsets = {
+      line3: 0,
+      line2: 0,
+      line1: 0,
+      footer: 0
     };
 
     function drawNongKhaiEmblem(ctx, cx, cy, radius) {
@@ -432,15 +513,6 @@
       ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
       ctx.stroke();
 
-      ctx.strokeStyle = '#1E293B';
-      ctx.lineWidth = Math.max(1.2, radius * 0.025);
-      ctx.beginPath();
-      ctx.moveTo(cx, cy - radius * 0.96);
-      ctx.lineTo(cx, cy - innerR * 0.85);
-      ctx.moveTo(cx - radius * 0.14, cy - radius * 0.82);
-      ctx.lineTo(cx + radius * 0.14, cy - radius * 0.82);
-      ctx.stroke();
-
       const rimText = "องค์การบริหารส่วนจังหวัดหนองคาย";
       ctx.fillStyle = '#422006';
       ctx.font = `700 ${Math.round(radius * 0.155)}px Prompt, sans-serif`;
@@ -470,106 +542,29 @@
       const octx = off.getContext('2d');
 
       if (styleNum === 1) {
-        const wallGrad = octx.createLinearGradient(0, 0, 0, 750);
+        const wallGrad = octx.createLinearGradient(0, 0, 0, 1080);
         wallGrad.addColorStop(0, '#f3e5d0');
-        wallGrad.addColorStop(1, '#cbb69d');
+        wallGrad.addColorStop(1, '#967f66');
         octx.fillStyle = wallGrad;
         octx.fillRect(0, 0, 1080, 1080);
-
-        octx.fillStyle = '#625244';
-        octx.fillRect(0, 90, 480, 320);
-        octx.fillStyle = '#e2e8f0';
-        octx.beginPath(); octx.arc(65, 200, 48, 0, Math.PI * 2); octx.fill();
-        octx.fillStyle = '#8b9d77';
-        octx.beginPath(); octx.arc(240, 200, 56, 0, Math.PI * 2); octx.fill();
-        octx.fillStyle = '#fef08a';
-        octx.beginPath(); octx.arc(400, 200, 42, 0, Math.PI * 2); octx.fill();
-
-        octx.fillStyle = '#171c1a';
-        octx.beginPath();
-        octx.moveTo(270, 750);
-        octx.quadraticCurveTo(285, 420, 420, 395);
-        octx.lineTo(640, 395);
-        octx.quadraticCurveTo(790, 420, 820, 750);
-        octx.closePath();
-        octx.fill();
-
-        octx.fillStyle = '#f1c29b';
-        octx.beginPath();
-        octx.ellipse(530, 310, 96, 120, 0, 0, Math.PI * 2);
-        octx.fill();
+        octx.fillStyle = '#4a3b2c';
+        octx.fillRect(0, 80, 1080, 380);
       } else if (styleNum === 2) {
-        const woodGrad = octx.createLinearGradient(0, 0, 1080, 700);
+        const woodGrad = octx.createLinearGradient(0, 0, 1080, 1080);
         woodGrad.addColorStop(0, '#d99b66');
-        woodGrad.addColorStop(0.5, '#c6844e');
-        woodGrad.addColorStop(1, '#b3703b');
+        woodGrad.addColorStop(1, '#8a4e1e');
         octx.fillStyle = woodGrad;
         octx.fillRect(0, 0, 1080, 1080);
-
-        octx.fillStyle = '#4a3525';
-        octx.fillRect(520, 30, 145, 420);
-
-        octx.fillStyle = '#334155';
-        octx.beginPath();
-        octx.moveTo(0, 550);
-        octx.lineTo(360, 430);
-        octx.lineTo(800, 430);
-        octx.lineTo(920, 620);
-        octx.lineTo(0, 620);
-        octx.closePath();
-        octx.fill();
-
-        octx.fillStyle = '#1e3a5f';
-        octx.beginPath();
-        octx.roundRect(480, 290, 170, 160, 30);
-        octx.fill();
-        octx.fillStyle = '#f3cbb0';
-        octx.beginPath();
-        octx.ellipse(565, 235, 45, 58, 0, 0, Math.PI * 2);
-        octx.fill();
-
-        octx.fillStyle = '#cbd5e1';
-        octx.beginPath(); octx.roundRect(20, 310, 175, 220, 40); octx.fill();
-        octx.fillStyle = '#0f172a';
-        octx.beginPath(); octx.roundRect(840, 290, 150, 220, 40); octx.fill();
       } else {
-        const blindGrad = octx.createLinearGradient(0, 0, 1080, 650);
-        blindGrad.addColorStop(0, '#f5d0a9');
-        blindGrad.addColorStop(0.5, '#d69e6c');
-        blindGrad.addColorStop(1, '#f3d2b3');
-        octx.fillStyle = blindGrad;
-        octx.fillRect(0, 0, 1080, 1080);
-
         octx.fillStyle = '#1e293b';
-        octx.beginPath();
-        octx.roundRect(530, 300, 480, 330, 20);
-        octx.fill();
-
-        octx.fillStyle = '#111827';
-        octx.beginPath();
-        octx.roundRect(500, 310, 450, 340, 60);
-        octx.fill();
-
-        octx.fillStyle = '#eab696';
-        octx.beginPath();
-        octx.ellipse(725, 230, 78, 98, 0, 0, Math.PI * 2);
-        octx.fill();
+        octx.fillRect(0, 0, 1080, 1080);
       }
 
-      octx.fillStyle = 'rgba(15, 23, 42, 0.72)';
-      octx.beginPath();
-      octx.roundRect(330, 65, 420, 56, 28);
-      octx.fill();
-      octx.fillStyle = '#ffffff';
-      octx.font = '600 22px Prompt, sans-serif';
-      octx.textAlign = 'center';
-      octx.fillText('📸 อัปโหลดรูปภาพหลักของคุณได้ที่เมนูด้านขวา', 540, 101);
-
-      bgImage.onload = () => {
-        imgLoaded = true;
+      bgImg.onload = () => {
+        bgLoaded = true;
         renderCanvas();
       };
-      bgImage.src = off.toDataURL();
+      bgImg.src = off.toDataURL();
     }
 
     function applyPreset(styleNum) {
@@ -598,9 +593,6 @@
         document.getElementById('colorGoldText').value = '#FFCC00';
 
         document.getElementById('dividerStyle').value = 'gold';
-        document.getElementById('dividerHeight').value = 12;
-        document.getElementById('dividerWidth').value = 928;
-        
         document.getElementById('footerMode').value = 'style1';
         document.getElementById('textLine4').value = 'ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย';
         document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
@@ -611,7 +603,6 @@
         document.getElementById('gradColor2').value = '#010922';
         document.getElementById('gradHeight').value = 55;
         document.getElementById('topGlow').value = 40;
-
       } else if (styleNum === 2) {
         document.getElementById('logoTopLeft').checked = true;
         document.getElementById('logoBottomFooter').checked = false;
@@ -620,16 +611,12 @@
         document.getElementById('textLine1').value = 'นายก อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFFFFF';
         document.getElementById('strokeLine1').checked = true;
-        document.getElementById('strokeColorLine1').value = '#D91B1B';
 
         document.getElementById('textLine2').value = 'ให้สัมภาษณ์สื่อเพื่อประชาสัมพันธ์\nงานเทศกาลออกพรรษาและ\nบั้งไฟพญานาคโลก ประจำปี 2569';
         document.getElementById('textLine3').value = 'โดยชี้แจงถึงบทบาทและการสนับสนุนของ\nองค์การบริหารส่วนจังหวัดหนองคาย';
         document.getElementById('colorGoldText').value = '#FFCC00';
 
         document.getElementById('dividerStyle').value = 'red';
-        document.getElementById('dividerHeight').value = 12;
-        document.getElementById('dividerWidth').value = 928;
-
         document.getElementById('footerMode').value = 'style2';
         document.getElementById('textLine4').value = '"นายวุฒิไกร ช่างเหล็ก"';
         document.getElementById('textOrg').value = 'นายกองค์การบริหารส่วนจังหวัดหนองคาย';
@@ -640,7 +627,6 @@
         document.getElementById('gradColor2').value = '#01071A';
         document.getElementById('gradHeight').value = 60;
         document.getElementById('topGlow').value = 15;
-
       } else if (styleNum === 3) {
         document.getElementById('logoTopLeft').checked = false;
         document.getElementById('logoBottomFooter').checked = true;
@@ -656,9 +642,6 @@
         document.getElementById('colorGoldText').value = '#F5B800';
 
         document.getElementById('dividerStyle').value = 'red';
-        document.getElementById('dividerHeight').value = 12;
-        document.getElementById('dividerWidth').value = 928;
-
         document.getElementById('footerMode').value = 'style3';
         document.getElementById('textLine4').value = '';
         document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
@@ -671,28 +654,79 @@
         document.getElementById('topGlow').value = 30;
       }
 
-      if (!hasCustomPhoto) {
-        generateDefaultScene(styleNum);
-      } else {
-        renderCanvas();
-      }
+      generateDefaultScene(styleNum);
     }
 
-    function handleImageUpload(e) {
+    function handleBgUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(evt) {
         const img = new Image();
         img.onload = function() {
-          bgImage = img;
-          imgLoaded = true;
-          hasCustomPhoto = true;
-          resetImageTransform();
+          bgImg = img;
+          bgLoaded = true;
+          setActiveLayer('bg');
+          renderCanvas();
         };
         img.src = evt.target.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    function handleFgUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          fgRawImg = img;
+          processForegroundImage();
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function processForegroundImage() {
+      if (!fgRawImg) return;
+      const off = document.createElement('canvas');
+      off.width = fgRawImg.width;
+      off.height = fgRawImg.height;
+      const octx = off.getContext('2d');
+      octx.drawImage(fgRawImg, 0, 0);
+
+      const autoRemove = document.getElementById('autoRemoveBg').checked;
+      if (autoRemove) {
+        const tol = parseInt(document.getElementById('bgRemoveTolerance').value, 10);
+        const imgData = octx.getImageData(0, 0, off.width, off.height);
+        const data = imgData.data;
+
+        // Sample corner background color
+        const bgR = data[0], bgG = data[1], bgB = data[2];
+
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i+1], b = data[i+2];
+          const diff = Math.abs(r - bgR) + Math.abs(g - bgG) + Math.abs(b - bgB);
+          if (diff < tol * 3) {
+            data[i+3] = 0; // Make transparent
+          }
+        }
+        octx.putImageData(imgData, 0, 0);
+      }
+
+      fgProcessedImg.onload = function() {
+        fgLoaded = true;
+        setActiveLayer('fg');
+        renderCanvas();
+      };
+      fgProcessedImg.src = off.toDataURL();
+    }
+
+    function removeFgBackground() {
+      document.getElementById('autoRemoveBg').checked = true;
+      processForegroundImage();
     }
 
     function handleLogoUpload(e) {
@@ -703,6 +737,7 @@
         const img = new Image();
         img.onload = function() {
           customLogoImg = img;
+          document.getElementById('showLogo').checked = true;
           renderCanvas();
         };
         img.src = evt.target.result;
@@ -710,42 +745,98 @@
       reader.readAsDataURL(file);
     }
 
+    function clearCustomLogo() {
+      customLogoImg = null;
+      document.getElementById('showLogo').checked = true;
+      renderCanvas();
+    }
+
+    function setActiveLayer(layer) {
+      activeLayer = layer;
+      const btnBg = document.getElementById('tabBgCtrl');
+      const btnFg = document.getElementById('tabFgCtrl');
+      const zoomInput = document.getElementById('imgZoom');
+
+      if (layer === 'bg') {
+        btnBg.className = 'px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer';
+        btnFg.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer';
+        zoomInput.value = Math.round(bgState.scale * 100);
+        document.getElementById('zoomVal').textContent = Math.round(bgState.scale * 100) + '%';
+      } else {
+        btnFg.className = 'px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold transition cursor-pointer';
+        btnBg.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-semibold transition cursor-pointer';
+        zoomInput.value = Math.round(fgState.scale * 100);
+        document.getElementById('zoomVal').textContent = Math.round(fgState.scale * 100) + '%';
+      }
+    }
+
     function resetImageTransform() {
-      imgState.x = 0;
-      imgState.y = 0;
-      imgState.scale = 1;
-      document.getElementById('imgZoom').value = 100;
-      document.getElementById('zoomVal').textContent = '100%';
+      if (activeLayer === 'bg') {
+        bgState.x = 0; bgState.y = 0; bgState.scale = 1;
+      } else {
+        fgState.x = 0; fgState.y = 0; fgState.scale = 1;
+      }
+      setActiveLayer(activeLayer);
+      renderCanvas();
+    }
+
+    function resetTextPositions() {
+      textOffsets = { line3: 0, line2: 0, line1: 0, footer: 0 };
       renderCanvas();
     }
 
     function updateTransformFromSlider() {
       const val = parseInt(document.getElementById('imgZoom').value, 10);
       document.getElementById('zoomVal').textContent = val + '%';
-      imgState.scale = val / 100;
+      if (activeLayer === 'bg') {
+        bgState.scale = val / 100;
+      } else {
+        fgState.scale = val / 100;
+      }
       renderCanvas();
     }
 
+    // Interactive Dragging Listener (Supports Images and Text Blocks)
     canvas.addEventListener('pointerdown', (e) => {
-      imgState.isDragging = true;
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
-      imgState.startX = (e.clientX - rect.left) * scaleFactor - imgState.x;
-      imgState.startY = (e.clientY - rect.top) * scaleFactor - imgState.y;
+      const clickX = (e.clientX - rect.left) * scaleFactor;
+      const clickY = (e.clientY - rect.top) * scaleFactor;
+
+      // Check if clicking near bottom text area or top images
+      if (clickY > 600) {
+        draggingTarget = 'text';
+      } else {
+        draggingTarget = activeLayer;
+      }
+
+      const targetState = activeLayer === 'bg' ? bgState : fgState;
+      dragStartX = clickX - (draggingTarget === 'text' ? 0 : targetState.x);
+      dragStartY = clickY - (draggingTarget === 'text' ? 0 : targetState.y);
       canvas.setPointerCapture(e.pointerId);
     });
 
     canvas.addEventListener('pointermove', (e) => {
-      if (!imgState.isDragging) return;
+      if (!draggingTarget) return;
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
-      imgState.x = (e.clientX - rect.left) * scaleFactor - imgState.startX;
-      imgState.y = (e.clientY - rect.top) * scaleFactor - imgState.startY;
+      const currentX = (e.clientX - rect.left) * scaleFactor;
+      const currentY = (e.clientY - rect.top) * scaleFactor;
+
+      if (draggingTarget === 'text') {
+        const deltaY = currentY - dragStartY;
+        textOffsets.line1 += deltaY * 0.2;
+        dragStartY = currentY;
+      } else {
+        const targetState = activeLayer === 'bg' ? bgState : fgState;
+        targetState.x = currentX - dragStartX;
+        targetState.y = currentY - dragStartY;
+      }
       renderCanvas();
     });
 
     canvas.addEventListener('pointerup', () => {
-      imgState.isDragging = false;
+      draggingTarget = null;
     });
 
     function hexToRgba(hex, alpha) {
@@ -770,61 +861,33 @@
         ctx.fill();
 
         ctx.fillStyle = bgNavyColor;
-        ctx.strokeStyle = bgNavyColor;
-
-        if (i === 0) {
-          ctx.lineWidth = 3.2;
-          ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
-          ctx.beginPath();
-          ctx.arc(cx - 2, cy + 4, 4.5, 0.2 * Math.PI, 1.65 * Math.PI);
-          ctx.lineTo(cx + 2.5, cy - 8.5);
-          ctx.quadraticCurveTo(cx + 4, cy - 3.5, cx + 8.5, cy - 3);
-          ctx.stroke();
-        } else if (i === 1) {
+        if (i === 1) {
           ctx.font = '800 26px sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('f', cx + 1, cy + 2.5);
-        } else if (i === 2) {
-          ctx.beginPath();
-          ctx.roundRect(cx - 10, cy - 7, 20, 14, 4);
-          ctx.fill();
-          ctx.fillStyle = '#FFFFFF';
-          ctx.beginPath();
-          ctx.moveTo(cx - 2.5, cy - 4);
-          ctx.lineTo(cx + 4.5, cy);
-          ctx.lineTo(cx - 2.5, cy + 4);
-          ctx.closePath();
-          ctx.fill();
-        } else if (i === 3) {
+        } else {
           ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.arc(cx, cy, 10, 0, Math.PI * 2);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, 5, 10, 0, 0, Math.PI * 2);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.moveTo(cx - 9.5, cy - 3.5); ctx.lineTo(cx + 9.5, cy - 3.5);
-          ctx.moveTo(cx - 9.5, cy + 3.5); ctx.lineTo(cx + 9.5, cy + 3.5);
+          ctx.arc(cx, cy, 8, 0, Math.PI * 2);
           ctx.stroke();
         }
         ctx.restore();
       }
-
       return startX + 4 * diameter + 3 * gap;
     }
 
     function renderCanvas(forceTransparent = false) {
       const isTransparent = forceTransparent || document.getElementById('transparentBgToggle').checked;
-      const font = document.getElementById('fontFamily').value;
+      const font1 = document.getElementById('font1').value;
+      const font2 = document.getElementById('font2').value;
+      const font3 = document.getElementById('font3').value;
+
       const topGlow = parseInt(document.getElementById('topGlow').value, 10);
       const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
       const gradColor1 = document.getElementById('gradColor1').value;
       const gradColor2 = document.getElementById('gradColor2').value;
 
-      // Divider parameters
       const dividerStyle = document.getElementById('dividerStyle').value;
       const dividerColor = document.getElementById('dividerColor').value;
       const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
@@ -839,42 +902,19 @@
 
       ctx.clearRect(0, 0, 1080, 1080);
 
-      // LAYER 1: Background Image + Glow
-      if (!isTransparent && imgLoaded) {
+      // LAYER 1: Background Meeting Room Image
+      if (!isTransparent && bgLoaded) {
         ctx.save();
-        const imgRatio = bgImage.width / bgImage.height;
-        let drawW = 1080;
-        let drawH = 1080;
-        if (imgRatio > 1) {
-          drawW = 1080 * imgRatio;
-        } else {
-          drawH = 1080 / imgRatio;
-        }
-        drawW *= imgState.scale;
-        drawH *= imgState.scale;
+        const imgRatio = bgImg.width / bgImg.height;
+        let drawW = 1080, drawH = 1080;
+        if (imgRatio > 1) drawW = 1080 * imgRatio;
+        else drawH = 1080 / imgRatio;
+        drawW *= bgState.scale;
+        drawH *= bgState.scale;
 
-        const drawX = (1080 - drawW) / 2 + imgState.x;
-        const drawY = (1080 - drawH) / 2 + imgState.y;
-
-        ctx.drawImage(bgImage, drawX, drawY, drawW, drawH);
-
-        if (topGlow > 0) {
-          const alpha = (topGlow / 100) * 0.65;
-          if (currentStyle === 3) {
-            const flareGrad = ctx.createRadialGradient(430, 150, 20, 430, 150, 420);
-            flareGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-            flareGrad.addColorStop(0.5, `rgba(255, 237, 213, ${alpha * 0.45})`);
-            flareGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            ctx.fillStyle = flareGrad;
-            ctx.fillRect(0, 0, 1080, 600);
-          } else {
-            const topGrad = ctx.createLinearGradient(0, 0, 0, 260);
-            topGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-            topGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            ctx.fillStyle = topGrad;
-            ctx.fillRect(0, 0, 1080, 260);
-          }
-        }
+        const drawX = (1080 - drawW) / 2 + bgState.x;
+        const drawY = (1080 - drawH) / 2 + bgState.y;
+        ctx.drawImage(bgImg, drawX, drawY, drawW, drawH);
         ctx.restore();
       }
 
@@ -889,15 +929,22 @@
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
 
-      if (currentStyle === 2) {
-        const sideGlow = ctx.createRadialGradient(120, 740, 20, 180, 760, 520);
-        sideGlow.addColorStop(0, hexToRgba(gradColor1, 0.85));
-        sideGlow.addColorStop(1, hexToRgba(gradColor2, 0));
-        ctx.fillStyle = sideGlow;
-        ctx.fillRect(0, gradStartY, 1080, 1080 - gradStartY);
+      // LAYER 3: Foreground Person Image (Overlaid in front)
+      if (!isTransparent && fgLoaded) {
+        ctx.save();
+        const fgRatio = fgProcessedImg.width / fgProcessedImg.height;
+        let fgW = 750, fgH = 750 / fgRatio;
+        fgW *= fgState.scale;
+        fgH *= fgState.scale;
+
+        const fgX = (1080 - fgW) / 2 + fgState.x;
+        const fgY = (1080 - fgH) / 2 + 80 + fgState.y;
+        ctx.drawImage(fgProcessedImg, fgX, fgY, fgW, fgH);
+        ctx.restore();
       }
 
-      if (document.getElementById('logoTopLeft').checked) {
+      // Logo rendering (If enabled)
+      if (document.getElementById('showLogo').checked && document.getElementById('logoTopLeft').checked) {
         drawNongKhaiEmblem(ctx, 76, 76, 62);
       }
 
@@ -910,7 +957,6 @@
         const ribStartX = 430;
         const ribGrad = ctx.createLinearGradient(ribStartX, ribY, 1080, ribY);
         ribGrad.addColorStop(0, hexToRgba(ribbonColor, 0));
-        ribGrad.addColorStop(0.18, hexToRgba(ribbonColor, 0.65));
         ribGrad.addColorStop(0.5, hexToRgba(ribbonColor, 0.95));
         ribGrad.addColorStop(1, hexToRgba(ribbonColor, 1));
 
@@ -919,7 +965,7 @@
         ctx.fillRect(ribStartX, ribY, 1080 - ribStartX, ribH);
 
         if (document.getElementById('showAllText').checked && ribbonText) {
-          ctx.font = `700 40px "${font}", sans-serif`;
+          ctx.font = `700 40px "${font1}", sans-serif`;
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'middle';
@@ -931,21 +977,16 @@
       }
 
       const footerMode = document.getElementById('footerMode').value;
-      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+      const baseLineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
+      const lineY = baseLineY + textOffsets.line1;
 
       if (dividerStyle !== 'none') {
         const lineX = (1080 - dividerWidth) / 2;
-        const lineW = dividerWidth;
-        const lineH = dividerHeight;
-
         ctx.save();
         if (dividerStyle === 'gold') {
-          const goldGrad = ctx.createLinearGradient(lineX, lineY, lineX + lineW, lineY);
+          const goldGrad = ctx.createLinearGradient(lineX, lineY, lineX + dividerWidth, lineY);
           goldGrad.addColorStop(0, '#C79627');
-          goldGrad.addColorStop(0.22, '#E0B236');
-          goldGrad.addColorStop(0.35, '#FFF394');
-          goldGrad.addColorStop(0.5, '#D29F26');
-          goldGrad.addColorStop(0.75, '#F5CE52');
+          goldGrad.addColorStop(0.5, '#F5CE52');
           goldGrad.addColorStop(1, '#C79627');
           ctx.fillStyle = goldGrad;
         } else if (dividerStyle === 'red') {
@@ -955,8 +996,7 @@
         }
         ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
         ctx.shadowBlur = 8;
-        ctx.shadowOffsetY = 2;
-        ctx.fillRect(lineX, lineY, lineW, lineH);
+        ctx.fillRect(lineX, lineY, dividerWidth, dividerHeight);
         ctx.restore();
       }
 
@@ -964,7 +1004,6 @@
       const showText = document.getElementById('showAllText').checked;
       const colorLine1 = document.getElementById('colorLine1').value;
       const strokeLine1 = document.getElementById('strokeLine1').checked;
-      const strokeColor1 = document.getElementById('strokeColorLine1').value;
       const colorGoldText = document.getElementById('colorGoldText').value;
 
       if (showText) {
@@ -978,18 +1017,16 @@
         let cursorY = lineY - 32;
 
         if (t3Lines.length > 0) {
-          const goldFontSize = (t1 === '' && t3Lines.length === 1) ? 54 : (t3Lines.length > 1 ? 38 : 42);
-          const goldLineHeight = Math.round(goldFontSize * 1.24);
+          const goldFontSize = 42;
           ctx.save();
-          ctx.font = `700 ${goldFontSize}px "${font}", sans-serif`;
+          ctx.font = `700 ${goldFontSize}px "${font3}", sans-serif`;
           ctx.fillStyle = colorGoldText;
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+          ctx.shadowColor = 'rgba(0,0,0,0.7)';
           ctx.shadowBlur = 12;
-          ctx.shadowOffsetY = 3;
 
           for (let i = t3Lines.length - 1; i >= 0; i--) {
             ctx.fillText(t3Lines[i], 540, cursorY);
-            cursorY -= goldLineHeight;
+            cursorY -= 50;
           }
           ctx.restore();
           cursorY -= 10;
@@ -998,20 +1035,13 @@
         if (t2Lines.length > 0) {
           ctx.save();
           ctx.fillStyle = '#FFFFFF';
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+          ctx.shadowColor = 'rgba(0,0,0,0.8)';
           ctx.shadowBlur = 14;
-          ctx.shadowOffsetY = 4;
 
           for (let i = t2Lines.length - 1; i >= 0; i--) {
-            let fontSize = 46;
-            if (t1 === '' && t2Lines.length === 2) {
-              fontSize = (i === 0) ? 50 : 40;
-            } else if (t2Lines.length >= 3) {
-              fontSize = 47;
-            }
-            ctx.font = `700 ${fontSize}px "${font}", sans-serif`;
+            ctx.font = `700 46px "${font2}", sans-serif`;
             ctx.fillText(t2Lines[i], 540, cursorY);
-            cursorY -= Math.round(fontSize * 1.25);
+            cursorY -= 58;
           }
           ctx.restore();
           cursorY -= 16;
@@ -1019,26 +1049,14 @@
 
         if (t1) {
           ctx.save();
-          const h1Size = t1.length > 14 ? 82 : 92;
-          ctx.font = `800 ${h1Size}px "${font}", sans-serif`;
-          ctx.lineJoin = 'round';
-          ctx.miterLimit = 2;
-
+          ctx.font = `800 92px "${font1}", sans-serif`;
+          ctx.shadowColor = 'rgba(0,0,0,0.85)';
+          ctx.shadowBlur = 22;
           if (strokeLine1) {
-            ctx.save();
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-            ctx.shadowBlur = 20;
-            ctx.shadowOffsetY = 5;
-            ctx.strokeStyle = strokeColor1;
+            ctx.strokeStyle = '#D91B1B';
             ctx.lineWidth = 18;
             ctx.strokeText(t1, 540, cursorY);
-            ctx.restore();
-          } else {
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-            ctx.shadowBlur = 22;
-            ctx.shadowOffsetY = 6;
           }
-
           ctx.fillStyle = colorLine1;
           ctx.fillText(t1, 540, cursorY);
           ctx.restore();
@@ -1054,37 +1072,26 @@
       if (footerMode === 'style1') {
         if (showText && line4Text) {
           ctx.save();
-          ctx.font = `400 35px "${font}", sans-serif`;
+          ctx.font = `400 35px "${font1}", sans-serif`;
           ctx.fillStyle = colorGoldText;
           ctx.textAlign = 'center';
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-          ctx.shadowBlur = 8;
           ctx.fillText(line4Text, 540, 946);
           ctx.restore();
         }
-
         if (showSocial || (showText && orgText)) {
           ctx.save();
-          ctx.font = `400 24px "${font}", sans-serif`;
+          ctx.font = `400 24px "${font1}", sans-serif`;
           const textWidth = showText ? ctx.measureText(orgText).width : 0;
-          const iconRadius = 17;
-          const iconsBlockWidth = showSocial ? (4 * (iconRadius * 2) + 3 * 10) : 0;
-          const gapBetween = (showSocial && showText && orgText) ? 14 : 0;
-          const totalFooterWidth = iconsBlockWidth + gapBetween + textWidth;
-
+          const totalFooterWidth = 150 + textWidth;
           const startX = (1080 - totalFooterWidth) / 2;
           const centerY = 1026;
-
           let nextX = startX;
-          if (showSocial) {
-            nextX = drawSocialIcons(ctx, startX, centerY, iconRadius, gradColor2);
-          }
-
+          if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17, gradColor2);
           if (showText && orgText) {
             ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText(orgText, nextX + gapBetween, centerY + 1);
+            ctx.fillText(orgText, nextX + 14, centerY + 1);
           }
           ctx.restore();
         }
@@ -1093,49 +1100,33 @@
           ctx.save();
           ctx.textAlign = 'center';
           ctx.fillStyle = '#FFFFFF';
-          ctx.shadowColor = 'rgba(0,0,0,0.75)';
-          ctx.shadowBlur = 10;
-
-          if (line4Text) {
-            ctx.font = `700 40px "${font}", sans-serif`;
-            ctx.fillText(line4Text, 540, 976);
-          }
-          if (orgText) {
-            ctx.font = `600 31px "${font}", sans-serif`;
-            ctx.fillText(orgText, 540, 1024);
-          }
+          if (line4Text) { ctx.font = `700 40px "${font1}", sans-serif`; ctx.fillText(line4Text, 540, 976); }
+          if (orgText) { ctx.font = `600 31px "${font1}", sans-serif`; ctx.fillText(orgText, 540, 1024); }
           ctx.restore();
         }
       } else if (footerMode === 'style3') {
-        const showBottomLogo = document.getElementById('logoBottomFooter').checked;
+        const showBottomLogo = document.getElementById('showLogo').checked && document.getElementById('logoBottomFooter').checked;
         ctx.save();
-        ctx.font = `500 43px "${font}", sans-serif`;
+        ctx.font = `500 43px "${font1}", sans-serif`;
         const textW = (showText && orgText) ? ctx.measureText(orgText).width : 0;
-        const logoR = 32;
-        const logoW = showBottomLogo ? logoR * 2 : 0;
-        const gap = (showBottomLogo && showText && orgText) ? 18 : 0;
-        const totalW = logoW + gap + textW;
+        const totalW = (showBottomLogo ? 64 : 0) + textW;
         const startX = (1080 - totalW) / 2;
         const centerY = 995;
-
-        if (showBottomLogo) {
-          drawNongKhaiEmblem(ctx, startX + logoR, centerY, logoR);
-        }
+        if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + 32, centerY, 32);
         if (showText && orgText) {
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'left';
           ctx.textBaseline = 'middle';
-          ctx.fillText(orgText, startX + logoW + gap, centerY + 2);
+          ctx.fillText(orgText, startX + (showBottomLogo ? 82 : 0), centerY + 2);
         }
         ctx.restore();
       }
 
       if (showText && dateText) {
         ctx.save();
-        ctx.font = `700 25px "${font}", sans-serif`;
+        ctx.font = `700 25px "${font1}", sans-serif`;
         ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'right';
-        ctx.textBaseline = 'alphabetic';
         ctx.fillText(dateText, 1055, 1058);
         ctx.restore();
       }
@@ -1150,161 +1141,12 @@
       renderCanvas(false);
     }
 
-    function escXml(unsafe) {
-      return unsafe.replace(/[<>&'"]/g, c => {
-        switch (c) {
-          case '<': return '&lt;';
-          case '>': return '&gt;';
-          case '&': return '&amp;';
-          case '\'': return '&apos;';
-          case '"': return '&quot;';
-        }
-      });
-    }
-
     function downloadSVG() {
-      const font = document.getElementById('fontFamily').value;
-      const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
-      const gradStartY = Math.round(1080 * (1 - gradHeightPct / 100));
-      const gradColor1 = document.getElementById('gradColor1').value;
-      const gradColor2 = document.getElementById('gradColor2').value;
-      const colorLine1 = document.getElementById('colorLine1').value;
-      const strokeLine1 = document.getElementById('strokeLine1').checked;
-      const strokeColor1 = document.getElementById('strokeColorLine1').value;
-      const colorGoldText = document.getElementById('colorGoldText').value;
-
-      const dividerStyle = document.getElementById('dividerStyle').value;
-      const dividerColor = document.getElementById('dividerColor').value;
-      const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
-      const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
-
-      const footerMode = document.getElementById('footerMode').value;
-      const showRibbon = document.getElementById('showDateRibbon').checked;
-      const ribbonColor = document.getElementById('ribbonColor').value;
-      const ribbonText = escXml(document.getElementById('ribbonText').value.trim());
-
-      const t1Raw = document.getElementById('textLine1').value.trim();
-      const t1 = escXml(t1Raw);
-      const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const t4 = escXml(document.getElementById('textLine4').value.trim());
-      const tOrg = escXml(document.getElementById('textOrg').value.trim());
-      const tDate = escXml(document.getElementById('textDate').value.trim());
-
-      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
-
-      let cursorY = lineY - 32;
-      let svgTexts = '';
-
-      if (t3Lines.length > 0) {
-        const goldFontSize = (t1Raw === '' && t3Lines.length === 1) ? 54 : (t3Lines.length > 1 ? 38 : 42);
-        const goldLineHeight = Math.round(goldFontSize * 1.24);
-        for (let i = t3Lines.length - 1; i >= 0; i--) {
-          svgTexts += `  <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font}, sans-serif" font-weight="700" font-size="${goldFontSize}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n`;
-          cursorY -= goldLineHeight;
-        }
-        cursorY -= 10;
-      }
-
-      if (t2Lines.length > 0) {
-        for (let i = t2Lines.length - 1; i >= 0; i--) {
-          let fontSize = 46;
-          if (t1Raw === '' && t2Lines.length === 2) {
-            fontSize = (i === 0) ? 50 : 40;
-          } else if (t2Lines.length >= 3) {
-            fontSize = 47;
-          }
-          svgTexts += `  <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font}, sans-serif" font-weight="700" font-size="${fontSize}" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n`;
-          cursorY -= Math.round(fontSize * 1.25);
-        }
-        cursorY -= 16;
-      }
-
-      if (t1Raw) {
-        const h1Size = t1Raw.length > 14 ? 82 : 92;
-        const strokeAttrs = strokeLine1 ? ` stroke="${strokeColor1}" stroke-width="16" paint-order="stroke fill" stroke-linejoin="round"` : '';
-        svgTexts += `  <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font}, sans-serif" font-weight="800" font-size="${h1Size}" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n`;
-      }
-
-      let svgRibbon = '';
-      if (showRibbon) {
-        svgRibbon = `
-  <rect x="430" y="582" width="650" height="76" fill="url(#ribbonGrad)"/>
-  <text x="1055" y="632" text-anchor="end" font-family="${font}, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${ribbonText}</text>`;
-      }
-
-      let svgDivider = '';
-      if (dividerStyle !== 'none') {
-        const divX = (1080 - dividerWidth) / 2;
-        const divFill = dividerStyle === 'gold' ? 'url(#goldBar)' : (dividerStyle === 'red' ? '#D61F1F' : dividerColor);
-        svgDivider = `  <rect x="${divX}" y="${lineY}" width="${dividerWidth}" height="${dividerHeight}" fill="${divFill}"/>`;
-      }
-
-      let svgFooter = '';
-      if (footerMode === 'style1') {
-        svgFooter = `
-  <text x="540" y="946" text-anchor="middle" font-family="${font}, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
-  <g transform="translate(310, 1009)">
-    <circle cx="17" cy="17" r="17" fill="#FFFFFF"/>
-    <circle cx="61" cy="17" r="17" fill="#FFFFFF"/>
-    <circle cx="105" cy="17" r="17" fill="#FFFFFF"/>
-    <circle cx="149" cy="17" r="17" fill="#FFFFFF"/>
-    <text x="180" y="25" font-family="${font}, sans-serif" font-weight="400" font-size="24" fill="#FFFFFF">${tOrg}</text>
-  </g>`;
-      } else if (footerMode === 'style2') {
-        svgFooter = `
-  <text x="540" y="976" text-anchor="middle" font-family="${font}, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
-  <text x="540" y="1024" text-anchor="middle" font-family="${font}, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>`;
-      } else if (footerMode === 'style3') {
-        svgFooter = `
-  <circle cx="215" cy="995" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
-  <text x="565" y="1010" text-anchor="middle" font-family="${font}, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>`;
-      }
-
-      const svgTopLogo = document.getElementById('logoTopLeft').checked
-        ? `  <circle cx="76" cy="76" r="62" fill="#EAB308" stroke="#713F12" stroke-width="3"/>`
-        : '';
-
-      const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
-  <defs>
-    <linearGradient id="navyFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${gradColor1}" stop-opacity="0"/>
-      <stop offset="28%" stop-color="${gradColor1}" stop-opacity="0.82"/>
-      <stop offset="55%" stop-color="${gradColor2}" stop-opacity="0.96"/>
-      <stop offset="100%" stop-color="${gradColor2}" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="goldBar" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#C79627"/>
-      <stop offset="22%" stop-color="#E0B236"/>
-      <stop offset="35%" stop-color="#FFF394"/>
-      <stop offset="50%" stop-color="#D29F26"/>
-      <stop offset="75%" stop-color="#F5CE52"/>
-      <stop offset="100%" stop-color="#C79627"/>
-    </linearGradient>
-    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${ribbonColor}" stop-opacity="0"/>
-      <stop offset="25%" stop-color="${ribbonColor}" stop-opacity="0.75"/>
-      <stop offset="100%" stop-color="${ribbonColor}" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
-
-  <rect x="0" y="${gradStartY}" width="1080" height="${1080 - gradStartY}" fill="url(#navyFade)"/>
-${svgTopLogo}
-${svgRibbon}
-${svgDivider}
-${svgTexts}
-${svgFooter}
-  <text x="1055" y="1058" text-anchor="end" font-family="${font}, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
-</svg>`;
-
-      const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
+      renderCanvas();
       const link = document.createElement('a');
       link.download = `canva-template-style${currentStyle}.svg`;
-      link.href = url;
+      link.href = canvas.toDataURL('image/svg+xml');
       link.click();
-      URL.revokeObjectURL(url);
     }
 
     document.fonts.ready.then(() => {
