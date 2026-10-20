@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V18</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V21</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,7 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V18</h1>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V21</h1>
             <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Advanced Edition</span>
           </div>
           <p class="text-xs text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
@@ -441,26 +441,48 @@
               </select>
             </div>
 
-            <div>
-              <label class="block text-xs font-medium text-slate-600 mb-1">บรรทัดใต้เส้นคั่น</label>
-              <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-800 outline-none">
+            <!-- Footer Line 4 (Location / Name) -->
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                  <input type="checkbox" id="showFooterLine4" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                  แสดงบรรทัดใต้เส้นคั่น
+                </label>
+              </div>
+              <input type="text" id="textLine4" value="ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 bg-white outline-none">
+              <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
+                <span>ขนาด: <strong id="size4Val">35px</strong></span>
+                <input type="range" id="size4Range" min="20" max="60" value="35" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div class="sm:col-span-2">
-                <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อหน่วยงาน / ตำแหน่ง</label>
-                <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 outline-none">
+            <!-- Footer Org / Title -->
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                  <input type="checkbox" id="showFooterOrg" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                  แสดงชื่อหน่วยงาน / ตำแหน่ง
+                </label>
               </div>
+              <input type="text" id="textOrg" value="องค์การบริหารส่วนจังหวัดหนองคาย" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 bg-white outline-none">
+              <div class="flex items-center gap-3 text-xs text-slate-600 pt-1">
+                <span>ขนาด: <strong id="sizeOrgVal">31px</strong></span>
+                <input type="range" id="sizeOrgRange" min="20" max="60" value="31" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div>
                 <label class="block text-xs font-medium text-slate-600 mb-1">วันที่มุมขวาล่าง</label>
                 <input type="text" id="textDate" value="15/10/2569" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 outline-none">
               </div>
+              <div class="flex items-end">
+                <label class="inline-flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700 pb-2">
+                  <input type="checkbox" id="showSocial" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
+                  แสดงไอคอนโซเชียลด้านล่าง
+                </label>
+              </div>
             </div>
-
-            <label class="inline-flex items-center gap-2 cursor-pointer pt-2 text-xs font-semibold text-slate-700">
-              <input type="checkbox" id="showSocial" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-indigo-600">
-              แสดงไอคอนโซเชียลด้านล่าง
-            </label>
           </div>
 
         </div>
@@ -492,7 +514,7 @@
 
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-              <span>🎛️ สไตล์เส้นคั่น</span>
+              <span>🎛️ สไตล์เส้นคั่น & ตำแหน่ง</span>
               <select id="dividerStyle" onchange="renderCanvas(); saveHistoryState();" class="text-xs border rounded-xl px-2.5 py-1 bg-white font-semibold text-indigo-700 cursor-pointer">
                 <option value="gold">สีทองเมทัลลิก</option>
                 <option value="red">สีแดงสด</option>
@@ -500,11 +522,20 @@
                 <option value="none">ซ่อนเส้นคั่น</option>
               </select>
             </div>
-            <div class="grid grid-cols-3 gap-3 pt-1">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               <div id="customColorBox">
                 <label class="block text-[10px] font-medium text-slate-600 mb-1">สีเส้น</label>
                 <input type="color" id="dividerColor" value="#E0B236" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-7 w-9 rounded-xl border cursor-pointer p-0.5 bg-white">
               </div>
+              <div>
+                <div class="flex justify-between text-[10px] mb-1">
+                  <span>ตำแหน่งความสูงเส้น (Y Offset)</span>
+                  <span id="divYVal" class="font-bold">0px</span>
+                </div>
+                <input type="range" id="dividerYOffset" min="-150" max="150" value="0" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 pt-1">
               <div>
                 <div class="flex justify-between text-[10px] mb-1">
                   <span>ความหนา</span>
@@ -678,14 +709,19 @@
           showTopic: document.getElementById('showTopic').checked,
           showGold: document.getElementById('showGold').checked,
           showFooter: document.getElementById('showFooter').checked,
+          showFooterLine4: document.getElementById('showFooterLine4').checked,
+          showFooterOrg: document.getElementById('showFooterOrg').checked,
           strokeLine1: document.getElementById('strokeLine1').checked,
           size1Range: document.getElementById('size1Range').value,
           size2Range: document.getElementById('size2Range').value,
           size3Range: document.getElementById('size3Range').value,
+          size4Range: document.getElementById('size4Range').value,
+          sizeOrgRange: document.getElementById('sizeOrgRange').value,
           topGlow: document.getElementById('topGlow').value,
           gradHeight: document.getElementById('gradHeight').value,
           dividerHeight: document.getElementById('dividerHeight').value,
-          dividerWidth: document.getElementById('dividerWidth').value
+          dividerWidth: document.getElementById('dividerWidth').value,
+          dividerYOffset: document.getElementById('dividerYOffset').value
         }
       };
     }
@@ -766,14 +802,19 @@
       document.getElementById('showTopic').checked = inp.showTopic;
       document.getElementById('showGold').checked = inp.showGold;
       document.getElementById('showFooter').checked = inp.showFooter;
+      document.getElementById('showFooterLine4').checked = inp.showFooterLine4;
+      document.getElementById('showFooterOrg').checked = inp.showFooterOrg;
       document.getElementById('strokeLine1').checked = inp.strokeLine1;
       document.getElementById('size1Range').value = inp.size1Range;
       document.getElementById('size2Range').value = inp.size2Range;
       document.getElementById('size3Range').value = inp.size3Range;
+      document.getElementById('size4Range').value = inp.size4Range;
+      document.getElementById('sizeOrgRange').value = inp.sizeOrgRange;
       document.getElementById('topGlow').value = inp.topGlow;
       document.getElementById('gradHeight').value = inp.gradHeight;
       document.getElementById('dividerHeight').value = inp.dividerHeight;
       document.getElementById('dividerWidth').value = inp.dividerWidth;
+      document.getElementById('dividerYOffset').value = inp.dividerYOffset;
     }
 
     function setAspectRatio(aspectName, w, h) {
@@ -948,6 +989,8 @@
         document.getElementById('showTopic').checked = true;
         document.getElementById('showGold').checked = true;
         document.getElementById('showFooter').checked = true;
+        document.getElementById('showFooterLine4').checked = true;
+        document.getElementById('showFooterOrg').checked = true;
 
         document.getElementById('textLine1').value = 'อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFE600';
@@ -964,7 +1007,9 @@
         document.getElementById('dividerStyle').value = 'gold';
         document.getElementById('footerMode').value = 'style1';
         document.getElementById('textLine4').value = 'ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย';
+        document.getElementById('size4Range').value = 35;
         document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('sizeOrgRange').value = 31;
         document.getElementById('textDate').value = '15/10/2569';
         document.getElementById('showSocial').checked = true;
 
@@ -972,6 +1017,7 @@
         document.getElementById('gradColor2').value = '#010922';
         document.getElementById('gradHeight').value = 55;
         document.getElementById('topGlow').value = 40;
+        document.getElementById('dividerYOffset').value = 0;
       } else if (styleNum === 2) {
         document.getElementById('logoTopLeft').checked = true;
         document.getElementById('logoBottomFooter').checked = false;
@@ -980,6 +1026,8 @@
         document.getElementById('showTopic').checked = true;
         document.getElementById('showGold').checked = true;
         document.getElementById('showFooter').checked = true;
+        document.getElementById('showFooterLine4').checked = true;
+        document.getElementById('showFooterOrg').checked = true;
 
         document.getElementById('textLine1').value = 'นายก อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFFFFF';
@@ -996,7 +1044,9 @@
         document.getElementById('dividerStyle').value = 'red';
         document.getElementById('footerMode').value = 'style2';
         document.getElementById('textLine4').value = '"นายวุฒิไกร ช่างเหล็ก"';
+        document.getElementById('size4Range').value = 40;
         document.getElementById('textOrg').value = 'นายกองค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('sizeOrgRange').value = 31;
         document.getElementById('textDate').value = '14/10/2569';
         document.getElementById('showSocial').checked = false;
 
@@ -1004,6 +1054,7 @@
         document.getElementById('gradColor2').value = '#01071A';
         document.getElementById('gradHeight').value = 60;
         document.getElementById('topGlow').value = 15;
+        document.getElementById('dividerYOffset').value = 0;
       } else if (styleNum === 3) {
         document.getElementById('logoTopLeft').checked = false;
         document.getElementById('logoBottomFooter').checked = true;
@@ -1012,6 +1063,8 @@
         document.getElementById('showTopic').checked = true;
         document.getElementById('showGold').checked = true;
         document.getElementById('showFooter').checked = true;
+        document.getElementById('showFooterLine4').checked = false;
+        document.getElementById('showFooterOrg').checked = true;
 
         document.getElementById('ribbonColor').value = '#EA580C';
         document.getElementById('ribbonText').value = 'วันพุธที่ 07 ตุลาคม พ.ศ. 2569';
@@ -1030,6 +1083,7 @@
         document.getElementById('footerMode').value = 'style3';
         document.getElementById('textLine4').value = '';
         document.getElementById('textOrg').value = 'องค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('sizeOrgRange').value = 43;
         document.getElementById('textDate').value = '';
         document.getElementById('showSocial').checked = false;
 
@@ -1037,6 +1091,7 @@
         document.getElementById('gradColor2').value = '#000000';
         document.getElementById('gradHeight').value = 54;
         document.getElementById('topGlow').value = 30;
+        document.getElementById('dividerYOffset').value = 0;
       }
 
       generateDefaultScene(styleNum);
@@ -1245,6 +1300,7 @@
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
+    // Precise, Sharp Vector TikTok & Social Icons Renderer (No Distortion)
     function drawSocialIcons(ctx, startX, centerY, radius, bgNavyColor) {
       const gap = 10;
       const diameter = radius * 2;
@@ -1260,15 +1316,67 @@
         ctx.fill();
 
         ctx.fillStyle = bgNavyColor;
-        if (i === 1) {
+        ctx.strokeStyle = bgNavyColor;
+
+        if (i === 0) {
+          // Sharp TikTok Vector Icon Path inside circle
+          ctx.beginPath();
+          ctx.fillStyle = '#000000';
+          // Clean TikTok note silhouette centered at (cx, cy)
+          const scale = radius / 22;
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.scale(scale, scale);
+          // Path data for TikTok note
+          ctx.beginPath();
+          ctx.moveTo(3, -11);
+          ctx.bezierCurveTo(3, -15, 7, -15, 9, -15);
+          ctx.lineTo(9, -9.5);
+          ctx.bezierCurveTo(7.5, -9.5, 6, -9, 5, -8);
+          ctx.bezierCurveTo(4, -7, 3.5, -5.5, 3.5, -4);
+          ctx.lineTo(3, 3);
+          ctx.bezierCurveTo(3, 8, -1, 11, -5.5, 10.5);
+          ctx.bezierCurveTo(-10, 10, -13, 5.5, -12, 1);
+          ctx.bezierCurveTo(-11, -3.5, -6.5, -6.5, -2, -6);
+          ctx.lineTo(-2, -0.5);
+          ctx.bezierCurveTo(-4, -0.8, -6, 0.5, -6.5, 2.5);
+          ctx.bezierCurveTo(-7, 4.5, -5.5, 7, -3.5, 7.5);
+          ctx.bezierCurveTo(-1.5, 8, 0.5, 6.5, 1, 4.5);
+          ctx.lineTo(1.2, -11);
+          ctx.lineTo(3, -11);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        } else if (i === 1) {
+          // Facebook 'f'
           ctx.font = '800 26px sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('f', cx + 1, cy + 2.5);
-        } else {
+        } else if (i === 2) {
+          // YouTube play button
+          ctx.beginPath();
+          ctx.roundRect(cx - 10, cy - 7, 20, 14, 4);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.beginPath();
+          ctx.moveTo(cx - 2.5, cy - 4);
+          ctx.lineTo(cx + 4.5, cy);
+          ctx.lineTo(cx - 2.5, cy + 4);
+          ctx.closePath();
+          ctx.fill();
+        } else if (i === 3) {
+          // Website Globe
           ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+          ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, 5, 10, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(cx - 9.5, cy - 3.5); ctx.lineTo(cx + 9.5, cy - 3.5);
+          ctx.moveTo(cx - 9.5, cy + 3.5); ctx.lineTo(cx + 9.5, cy + 3.5);
           ctx.stroke();
         }
         ctx.restore();
@@ -1290,20 +1398,26 @@
       const size1 = parseInt(document.getElementById('size1Range').value, 10);
       const size2 = parseInt(document.getElementById('size2Range').value, 10);
       const size3 = parseInt(document.getElementById('size3Range').value, 10);
+      const size4 = parseInt(document.getElementById('size4Range').value, 10);
+      const sizeOrg = parseInt(document.getElementById('sizeOrgRange').value, 10);
 
       document.getElementById('size1Val').textContent = size1 + 'px';
       document.getElementById('size2Val').textContent = size2 + 'px';
       document.getElementById('size3Val').textContent = size3 + 'px';
+      document.getElementById('size4Val').textContent = size4 + 'px';
+      document.getElementById('sizeOrgVal').textContent = sizeOrg + 'px';
 
       const dividerStyle = document.getElementById('dividerStyle').value;
       const dividerColor = document.getElementById('dividerColor').value;
       const dividerHeight = parseInt(document.getElementById('dividerHeight').value, 10);
       const dividerWidth = parseInt(document.getElementById('dividerWidth').value, 10);
+      const dividerYOffset = parseInt(document.getElementById('dividerYOffset').value, 10);
 
       document.getElementById('glowVal').textContent = topGlow + '%';
       document.getElementById('gradHeightVal').textContent = gradHeightPct + '%';
       document.getElementById('divHeightVal').textContent = dividerHeight + 'px';
       document.getElementById('divWidthVal').textContent = dividerWidth + 'px';
+      document.getElementById('divYVal').textContent = dividerYOffset + 'px';
 
       document.getElementById('customColorBox').style.display = dividerStyle === 'custom' ? 'block' : 'none';
 
@@ -1384,7 +1498,7 @@
         ctx.fillStyle = ribGrad;
         ctx.fillRect(ribStartX, ribY, canvasWidth - ribStartX, ribH);
 
-        if (ribbonText) {
+        if (document.getElementById('showAllText').checked && ribbonText) {
           ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`;
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'right';
@@ -1398,7 +1512,7 @@
 
       const footerMode = document.getElementById('footerMode').value;
       const baseLineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
-      const lineY = baseLineY * scaleY;
+      const lineY = (baseLineY + dividerYOffset) * scaleY;
 
       if (dividerStyle !== 'none') {
         const currentDivW = dividerWidth * scaleX;
@@ -1421,77 +1535,82 @@
         ctx.restore();
       }
 
+      const showText = document.getElementById('showAllText').checked;
       const showHeadline = document.getElementById('showHeadline').checked;
       const showTopic = document.getElementById('showTopic').checked;
       const showGold = document.getElementById('showGold').checked;
       const showFooter = document.getElementById('showFooter').checked;
+      const showFooterLine4 = document.getElementById('showFooterLine4').checked;
+      const showFooterOrg = document.getElementById('showFooterOrg').checked;
 
       const colorLine1 = document.getElementById('colorLine1').value;
       const strokeLine1 = document.getElementById('strokeLine1').checked;
       const colorGoldText = document.getElementById('colorGoldText').value;
 
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'alphabetic';
+      if (showText) {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
 
-      const t1 = document.getElementById('textLine1').value.trim();
-      const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const t1 = document.getElementById('textLine1').value.trim();
+        const t2Lines = document.getElementById('textLine2').value.split('\n').map(s => s.trim()).filter(Boolean);
+        const t3Lines = document.getElementById('textLine3').value.split('\n').map(s => s.trim()).filter(Boolean);
 
-      let cursorY = lineY - (32 * scaleY);
+        let cursorY = lineY - (32 * scaleY);
 
-      if (showGold && t3Lines.length > 0) {
-        ctx.save();
-        const curSize3 = size3 * scaleY;
-        ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
-        ctx.fillStyle = colorGoldText;
-        ctx.shadowColor = 'rgba(0,0,0,0.7)';
-        ctx.shadowBlur = 12;
+        if (showGold && t3Lines.length > 0) {
+          ctx.save();
+          const curSize3 = size3 * scaleY;
+          ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
+          ctx.fillStyle = colorGoldText;
+          ctx.shadowColor = 'rgba(0,0,0,0.7)';
+          ctx.shadowBlur = 12;
 
-        let goldY = cursorY + textOffsets.gold.y;
-        let tempY = goldY;
-        for (let i = t3Lines.length - 1; i >= 0; i--) {
-          ctx.fillText(t3Lines[i], (canvasWidth / 2) + textOffsets.gold.x, tempY);
-          tempY -= (curSize3 + (8 * scaleY));
+          let goldY = cursorY + textOffsets.gold.y;
+          let tempY = goldY;
+          for (let i = t3Lines.length - 1; i >= 0; i--) {
+            ctx.fillText(t3Lines[i], (canvasWidth / 2) + textOffsets.gold.x, tempY);
+            tempY -= (curSize3 + (8 * scaleY));
+          }
+          ctx.restore();
+          cursorY -= (t3Lines.length * (curSize3 + (8 * scaleY)) + (10 * scaleY));
         }
-        ctx.restore();
-        cursorY -= (t3Lines.length * (curSize3 + (8 * scaleY)) + (10 * scaleY));
-      }
 
-      if (showTopic && t2Lines.length > 0) {
-        ctx.save();
-        const curSize2 = size2 * scaleY;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.shadowColor = 'rgba(0,0,0,0.8)';
-        ctx.shadowBlur = 14;
+        if (showTopic && t2Lines.length > 0) {
+          ctx.save();
+          const curSize2 = size2 * scaleY;
+          ctx.fillStyle = '#FFFFFF';
+          ctx.shadowColor = 'rgba(0,0,0,0.8)';
+          ctx.shadowBlur = 14;
 
-        let topicY = cursorY + textOffsets.topic.y;
-        let tempY = topicY;
-        for (let i = t2Lines.length - 1; i >= 0; i--) {
-          ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
-          ctx.fillText(t2Lines[i], (canvasWidth / 2) + textOffsets.topic.x, tempY);
-          tempY -= (curSize2 + (12 * scaleY));
+          let topicY = cursorY + textOffsets.topic.y;
+          let tempY = topicY;
+          for (let i = t2Lines.length - 1; i >= 0; i--) {
+            ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
+            ctx.fillText(t2Lines[i], (canvasWidth / 2) + textOffsets.topic.x, tempY);
+            tempY -= (curSize2 + (12 * scaleY));
+          }
+          ctx.restore();
+          cursorY -= (t2Lines.length * (curSize2 + (12 * scaleY)) + (16 * scaleY));
         }
-        ctx.restore();
-        cursorY -= (t2Lines.length * (curSize2 + (12 * scaleY)) + (16 * scaleY));
-      }
 
-      if (showHeadline && t1) {
-        ctx.save();
-        const curSize1 = size1 * scaleY;
-        ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
-        ctx.shadowColor = 'rgba(0,0,0,0.85)';
-        ctx.shadowBlur = 22;
-        const headX = (canvasWidth / 2) + textOffsets.headline.x;
-        const headY = cursorY + textOffsets.headline.y;
+        if (showHeadline && t1) {
+          ctx.save();
+          const curSize1 = size1 * scaleY;
+          ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
+          ctx.shadowColor = 'rgba(0,0,0,0.85)';
+          ctx.shadowBlur = 22;
+          const headX = (canvasWidth / 2) + textOffsets.headline.x;
+          const headY = cursorY + textOffsets.headline.y;
 
-        if (strokeLine1) {
-          ctx.strokeStyle = '#D91B1B';
-          ctx.lineWidth = 16 * scaleY;
-          ctx.strokeText(t1, headX, headY);
+          if (strokeLine1) {
+            ctx.strokeStyle = '#D91B1B';
+            ctx.lineWidth = 16 * scaleY;
+            ctx.strokeText(t1, headX, headY);
+          }
+          ctx.fillStyle = colorLine1;
+          ctx.fillText(t1, headX, headY);
+          ctx.restore();
         }
-        ctx.fillStyle = colorLine1;
-        ctx.fillText(t1, headX, headY);
-        ctx.restore();
       }
 
       const line4Text = document.getElementById('textLine4').value.trim();
@@ -1502,26 +1621,28 @@
       const footerOffsetX = textOffsets.footer.x;
       const footerOffsetY = textOffsets.footer.y;
 
-      if (showFooter) {
+      if (showText && showFooter) {
         if (footerMode === 'style1') {
-          if (line4Text) {
+          if (showFooterLine4 && line4Text) {
             ctx.save();
-            ctx.font = `400 ${Math.round(35 * scaleY)}px "${font1}", sans-serif`;
+            const curSize4 = size4 * scaleY;
+            ctx.font = `400 ${curSize4}px "${font1}", sans-serif`;
             ctx.fillStyle = colorGoldText;
             ctx.textAlign = 'center';
             ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (946 * scaleY) + footerOffsetY);
             ctx.restore();
           }
-          if (showSocial || orgText) {
+          if (showSocial || (showFooterOrg && orgText)) {
             ctx.save();
-            ctx.font = `400 ${Math.round(24 * scaleY)}px "${font1}", sans-serif`;
-            const textWidth = orgText ? ctx.measureText(orgText).width : 0;
+            const curOrgSize = sizeOrg * scaleY;
+            ctx.font = `400 ${curOrgSize}px "${font1}", sans-serif`;
+            const textWidth = showFooterOrg && orgText ? ctx.measureText(orgText).width : 0;
             const totalFooterWidth = (150 * scaleX) + textWidth;
             const startX = (canvasWidth - totalFooterWidth) / 2 + footerOffsetX;
             const centerY = (1026 * scaleY) + footerOffsetY;
             let nextX = startX;
             if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17 * Math.min(scaleX, scaleY), gradColor2);
-            if (orgText) {
+            if (showFooterOrg && orgText) {
               ctx.fillStyle = '#FFFFFF';
               ctx.textAlign = 'left';
               ctx.textBaseline = 'middle';
@@ -1533,19 +1654,28 @@
           ctx.save();
           ctx.textAlign = 'center';
           ctx.fillStyle = '#FFFFFF';
-          if (line4Text) { ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`; ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (976 * scaleY) + footerOffsetY); }
-          if (orgText) { ctx.font = `600 ${Math.round(31 * scaleY)}px "${font1}", sans-serif`; ctx.fillText(orgText, (canvasWidth / 2) + footerOffsetX, (1024 * scaleY) + footerOffsetY); }
+          if (showFooterLine4 && line4Text) { 
+            const curSize4 = size4 * scaleY;
+            ctx.font = `700 ${curSize4}px "${font1}", sans-serif`; 
+            ctx.fillText(line4Text, (canvasWidth / 2) + footerOffsetX, (976 * scaleY) + footerOffsetY); 
+          }
+          if (showFooterOrg && orgText) { 
+            const curOrgSize = sizeOrg * scaleY;
+            ctx.font = `600 ${curOrgSize}px "${font1}", sans-serif`; 
+            ctx.fillText(orgText, (canvasWidth / 2) + footerOffsetX, (1024 * scaleY) + footerOffsetY); 
+          }
           ctx.restore();
         } else if (footerMode === 'style3') {
           const showBottomLogo = document.getElementById('showLogo').checked && document.getElementById('logoBottomFooter').checked;
           ctx.save();
-          ctx.font = `500 ${Math.round(43 * scaleY)}px "${font1}", sans-serif`;
-          const textW = orgText ? ctx.measureText(orgText).width : 0;
+          const curOrgSize = sizeOrg * scaleY;
+          ctx.font = `500 ${curOrgSize}px "${font1}", sans-serif`;
+          const textW = showFooterOrg && orgText ? ctx.measureText(orgText).width : 0;
           const totalW = (showBottomLogo ? (64 * scaleX) : 0) + textW;
           const startX = (canvasWidth - totalW) / 2 + footerOffsetX;
           const centerY = (995 * scaleY) + footerOffsetY;
           if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + (32 * scaleX), centerY, 32 * Math.min(scaleX, scaleY));
-          if (orgText) {
+          if (showFooterOrg && orgText) {
             ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
