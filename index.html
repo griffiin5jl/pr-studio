@@ -127,18 +127,6 @@
           </button>
         </div>
 
-        <!-- USER GUIDE CARD -->
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-2 text-xs text-slate-700">
-          <div class="font-bold text-slate-900 flex items-center gap-1.5">
-            <span>📖</span> คู่มือการใช้งานเบื้องต้น
-          </div>
-          <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ขยับรูป/ข้อความ:</strong> คลิกลากเมาส์ที่ตัวหนังสือหรือรูปภาพบนจอเพื่อย้ายตำแหน่งได้ทันที</li>
-            <li><strong>ประวัติการแก้:</strong> ใช้ปุ่ม Undo/Redo ด้านบนเพื่อย้อนกลับหรือทำซ้ำการขยับได้ตลอดเวลา</li>
-            <li><strong>เปลี่ยนสัดส่วน:</strong> เลือกปุ่ม 1:1, 16:9 หรือ 9:16 ด้านบนเพื่อปรับขนาดภาพตามการใช้งาน</li>
-          </ul>
-        </div>
-
       </div>
     </div>
 
@@ -203,6 +191,18 @@
               </div>
             </button>
           </div>
+        </div>
+
+        <!-- USER GUIDE CARD (PLACED IN TAB 1 RIGHT PANEL) -->
+        <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
+          <div class="font-bold text-slate-900 flex items-center gap-1.5">
+            <span>📖</span> คู่มือการใช้งานเบื้องต้น
+          </div>
+          <ul class="list-disc pl-4 space-y-1 text-slate-600">
+            <li><strong>ขยับรูป/ข้อความ:</strong> คลิกลากเมาส์ที่ตัวหนังสือหรือรูปภาพบนจอเพื่อย้ายตำแหน่งได้ทันที</li>
+            <li><strong>ประวัติการแก้:</strong> ใช้ปุ่ม Undo/Redo ใต้ภาพเพื่อย้อนกลับหรือทำซ้ำการขยับได้ตลอดเวลา</li>
+            <li><strong>เปลี่ยนสัดส่วน:</strong> เลือกปุ่ม 1:1, 16:9 หรือ 9:16 ด้านบนจอเพื่อปรับขนาดภาพตามการใช้งาน</li>
+          </ul>
         </div>
       </div>
 
@@ -510,7 +510,6 @@
     let customLogoImg = null;
     let activeLayer = 'bg';
 
-    // Canvas Aspect Ratio Config
     let currentAspectName = '1:1';
     let canvasWidth = 1080;
     let canvasHeight = 1080;
@@ -538,7 +537,6 @@
       footer: { x: 0, y: 0 }
     };
 
-    // HISTORY STACK FOR UNDO / REDO
     let historyStack = [];
     let historyStep = -1;
     let isPerformingHistoryAction = false;
@@ -580,7 +578,6 @@
 
     function saveHistoryState() {
       if (isPerformingHistoryAction) return;
-      // Truncate any future steps if we are in the middle of stack
       historyStack = historyStack.slice(0, historyStep + 1);
       historyStack.push(captureState());
       historyStep = historyStack.length - 1;
@@ -1054,15 +1051,13 @@
       renderCanvas();
     }
 
-    // Save history state on pointerup when dragging finishes
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = canvasWidth / rect.width;
       const clickX = (e.clientX - rect.left) * scaleFactor;
       const clickY = (e.clientY - rect.top) * scaleFactor;
 
-      const scaleY = canvasHeight / rect.height;
-      const normY = clickY * (1080 / canvasHeight); // normalize coordinate mapping
+      const normY = clickY * (1080 / canvasHeight);
 
       if (normY > 750) {
         draggingTarget = 'footer';
@@ -1183,12 +1178,10 @@
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Scale coordinate helper relative to 1080x1080 design base
       const scaleX = canvasWidth / 1080;
       const scaleY = canvasHeight / 1080;
 
       ctx.save();
-      // If 16:9 or 9:16, center elements accordingly
       if (!isTransparent && bgLoaded) {
         ctx.save();
         const imgRatio = bgImg.width / bgImg.height;
