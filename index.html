@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V10)</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ อบจ.หนองคาย (All-in-One Studio V11)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,10 +34,10 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
         <h1 class="text-lg sm:text-xl font-bold flex items-center gap-2">
-          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V10</span>
-          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (Canva Multi-Layer Pro)
+          <span class="bg-yellow-400 text-slate-950 px-2.5 py-1 rounded-md text-xs font-black tracking-wide">PR STUDIO V11</span>
+          เว็บแอปสร้างภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย (ย้ายและปรับขนาดข้อความอิสระ)
         </h1>
-        <p class="text-xs text-slate-300 mt-1">อัปโหลดภาพบุคคลอิสระหลายเลเยอร์ พร้อมลิงก์ตัดฉากหลัง remove.bg และส่งออก SVG แยกเลเยอร์อิสระ 100% สำหรับ Canva</p>
+        <p class="text-xs text-slate-300 mt-1">คลิกลากขยับข้อความบนภาพได้อิสระ ปรับขนาดฟอนต์แต่ละบรรทัดได้ตามต้องการ พร้อมส่งออก SVG แยกเลเยอร์ 100%</p>
       </div>
       <div class="flex flex-wrap gap-2">
         <button onclick="downloadPNG(false)" class="bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
@@ -46,7 +46,7 @@
         </button>
         <button onclick="downloadSVG()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-sm shadow transition flex items-center gap-2 cursor-pointer">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          ส่งออกเข้า Canva (SVG แยกเลเยอร์อิสระ)
+          ส่งออกเข้า Canva (SVG แยกเลเยอร์)
         </button>
       </div>
     </div>
@@ -117,12 +117,12 @@
         <div class="relative w-full aspect-square rounded-xl overflow-hidden shadow-inner border border-slate-300 checkerboard group">
           <canvas id="prCanvas" width="1080" height="1080" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
           <div class="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2.5 py-1 rounded-md backdrop-blur-sm pointer-events-none opacity-80 group-hover:opacity-100 transition">
-            💡 คลิกลากเลเยอร์ที่เลือกเพื่อขยับตำแหน่งบนภาพได้อิสระ
+            💡 <strong>วิธีใช้:</strong> คลิกลากที่รูปภาพเพื่อขยับฉาก หรือคลิกลากที่ตัวหนังสือบรรทัดต่างๆ เพื่อย้ายตำแหน่งบนภาพได้อิสระ
           </div>
         </div>
 
         <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-          <div>📥 <strong>ไฟล์ Canva SVG:</strong> ทุกข้อความแยกเลเยอร์อิสระใน Canva ปรับขนาดและย้ายได้ทันที</div>
+          <div>📥 <strong>ไฟล์ Canva SVG:</strong> แยกเลเยอร์อิสระ 100%</div>
           <button onclick="downloadPNG(true)" class="text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer">
             ดาวน์โหลดเฉพาะกรอบใส (Transparent)
           </button>
@@ -143,11 +143,10 @@
           <button onclick="resetImageTransform()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งเลเยอร์นี้</button>
         </div>
 
-        <!-- Remove.bg Quick Access Button -->
         <div class="p-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 text-white flex items-center justify-between shadow-md">
           <div class="space-y-0.5">
-            <div class="text-xs font-bold">✂️ ต้องการตัดฉากหลังรูปคนออกใช่มั้ย?</div>
-            <div class="text-[11px] text-teal-100">คลิกเพื่อเปิดเว็บตัดฉากหลังอัตโนมัติฟรี แล้วโหลดรูปมาอัปโหลดที่นี่</div>
+            <div class="text-xs font-bold">✂️ ตัดฉากหลังรูปคนออกเพื่อนำมาซ้อนทับ</div>
+            <div class="text-[11px] text-teal-100">คลิกเพื่อเปิดเว็บ remove.bg ตัดฉากหลังฟรี</div>
           </div>
           <a href="https://www.remove.bg/th" target="_blank" class="bg-white text-teal-900 hover:bg-teal-50 font-bold text-xs px-3.5 py-2 rounded-lg shadow transition flex-shrink-0 flex items-center gap-1.5 cursor-pointer">
             ไปที่ Remove.bg ↗
@@ -171,7 +170,6 @@
           </label>
         </div>
 
-        <!-- Layer Selector Tabs -->
         <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs">
           <span class="font-semibold text-slate-700">กำลังเลือกปรับแต่งเลเยอร์นี้:</span>
           <div class="flex gap-1.5 flex-wrap">
@@ -199,11 +197,11 @@
         </div>
       </div>
 
-      <!-- SECTION 2: Logo Manager (Show/Hide, Custom Upload) -->
+      <!-- SECTION 2: Logo Manager -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
           <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
-          จัดการโลโก้ (ซ่อน, แสดง, อัปโหลดโลโก้ใหม่)
+          จัดการโลโก้ (ซ่อน, แสดง, อัปโหลด, ลบ)
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -238,12 +236,12 @@
         </div>
       </div>
 
-      <!-- SECTION 3: Typography & Draggable Text Customization -->
+      <!-- SECTION 3: Typography, Sizes & Position Controls -->
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
-            แก้ไขข้อความ & ฟอนต์ (ลากขยับบนภาพได้ทุกบรรทัด)
+            ปรับแต่งข้อความ, ขนาดฟอนต์ & ย้ายตำแหน่งอิสระ
           </h2>
           <button onclick="resetTextPositions()" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer underline">รีเซ็ตตำแหน่งข้อความ</button>
         </div>
@@ -261,11 +259,11 @@
         </div>
 
         <!-- Headline Line 1 -->
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="text-xs font-semibold text-slate-600">พาดหัวหลัก (บรรทัดที่ 1)</label>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">พาดหัวหลัก (บรรทัดที่ 1)</label>
             <div class="flex items-center gap-2">
-              <select id="font1" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-slate-50 font-bold">
+              <select id="font1" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-white font-bold">
                 <option value="Prompt">Prompt</option>
                 <option value="Kanit">Kanit</option>
                 <option value="Sarabun">Sarabun</option>
@@ -277,30 +275,38 @@
             </div>
           </div>
           <div class="flex gap-2">
-            <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 outline-none">
+            <input type="text" id="textLine1" value="อบจ.หนองคาย" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-bold text-slate-800 bg-white outline-none">
             <input type="color" id="colorLine1" value="#FFE600" oninput="renderCanvas()" class="h-9 w-10 rounded border cursor-pointer p-0.5 bg-white">
+          </div>
+          <div class="flex items-center gap-3 pt-1 text-xs text-slate-600">
+            <span>ขนาดฟอนต์: <strong id="size1Val">92px</strong></span>
+            <input type="range" id="size1Range" min="40" max="140" value="92" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
           </div>
         </div>
 
         <!-- Topic Lines -->
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="text-xs font-semibold text-slate-600">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
-            <select id="font2" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-slate-50 font-bold">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">หัวข้อกิจกรรม/รายละเอียด (สีขาว)</label>
+            <select id="font2" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-white font-bold">
               <option value="Prompt">Prompt</option>
               <option value="Kanit">Kanit</option>
               <option value="Sarabun">Sarabun</option>
               <option value="Chakra Petch">Chakra Petch</option>
             </select>
           </div>
-          <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
+          <textarea id="textLine2" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 bg-white outline-none leading-snug">ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น</textarea>
+          <div class="flex items-center gap-3 pt-1 text-xs text-slate-600">
+            <span>ขนาดฟอนต์: <strong id="size2Val">46px</strong></span>
+            <input type="range" id="size2Range" min="28" max="80" value="46" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
+          </div>
         </div>
 
         <!-- Gold Subtext -->
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="text-xs font-semibold text-slate-600">ข้อความเน้นสีเหลืองทอง</label>
-            <select id="font3" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-slate-50 font-bold">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">ข้อความเน้นสีเหลืองทอง</label>
+            <select id="font3" onchange="renderCanvas()" class="text-[11px] border rounded px-1.5 py-0.5 bg-white font-bold">
               <option value="Prompt">Prompt</option>
               <option value="Kanit">Kanit</option>
               <option value="Sarabun">Sarabun</option>
@@ -308,12 +314,16 @@
             </select>
           </div>
           <div class="flex gap-2">
-            <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 outline-none leading-snug">ครั้งที่ 5/2569</textarea>
+            <textarea id="textLine3" rows="2" oninput="renderCanvas()" class="w-full border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-800 bg-white outline-none leading-snug">ครั้งที่ 5/2569</textarea>
             <input type="color" id="colorGoldText" value="#FFCC00" oninput="renderCanvas()" class="h-12 w-11 rounded border cursor-pointer p-0.5 bg-white">
+          </div>
+          <div class="flex items-center gap-3 pt-1 text-xs text-slate-600">
+            <span>ขนาดฟอนต์: <strong id="size3Val">42px</strong></span>
+            <input type="range" id="size3Range" min="26" max="75" value="42" oninput="renderCanvas()" class="w-full accent-indigo-600 cursor-pointer">
           </div>
         </div>
 
-        <!-- Footer / Below Divider Section -->
+        <!-- Footer Section -->
         <div class="pt-2 border-t border-slate-100 space-y-2.5">
           <div class="flex items-center justify-between">
             <label class="text-xs font-bold text-slate-700">ส่วนใต้เส้นคั่น (สถานที่ / ชื่อผู้บริหาร / หน่วยงาน)</label>
@@ -439,11 +449,12 @@
     let dragStartX = 0;
     let dragStartY = 0;
 
+    // Independent Text offsets for dragging any line
     let textOffsets = {
-      line3: 0,
-      line2: 0,
-      line1: 0,
-      footer: 0
+      headline: { x: 0, y: 0 },
+      topic: { x: 0, y: 0 },
+      gold: { x: 0, y: 0 },
+      footer: { x: 0, y: 0 }
     };
 
     function drawNongKhaiEmblem(ctx, cx, cy, radius) {
@@ -576,10 +587,14 @@
         document.getElementById('textLine1').value = 'อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFE600';
         document.getElementById('strokeLine1').checked = false;
+        document.getElementById('size1Range').value = 92;
 
         document.getElementById('textLine2').value = 'ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น';
+        document.getElementById('size2Range').value = 46;
+
         document.getElementById('textLine3').value = 'ครั้งที่ 5/2569';
         document.getElementById('colorGoldText').value = '#FFCC00';
+        document.getElementById('size3Range').value = 42;
 
         document.getElementById('dividerStyle').value = 'gold';
         document.getElementById('footerMode').value = 'style1';
@@ -600,10 +615,14 @@
         document.getElementById('textLine1').value = 'นายก อบจ.หนองคาย';
         document.getElementById('colorLine1').value = '#FFFFFF';
         document.getElementById('strokeLine1').checked = true;
+        document.getElementById('size1Range').value = 85;
 
         document.getElementById('textLine2').value = 'ให้สัมภาษณ์สื่อเพื่อประชาสัมพันธ์\nงานเทศกาลออกพรรษาและ\nบั้งไฟพญานาคโลก ประจำปี 2569';
+        document.getElementById('size2Range').value = 42;
+
         document.getElementById('textLine3').value = 'โดยชี้แจงถึงบทบาทและการสนับสนุนของ\nองค์การบริหารส่วนจังหวัดหนองคาย';
         document.getElementById('colorGoldText').value = '#FFCC00';
+        document.getElementById('size3Range').value = 36;
 
         document.getElementById('dividerStyle').value = 'red';
         document.getElementById('footerMode').value = 'style2';
@@ -627,8 +646,11 @@
         document.getElementById('strokeLine1').checked = false;
 
         document.getElementById('textLine2').value = 'การประชุมคณะกรรมการที่ปรึกษาเพื่อสนับสนุน\nการขับเคลื่อนนโยบายองค์การบริหารส่วนจังหวัดหนองคาย';
+        document.getElementById('size2Range').value = 44;
+
         document.getElementById('textLine3').value = 'เพื่อติดตามการดำเนินงานของกองช่าง';
         document.getElementById('colorGoldText').value = '#F5B800';
+        document.getElementById('size3Range').value = 40;
 
         document.getElementById('dividerStyle').value = 'red';
         document.getElementById('footerMode').value = 'style3';
@@ -759,7 +781,12 @@
     }
 
     function resetTextPositions() {
-      textOffsets = { line3: 0, line2: 0, line1: 0, footer: 0 };
+      textOffsets = {
+        headline: { x: 0, y: 0 },
+        topic: { x: 0, y: 0 },
+        gold: { x: 0, y: 0 },
+        footer: { x: 0, y: 0 }
+      };
       renderCanvas();
     }
 
@@ -773,21 +800,34 @@
       renderCanvas();
     }
 
+    // Interactive pointer drag events (supports both image layers and text lines)
     canvas.addEventListener('pointerdown', (e) => {
       const rect = canvas.getBoundingClientRect();
       const scaleFactor = 1080 / rect.width;
       const clickX = (e.clientX - rect.left) * scaleFactor;
       const clickY = (e.clientY - rect.top) * scaleFactor;
 
-      if (clickY > 600) {
-        draggingTarget = 'text';
+      // Detect what user clicked on
+      if (clickY > 750) {
+        draggingTarget = 'footer';
+      } else if (clickY > 620) {
+        draggingTarget = 'headline';
+      } else if (clickY > 450) {
+        draggingTarget = 'topic';
+      } else if (clickY > 300) {
+        draggingTarget = 'gold';
       } else {
         draggingTarget = activeLayer;
       }
 
-      const targetState = activeLayer === 'bg' ? bgState : (activeLayer === 'fg1' ? fg1State : fg2State);
-      dragStartX = clickX - (draggingTarget === 'text' ? 0 : targetState.x);
-      dragStartY = clickY - (draggingTarget === 'text' ? 0 : targetState.y);
+      if (draggingTarget === 'footer' || draggingTarget === 'headline' || draggingTarget === 'topic' || draggingTarget === 'gold') {
+        dragStartX = clickX - textOffsets[draggingTarget].x;
+        dragStartY = clickY - textOffsets[draggingTarget].y;
+      } else {
+        const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
+        dragStartX = clickX - targetState.x;
+        dragStartY = clickY - targetState.y;
+      }
       canvas.setPointerCapture(e.pointerId);
     });
 
@@ -798,10 +838,9 @@
       const currentX = (e.clientX - rect.left) * scaleFactor;
       const currentY = (e.clientY - rect.top) * scaleFactor;
 
-      if (draggingTarget === 'text') {
-        const deltaY = currentY - dragStartY;
-        textOffsets.line1 += deltaY * 0.2;
-        dragStartY = currentY;
+      if (draggingTarget === 'footer' || draggingTarget === 'headline' || draggingTarget === 'topic' || draggingTarget === 'gold') {
+        textOffsets[draggingTarget].x = currentX - dragStartX;
+        textOffsets[draggingTarget].y = currentY - dragStartY;
       } else {
         const targetState = draggingTarget === 'bg' ? bgState : (draggingTarget === 'fg1' ? fg1State : fg2State);
         targetState.x = currentX - dragStartX;
@@ -862,6 +901,14 @@
       const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
       const gradColor1 = document.getElementById('gradColor1').value;
       const gradColor2 = document.getElementById('gradColor2').value;
+
+      const size1 = parseInt(document.getElementById('size1Range').value, 10);
+      const size2 = parseInt(document.getElementById('size2Range').value, 10);
+      const size3 = parseInt(document.getElementById('size3Range').value, 10);
+
+      document.getElementById('size1Val').textContent = size1 + 'px';
+      document.getElementById('size2Val').textContent = size2 + 'px';
+      document.getElementById('size3Val').textContent = size3 + 'px';
 
       const dividerStyle = document.getElementById('dividerStyle').value;
       const dividerColor = document.getElementById('dividerColor').value;
@@ -961,8 +1008,7 @@
       }
 
       const footerMode = document.getElementById('footerMode').value;
-      const baseLineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
-      const lineY = baseLineY + textOffsets.line1;
+      const lineY = footerMode === 'style3' ? 928 : (footerMode === 'style2' ? 908 : 885);
 
       if (dividerStyle !== 'none') {
         const lineX = (1080 - dividerWidth) / 2;
@@ -999,57 +1045,70 @@
 
         let cursorY = lineY - 32;
 
+        // Render Gold Subtext (with independent offset)
         if (t3Lines.length > 0) {
-          const goldFontSize = 42;
           ctx.save();
-          ctx.font = `700 ${goldFontSize}px "${font3}", sans-serif`;
+          ctx.font = `700 ${size3}px "${font3}", sans-serif`;
           ctx.fillStyle = colorGoldText;
           ctx.shadowColor = 'rgba(0,0,0,0.7)';
           ctx.shadowBlur = 12;
 
+          let goldY = cursorY + textOffsets.gold.y;
+          let tempY = goldY;
           for (let i = t3Lines.length - 1; i >= 0; i--) {
-            ctx.fillText(t3Lines[i], 540, cursorY);
-            cursorY -= 50;
+            ctx.fillText(t3Lines[i], 540 + textOffsets.gold.x, tempY);
+            tempY -= (size3 + 8);
           }
           ctx.restore();
-          cursorY -= 10;
+          cursorY -= (t3Lines.length * (size3 + 8) + 10);
         }
 
+        // Render Topic Lines (with independent offset)
         if (t2Lines.length > 0) {
           ctx.save();
           ctx.fillStyle = '#FFFFFF';
           ctx.shadowColor = 'rgba(0,0,0,0.8)';
           ctx.shadowBlur = 14;
 
+          let topicY = cursorY + textOffsets.topic.y;
+          let tempY = topicY;
           for (let i = t2Lines.length - 1; i >= 0; i--) {
-            ctx.font = `700 46px "${font2}", sans-serif`;
-            ctx.fillText(t2Lines[i], 540, cursorY);
-            cursorY -= 58;
+            ctx.font = `700 ${size2}px "${font2}", sans-serif`;
+            ctx.fillText(t2Lines[i], 540 + textOffsets.topic.x, tempY);
+            tempY -= (size2 + 12);
           }
           ctx.restore();
-          cursorY -= 16;
+          cursorY -= (t2Lines.length * (size2 + 12) + 16);
         }
 
+        // Render Headline Line 1 (with independent offset)
         if (t1) {
           ctx.save();
-          ctx.font = `800 92px "${font1}", sans-serif`;
+          ctx.font = `800 ${size1}px "${font1}", sans-serif`;
           ctx.shadowColor = 'rgba(0,0,0,0.85)';
           ctx.shadowBlur = 22;
+          const headX = 540 + textOffsets.headline.x;
+          const headY = cursorY + textOffsets.headline.y;
+
           if (strokeLine1) {
             ctx.strokeStyle = '#D91B1B';
-            ctx.lineWidth = 18;
-            ctx.strokeText(t1, 540, cursorY);
+            ctx.lineWidth = 16;
+            ctx.strokeText(t1, headX, headY);
           }
           ctx.fillStyle = colorLine1;
-          ctx.fillText(t1, 540, cursorY);
+          ctx.fillText(t1, headX, headY);
           ctx.restore();
         }
       }
 
+      // Render Footer (with independent offset)
       const line4Text = document.getElementById('textLine4').value.trim();
       const orgText = document.getElementById('textOrg').value.trim();
       const dateText = document.getElementById('textDate').value.trim();
       const showSocial = document.getElementById('showSocial').checked;
+
+      const footerOffsetX = textOffsets.footer.x;
+      const footerOffsetY = textOffsets.footer.y;
 
       if (footerMode === 'style1') {
         if (showText && line4Text) {
@@ -1057,7 +1116,7 @@
           ctx.font = `400 35px "${font1}", sans-serif`;
           ctx.fillStyle = colorGoldText;
           ctx.textAlign = 'center';
-          ctx.fillText(line4Text, 540, 946);
+          ctx.fillText(line4Text, 540 + footerOffsetX, 946 + footerOffsetY);
           ctx.restore();
         }
         if (showSocial || (showText && orgText)) {
@@ -1065,8 +1124,8 @@
           ctx.font = `400 24px "${font1}", sans-serif`;
           const textWidth = showText ? ctx.measureText(orgText).width : 0;
           const totalFooterWidth = 150 + textWidth;
-          const startX = (1080 - totalFooterWidth) / 2;
-          const centerY = 1026;
+          const startX = (1080 - totalFooterWidth) / 2 + footerOffsetX;
+          const centerY = 1026 + footerOffsetY;
           let nextX = startX;
           if (showSocial) nextX = drawSocialIcons(ctx, startX, centerY, 17, gradColor2);
           if (showText && orgText) {
@@ -1082,8 +1141,8 @@
           ctx.save();
           ctx.textAlign = 'center';
           ctx.fillStyle = '#FFFFFF';
-          if (line4Text) { ctx.font = `700 40px "${font1}", sans-serif`; ctx.fillText(line4Text, 540, 976); }
-          if (orgText) { ctx.font = `600 31px "${font1}", sans-serif`; ctx.fillText(orgText, 540, 1024); }
+          if (line4Text) { ctx.font = `700 40px "${font1}", sans-serif`; ctx.fillText(line4Text, 540 + footerOffsetX, 976 + footerOffsetY); }
+          if (orgText) { ctx.font = `600 31px "${font1}", sans-serif`; ctx.fillText(orgText, 540 + footerOffsetX, 1024 + footerOffsetY); }
           ctx.restore();
         }
       } else if (footerMode === 'style3') {
@@ -1092,8 +1151,8 @@
         ctx.font = `500 43px "${font1}", sans-serif`;
         const textW = (showText && orgText) ? ctx.measureText(orgText).width : 0;
         const totalW = (showBottomLogo ? 64 : 0) + textW;
-        const startX = (1080 - totalW) / 2;
-        const centerY = 995;
+        const startX = (1080 - totalW) / 2 + footerOffsetX;
+        const centerY = 995 + footerOffsetY;
         if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + 32, centerY, 32);
         if (showText && orgText) {
           ctx.fillStyle = '#FFFFFF';
@@ -1109,7 +1168,7 @@
         ctx.font = `700 25px "${font1}", sans-serif`;
         ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'right';
-        ctx.fillText(dateText, 1055, 1058);
+        ctx.fillText(dateText, 1055 + footerOffsetX, 1058 + footerOffsetY);
         ctx.restore();
       }
     }
@@ -1135,11 +1194,15 @@
       });
     }
 
-    // Canva Multi-Layer SVG Exporter (Every element wrapped in independent group tag)
+    // Canva Multi-Layer SVG Exporter with independent positions & sizes
     function downloadSVG() {
       const font1 = document.getElementById('font1').value;
       const font2 = document.getElementById('font2').value;
       const font3 = document.getElementById('font3').value;
+
+      const size1 = parseInt(document.getElementById('size1Range').value, 10);
+      const size2 = parseInt(document.getElementById('size2Range').value, 10);
+      const size3 = parseInt(document.getElementById('size3Range').value, 10);
 
       const gradHeightPct = parseInt(document.getElementById('gradHeight').value, 10);
       const gradStartY = Math.round(1080 * (1 - gradHeightPct / 100));
@@ -1174,25 +1237,26 @@
       let svgTextsGroup = '';
 
       if (t3Lines.length > 0) {
-        const goldFontSize = 42;
+        let tempY = cursorY + textOffsets.gold.y;
         for (let i = t3Lines.length - 1; i >= 0; i--) {
-          svgTextsGroup += `  <g id="layer-text-gold-${i}">\n    <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font3}, sans-serif" font-weight="700" font-size="${goldFontSize}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n  </g>\n`;
-          cursorY -= 50;
+          svgTextsGroup += `  <g id="layer-text-gold-${i}">\n    <text x="${540 + textOffsets.gold.x}" y="${tempY}" text-anchor="middle" font-family="${font3}, sans-serif" font-weight="700" font-size="${size3}" fill="${colorGoldText}">${escXml(t3Lines[i])}</text>\n  </g>\n`;
+          tempY -= (size3 + 8);
         }
-        cursorY -= 10;
+        cursorY -= (t3Lines.length * (size3 + 8) + 10);
       }
 
       if (t2Lines.length > 0) {
+        let tempY = cursorY + textOffsets.topic.y;
         for (let i = t2Lines.length - 1; i >= 0; i--) {
-          svgTextsGroup += `  <g id="layer-text-topic-${i}">\n    <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font2}, sans-serif" font-weight="700" font-size="46" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n  </g>\n`;
-          cursorY -= 58;
+          svgTextsGroup += `  <g id="layer-text-topic-${i}">\n    <text x="${540 + textOffsets.topic.x}" y="${tempY}" text-anchor="middle" font-family="${font2}, sans-serif" font-weight="700" font-size="${size2}" fill="#FFFFFF">${escXml(t2Lines[i])}</text>\n  </g>\n`;
+          tempY -= (size2 + 12);
         }
-        cursorY -= 16;
+        cursorY -= (t2Lines.length * (size2 + 12) + 16);
       }
 
       if (t1Raw) {
         const strokeAttrs = strokeLine1 ? ` stroke="#D91B1B" stroke-width="16" paint-order="stroke fill" stroke-linejoin="round"` : '';
-        svgTextsGroup += `  <g id="layer-text-headline">\n    <text x="540" y="${cursorY}" text-anchor="middle" font-family="${font1}, sans-serif" font-weight="800" font-size="92" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n  </g>\n`;
+        svgTextsGroup += `  <g id="layer-text-headline">\n    <text x="${540 + textOffsets.headline.x}" y="${cursorY + textOffsets.headline.y}" text-anchor="middle" font-family="${font1}, sans-serif" font-weight="800" font-size="${size1}" fill="${colorLine1}"${strokeAttrs}>${t1}</text>\n  </g>\n`;
       }
 
       let svgRibbon = '';
@@ -1212,11 +1276,13 @@
       }
 
       let svgFooter = '';
+      const fx = textOffsets.footer.x;
+      const fy = textOffsets.footer.y;
       if (footerMode === 'style1') {
         svgFooter = `
   <g id="layer-footer-style1">
-    <text x="540" y="946" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
-    <g transform="translate(310, 1009)">
+    <text x="${540 + fx}" y="${946 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="400" font-size="35" fill="${colorGoldText}">${t4}</text>
+    <g transform="translate(${310 + fx}, ${1009 + fy})">
       <circle cx="17" cy="17" r="17" fill="#FFFFFF"/>
       <circle cx="61" cy="17" r="17" fill="#FFFFFF"/>
       <circle cx="105" cy="17" r="17" fill="#FFFFFF"/>
@@ -1227,14 +1293,14 @@
       } else if (footerMode === 'style2') {
         svgFooter = `
   <g id="layer-footer-style2">
-    <text x="540" y="976" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
-    <text x="540" y="1024" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>
+    <text x="${540 + fx}" y="${976 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="700" font-size="40" fill="#FFFFFF">${t4}</text>
+    <text x="${540 + fx}" y="${1024 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="600" font-size="31" fill="#FFFFFF">${tOrg}</text>
   </g>`;
       } else if (footerMode === 'style3') {
         svgFooter = `
   <g id="layer-footer-style3">
-    <circle cx="215" cy="995" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
-    <text x="565" y="1010" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>
+    <circle cx="${215 + fx}" cy="${995 + fy}" r="32" fill="#EAB308" stroke="#713F12" stroke-width="2"/>
+    <text x="${565 + fx}" y="${1010 + fy}" text-anchor="middle" font-family="Prompt, sans-serif" font-weight="500" font-size="43" fill="#FFFFFF">${tOrg}</text>
   </g>`;
       }
 
@@ -1266,7 +1332,6 @@
     </linearGradient>
   </defs>
 
-  <!-- Layer: Bottom Gradient Overlay -->
   <g id="layer-gradient-overlay">
     <rect x="0" y="${gradStartY}" width="1080" height="${1080 - gradStartY}" fill="url(#navyFade)"/>
   </g>
@@ -1274,14 +1339,11 @@
 ${svgTopLogo}
 ${svgRibbon}
 ${svgDivider}
-
-  <!-- Layers: Separated Texts -->
 ${svgTextsGroup}
-
 ${svgFooter}
 
   <g id="layer-date-bottom-right">
-    <text x="1055" y="1058" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
+    <text x="${1055 + fx}" y="${1058 + fy}" text-anchor="end" font-family="Prompt, sans-serif" font-weight="700" font-size="25" fill="#FFFFFF">${tDate}</text>
   </g>
 </svg>`;
 
