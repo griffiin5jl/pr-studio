@@ -1764,15 +1764,19 @@
           ctx.save();
           ctx.font = `500 ${curOrgSize}px "${font1}", sans-serif`;
           const textW = showFooterOrg && orgText ? ctx.measureText(orgText).width : 0;
-          const totalW = (showBottomLogo ? (64 * scaleX) : 0) + textW;
+          const logoSpace = showBottomLogo ? (64 * scaleX) + (18 * scaleX) : 0;
+          const totalW = logoSpace + textW;
           const startX = (canvasWidth - totalW) / 2 + footerOffsetX;
           const centerY = (995 * scaleY) + footerOffsetY;
-          if (showBottomLogo) drawNongKhaiEmblem(ctx, startX + (32 * scaleX), centerY, 32 * Math.min(scaleX, scaleY));
+          
+          if (showBottomLogo) {
+            drawNongKhaiEmblem(ctx, startX + (32 * scaleX), centerY, 32 * Math.min(scaleX, scaleY));
+          }
           if (showFooterOrg && orgText) {
             ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText(orgText, startX + (showBottomLogo ? (82 * scaleX) : 0), centerY + 2);
+            ctx.fillText(orgText, startX + logoSpace, centerY + 2);
           }
           ctx.restore();
         }
