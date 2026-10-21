@@ -158,7 +158,7 @@
           <span>🎨</span> เลือกเทมเพลต
         </button>
         <button id="tabBtn2" onclick="switchTab(2)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>🖼️</span> เลเยอร์ภาพ & โลโก้
+          <span>🖼️</span> เลเยอร์ภาพ & ฟิลเตอร์
         </button>
         <button id="tabBtn3" onclick="switchTab(3)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
           <span>✍️</span> จัดการข้อความ
@@ -212,20 +212,19 @@
           </div>
         </div>
 
-        <!-- USER GUIDE CARD (PLACED IN TAB 1 RIGHT PANEL) -->
+        <!-- USER GUIDE CARD -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
             <span>📖</span> คู่มือการใช้งานเบื้องต้น
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>เปิด/ปิด หรือลบข้อความ:</strong> ติ๊กเลือกแสดง/ซ่อนบรรทัดข้อความได้อิสระในแท็บจัดการข้อความ</li>
-            <li><strong>โหมดแก้ไขข้อความ:</strong> ติ๊กเลือกวิทยุ <strong>"✍️ ติ๊กเพื่อแก้ไขข้อความ"</strong> เพื่อคลิกลากย้ายตำแหน่งตัวหนังสือ</li>
-            <li><strong>ประวัติการแก้:</strong> ใช้ปุ่ม Undo/Redo ใต้ภาพเพื่อย้อนกลับหรือทำซ้ำการขยับได้ตลอดเวลา</li>
+            <li><strong>ปรับแต่งพื้นหลังและเลเยอร์บุคคล:</strong> สามารถปรับความเบลอ ความสว่าง และฟิลเตอร์ภาพบุคคลได้ที่แท็บเลเยอร์ภาพ</li>
+            <li><strong>จัดการตัวอักษร:</strong> สามารถปรับระยะห่างบรรทัด (Line Height) และระยะห่างตัวอักษร (Letter Spacing) ได้ที่แท็บจัดการข้อความ</li>
           </ul>
         </div>
       </div>
 
-      <!-- TAB 2: IMAGE LAYERS & LOGOS -->
+      <!-- TAB 2: IMAGE LAYERS & FILTERS -->
       <div id="tabContent2" class="space-y-4 hidden">
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           
@@ -270,6 +269,7 @@
             </div>
           </div>
 
+          <!-- ZOOM & GLOW -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <div>
               <div class="flex justify-between text-xs mb-1">
@@ -284,6 +284,59 @@
                 <span id="glowVal" class="text-slate-500 font-bold">35%</span>
               </div>
               <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+
+          <!-- BACKGROUND & PERSON FILTERS -->
+          <div class="pt-3 border-t border-slate-100 space-y-3">
+            <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">🎛️ ปรับแต่งความเบลอ & ฟิลเตอร์รูปภาพ</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-slate-600">ความเบลอพื้นหลัง</span>
+                  <span id="bgBlurVal" class="font-bold">0px</span>
+                </div>
+                <input type="range" id="bgBlur" min="0" max="20" value="0" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-slate-600">ความสว่างพื้นหลัง</span>
+                  <span id="bgBrightnessVal" class="font-bold">100%</span>
+                </div>
+                <input type="range" id="bgBrightness" min="20" max="180" value="100" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-slate-600">ความมืดฉากหลัง (Dim)</span>
+                  <span id="bgDimVal" class="font-bold">0%</span>
+                </div>
+                <input type="range" id="bgDim" min="0" max="90" value="0" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200 text-xs">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-slate-600">แสงตัวบุคคล (Brightness)</span>
+                  <span id="personBrightVal" class="font-bold">100%</span>
+                </div>
+                <input type="range" id="personBright" min="50" max="150" value="100" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-slate-600">ความคมชัด (Contrast)</span>
+                  <span id="personContrastVal" class="font-bold">100%</span>
+                </div>
+                <input type="range" id="personContrast" min="50" max="150" value="100" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-slate-600">ความสดสี (Saturation)</span>
+                  <span id="personSatVal" class="font-bold">100%</span>
+                </div>
+                <input type="range" id="personSat" min="0" max="200" value="100" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
             </div>
           </div>
 
@@ -339,6 +392,24 @@
               <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">3</span>
               ปรับแต่งข้อความ & ฟอนต์ (เปิด/ปิดบรรทัดได้)
             </h2>
+          </div>
+
+          <!-- Global Spacing Controls -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs">
+            <div>
+              <div class="flex justify-between mb-1 font-semibold text-indigo-900">
+                <span>ระยะห่างระหว่างบรรทัด (Line Height)</span>
+                <span id="lineHeightVal">1.25x</span>
+              </div>
+              <input type="range" id="globalLineHeight" min="1.0" max="2.0" step="0.05" value="1.25" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between mb-1 font-semibold text-indigo-900">
+                <span>ระยะห่างตัวอักษร (Letter Spacing)</span>
+                <span id="letterSpacingVal">0px</span>
+              </div>
+              <input type="range" id="globalLetterSpacing" min="-2" max="10" value="0" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
           </div>
 
           <!-- Date Ribbon (Style 3) -->
@@ -679,7 +750,6 @@
     }
 
     function submitReport() {
-      const msg = document.getElementById('reportMessage').value.trim();
       document.getElementById('reportMessage').value = '';
       closeReportModal();
     }
@@ -722,7 +792,15 @@
           gradHeight: document.getElementById('gradHeight')?.value || 55,
           dividerHeight: document.getElementById('dividerHeight')?.value || 12,
           dividerWidth: document.getElementById('dividerWidth')?.value || 928,
-          dividerYOffset: document.getElementById('dividerYOffset')?.value || 0
+          dividerYOffset: document.getElementById('dividerYOffset')?.value || 0,
+          bgBlur: document.getElementById('bgBlur')?.value || 0,
+          bgBrightness: document.getElementById('bgBrightness')?.value || 100,
+          bgDim: document.getElementById('bgDim')?.value || 0,
+          personBright: document.getElementById('personBright')?.value || 100,
+          personContrast: document.getElementById('personContrast')?.value || 100,
+          personSat: document.getElementById('personSat')?.value || 100,
+          globalLineHeight: document.getElementById('globalLineHeight')?.value || 1.25,
+          globalLetterSpacing: document.getElementById('globalLetterSpacing')?.value || 0
         }
       };
     }
@@ -782,9 +860,7 @@
         }
       }
       const dimLabel = document.getElementById('canvasDimLabel');
-      if (dimLabel) {
-        dimLabel.textContent = `${canvasWidth} x ${canvasHeight} px`;
-      }
+      if (dimLabel) dimLabel.textContent = `${canvasWidth} x ${canvasHeight} px`;
 
       bgState = { ...state.bgState };
       fg1State = { ...state.fg1State };
@@ -824,6 +900,14 @@
       setVal('dividerHeight', inp.dividerHeight);
       setVal('dividerWidth', inp.dividerWidth);
       setVal('dividerYOffset', inp.dividerYOffset);
+      setVal('bgBlur', inp.bgBlur);
+      setVal('bgBrightness', inp.bgBrightness);
+      setVal('bgDim', inp.bgDim);
+      setVal('personBright', inp.personBright);
+      setVal('personContrast', inp.personContrast);
+      setVal('personSat', inp.personSat);
+      setVal('globalLineHeight', inp.globalLineHeight);
+      setVal('globalLetterSpacing', inp.globalLetterSpacing);
     }
 
     function setAspectRatio(aspectName, w, h) {
@@ -855,9 +939,7 @@
         }
       }
       const dimLabel = document.getElementById('canvasDimLabel');
-      if (dimLabel) {
-        dimLabel.textContent = `${w} x ${h} px`;
-      }
+      if (dimLabel) dimLabel.textContent = `${w} x ${h} px`;
 
       renderCanvas();
       saveHistoryState();
@@ -1332,7 +1414,36 @@
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
-    // Precise, Sharp Vector TikTok & Social Icons Renderer
+    // Helper for multiline text drawing with custom line-height and letter-spacing
+    function drawMultilineText(ctx, lines, x, y, fontSize, lineHeightMult, letterSpacing, isCentered = true) {
+      ctx.save();
+      const leading = fontSize * lineHeightMult;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const currentY = y + (i * leading);
+        
+        if (letterSpacing === 0) {
+          if (isCentered) ctx.fillText(line, x, currentY);
+          else ctx.fillText(line, x, currentY);
+        } else {
+          // Draw character by character for letter spacing
+          let totalW = 0;
+          for (let c = 0; c < line.length; c++) {
+            totalW += ctx.measureText(line[c]).width + letterSpacing;
+          }
+          totalW -= letterSpacing;
+
+          let startDrawX = isCentered ? x - (totalW / 2) : x;
+          for (let c = 0; c < line.length; c++) {
+            const char = line[c];
+            ctx.fillText(char, startDrawX, currentY);
+            startDrawX += ctx.measureText(char).width + letterSpacing;
+          }
+        }
+      }
+      ctx.restore();
+    }
+
     function drawSocialIcons(ctx, startX, centerY, radius, bgNavyColor) {
       const gap = 10;
       const diameter = radius * 2;
@@ -1443,17 +1554,42 @@
       const sizeOrgEl = document.getElementById('sizeOrgRange');
       const sizeOrg = sizeOrgEl ? parseInt(sizeOrgEl.value, 10) : 31;
 
-      const size1Val = document.getElementById('size1Val');
-      const size2Val = document.getElementById('size2Val');
-      const size3Val = document.getElementById('size3Val');
-      const size4Val = document.getElementById('size4Val');
-      const sizeOrgVal = document.getElementById('sizeOrgVal');
+      // Filter values
+      const bgBlurEl = document.getElementById('bgBlur');
+      const bgBlur = bgBlurEl ? parseInt(bgBlurEl.value, 10) : 0;
+      const bgBrightEl = document.getElementById('bgBrightness');
+      const bgBright = bgBrightEl ? parseInt(bgBrightEl.value, 10) : 100;
+      const bgDimEl = document.getElementById('bgDim');
+      const bgDim = bgDimEl ? parseInt(bgDimEl.value, 10) : 0;
 
-      if (size1Val) size1Val.textContent = size1 + 'px';
-      if (size2Val) size2Val.textContent = size2 + 'px';
-      if (size3Val) size3Val.textContent = size3 + 'px';
-      if (size4Val) size4Val.textContent = size4 + 'px';
-      if (sizeOrgVal) sizeOrgVal.textContent = sizeOrg + 'px';
+      const personBrightEl = document.getElementById('personBright');
+      const pBright = personBrightEl ? parseInt(personBrightEl.value, 10) : 100;
+      const personContrastEl = document.getElementById('personContrast');
+      const pContrast = personContrastEl ? parseInt(personContrastEl.value, 10) : 100;
+      const personSatEl = document.getElementById('personSat');
+      const pSat = personSatEl ? parseInt(personSatEl.value, 10) : 100;
+
+      // Spacing values
+      const globalLineHeightEl = document.getElementById('globalLineHeight');
+      const globalLineHeight = globalLineHeightEl ? parseFloat(globalLineHeightEl.value) : 1.25;
+      const globalLetterSpacingEl = document.getElementById('globalLetterSpacing');
+      const globalLetterSpacing = globalLetterSpacingEl ? parseFloat(globalLetterSpacingEl.value) : 0;
+
+      // Update UI labels
+      document.getElementById('bgBlurVal').textContent = bgBlur + 'px';
+      document.getElementById('bgBrightnessVal').textContent = bgBright + '%';
+      document.getElementById('bgDimVal').textContent = bgDim + '%';
+      document.getElementById('personBrightVal').textContent = pBright + '%';
+      document.getElementById('personContrastVal').textContent = pContrast + '%';
+      document.getElementById('personSatVal').textContent = pSat + '%';
+      document.getElementById('lineHeightVal').textContent = globalLineHeight + 'x';
+      document.getElementById('letterSpacingVal').textContent = globalLetterSpacing + 'px';
+
+      document.getElementById('size1Val').textContent = size1 + 'px';
+      document.getElementById('size2Val').textContent = size2 + 'px';
+      document.getElementById('size3Val').textContent = size3 + 'px';
+      document.getElementById('size4Val').textContent = size4 + 'px';
+      document.getElementById('sizeOrgVal').textContent = sizeOrg + 'px';
 
       const dividerStyleEl = document.getElementById('dividerStyle');
       const dividerStyle = dividerStyleEl ? dividerStyleEl.value : 'gold';
@@ -1470,20 +1606,13 @@
       const dividerYOffsetEl = document.getElementById('dividerYOffset');
       const dividerYOffset = dividerYOffsetEl ? parseInt(dividerYOffsetEl.value, 10) : 0;
 
-      const glowVal = document.getElementById('glowVal');
-      const gradHeightVal = document.getElementById('gradHeightVal');
-      const divHeightVal = document.getElementById('divHeightVal');
-      const divWidthVal = document.getElementById('divWidthVal');
-      const divYVal = document.getElementById('divYVal');
+      document.getElementById('glowVal').textContent = topGlow + '%';
+      document.getElementById('gradHeightVal').textContent = gradHeightPct + '%';
+      document.getElementById('divHeightVal').textContent = dividerHeight + 'px';
+      document.getElementById('divWidthVal').textContent = dividerWidth + 'px';
+      document.getElementById('divYVal').textContent = dividerYOffset + 'px';
 
-      if (glowVal) glowVal.textContent = topGlow + '%';
-      if (gradHeightVal) gradHeightVal.textContent = gradHeightPct + '%';
-      if (divHeightVal) divHeightVal.textContent = dividerHeight + 'px';
-      if (divWidthVal) divWidthVal.textContent = dividerWidth + 'px';
-      if (divYVal) divYVal.textContent = dividerYOffset + 'px';
-
-      const customColorBox = document.getElementById('customColorBox');
-      if (customColorBox) customColorBox.style.display = dividerStyle === 'custom' ? 'block' : 'none';
+      document.getElementById('customColorBox').style.display = dividerStyle === 'custom' ? 'block' : 'none';
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -1493,6 +1622,7 @@
       ctx.save();
       if (!isTransparent && bgLoaded) {
         ctx.save();
+        ctx.filter = `blur(${bgBlur}px) brightness(${bgBright}%)`;
         const imgRatio = bgImg.width / bgImg.height;
         let drawW = canvasWidth, drawH = canvasHeight;
         if (imgRatio > (canvasWidth / canvasHeight)) drawH = canvasWidth / imgRatio;
@@ -1504,6 +1634,11 @@
         const drawY = (canvasHeight - drawH) / 2 + bgState.y;
         ctx.drawImage(bgImg, drawX, drawY, drawW, drawH);
         ctx.restore();
+
+        if (bgDim > 0) {
+          ctx.fillStyle = `rgba(0, 0, 0, ${bgDim / 100})`;
+          ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        }
       }
 
       const gradStartY = canvasHeight * (1 - gradHeightPct / 100);
@@ -1516,8 +1651,12 @@
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, canvasWidth, canvasHeight - gradStartY);
 
+      // Person 1 & 2 Filters
+      const personFilterStr = `brightness(${pBright}%) contrast(${pContrast}%) saturate(${pSat}%)`;
+
       if (!isTransparent && fg1Loaded) {
         ctx.save();
+        ctx.filter = personFilterStr;
         const fgRatio = fg1Img.width / fg1Img.height;
         let fgW = 600 * scaleX, fgH = (600 / fgRatio) * scaleY;
         fgW *= fg1State.scale;
@@ -1531,6 +1670,7 @@
 
       if (!isTransparent && fg2Loaded) {
         ctx.save();
+        ctx.filter = personFilterStr;
         const fgRatio = fg2Img.width / fg2Img.height;
         let fgW = 600 * scaleX, fgH = (600 / fgRatio) * scaleY;
         fgW *= fg2State.scale;
@@ -1568,7 +1708,7 @@
         ctx.fillRect(ribStartX, ribY, canvasWidth - ribStartX, ribH);
 
         const rText = ribbonTextEl ? ribbonTextEl.value.trim() : '';
-        if (showAllTextEl?.checked && rText) {
+        if (rText) {
           ctx.font = `700 ${Math.round(40 * scaleY)}px "${font1}", sans-serif`;
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'right';
@@ -1606,7 +1746,6 @@
         ctx.restore();
       }
 
-      const showText = showAllTextEl ? showAllTextEl.checked : true;
       const showHeadlineEl = document.getElementById('showHeadline');
       const showTopicEl = document.getElementById('showTopic');
       const showGoldEl = document.getElementById('showGold');
@@ -1624,74 +1763,70 @@
       const colorGoldTextEl = document.getElementById('colorGoldText');
       const colorGoldText = colorGoldTextEl ? colorGoldTextEl.value : '#FFCC00';
 
-      if (showText) {
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'alphabetic';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
 
-        const t1El = document.getElementById('textLine1');
-        const t2El = document.getElementById('textLine2');
-        const t3El = document.getElementById('textLine3');
+      const t1El = document.getElementById('textLine1');
+      const t2El = document.getElementById('textLine2');
+      const t3El = document.getElementById('textLine3');
 
-        const t1 = t1El ? t1El.value.trim() : '';
-        const t2Lines = t2El ? t2El.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
-        const t3Lines = t3El ? t3El.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
+      const t1 = t1El ? t1El.value.trim() : '';
+      const t2Lines = t2El ? t2El.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
+      const t3Lines = t3El ? t3El.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
 
-        let cursorY = lineY - (32 * scaleY);
+      let cursorY = lineY - (32 * scaleY);
 
-        if (showGold && t3Lines.length > 0) {
-          ctx.save();
-          const curSize3 = size3 * scaleY;
-          ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
-          ctx.fillStyle = colorGoldText;
-          ctx.shadowColor = 'rgba(0,0,0,0.7)';
-          ctx.shadowBlur = 12;
+      if (showGold && t3Lines.length > 0) {
+        ctx.save();
+        const curSize3 = size3 * scaleY;
+        ctx.font = `700 ${curSize3}px "${font3}", sans-serif`;
+        ctx.fillStyle = colorGoldText;
+        ctx.shadowColor = 'rgba(0,0,0,0.7)';
+        ctx.shadowBlur = 12;
 
-          let goldY = cursorY + textOffsets.gold.y;
-          let tempY = goldY;
-          for (let i = t3Lines.length - 1; i >= 0; i--) {
-            ctx.fillText(t3Lines[i], (canvasWidth / 2) + textOffsets.gold.x, tempY);
-            tempY -= (curSize3 + (8 * scaleY));
-          }
-          ctx.restore();
-          cursorY -= (t3Lines.length * (curSize3 + (8 * scaleY)) + (10 * scaleY));
+        const goldY = cursorY + textOffsets.gold.y;
+        const totalBlockH = (t3Lines.length - 1) * (curSize3 * globalLineHeight);
+        let startBlockY = goldY - totalBlockH;
+
+        drawMultilineText(ctx, t3Lines, (canvasWidth / 2) + textOffsets.gold.x, startBlockY, curSize3, globalLineHeight, globalLetterSpacing, true);
+        ctx.restore();
+        cursorY -= (t3Lines.length * (curSize3 * globalLineHeight) + (10 * scaleY));
+      }
+
+      if (showTopic && t2Lines.length > 0) {
+        ctx.save();
+        const curSize2 = size2 * scaleY;
+        ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.shadowBlur = 14;
+
+        const topicY = cursorY + textOffsets.topic.y;
+        const totalBlockH = (t2Lines.length - 1) * (curSize2 * globalLineHeight);
+        let startBlockY = topicY - totalBlockH;
+
+        drawMultilineText(ctx, t2Lines, (canvasWidth / 2) + textOffsets.topic.x, startBlockY, curSize2, globalLineHeight, globalLetterSpacing, true);
+        ctx.restore();
+        cursorY -= (t2Lines.length * (curSize2 * globalLineHeight) + (16 * scaleY));
+      }
+
+      if (showHeadline && t1) {
+        ctx.save();
+        const curSize1 = size1 * scaleY;
+        ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
+        ctx.shadowColor = 'rgba(0,0,0,0.85)';
+        ctx.shadowBlur = 22;
+        const headX = (canvasWidth / 2) + textOffsets.headline.x;
+        const headY = cursorY + textOffsets.headline.y;
+
+        if (strokeLine1) {
+          ctx.strokeStyle = '#D91B1B';
+          ctx.lineWidth = 16 * scaleY;
+          ctx.strokeText(t1, headX, headY);
         }
-
-        if (showTopic && t2Lines.length > 0) {
-          ctx.save();
-          const curSize2 = size2 * scaleY;
-          ctx.fillStyle = '#FFFFFF';
-          ctx.shadowColor = 'rgba(0,0,0,0.8)';
-          ctx.shadowBlur = 14;
-
-          let topicY = cursorY + textOffsets.topic.y;
-          let tempY = topicY;
-          for (let i = t2Lines.length - 1; i >= 0; i--) {
-            ctx.font = `700 ${curSize2}px "${font2}", sans-serif`;
-            ctx.fillText(t2Lines[i], (canvasWidth / 2) + textOffsets.topic.x, tempY);
-            tempY -= (curSize2 + (12 * scaleY));
-          }
-          ctx.restore();
-          cursorY -= (t2Lines.length * (curSize2 + (12 * scaleY)) + (16 * scaleY));
-        }
-
-        if (showHeadline && t1) {
-          ctx.save();
-          const curSize1 = size1 * scaleY;
-          ctx.font = `800 ${curSize1}px "${font1}", sans-serif`;
-          ctx.shadowColor = 'rgba(0,0,0,0.85)';
-          ctx.shadowBlur = 22;
-          const headX = (canvasWidth / 2) + textOffsets.headline.x;
-          const headY = cursorY + textOffsets.headline.y;
-
-          if (strokeLine1) {
-            ctx.strokeStyle = '#D91B1B';
-            ctx.lineWidth = 16 * scaleY;
-            ctx.strokeText(t1, headX, headY);
-          }
-          ctx.fillStyle = colorLine1;
-          ctx.fillText(t1, headX, headY);
-          ctx.restore();
-        }
+        ctx.fillStyle = colorLine1;
+        ctx.fillText(t1, headX, headY);
+        ctx.restore();
       }
 
       const showFooterEl = document.getElementById('showFooter');
@@ -1719,7 +1854,7 @@
       const footerOffsetX = textOffsets.footer.x;
       const footerOffsetY = textOffsets.footer.y;
 
-      if (showText && showFooter) {
+      if (showFooter) {
         if (footerMode === 'style1') {
           if (showFooterLine4 && line4Text) {
             ctx.save();
