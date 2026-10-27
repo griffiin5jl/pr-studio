@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V22.3</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V23</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,8 +57,8 @@
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V22.3</h1>
-              <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud & Mobile</span>
+              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V23</h1>
+              <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud & Mobile Pro</span>
             </div>
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
           </div>
@@ -213,7 +213,7 @@
           <span>🎨</span> เลือกเทมเพลต
         </button>
         <button id="tabBtn2" onclick="switchTab(2)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>🖼️</span> เลเยอร์ภาพ & ฟิลเตอร์
+          <span>🖼️</span> แต่งภาพ & ฟิลเตอร์แยกหมวด
         </button>
         <button id="tabBtn3" onclick="switchTab(3)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
           <span>✍️</span> จัดการข้อความ
@@ -277,7 +277,7 @@
           </div>
 
           <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 pt-1">
-            <button onclick="setFadeColors('#031B59', '#010922')" class="p-2 rounded-xl border border-slate-200 hover:scale-105 transition flex flex-col items-center gap-1 cursor-pointer bg-slate-550" title="น้ำเงิน อบจ.">
+            <button onclick="setFadeColors('#031B59', '#010922')" class="p-2 rounded-xl border border-slate-200 hover:scale-105 transition flex flex-col items-center gap-1 cursor-pointer bg-slate-50" title="น้ำเงิน อบจ.">
               <span class="w-6 h-6 rounded-full bg-gradient-to-b from-[#031B59] to-[#010922] border border-white shadow"></span>
               <span class="text-[10px] font-bold text-slate-700">น้ำเงิน</span>
             </button>
@@ -315,23 +315,23 @@
         <!-- USER GUIDE CARD -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
-            <span>📖</span> คู่มือการใช้งานเบื้องต้น
+            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Cloud & Pro Edition)
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ตั้งค่าเลเยอร์และฟิลเตอร์:</strong> ไปที่แท็บ "เลเยอร์ภาพ & ฟิลเตอร์" เพื่อปรับความเบลอพื้นหลัง (Blur) และความสว่างภาพบุคคลได้ตามต้องการ</li>
-            <li><strong>ระบบล็อกอินจดจำงาน:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อบันทึกงานและดูประวัติงานเก่า เปิดเครื่องไหนก็ทำต่อได้</li>
-            <li><strong>ดาวน์โหลดลงมือถือ:</strong> กดปุ่มดาวน์โหลดภาพ ระบบจะเปิดหน้าต่างรองรับทั้ง iOS / Android และแอป LINE</li>
+            <li><strong>ล็อกอินบันทึกงาน:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อสมัครหรือเข้าสู่ระบบ งานของคุณจะถูกบันทึกและซิงค์อัตโนมัติ</li>
+            <li><strong>หมวดแต่งภาพแยกอิสระ:</strong> ไปที่แท็บ "แต่งภาพ & ฟิลเตอร์แยกหมวด" เพื่อปรับความเบลอ ความสว่าง และความคมชัดของฉากหลังและภาพบุคคลแยกกันได้เลย</li>
+            <li><strong>ดาวน์โหลดภาพ:</strong> รองรับการดาวน์โหลดความคมชัดสูง PNG HD ทั้งบนคอมพิวเตอร์และมือถือ</li>
           </ul>
         </div>
       </div>
 
-      <!-- TAB 2: IMAGE LAYERS & FILTERS -->
+      <!-- TAB 2: IMAGE LAYERS & FILTER CATEGORIES (SEPARATE BG & PERSON) -->
       <div id="tabContent2" class="space-y-4 hidden">
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           <div class="flex items-center justify-between">
             <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
               <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">1</span>
-              จัดการเลเยอร์ภาพ & ตัดฉากหลัง
+              อัปโหลดรูปภาพเลเยอร์ & ตัดฉากหลัง
             </h2>
             <a href="https://www.remove.bg/th" target="_blank" class="text-xs font-bold text-teal-700 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-xl border border-teal-200 transition flex items-center gap-1 cursor-pointer">
               ✂️ เปิดเว็บ Remove.bg ↗
@@ -359,7 +359,7 @@
           </div>
 
           <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-2xl border border-slate-200 text-xs">
-            <span class="font-semibold text-slate-700">เลือกปรับแต่งเลเยอร์:</span>
+            <span class="font-semibold text-slate-700">เลือกเลเยอร์ที่กำลังปรับขนาด (Zoom):</span>
             <div class="flex gap-1.5 flex-wrap">
               <button id="tabBgCtrl" onclick="setActiveLayer('bg')" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-bold transition cursor-pointer text-xs">พื้นหลัง</button>
               <button id="tabFg1Ctrl" onclick="setActiveLayer('fg1')" class="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-semibold transition cursor-pointer text-xs">บุคคลที่ 1</button>
@@ -367,47 +367,94 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-            <div>
-              <div class="flex justify-between text-xs mb-1">
-                <span class="text-slate-600 font-medium">ซูมภาพ (Zoom)</span>
-                <span id="zoomVal" class="text-slate-500 font-bold">100%</span>
-              </div>
-              <input type="range" id="imgZoom" min="30" max="300" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-600 font-medium">ซูมภาพเลเยอร์ที่เลือก (Zoom Scale)</span>
+              <span id="zoomVal" class="text-slate-500 font-bold">100%</span>
             </div>
-            <div>
-              <div class="flex justify-between text-xs mb-1">
-                <span class="text-slate-600 font-medium">แสงฟุ้งด้านบน (Glow)</span>
-                <span id="glowVal" class="text-slate-500 font-bold">35%</span>
-              </div>
-              <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
-            </div>
+            <input type="range" id="imgZoom" min="30" max="300" value="100" oninput="updateTransformFromSlider()" class="w-full accent-indigo-600 cursor-pointer">
+          </div>
+        </div>
+
+        <!-- CATEGORY A: BACKGROUND FILTERS -->
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          <div class="text-xs font-extrabold text-indigo-900 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs flex items-center justify-center">A</span>
+            หมวดปรับแต่งภาพพื้นหลัง (Background Adjustments)
           </div>
 
-          <!-- ADVANCED FILTERS (BLUR & BRIGHTNESS) -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-            <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-              <span>✨ ปรับแต่งฟิลเตอร์ภาพ (ความเบลอ & ความสว่าง)</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความเบลอฉากหลัง (Blur)</span>
+                <span id="bgBlurVal" class="font-bold text-indigo-600">0px</span>
+              </div>
+              <input type="range" id="bgBlurRange" min="0" max="25" value="0" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-              <div>
-                <div class="flex justify-between text-[11px] mb-1">
-                  <span class="text-slate-600 font-medium">ความเบลอพื้นหลัง (Background Blur)</span>
-                  <span id="bgBlurVal" class="font-bold text-indigo-600">0px</span>
-                </div>
-                <input type="range" id="bgBlurRange" min="0" max="25" value="0" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความสว่างฉากหลัง (Brightness)</span>
+                <span id="bgBrightVal" class="font-bold text-indigo-600">100%</span>
               </div>
-              <div>
-                <div class="flex justify-between text-[11px] mb-1">
-                  <span class="text-slate-600 font-medium">ความสว่างภาพบุคคล (Person Brightness)</span>
-                  <span id="personBrightVal" class="font-bold text-indigo-600">100%</span>
-                </div>
-                <input type="range" id="personBrightRange" min="50" max="180" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="bgBrightRange" min="40" max="180" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความคมชัดฉากหลัง (Contrast)</span>
+                <span id="bgContrastVal" class="font-bold text-indigo-600">100%</span>
               </div>
+              <input type="range" id="bgContrastRange" min="50" max="160" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความสดสีฉากหลัง (Saturation)</span>
+                <span id="bgSatVal" class="font-bold text-indigo-600">100%</span>
+              </div>
+              <input type="range" id="bgSatRange" min="0" max="200" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
             </div>
           </div>
         </div>
 
+        <!-- CATEGORY B: PERSON / FOREGROUND FILTERS -->
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+          <div class="text-xs font-extrabold text-emerald-900 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">B</span>
+            หมวดปรับแต่งภาพบุคคล (Person / Foreground Adjustments)
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความสว่างภาพบุคคล (Brightness)</span>
+                <span id="personBrightVal" class="font-bold text-emerald-600">100%</span>
+              </div>
+              <input type="range" id="personBrightRange" min="50" max="180" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-emerald-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">ความคมชัดภาพบุคคล (Contrast)</span>
+                <span id="personContrastVal" class="font-bold text-emerald-600">100%</span>
+              </div>
+              <input type="range" id="personContrastRange" min="50" max="160" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-emerald-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">โทนสีอบอุ่น (Warmth / Sepia)</span>
+                <span id="personWarmVal" class="font-bold text-emerald-600">0%</span>
+              </div>
+              <input type="range" id="personWarmRange" min="0" max="100" value="0" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-emerald-600 cursor-pointer">
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-600 font-medium">แสงฟุ้งด้านบน (Top Glow Flare)</span>
+                <span id="glowVal" class="font-bold text-emerald-600">35%</span>
+              </div>
+              <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-emerald-600 cursor-pointer">
+            </div>
+          </div>
+        </div>
+
+        <!-- LOGO MANAGEMENT -->
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs flex items-center justify-center">2</span>
@@ -445,6 +492,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- TAB 3: TEXT EDITING -->
@@ -772,7 +820,7 @@
           ใช้งานแบบไม่ล็อกอิน
         </button>
         <button id="authSubmitBtn" onclick="handleUserLogin()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-indigo-600/20">
-          เข้าสู่ระบบ / บันทึกรหัส
+          เข้าสู่ระบบ / สมัครใหม่
         </button>
       </div>
     </div>
@@ -963,7 +1011,12 @@
           dividerOffsetY: document.getElementById('dividerOffsetY')?.value || 0,
           dividerWidth: document.getElementById('dividerWidth')?.value || 928,
           bgBlurRange: document.getElementById('bgBlurRange')?.value || 0,
-          personBrightRange: document.getElementById('personBrightRange')?.value || 100
+          bgBrightRange: document.getElementById('bgBrightRange')?.value || 100,
+          bgContrastRange: document.getElementById('bgContrastRange')?.value || 100,
+          bgSatRange: document.getElementById('bgSatRange')?.value || 100,
+          personBrightRange: document.getElementById('personBrightRange')?.value || 100,
+          personContrastRange: document.getElementById('personContrastRange')?.value || 100,
+          personWarmRange: document.getElementById('personWarmRange')?.value || 0
         }
       };
     }
@@ -1065,7 +1118,12 @@
         setElVal('dividerOffsetY', inp.dividerOffsetY);
         setElVal('dividerWidth', inp.dividerWidth);
         setElVal('bgBlurRange', inp.bgBlurRange);
+        setElVal('bgBrightRange', inp.bgBrightRange);
+        setElVal('bgContrastRange', inp.bgContrastRange);
+        setElVal('bgSatRange', inp.bgSatRange);
         setElVal('personBrightRange', inp.personBrightRange);
+        setElVal('personContrastRange', inp.personContrastRange);
+        setElVal('personWarmRange', inp.personWarmRange);
       }
     }
 
@@ -1633,39 +1691,42 @@
       const size4 = parseInt(getVal('size4Range', 35), 10);
       const sizeOrg = parseInt(getVal('sizeOrgRange', 31), 10);
 
+      // Category A: Background Filters
       const bgBlur = parseInt(getVal('bgBlurRange', 0), 10);
+      const bgBright = parseInt(getVal('bgBrightRange', 100), 10);
+      const bgContrast = parseInt(getVal('bgContrastRange', 100), 10);
+      const bgSat = parseInt(getVal('bgSatRange', 100), 10);
+
+      // Category B: Person Filters
       const personBright = parseInt(getVal('personBrightRange', 100), 10);
+      const personContrast = parseInt(getVal('personContrastRange', 100), 10);
+      const personWarm = parseInt(getVal('personWarmRange', 0), 10);
 
-      const bgBlurValEl = document.getElementById('bgBlurVal');
-      if (bgBlurValEl) bgBlurValEl.textContent = bgBlur + 'px';
-      const personBrightValEl = document.getElementById('personBrightVal');
-      if (personBrightValEl) personBrightValEl.textContent = personBright + '%';
+      // Update UI labels
+      const setLbl = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+      setLbl('bgBlurVal', bgBlur + 'px');
+      setLbl('bgBrightVal', bgBright + '%');
+      setLbl('bgContrastVal', bgContrast + '%');
+      setLbl('bgSatVal', bgSat + '%');
+      setLbl('personBrightVal', personBright + '%');
+      setLbl('personContrastVal', personContrast + '%');
+      setLbl('personWarmVal', personWarm + '%');
 
-      const size1ValEl = document.getElementById('size1Val');
-      if (size1ValEl) size1ValEl.textContent = size1 + 'px';
-      const size2ValEl = document.getElementById('size2Val');
-      if (size2ValEl) size2ValEl.textContent = size2 + 'px';
-      const size3ValEl = document.getElementById('size3Val');
-      if (size3ValEl) size3ValEl.textContent = size3 + 'px';
-      const size4ValEl = document.getElementById('size4Val');
-      if (size4ValEl) size4ValEl.textContent = size4 + 'px';
-      const sizeOrgValEl = document.getElementById('sizeOrgVal');
-      if (sizeOrgValEl) sizeOrgValEl.textContent = sizeOrg + 'px';
+      setLbl('size1Val', size1 + 'px');
+      setLbl('size2Val', size2 + 'px');
+      setLbl('size3Val', size3 + 'px');
+      setLbl('size4Val', size4 + 'px');
+      setLbl('sizeOrgVal', sizeOrg + 'px');
+      setLbl('glowVal', topGlow + '%');
+      setLbl('gradHeightVal', gradHeightPct + '%');
+      setLbl('divOffsetYVal', getVal('dividerOffsetY', 0) + 'px');
+      setLbl('divWidthVal', getVal('dividerWidth', 928) + 'px');
 
       const dividerStyle = getVal('dividerStyle', 'gold');
       const dividerColor = getVal('dividerColor', '#E0B236');
       const dividerHeight = 12;
       const dividerWidth = parseInt(getVal('dividerWidth', 928), 10);
       const dividerOffsetY = parseInt(getVal('dividerOffsetY', 0), 10);
-
-      const glowValEl = document.getElementById('glowVal');
-      if (glowValEl) glowValEl.textContent = topGlow + '%';
-      const gradHeightValEl = document.getElementById('gradHeightVal');
-      if (gradHeightValEl) gradHeightValEl.textContent = gradHeightPct + '%';
-      const divOffsetYValEl = document.getElementById('divOffsetYVal');
-      if (divOffsetYValEl) divOffsetYValEl.textContent = dividerOffsetY + 'px';
-      const divWidthValEl = document.getElementById('divWidthVal');
-      if (divWidthValEl) divWidthValEl.textContent = dividerWidth + 'px';
 
       const customColorBox = document.getElementById('customColorBox');
       if (customColorBox) customColorBox.style.display = dividerStyle === 'custom' ? 'block' : 'none';
@@ -1678,9 +1739,13 @@
       ctx.save();
       if (!isTransparent && bgLoaded) {
         ctx.save();
-        if (bgBlur > 0) {
-          ctx.filter = `blur(${bgBlur}px)`;
-        }
+        let filterStr = '';
+        if (bgBlur > 0) filterStr += `blur(${bgBlur}px) `;
+        if (bgBright !== 100) filterStr += `brightness(${bgBright}%) `;
+        if (bgContrast !== 100) filterStr += `contrast(${bgContrast}%) `;
+        if (bgSat !== 100) filterStr += `saturate(${bgSat}%) `;
+        if (filterStr) ctx.filter = filterStr.trim();
+
         const imgRatio = bgImg.width / bgImg.height;
         let drawW = canvasWidth, drawH = canvasHeight;
         if (imgRatio > (canvasWidth / canvasHeight)) drawH = canvasWidth / imgRatio;
@@ -1706,9 +1771,11 @@
 
       if (!isTransparent && (fg1Loaded || fg2Loaded)) {
         ctx.save();
-        if (personBright !== 100) {
-          ctx.filter = `brightness(${personBright}%)`;
-        }
+        let pFilter = '';
+        if (personBright !== 100) pFilter += `brightness(${personBright}%) `;
+        if (personContrast !== 100) pFilter += `contrast(${personContrast}%) `;
+        if (personWarm > 0) pFilter += `sepia(${personWarm}%) `;
+        if (pFilter) ctx.filter = pFilter.trim();
       }
 
       if (!isTransparent && fg1Loaded) {
@@ -1739,6 +1806,15 @@
 
       if (!isTransparent && (fg1Loaded || fg2Loaded)) {
         ctx.restore();
+      }
+
+      if (topGlow > 0) {
+        const glowAlpha = (topGlow / 100) * 0.6;
+        const topGrad = ctx.createLinearGradient(0, 0, 0, canvasHeight * 0.4);
+        topGrad.addColorStop(0, `rgba(255, 255, 255, ${glowAlpha})`);
+        topGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = topGrad;
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight * 0.4);
       }
 
       if (getCheck('showLogo', true) && getCheck('logoTopLeft', false)) {
@@ -2065,7 +2141,7 @@
     let db = null;
     let auth = null;
     let firebaseUser = null;
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'aofta-studio-pro-v22';
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'aofta-studio-pro-v23';
 
     const memoryUsers = {};
     let memoryProjects = [];
@@ -2145,7 +2221,7 @@
                 errEl.textContent = '❌ รหัสผ่านไม่ถูกต้องสำหรับชื่อผู้ใช้นี้';
                 errEl.classList.remove('hidden');
               }
-              if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / บันทึกรหัส';
+              if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / สมัครใหม่';
               return;
             }
             if (data.lastWorkspaceJson) {
@@ -2173,7 +2249,7 @@
               errEl.textContent = '❌ รหัสผ่านไม่ถูกต้อง';
               errEl.classList.remove('hidden');
             }
-            if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / บันทึกรหัส';
+            if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / สมัครใหม่';
             return;
           }
           if (!memoryUsers[rawUser]) {
@@ -2197,7 +2273,7 @@
           errEl.classList.remove('hidden');
         }
       } finally {
-        if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / บันทึกรหัส';
+        if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / สมัครใหม่';
       }
     };
 
