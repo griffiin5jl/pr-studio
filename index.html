@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V25.0</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V26.1</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,8 +57,8 @@
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V25.0</h1>
-              <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud Account Edition</span>
+              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V26.1</h1>
+              <span class="bg-emerald-400/15 text-emerald-300 border border-emerald-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Google Sheet DB Edition</span>
             </div>
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
           </div>
@@ -66,6 +66,12 @@
       </div>
 
       <div class="flex items-center justify-between lg:justify-end gap-2 flex-wrap">
+        <!-- GOOGLE SHEET DB SETUP BUTTON -->
+        <button onclick="openSheetConfigModal()" id="sheetStatusBtn" class="bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 font-bold px-2.5 py-1.5 rounded-xl text-[11px] transition flex items-center gap-1.5 cursor-pointer" title="ตั้งค่าฐานข้อมูล Google Sheet ส่วนตัว">
+          <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span id="sheetStatusLabel">📊 ฐานข้อมูล Google Sheet</span>
+        </button>
+
         <div id="guestStatusBar" class="flex items-center gap-2 bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-xl text-xs flex-wrap">
           <span class="w-2 h-2 rounded-full bg-slate-400"></span>
           <span class="text-slate-300">โหมดผู้เยี่ยมชม (ไม่จำประวัติ)</span>
@@ -315,12 +321,12 @@
         <!-- USER GUIDE CARD -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
-            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Cloud Sync Edition)
+            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Google Sheet DB Edition)
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ล็อกอินจดจำงาน:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อสมัครหรือเข้าสู่ระบบ งานของคุณจะถูกซิงค์เข้าคลาวด์อัตโนมัติ</li>
-            <li><strong>แสงฟุ้งหลังตัวบุคคล (Halo Aura):</strong> ไปที่แท็บแต่งภาพเพื่อเปิดแสงฟุ้งด้านหลังตัวบุคคล ทำให้ตัวบุคคลโดดเด่นสะดุดตา</li>
-            <li><strong>ดาวน์โหลดบนมือถือ:</strong> รองรับการกดแชร์บันทึกรูปเข้าอัลบั้มมือถือ หรือแตะค้างที่รูปเพื่อบันทึกได้ทันที</li>
+            <li><strong>ล็อกอินส่วนตัว:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อสมัครหรือเข้าสู่ระบบ งานจะถูกบันทึกเชื่อมโยงกับ Google Sheet ของคุณ</li>
+            <li><strong>แสงฟุ้งหลังตัวบุคคล (Halo Aura):</strong> ไปที่แท็บแต่งภาพเพื่อเปิดแสงฟุ้งด้านหลังตัวบุคคล ทำให้ภาพดูโดดเด่นสะดุดตา</li>
+            <li><strong>บันทึกรูปบนมือถือ:</strong> รองรับการกดแชร์บันทึกรูปเข้าอัลบั้มมือถือ หรือแตะค้างที่รูปเพื่อบันทึกได้ทันที</li>
           </ul>
         </div>
       </div>
@@ -950,6 +956,71 @@
     </div>
   </div>
 
+  <!-- GOOGLE SHEET DATABASE CONFIG MODAL -->
+  <div id="sheetConfigModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 flex flex-col gap-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div>
+          <h3 class="text-slate-900 font-extrabold text-base flex items-center gap-2">
+            <span>📊</span> ตั้งค่าฐานข้อมูล Google Sheet ส่วนตัว (เฉพาะแอดมินอ๊อฟต้า)
+          </h3>
+          <p class="text-xs text-slate-500">เก็บข้อมูลผู้สมัคร รหัสผ่าน และประวัติงานทั้งหมดลงใน Google Sheet ในบัญชีของคุณคนเดียว (คนอื่นดูไม่ได้)</p>
+        </div>
+        <button onclick="closeSheetConfigModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-xs text-emerald-950 space-y-2">
+        <div class="font-extrabold text-emerald-900 flex items-center justify-between">
+          <span>🔒 ทำไมถึงมีแค่คุณที่ดูข้อมูลใน Google Sheet ได้?</span>
+          <button type="button" onclick="copyGoogleAppsScriptCode()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer shadow-sm">
+            📋 คัดลอกโค้ด Apps Script (Code.gs)
+          </button>
+        </div>
+        <ol class="list-decimal pl-4 space-y-1 text-emerald-900 leading-relaxed">
+          <li>สร้างไฟล์ <strong>Google Sheet ใหม่</strong> ใน Google Drive ของคุณ (<strong>ตั้งค่าแชร์เป็น "จำกัด/ส่วนตัว" ห้ามแชร์สาธารณะ</strong> เพื่อให้คุณเปิดดูตารางได้คนเดียว)</li>
+          <li>ในหน้า Google Sheet ไปที่เมนูด้านบน <strong>ส่วนขยาย (Extensions) &gt; Apps Script</strong></li>
+          <li>ลบโค้ดเดิมออกทั้งหมด แล้วกดปุ่ม <strong>"📋 คัดลอกโค้ด Apps Script"</strong> ด้านบนไปวางทับ แล้วกดไอคอนแผ่นดิสก์ (บันทึก)</li>
+          <li>กดปุ่มสีน้ำเงินมุมขวาบน <strong>การทำให้ใช้งานได้ (Deploy) &gt; การทำให้ใช้งานได้รายการใหม่ (New deployment)</strong></li>
+          <li>เลือกประเภทเป็น <strong>เว็บแอป (Web app)</strong> ตั้งค่าดังนี้:
+            <ul class="list-disc pl-5 mt-1 font-semibold">
+              <li>ดำเนินการในฐานะ (Execute as): เลือก <strong>"ฉัน (Me)"</strong></li>
+              <li>ผู้ที่มีสิทธิ์เข้าถึง (Who has access): เลือก <strong>"ทุกคน (Anyone)"</strong> (เพื่อให้หน้าเว็บส่งข้อมูลเข้าชีตได้โดยที่คนอื่นเปิดดูไฟล์ชีตไม่ได้)</li>
+            </ul>
+          </li>
+          <li>กด Deploy อนุญาตสิทธิ์ให้เรียบร้อย แล้วคัดลอก <strong>URL ของเว็บแอป (ลงท้ายด้วย /exec)</strong> มาวางในช่องด้านล่างนี้ครับ</li>
+        </ol>
+        <div id="copyScriptSuccessMsg" class="hidden text-emerald-700 bg-white border border-emerald-300 rounded-xl px-3 py-1.5 font-bold text-center">
+          ✅ คัดลอกโค้ด Google Apps Script ลงคลิปบอร์ดเรียบร้อยแล้ว! นำไปวางในหน้า Apps Script ได้เลยครับ
+        </div>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">🔗 ลิงก์ Web App URL จาก Google Apps Script (ลงท้ายด้วย <code>/exec</code>)</label>
+          <input type="url" id="sheetWebAppUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-mono text-slate-800 outline-none focus:border-emerald-600">
+        </div>
+
+        <div id="sheetConfigFeedback" class="hidden rounded-xl p-3 font-bold text-xs border"></div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+        <button type="button" onclick="testGoogleSheetConnection()" id="testSheetBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs transition cursor-pointer">
+          🔍 ทดสอบการเชื่อมต่อ & สร้างหัวตารางอัตโนมัติ
+        </button>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeSheetConfigModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2.5 rounded-xl text-xs transition cursor-pointer">
+            ปิดหน้าต่าง
+          </button>
+          <button type="button" onclick="saveGoogleSheetUrlConfig()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-emerald-600/20">
+            💾 บันทึกการเชื่อมต่อ Google Sheet
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const canvas = document.getElementById('prCanvas');
     const ctx = canvas.getContext('2d');
@@ -1032,6 +1103,10 @@
     }
 
     function submitReport() {
+      const msg = (document.getElementById('reportMessage')?.value || '').trim();
+      if (msg && window.sendReportToGoogleSheet) {
+        window.sendReportToGoogleSheet(msg);
+      }
       document.getElementById('reportMessage').value = '';
       closeReportModal();
     }
@@ -1805,13 +1880,11 @@
       const size4 = parseInt(getVal('size4Range', 35), 10);
       const sizeOrg = parseInt(getVal('sizeOrgRange', 31), 10);
 
-      // Category A: Background Filters
       const bgBlur = parseInt(getVal('bgBlurRange', 0), 10);
       const bgBright = parseInt(getVal('bgBrightRange', 100), 10);
       const bgContrast = parseInt(getVal('bgContrastRange', 100), 10);
       const bgSat = parseInt(getVal('bgSatRange', 100), 10);
 
-      // Category B: Person Filters & Halo
       const personBright = parseInt(getVal('personBrightRange', 100), 10);
       const personContrast = parseInt(getVal('personContrastRange', 100), 10);
       const personWarm = parseInt(getVal('personWarmRange', 0), 10);
@@ -1820,7 +1893,6 @@
       const haloIntensity = parseInt(getVal('haloIntensity', 60), 10);
       const haloSize = parseInt(getVal('haloSize', 120), 10);
 
-      // Update UI labels
       const setLbl = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
       setLbl('bgBlurVal', bgBlur + 'px');
       setLbl('bgBrightVal', bgBright + '%');
@@ -1847,9 +1919,6 @@
       const dividerHeight = 12;
       const dividerWidth = parseInt(getVal('dividerWidth', 928), 10);
       const dividerOffsetY = parseInt(getVal('dividerOffsetY', 0), 10);
-
-      const customColorBox = document.getElementById('customColorBox');
-      if (customColorBox) customColorBox.style.display = dividerStyle === 'custom' ? 'block' : 'none';
 
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -1889,7 +1958,6 @@
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, canvasWidth, canvasHeight - gradStartY);
 
-      // BEHIND-PERSON HALO GLOW EFFECT
       if (!isTransparent && showHalo && (fg1Loaded || fg2Loaded)) {
         ctx.save();
         const haloAlpha = (haloIntensity / 100) * 0.75;
@@ -2277,46 +2345,492 @@
     });
   </script>
 
-  <!-- FIREBASE CLOUD AUTH & PROJECT HISTORY MODULE -->
+  <!-- GOOGLE SHEETS PRIVATE DATABASE & FIREBASE CLOUD SYNC MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, collection, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+    const DEFAULT_GOOGLE_SHEET_WEB_APP_URL = "";
+
+    let googleSheetApiUrl = DEFAULT_GOOGLE_SHEET_WEB_APP_URL.trim();
     let db = null;
     let auth = null;
     let firebaseUser = null;
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'aofta-studio-pro-v24';
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'aofta-studio-pro-v26';
 
-    const memoryUsers = {};
-    const memoryMedia = {};
-    let memoryProjects = [];
+    function loadTabSessionCache() {
+      try {
+        if (window.name && window.name.startsWith('AOFTA_CACHE:')) {
+          return JSON.parse(window.name.slice('AOFTA_CACHE:'.length));
+        }
+      } catch (e) {}
+      return {
+        sheetApiUrl: '',
+        activeUsername: null,
+        rememberMe: true,
+        savedAccounts: [],
+        users: {},
+        media: {},
+        projects: []
+      };
+    }
+
+    const tabCache = loadTabSessionCache();
+    if (!googleSheetApiUrl && tabCache.sheetApiUrl) {
+      googleSheetApiUrl = tabCache.sheetApiUrl;
+    }
+
+    const memoryUsers = tabCache.users || {};
+    const memoryMedia = tabCache.media || {};
+    let memoryProjects = Array.isArray(tabCache.projects) ? tabCache.projects : [];
     let userProjectsList = [];
-    let savedAccountsList = [];
+    let savedAccountsList = Array.isArray(tabCache.savedAccounts) ? tabCache.savedAccounts : [];
     let unsubscribeProjects = null;
     let autoSaveTimer = null;
-    let currentAuthMode = 'login'; // 'login' | 'register'
+    let currentAuthMode = 'login';
+
+    function persistTabSessionCache() {
+      try {
+        const cacheObj = {
+          sheetApiUrl: googleSheetApiUrl || '',
+          activeUsername: loggedInUser || null,
+          rememberMe: true,
+          savedAccounts: savedAccountsList,
+          users: memoryUsers,
+          media: memoryMedia,
+          projects: memoryProjects
+        };
+        window.name = 'AOFTA_CACHE:' + JSON.stringify(cacheObj);
+      } catch (e) {}
+    }
 
     window.isRestoringFromCloud = false;
     window.hasRestoredCloudWorkspace = false;
 
+    function updateSheetStatusBadge() {
+      const dot = document.getElementById('sheetStatusDot');
+      const lbl = document.getElementById('sheetStatusLabel');
+      if (!dot || !lbl) return;
+      if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+        lbl.textContent = '📊 เชื่อมต่อ Google Sheet แล้ว';
+      } else {
+        dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-pulse';
+        lbl.textContent = '📊 ตั้งค่า Google Sheet';
+      }
+    }
+
+    async function callGoogleSheetApi(action, payload = {}) {
+      if (!googleSheetApiUrl || !googleSheetApiUrl.startsWith('https://script.google.com/')) {
+        return { ok: false, notConfigured: true };
+      }
+      try {
+        const response = await fetch(googleSheetApiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action, ...payload }),
+          redirect: 'follow'
+        });
+        const data = await response.json();
+        return data;
+      } catch (err) {
+        console.error('Google Sheet API Error:', err);
+        return { ok: false, error: err.message || 'Network error' };
+      }
+    }
+
+    window.sendReportToGoogleSheet = async function(message) {
+      await callGoogleSheetApi('report', {
+        username: loggedInUser || 'guest',
+        message
+      });
+    };
+
+    window.openSheetConfigModal = function() {
+      const input = document.getElementById('sheetWebAppUrlInput');
+      if (input) input.value = googleSheetApiUrl || '';
+      const fb = document.getElementById('sheetConfigFeedback');
+      if (fb) fb.classList.add('hidden');
+      const modal = document.getElementById('sheetConfigModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    };
+
+    window.closeSheetConfigModal = function() {
+      const modal = document.getElementById('sheetConfigModal');
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+    };
+
+    function showSheetConfigFeedback(msg, isError = false) {
+      const el = document.getElementById('sheetConfigFeedback');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = isError
+        ? 'rounded-xl p-3 font-bold text-xs border bg-red-50 text-red-600 border-red-200 block'
+        : 'rounded-xl p-3 font-bold text-xs border bg-emerald-50 text-emerald-700 border-emerald-200 block';
+    }
+
+    window.saveGoogleSheetUrlConfig = async function() {
+      const input = document.getElementById('sheetWebAppUrlInput');
+      const val = (input?.value || '').trim();
+      if (val && !val.startsWith('https://script.google.com/')) {
+        showSheetConfigFeedback('⚠️ รูปแบบลิงก์ไม่ถูกต้อง ลิงก์ต้องขึ้นต้นด้วย https://script.google.com/macros/s/.../exec', true);
+        return;
+      }
+      googleSheetApiUrl = val;
+      persistTabSessionCache();
+      updateSheetStatusBadge();
+
+      if (db && firebaseUser) {
+        try {
+          const cfgRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_config', 'sheet_settings');
+          await setDoc(cfgRef, { sheetApiUrl: googleSheetApiUrl, updatedAt: Date.now() }, { merge: true });
+        } catch (e) {}
+      }
+
+      if (googleSheetApiUrl) {
+        showSheetConfigFeedback('✅ บันทึกลิงก์ Google Sheet เรียบร้อยแล้ว! ระบบพร้อมบันทึกบัญชีและงานลงใน Google Sheet ของคุณ');
+      } else {
+        showSheetConfigFeedback('ℹ️ ล้างค่าลิงก์ Google Sheet แล้ว', false);
+      }
+    };
+
+    window.testGoogleSheetConnection = async function() {
+      const input = document.getElementById('sheetWebAppUrlInput');
+      const val = (input?.value || '').trim();
+      if (!val || !val.startsWith('https://script.google.com/')) {
+        showSheetConfigFeedback('⚠️ กรุณาวางลิงก์ Web App URL จาก Google Apps Script ก่อนกดทดสอบ', true);
+        return;
+      }
+      googleSheetApiUrl = val;
+      const btn = document.getElementById('testSheetBtn');
+      if (btn) btn.textContent = '⏳ กำลังทดสอบและสร้างตาราง...';
+
+      const res = await callGoogleSheetApi('ping', {});
+      if (btn) btn.textContent = '🔍 ทดสอบการเชื่อมต่อ & สร้างหัวตารางอัตโนมัติ';
+
+      if (res && res.ok) {
+        persistTabSessionCache();
+        updateSheetStatusBadge();
+        showSheetConfigFeedback('✅ เชื่อมต่อสำเร็จ! ระบบได้สร้างตาราง Accounts, Projects และ Reports ใน Google Sheet ของคุณเรียบร้อยแล้ว');
+      } else {
+        showSheetConfigFeedback('❌ เชื่อมต่อไม่สำเร็จ กรุณาตรวจสอบว่าตอน Deploy เลือก "ผู้ที่มีสิทธิ์เข้าถึง: ทุกคน (Anyone)" และใช้ลิงก์ที่ลงท้ายด้วย /exec', true);
+      }
+    };
+
+    window.copyGoogleAppsScriptCode = function() {
+      const scriptCode = `// ====================================================================
+// โค้ดฐานข้อมูลส่วนตัว AOFTA STUDIO PRO V26.1 สำหรับ Google Sheet
+// วิธีใช้: วางโค้ดนี้ใน Extensions > Apps Script ของ Google Sheet ของคุณ
+// เฉพาะคุณเท่านั้นที่เปิดดู Google Sheet นี้ได้!
+// ====================================================================
+
+function setupSheets() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  
+  let accSheet = ss.getSheetByName('Accounts');
+  if (!accSheet) {
+    accSheet = ss.insertSheet('Accounts');
+    accSheet.appendRow(['Username', 'DisplayUsername', 'Password', 'CreatedAt', 'UpdatedAt', 'LastProjectTitle', 'LastProjectId', 'WorkspaceJSON', 'MediaBg', 'MediaFg1', 'MediaFg2', 'MediaLogo']);
+    accSheet.getRange('A1:L1').setBackground('#0F172A').setFontColor('#FFFFFF').setFontWeight('bold');
+    accSheet.setFrozenRows(1);
+  }
+
+  let projSheet = ss.getSheetByName('Projects');
+  if (!projSheet) {
+    projSheet = ss.insertSheet('Projects');
+    projSheet.appendRow(['ProjectId', 'OwnerUsername', 'Title', 'Aspect', 'UpdatedAt', 'Thumbnail', 'PayloadJSON', 'MediaBg', 'MediaFg1', 'MediaFg2', 'MediaLogo']);
+    projSheet.getRange('A1:K1').setBackground('#1E1B4B').setFontColor('#FFFFFF').setFontWeight('bold');
+    projSheet.setFrozenRows(1);
+  }
+
+  let repSheet = ss.getSheetByName('Reports');
+  if (!repSheet) {
+    repSheet = ss.insertSheet('Reports');
+    repSheet.appendRow(['Timestamp', 'Username', 'Message']);
+    repSheet.getRange('A1:C1').setBackground('#7F1D1D').setFontColor('#FFFFFF').setFontWeight('bold');
+    repSheet.setFrozenRows(1);
+  }
+  return { accSheet, projSheet, repSheet };
+}
+
+function doGet(e) {
+  setupSheets();
+  return ContentService.createTextOutput(JSON.stringify({
+    ok: true,
+    message: 'AOFTA STUDIO PRO Private Google Sheet Database is Active!'
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    const { accSheet, projSheet, repSheet } = setupSheets();
+    const body = JSON.parse(e.postData.contents || '{}');
+    const action = body.action;
+    const nowStr = Utilities.formatDate(new Date(), 'Asia/Bangkok', 'dd/MM/yyyy HH:mm:ss');
+
+    if (action === 'ping') {
+      return jsonOut({ ok: true, message: 'Connected & Sheets initialized' });
+    }
+
+    if (action === 'register') {
+      const u = String(body.username || '').trim().toLowerCase();
+      const rows = accSheet.getDataRange().getValues();
+      for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][0]).trim().toLowerCase() === u) {
+          return jsonOut({ ok: false, error: 'EXISTS' });
+        }
+      }
+      const m = body.media || {};
+      accSheet.appendRow([
+        u,
+        body.displayUsername || u,
+        String(body.password || ''),
+        nowStr,
+        nowStr,
+        body.lastProjectTitle || 'งานใหม่',
+        body.lastProjectId || '',
+        body.lastWorkspaceJson || '',
+        m.bg || '',
+        m.fg1 || '',
+        m.fg2 || '',
+        m.logo || ''
+      ]);
+      return jsonOut({ ok: true, username: u });
+    }
+
+    if (action === 'login' || action === 'getAccount') {
+      const u = String(body.username || '').trim().toLowerCase();
+      const rows = accSheet.getDataRange().getValues();
+      for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][0]).trim().toLowerCase() === u) {
+          const savedPass = String(rows[i][2]);
+          if (action === 'login' && savedPass !== String(body.password || '')) {
+            return jsonOut({ ok: false, error: 'WRONG_PASSWORD' });
+          }
+          const pRows = projSheet.getDataRange().getValues();
+          const projects = [];
+          for (let j = 1; j < pRows.length; j++) {
+            if (String(pRows[j][1]).trim().toLowerCase() === u) {
+              projects.push({
+                id: String(pRows[j][0]),
+                owner: String(pRows[j][1]),
+                title: String(pRows[j][2]),
+                aspect: String(pRows[j][3]),
+                updatedAt: Number(pRows[j][4]) || Date.now(),
+                thumbnail: String(pRows[j][5] || ''),
+                payloadJson: String(pRows[j][6] || ''),
+                media: {
+                  bg: String(pRows[j][7] || ''),
+                  fg1: String(pRows[j][8] || ''),
+                  fg2: String(pRows[j][9] || ''),
+                  logo: String(pRows[j][10] || '')
+                }
+              });
+            }
+          }
+          return jsonOut({
+            ok: true,
+            account: {
+              username: u,
+              lastProjectTitle: String(rows[i][5] || ''),
+              lastProjectId: String(rows[i][6] || ''),
+              lastWorkspaceJson: String(rows[i][7] || ''),
+              media: {
+                bg: String(rows[i][8] || ''),
+                fg1: String(rows[i][9] || ''),
+                fg2: String(rows[i][10] || ''),
+                logo: String(rows[i][11] || '')
+              }
+            },
+            projects: projects
+          });
+        }
+      }
+      return jsonOut({ ok: false, error: 'NOT_FOUND' });
+    }
+
+    if (action === 'syncWorkspace') {
+      const u = String(body.username || '').trim().toLowerCase();
+      const rows = accSheet.getDataRange().getValues();
+      for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][0]).trim().toLowerCase() === u) {
+          const rowIdx = i + 1;
+          accSheet.getRange(rowIdx, 5).setValue(nowStr);
+          accSheet.getRange(rowIdx, 6).setValue(body.lastProjectTitle || '');
+          accSheet.getRange(rowIdx, 7).setValue(body.lastProjectId || '');
+          accSheet.getRange(rowIdx, 8).setValue(body.lastWorkspaceJson || '');
+          if (body.media) {
+            accSheet.getRange(rowIdx, 9).setValue(body.media.bg || '');
+            accSheet.getRange(rowIdx, 10).setValue(body.media.fg1 || '');
+            accSheet.getRange(rowIdx, 11).setValue(body.media.fg2 || '');
+            accSheet.getRange(rowIdx, 12).setValue(body.media.logo || '');
+          }
+          return jsonOut({ ok: true });
+        }
+      }
+      return jsonOut({ ok: false, error: 'NOT_FOUND' });
+    }
+
+    if (action === 'saveProject') {
+      const projId = String(body.id || '');
+      const u = String(body.owner || '').trim().toLowerCase();
+      const pRows = projSheet.getDataRange().getValues();
+      const m = body.media || {};
+      const rowData = [
+        projId,
+        u,
+        body.title || 'งานประชาสัมพันธ์',
+        body.aspect || '1:1',
+        Date.now(),
+        body.thumbnail || '',
+        body.payloadJson || '',
+        m.bg || '',
+        m.fg1 || '',
+        m.fg2 || '',
+        m.logo || ''
+      ];
+      for (let j = 1; j < pRows.length; j++) {
+        if (String(pRows[j][0]) === projId) {
+          projSheet.getRange(j + 1, 1, 1, rowData.length).setValues([rowData]);
+          return jsonOut({ ok: true });
+        }
+      }
+      projSheet.appendRow(rowData);
+      return jsonOut({ ok: true });
+    }
+
+    if (action === 'deleteProject') {
+      const projId = String(body.id || '');
+      const pRows = projSheet.getDataRange().getValues();
+      for (let j = 1; j < pRows.length; j++) {
+        if (String(pRows[j][0]) === projId) {
+          projSheet.deleteRow(j + 1);
+          return jsonOut({ ok: true });
+        }
+      }
+      return jsonOut({ ok: true });
+    }
+
+    if (action === 'report') {
+      repSheet.appendRow([nowStr, body.username || 'guest', body.message || '']);
+      return jsonOut({ ok: true });
+    }
+
+    return jsonOut({ ok: false, error: 'UNKNOWN_ACTION' });
+  } catch (err) {
+    return jsonOut({ ok: false, error: String(err) });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function jsonOut(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}`;
+
+      const tempArea = document.createElement('textarea');
+      tempArea.value = scriptCode;
+      document.body.appendChild(tempArea);
+      tempArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempArea);
+
+      const msgEl = document.getElementById('copyScriptSuccessMsg');
+      if (msgEl) {
+        msgEl.classList.remove('hidden');
+        setTimeout(() => msgEl.classList.add('hidden'), 5000);
+      }
+    };
+
+    function getStableDeviceKey() {
+      const raw = (navigator.userAgent || '') + '_' + (screen.width || 0) + 'x' + (screen.height || 0);
+      let hash = 0;
+      for (let i = 0; i < raw.length; i++) {
+        hash = ((hash << 5) - hash) + raw.charCodeAt(i);
+        hash |= 0;
+      }
+      return 'dev_' + Math.abs(hash);
+    }
+
     async function initCloudConnection() {
+      updateSheetStatusBadge();
+      renderSavedAccountsUI();
+
+      if (tabCache.activeUsername && tabCache.rememberMe) {
+        loggedInUser = tabCache.activeUsername;
+        updateAuthUI();
+
+        if (googleSheetApiUrl) {
+          const sheetRes = await callGoogleSheetApi('getAccount', { username: loggedInUser });
+          if (sheetRes && sheetRes.ok && sheetRes.account) {
+            const acc = sheetRes.account;
+            if (acc.lastProjectTitle) currentProjectTitle = acc.lastProjectTitle;
+            if (acc.lastProjectId) currentProjectId = acc.lastProjectId;
+            if (Array.isArray(sheetRes.projects)) {
+              memoryProjects = sheetRes.projects;
+              userProjectsList = sheetRes.projects.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+              const badge = document.getElementById('projectCountBadge');
+              if (badge) badge.textContent = userProjectsList.length;
+              renderHistoryList();
+            }
+            updateAuthUI();
+            await loadWorkspaceFromAccountData(loggedInUser, acc);
+          }
+        } else if (memoryUsers[loggedInUser] && memoryUsers[loggedInUser].lastWorkspaceJson) {
+          const uData = memoryUsers[loggedInUser];
+          if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
+          if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
+          updateAuthUI();
+          subscribeUserProjects(loggedInUser);
+          await loadWorkspaceFromAccountData(loggedInUser, uData);
+        }
+      }
+
       try {
         if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-          const firebaseConfig = JSON.parse(__firebase_config);
+          const firebaseConfig = typeof __firebase_config === 'string' ? JSON.parse(__firebase_config) : __firebase_config;
           const app = initializeApp(firebaseConfig);
           auth = getAuth(app);
           db = getFirestore(app);
 
           if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            await signInWithCustomToken(auth, __initial_auth_token);
+            try {
+              await signInWithCustomToken(auth, __initial_auth_token);
+            } catch (tokenErr) {
+              await signInAnonymously(auth);
+            }
           } else {
             await signInAnonymously(auth);
           }
 
+          firebaseUser = auth.currentUser;
+
+          try {
+            const cfgRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_config', 'sheet_settings');
+            const cfgSnap = await getDoc(cfgRef);
+            if (cfgSnap.exists() && cfgSnap.data().sheetApiUrl && !googleSheetApiUrl) {
+              googleSheetApiUrl = cfgSnap.data().sheetApiUrl;
+              persistTabSessionCache();
+              updateSheetStatusBadge();
+            }
+          } catch (e) {}
+
+          if (firebaseUser) {
+            await restoreDeviceSession(firebaseUser.uid);
+          }
+
           onAuthStateChanged(auth, async (user) => {
             firebaseUser = user;
-            if (user) {
+            if (user && !loggedInUser) {
               await restoreDeviceSession(user.uid);
             }
           });
@@ -2326,29 +2840,56 @@
       }
     }
 
-    // Restore active login session & saved accounts for this device/browser automatically on refresh
     async function restoreDeviceSession(uid) {
       if (!db || !uid) return;
       try {
-        const sessionRef = doc(db, 'artifacts', appId, 'users', uid, 'session', 'active');
-        const sessionSnap = await getDoc(sessionRef);
-        if (sessionSnap.exists()) {
-          const sData = sessionSnap.data();
-          if (Array.isArray(sData.savedAccounts)) {
+        const devKey = getStableDeviceKey();
+        let sData = null;
+
+        const pubSessionRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_sessions', devKey);
+        const pubSnap = await getDoc(pubSessionRef);
+        if (pubSnap.exists()) {
+          sData = pubSnap.data();
+        } else {
+          const sessionRef = doc(db, 'artifacts', appId, 'users', uid, 'session', 'active');
+          const sessionSnap = await getDoc(sessionRef);
+          if (sessionSnap.exists()) sData = sessionSnap.data();
+        }
+
+        if (sData) {
+          if (Array.isArray(sData.savedAccounts) && sData.savedAccounts.length > 0) {
             savedAccountsList = sData.savedAccounts;
             renderSavedAccountsUI();
           }
           if (sData.activeUsername && sData.rememberMe) {
-            const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', sData.activeUsername);
+            const targetUser = sData.activeUsername;
+            loggedInUser = targetUser;
+            updateAuthUI();
+
+            if (googleSheetApiUrl) {
+              const sheetRes = await callGoogleSheetApi('getAccount', { username: targetUser });
+              if (sheetRes && sheetRes.ok && sheetRes.account) {
+                const acc = sheetRes.account;
+                if (acc.lastProjectTitle) currentProjectTitle = acc.lastProjectTitle;
+                if (acc.lastProjectId) currentProjectId = acc.lastProjectId;
+                updateAuthUI();
+                await loadWorkspaceFromAccountData(targetUser, acc);
+              }
+            }
+
+            const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', targetUser);
             const userSnap = await getDoc(userDocRef);
             if (userSnap.exists()) {
               const uData = userSnap.data();
-              loggedInUser = sData.activeUsername;
               if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
               if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
+              memoryUsers[targetUser] = uData;
+              persistTabSessionCache();
               updateAuthUI();
               subscribeUserProjects(loggedInUser);
-              await loadWorkspaceFromAccountData(sData.activeUsername, uData);
+              if (!window.hasRestoredCloudWorkspace) {
+                await loadWorkspaceFromAccountData(targetUser, uData);
+              }
             }
           }
         }
@@ -2358,25 +2899,32 @@
     }
 
     async function saveDeviceSession(activeUsername, passwordToSave, rememberMe) {
+      if (activeUsername && rememberMe && passwordToSave) {
+        const existingIdx = savedAccountsList.findIndex(a => a.username === activeUsername);
+        if (existingIdx >= 0) {
+          savedAccountsList[existingIdx].password = passwordToSave;
+        } else {
+          savedAccountsList.unshift({ username: activeUsername, password: passwordToSave });
+        }
+        savedAccountsList = savedAccountsList.slice(0, 5);
+      }
+      renderSavedAccountsUI();
+      persistTabSessionCache();
+
       if (!db || !firebaseUser) return;
       try {
-        if (activeUsername && rememberMe && passwordToSave) {
-          const existingIdx = savedAccountsList.findIndex(a => a.username === activeUsername);
-          if (existingIdx >= 0) {
-            savedAccountsList[existingIdx].password = passwordToSave;
-          } else {
-            savedAccountsList.unshift({ username: activeUsername, password: passwordToSave });
-          }
-          savedAccountsList = savedAccountsList.slice(0, 5);
-        }
-        renderSavedAccountsUI();
-        const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
-        await setDoc(sessionRef, {
+        const payload = {
           activeUsername: rememberMe ? (activeUsername || null) : null,
           rememberMe: Boolean(rememberMe),
           savedAccounts: savedAccountsList,
           updatedAt: Date.now()
-        }, { merge: true });
+        };
+        const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
+        await setDoc(sessionRef, payload, { merge: true });
+
+        const devKey = getStableDeviceKey();
+        const pubSessionRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_sessions', devKey);
+        await setDoc(pubSessionRef, payload, { merge: true });
       } catch (e) {}
     }
 
@@ -2446,22 +2994,18 @@
           submitBtn.textContent = '📝 ยืนยันการสมัครสมาชิก';
           submitBtn.className = 'bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-emerald-600/20';
         }
-        if (banner) banner.className = 'bg-emerald-50 border border-emerald-100 rounded-2xl p-3 text-xs text-emerald-900 space-y-1';
-        if (title) title.textContent = '📝 สมัครสมาชิกใหม่ฟรี (จำงานข้ามเครื่อง):';
-        if (desc) desc.textContent = '• ตั้งชื่อผู้ใช้และรหัสผ่านของคุณเพื่อผูกกับระบบคลาวด์ งานปัจจุบันของคุณจะถูกบันทึกเข้าบัญชีนี้ทันที';
+        if (banner) banner.className = 'bg-emerald-50 border border-emerald-100 rounded-2xl p-3 text-xs text-emerald-950 space-y-1';
+        if (title) title.textContent = '📝 สมัครสมาชิกใหม่ (สร้างบัญชีส่วนตัว):';
+        if (desc) desc.textContent = '• บันทึกข้อมูลและประวัติงานของคุณไว้อย่างปลอดภัย สามารถนำรหัสนี้ไปเปิดใช้งานต่อบนอุปกรณ์อื่นได้';
       }
     };
 
-    window.toggleAuthPasswordVisibility = function() {
-      const p1 = document.getElementById('authPasswordInput');
-      const p2 = document.getElementById('authConfirmPasswordInput');
-      if (p1) p1.type = p1.type === 'password' ? 'text' : 'password';
-      if (p2) p2.type = p2.type === 'password' ? 'text' : 'password';
-    };
-
-    window.openAuthModal = function(defaultMode = 'login') {
-      switchAuthTab(defaultMode);
-      renderSavedAccountsUI();
+    window.openAuthModal = function(mode = 'login') {
+      switchAuthTab(mode);
+      const errEl = document.getElementById('authErrorMsg');
+      const okEl = document.getElementById('authSuccessMsg');
+      if (errEl) errEl.classList.add('hidden');
+      if (okEl) okEl.classList.add('hidden');
       const modal = document.getElementById('authModal');
       if (modal) {
         modal.classList.remove('hidden');
@@ -2477,503 +3021,77 @@
       }
     };
 
-    function showAuthFeedback(errorText, successText = '') {
+    window.toggleAuthPasswordVisibility = function() {
+      const pIn = document.getElementById('authPasswordInput');
+      const cpIn = document.getElementById('authConfirmPasswordInput');
+      if (pIn) pIn.type = pIn.type === 'password' ? 'text' : 'password';
+      if (cpIn) cpIn.type = cpIn.type === 'password' ? 'text' : 'password';
+    };
+
+    function showAuthFeedback(errMsg, successMsg = '') {
       const errEl = document.getElementById('authErrorMsg');
       const okEl = document.getElementById('authSuccessMsg');
       if (errEl) {
-        if (errorText) {
-          errEl.textContent = errorText;
-          errEl.classList.remove('hidden');
-        } else {
-          errEl.classList.add('hidden');
-        }
+        if (errMsg) { errEl.textContent = errMsg; errEl.classList.remove('hidden'); }
+        else errEl.classList.add('hidden');
       }
       if (okEl) {
-        if (successText) {
-          okEl.textContent = successText;
-          okEl.classList.remove('hidden');
-        } else {
-          okEl.classList.add('hidden');
-        }
+        if (successMsg) { okEl.textContent = successMsg; okEl.classList.remove('hidden'); }
+        else okEl.classList.add('hidden');
       }
     }
 
-    window.handleUserAuthSubmit = async function() {
-      const usernameInput = document.getElementById('authUsernameInput');
-      const passwordInput = document.getElementById('authPasswordInput');
-      const confirmInput = document.getElementById('authConfirmPasswordInput');
-      const rememberCheck = document.getElementById('authRememberMe');
-      const submitBtn = document.getElementById('authSubmitBtn');
-
-      const rawUser = (usernameInput?.value || '').trim().toLowerCase();
-      const rawPass = (passwordInput?.value || '').trim();
-      const rawConfirm = (confirmInput?.value || '').trim();
-      const rememberMe = rememberCheck ? rememberCheck.checked : true;
-
-      showAuthFeedback('');
-
-      if (!rawUser || !rawPass) {
-        showAuthFeedback('⚠️ กรุณากรอกทั้งชื่อผู้ใช้ (Username) และรหัสผ่าน (Password)');
-        return;
-      }
-
-      if (rawUser.length < 3) {
-        showAuthFeedback('⚠️ ชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 3 ตัวอักษร');
-        return;
-      }
-
-      if (currentAuthMode === 'register') {
-        if (rawPass.length < 4) {
-          showAuthFeedback('⚠️ รหัสผ่านต้องมีความยาวอย่างน้อย 4 ตัวอักษร');
-          return;
-        }
-        if (rawPass !== rawConfirm) {
-          showAuthFeedback('❌ รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง');
-          return;
-        }
-      }
-
-      if (submitBtn) submitBtn.textContent = '⏳ กำลังเชื่อมต่อฐานข้อมูลคลาวด์...';
-
-      try {
-        if (db && !firebaseUser) {
-          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            await signInWithCustomToken(auth, __initial_auth_token);
-          } else {
-            await signInAnonymously(auth);
-          }
-          firebaseUser = auth.currentUser;
-        }
-
-        if (db && firebaseUser) {
-          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', rawUser);
-          const snap = await getDoc(userDocRef);
-
-          if (currentAuthMode === 'register') {
-            if (snap.exists()) {
-              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้ ("' + rawUser + '") มีผู้ใช้งานแล้ว กรุณาตั้งชื่ออื่น หรือกดสลับไปแท็บ "เข้าสู่ระบบ"');
-              if (submitBtn) submitBtn.textContent = '📝 ยืนยันการสมัครสมาชิก';
-              return;
-            }
-
-            const workspaceObj = exportLightweightWorkspace();
-            await saveMediaLayersToCloud('user_' + rawUser);
-
-            await setDoc(userDocRef, {
-              username: rawUser,
-              password: rawPass,
-              createdAt: Date.now(),
-              updatedAt: Date.now(),
-              lastWorkspaceJson: JSON.stringify(workspaceObj),
-              lastProjectTitle: currentProjectTitle,
-              lastProjectId: currentProjectId
-            });
-
-            loggedInUser = rawUser;
-            await saveDeviceSession(rawUser, rawPass, rememberMe);
-            updateAuthUI();
-            subscribeUserProjects(rawUser);
-            showAuthFeedback('', '✅ สมัครสมาชิกและเข้าสู่ระบบสำเร็จ! ระบบได้ผูกงานของคุณเข้ากับคลาวด์แล้ว');
-            setTimeout(() => closeAuthModal(), 700);
-          } else {
-            // LOGIN MODE
-            if (!snap.exists()) {
-              showAuthFeedback('❌ ไม่พบชื่อผู้ใช้ "' + rawUser + '" ในระบบ กรุณาตรวจสอบความถูกต้อง หรือกดแท็บ "สมัครสมาชิกใหม่" ด้านบน');
-              if (submitBtn) submitBtn.textContent = '🔑 เข้าสู่ระบบ';
-              return;
-            }
-
-            const data = snap.data();
-            if (data.password !== rawPass) {
-              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้องสำหรับบัญชี "' + rawUser + '" กรุณาลองอีกครั้ง');
-              if (submitBtn) submitBtn.textContent = '🔑 เข้าสู่ระบบ';
-              return;
-            }
-
-            loggedInUser = rawUser;
-            if (data.lastProjectTitle) currentProjectTitle = data.lastProjectTitle;
-            if (data.lastProjectId) currentProjectId = data.lastProjectId;
-
-            await saveDeviceSession(rawUser, rawPass, rememberMe);
-            updateAuthUI();
-            subscribeUserProjects(rawUser);
-            await loadWorkspaceFromAccountData(rawUser, data);
-
-            showAuthFeedback('', '✅ เข้าสู่ระบบสำเร็จ! ดึงข้อมูลงานล่าสุดของคุณเรียบร้อยแล้ว');
-            setTimeout(() => closeAuthModal(), 500);
-          }
-        } else {
-          // Fallback if offline
-          if (currentAuthMode === 'register') {
-            if (memoryUsers[rawUser]) {
-              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้มีอยู่แล้ว กรุณาสลับไปแท็บเข้าสู่ระบบ');
-              return;
-            }
-            memoryUsers[rawUser] = {
-              username: rawUser,
-              password: rawPass,
-              lastWorkspaceJson: JSON.stringify(exportLightweightWorkspace())
-            };
-          } else {
-            if (!memoryUsers[rawUser]) {
-              showAuthFeedback('❌ ไม่พบบัญชีผู้ใช้นี้ กรุณาสมัครสมาชิกก่อน');
-              return;
-            }
-            if (memoryUsers[rawUser].password !== rawPass) {
-              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้อง');
-              return;
-            }
-            if (memoryUsers[rawUser].lastWorkspaceJson) {
-              importLightweightWorkspace(JSON.parse(memoryUsers[rawUser].lastWorkspaceJson));
-            }
-          }
-          loggedInUser = rawUser;
-          updateAuthUI();
-          subscribeUserProjects(rawUser);
-          closeAuthModal();
-        }
-      } catch (e) {
-        console.error("Auth error:", e);
-        showAuthFeedback('เกิดข้อผิดพลาดในการเชื่อมต่อคลาวด์ กรุณาลองใหม่อีกครั้ง');
-      } finally {
-        if (submitBtn) {
-          submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-        }
-      }
-    };
-
-    window.logoutAccount = async function() {
-      loggedInUser = null;
-      currentProjectId = null;
-      currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
-      if (unsubscribeProjects) {
-        unsubscribeProjects();
-        unsubscribeProjects = null;
-      }
-      userProjectsList = [];
-      if (db && firebaseUser) {
-        try {
-          const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
-          await setDoc(sessionRef, { activeUsername: null, updatedAt: Date.now() }, { merge: true });
-        } catch (e) {}
-      }
-      updateAuthUI();
-    };
-
-    function updateAuthUI() {
-      const guestBar = document.getElementById('guestStatusBar');
-      const userBar = document.getElementById('userStatusBar');
-      const activeProjBar = document.getElementById('activeProjectBar');
-      const userLabel = document.getElementById('loggedInUsernameDisplay');
-      const projNameLabel = document.getElementById('currentProjectNameLabel');
-
-      if (loggedInUser) {
-        if (guestBar) { guestBar.classList.add('hidden'); guestBar.classList.remove('flex'); }
-        if (userBar) { userBar.classList.remove('hidden'); userBar.classList.add('flex'); }
-        if (activeProjBar) { activeProjBar.classList.remove('hidden'); activeProjBar.classList.add('flex'); }
-        if (userLabel) userLabel.textContent = loggedInUser;
-        if (projNameLabel) projNameLabel.textContent = currentProjectTitle;
-      } else {
-        if (guestBar) { guestBar.classList.remove('hidden'); guestBar.classList.add('flex'); }
-        if (userBar) { userBar.classList.remove('flex'); userBar.classList.add('hidden'); }
-        if (activeProjBar) { activeProjBar.classList.remove('flex'); activeProjBar.classList.add('hidden'); }
-      }
-    }
-
-    function subscribeUserProjects(username) {
-      if (unsubscribeProjects) {
-        unsubscribeProjects();
-        unsubscribeProjects = null;
-      }
-
-      if (db && firebaseUser) {
-        const projCol = collection(db, 'artifacts', appId, 'public', 'data', 'aofta_projects');
-        unsubscribeProjects = onSnapshot(
-          projCol,
-          (snapshot) => {
-            const list = [];
-            snapshot.forEach((docSnap) => {
-              const d = docSnap.data();
-              if (d.owner === username) {
-                list.push({ id: docSnap.id, ...d });
-              }
-            });
-            list.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-            userProjectsList = list;
-            const badge = document.getElementById('projectCountBadge');
-            if (badge) badge.textContent = list.length;
-            renderHistoryList();
-          },
-          (err) => {
-            console.error("Projects snapshot error:", err);
-          }
-        );
-      } else {
-        userProjectsList = memoryProjects.filter(p => p.owner === username);
-        const badge = document.getElementById('projectCountBadge');
-        if (badge) badge.textContent = userProjectsList.length;
-        renderHistoryList();
-      }
-    }
-
-    async function performCloudWorkspaceSync(includeMedia = false) {
-      if (!loggedInUser || window.isRestoringFromCloud) return;
-      const statusText = document.getElementById('autoSaveStatusText');
-      if (statusText) statusText.textContent = '• ⏳ กำลังซิงค์ข้อมูลขึ้นคลาวด์...';
-
-      try {
-        const workspaceObj = exportLightweightWorkspace();
-        const payloadStr = JSON.stringify(workspaceObj);
-
-        if (db && firebaseUser) {
-          if (includeMedia) {
-            await saveMediaLayersToCloud('user_' + loggedInUser);
-          }
-          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', loggedInUser);
-          await setDoc(userDocRef, {
-            username: loggedInUser,
-            lastWorkspaceJson: payloadStr,
-            lastProjectTitle: currentProjectTitle,
-            lastProjectId: currentProjectId,
-            updatedAt: Date.now()
-          }, { merge: true });
-
-          // If user is currently editing an existing saved project, auto-sync it as well!
-          if (currentProjectId) {
-            if (includeMedia) {
-              await saveMediaLayersToCloud(currentProjectId);
-            }
-            const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', currentProjectId);
-            await setDoc(projRef, {
-              owner: loggedInUser,
-              title: currentProjectTitle,
-              aspect: currentAspectName,
-              thumbnail: generateThumbnailDataUrl(),
-              payloadJson: payloadStr,
-              updatedAt: Date.now()
-            }, { merge: true });
-          }
-        } else if (memoryUsers[loggedInUser]) {
-          memoryUsers[loggedInUser].lastWorkspaceJson = payloadStr;
-        }
-        if (statusText) {
-          const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          statusText.textContent = `✓ ซิงค์คลาวด์อัตโนมัติแล้ว (${timeStr})`;
-        }
-      } catch (e) {
-        console.error("Auto-save error:", e);
-        if (statusText) statusText.textContent = '⚠️ ซิงค์คลาวด์ขัดข้อง กดซิงค์ทันทีเพื่อลองใหม่';
-      }
-    }
-
-    window.triggerCloudAutoSave = function(includeMedia = false) {
-      if (!loggedInUser || window.isRestoringFromCloud) return;
-      const statusText = document.getElementById('autoSaveStatusText');
-      if (statusText) statusText.textContent = '• ⏳ กำลังเตรียมบันทึก...';
-
-      if (autoSaveTimer) clearTimeout(autoSaveTimer);
-      autoSaveTimer = setTimeout(() => {
-        performCloudWorkspaceSync(includeMedia);
-      }, 650);
-    };
-
-    window.forceManualCloudSync = async function() {
-      if (!loggedInUser) {
-        openAuthModal('login');
-        return;
-      }
-      await performCloudWorkspaceSync(true);
-    };
-
-    const origSaveHistory = window.saveHistoryState;
-    window.saveHistoryState = function() {
-      if (origSaveHistory) origSaveHistory();
-      if (window.triggerCloudAutoSave && !window.isRestoringFromCloud) {
-        window.triggerCloudAutoSave(true);
-      }
-    };
-
-    window.openSaveProjectModal = function() {
-      if (!loggedInUser) {
-        openAuthModal('login');
-        return;
-      }
-      const input = document.getElementById('projectTitleInput');
-      const defaultTitle = currentProjectTitle !== 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)'
-        ? currentProjectTitle
-        : (document.getElementById('textLine1')?.value || 'ข่าวประชาสัมพันธ์') + ' - ' + (document.getElementById('textDate')?.value || 'งานใหม่');
-      if (input) input.value = defaultTitle;
-
-      const overwriteBtn = document.getElementById('saveOverwriteBtn');
-      if (overwriteBtn) {
-        overwriteBtn.style.display = currentProjectId ? 'inline-block' : 'none';
-      }
-
-      const modal = document.getElementById('saveProjectModal');
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-    };
-
-    window.closeSaveProjectModal = function() {
-      const modal = document.getElementById('saveProjectModal');
-      if (modal) {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-      }
-    };
-
-    window.confirmSaveProject = async function(saveAsNew = true) {
-      if (!loggedInUser) return;
-      const input = document.getElementById('projectTitleInput');
-      const title = (input?.value || '').trim() || 'งานประชาสัมพันธ์';
-      const projId = (!saveAsNew && currentProjectId) ? currentProjectId : ('proj_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
-
-      const workspaceObj = exportLightweightWorkspace();
-      const payloadStr = JSON.stringify(workspaceObj);
-      const thumb = generateThumbnailDataUrl();
-
-      const projectData = {
-        owner: loggedInUser,
-        title: title,
-        aspect: currentAspectName,
-        thumbnail: thumb,
-        payloadJson: payloadStr,
-        updatedAt: Date.now()
+    function getSheetSafeMediaBundle() {
+      return {
+        bg: getCompressedImageData(bgImg, bgLoaded, 360, true) || '',
+        fg1: getCompressedImageData(fg1Img, fg1Loaded, 320, false) || '',
+        fg2: getCompressedImageData(fg2Img, fg2Loaded, 320, false) || '',
+        logo: customLogoImg ? (getCompressedImageData(customLogoImg, true, 180, false) || '') : ''
       };
-
-      try {
-        if (db && firebaseUser) {
-          await saveMediaLayersToCloud(projId);
-          const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
-          await setDoc(projRef, projectData);
-        } else {
-          const existingIdx = memoryProjects.findIndex(p => p.id === projId);
-          if (existingIdx >= 0) memoryProjects[existingIdx] = { id: projId, ...projectData };
-          else memoryProjects.unshift({ id: projId, ...projectData });
-          subscribeUserProjects(loggedInUser);
-        }
-
-        currentProjectId = projId;
-        currentProjectTitle = title;
-        updateAuthUI();
-        await performCloudWorkspaceSync(true);
-        closeSaveProjectModal();
-      } catch (e) {
-        console.error("Save project error:", e);
-      }
-    };
-
-    window.startNewBlankProject = function() {
-      currentProjectId = null;
-      currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
-      fg1Loaded = false;
-      fg2Loaded = false;
-      customLogoImg = null;
-      resetTextPositions();
-      applyPreset(1);
-      updateAuthUI();
-      performCloudWorkspaceSync(true);
-    };
-
-    window.openHistoryModal = function() {
-      if (!loggedInUser) {
-        openAuthModal('login');
-        return;
-      }
-      const uEl = document.getElementById('historyModalUsername');
-      if (uEl) uEl.textContent = loggedInUser;
-      renderHistoryList();
-      const modal = document.getElementById('historyModal');
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-    };
-
-    window.closeHistoryModal = function() {
-      const modal = document.getElementById('historyModal');
-      if (modal) {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-      }
-    };
-
-    function renderHistoryList() {
-      const container = document.getElementById('historyListContainer');
-      if (!container) return;
-
-      if (!userProjectsList || userProjectsList.length === 0) {
-        container.innerHTML = `<div class="text-center text-slate-400 text-xs py-12">ยังไม่มีประวัติงานที่บันทึกไว้ กดปุ่ม "💾 บันทึกงาน" เพื่อเก็บงานของคุณได้เลย</div>`;
-        return;
-      }
-
-      container.innerHTML = userProjectsList.map((proj) => {
-        const dateStr = new Date(proj.updatedAt || Date.now()).toLocaleString('th-TH');
-        const safeTitle = (proj.title || 'ไม่มีชื่อ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const isCurrent = proj.id === currentProjectId;
-        return `
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-2xl border ${isCurrent ? 'border-indigo-500 bg-indigo-50/60' : 'border-slate-200 bg-slate-50/70'} hover:border-indigo-300 transition">
-            <div class="flex items-center gap-3">
-              ${proj.thumbnail ? `<img src="${proj.thumbnail}" class="w-14 h-14 object-cover rounded-xl border border-slate-300 bg-white flex-shrink-0">` : `<div class="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">PR</div>`}
-              <div>
-                <div class="font-bold text-sm text-slate-900 flex items-center gap-2">
-                  <span>${safeTitle}</span>
-                  ${isCurrent ? `<span class="bg-indigo-600 text-white text-[10px] px-2 py-0.5 rounded-full">กำลังเปิดใช้งาน</span>` : ''}
-                </div>
-                <div class="text-[11px] text-slate-500">สัดส่วน: ${proj.aspect || '1:1'} • แก้ไขล่าสุด: ${dateStr}</div>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-              <button onclick="loadProjectFromHistory('${proj.id}')" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs transition cursor-pointer">
-                ✏️ เปิดแก้ไข
-              </button>
-              <button onclick="deleteProjectFromHistory('${proj.id}')" class="bg-red-50 hover:bg-red-100 text-red-600 font-semibold px-3 py-2 rounded-xl text-xs border border-red-200 transition cursor-pointer">
-                🗑️ ลบ
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
     }
 
-    window.loadProjectFromHistory = async function(projId) {
-      const found = userProjectsList.find(p => p.id === projId);
-      if (!found || !found.payloadJson) return;
-      try {
-        window.isRestoringFromCloud = true;
-        window.hasRestoredCloudWorkspace = true;
-        const parsed = JSON.parse(found.payloadJson);
-        currentProjectId = found.id;
-        currentProjectTitle = found.title || 'งานที่บันทึกไว้';
-        importLightweightWorkspace(parsed);
-        await loadMediaLayersFromCloud(projId, parsed.mediaFlags);
-        updateAuthUI();
-        window.isRestoringFromCloud = false;
-        performCloudWorkspaceSync(true);
-        closeHistoryModal();
-      } catch (e) {
-        window.isRestoringFromCloud = false;
+    async function applyMediaBundle(mediaObj, mediaFlags = {}) {
+      if (!mediaObj) return;
+      if (mediaObj.bg) {
+        await new Promise((res) => {
+          const img = new Image();
+          img.onload = () => { bgImg = img; bgLoaded = true; res(); };
+          img.onerror = () => res();
+          img.src = mediaObj.bg;
+        });
       }
-    };
-
-    window.deleteProjectFromHistory = async function(projId) {
-      try {
-        if (db && firebaseUser) {
-          const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
-          await deleteDoc(projRef);
-        } else {
-          memoryProjects = memoryProjects.filter(p => p.id !== projId);
-          subscribeUserProjects(loggedInUser);
-        }
-        if (currentProjectId === projId) {
-          currentProjectId = null;
-          currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
-          updateAuthUI();
-        }
-      } catch (e) {}
-    };
+      if (mediaObj.fg1 && mediaFlags.hasFg1 !== false) {
+        await new Promise((res) => {
+          const img = new Image();
+          img.onload = () => { fg1Img = img; fg1Loaded = true; res(); };
+          img.onerror = () => res();
+          img.src = mediaObj.fg1;
+        });
+      } else if (mediaFlags.hasFg1 === false) {
+        fg1Loaded = false;
+      }
+      if (mediaObj.fg2 && mediaFlags.hasFg2 !== false) {
+        await new Promise((res) => {
+          const img = new Image();
+          img.onload = () => { fg2Img = img; fg2Loaded = true; res(); };
+          img.onerror = () => res();
+          img.src = mediaObj.fg2;
+        });
+      } else if (mediaFlags.hasFg2 === false) {
+        fg2Loaded = false;
+      }
+      if (mediaObj.logo && mediaFlags.hasLogo !== false) {
+        await new Promise((res) => {
+          const img = new Image();
+          img.onload = () => { customLogoImg = img; res(); };
+          img.onerror = () => res();
+          img.src = mediaObj.logo;
+        });
+      } else if (mediaFlags.hasLogo === false) {
+        customLogoImg = null;
+      }
+      renderCanvas();
+    }
 
     function getCompressedImageData(imgEl, isLoaded, maxDim = 520, preferJpeg = false) {
       if (!isLoaded || !imgEl || !imgEl.src) return null;
@@ -2994,7 +3112,6 @@
         }
         const webpData = tempCanvas.toDataURL('image/webp', 0.75);
         if (webpData.length > 750000) {
-          // Downscale further if browser fell back to uncompressed PNG
           const smallCanvas = document.createElement('canvas');
           smallCanvas.width = Math.round(w * 0.65);
           smallCanvas.height = Math.round(h * 0.65);
@@ -3020,7 +3137,6 @@
       }
     }
 
-    // Export lightweight workspace state (text, sliders, positions, colors)
     function exportLightweightWorkspace() {
       const baseState = captureState();
       baseState.mediaFlags = {
@@ -3032,7 +3148,6 @@
       return baseState;
     }
 
-    // Save heavy image layers into separate Firestore documents under aofta_media
     async function saveMediaLayersToCloud(prefixKey) {
       const layers = [
         { key: 'bg', data: getCompressedImageData(bgImg, bgLoaded, 640, true) },
@@ -3120,7 +3235,6 @@
     function importLightweightWorkspace(payload) {
       if (!payload) return;
       restoreState(payload);
-      // Also support legacy embedded images if present
       if (payload.images) {
         if (payload.images.bgData) {
           const img = new Image();
@@ -3153,12 +3267,602 @@
         window.hasRestoredCloudWorkspace = true;
         const parsed = JSON.parse(accountData.lastWorkspaceJson);
         importLightweightWorkspace(parsed);
-        await loadMediaLayersFromCloud('user_' + username, parsed.mediaFlags);
+        if (accountData.media && (accountData.media.bg || accountData.media.fg1 || accountData.media.fg2 || accountData.media.logo)) {
+          await applyMediaBundle(accountData.media, parsed.mediaFlags);
+        } else {
+          await loadMediaLayersFromCloud('user_' + username, parsed.mediaFlags);
+        }
         window.isRestoringFromCloud = false;
       } catch (e) {
         window.isRestoringFromCloud = false;
       }
     }
+
+    window.handleUserAuthSubmit = async function() {
+      const usernameInput = document.getElementById('authUsernameInput');
+      const passwordInput = document.getElementById('authPasswordInput');
+      const confirmPasswordInput = document.getElementById('authConfirmPasswordInput');
+      const rememberMeEl = document.getElementById('authRememberMe');
+      const submitBtn = document.getElementById('authSubmitBtn');
+
+      const rawUser = (usernameInput?.value || '').trim();
+      const rawPass = (passwordInput?.value || '').trim();
+      const rawConfirm = (confirmPasswordInput?.value || '').trim();
+      const rememberMe = rememberMeEl ? rememberMeEl.checked : true;
+
+      if (!rawUser || !rawPass) {
+        showAuthFeedback('⚠️ กรุณากรอกชื่อผู้ใช้และรหัสผ่านให้ครบถ้วน');
+        return;
+      }
+
+      if (currentAuthMode === 'register' && rawPass !== rawConfirm) {
+        showAuthFeedback('⚠️ รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน กรุณากรอกใหม่อีกครั้ง');
+        return;
+      }
+
+      if (submitBtn) submitBtn.textContent = '⏳ กำลังตรวจสอบข้อมูล...';
+
+      try {
+        if (db && !firebaseUser) {
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            try {
+              await signInWithCustomToken(auth, __initial_auth_token);
+            } catch (tokenErr) {
+              await signInAnonymously(auth);
+            }
+          } else {
+            await signInAnonymously(auth);
+          }
+          firebaseUser = auth.currentUser;
+        }
+
+        const workspaceObj = exportLightweightWorkspace();
+        const workspaceJsonStr = JSON.stringify(workspaceObj);
+        const sheetMedia = getSheetSafeMediaBundle();
+
+        let handledByGoogleSheet = false;
+        if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
+          if (currentAuthMode === 'register') {
+            const regRes = await callGoogleSheetApi('register', {
+              username: rawUser,
+              displayUsername: rawUser,
+              password: rawPass,
+              lastProjectTitle: currentProjectTitle,
+              lastProjectId: currentProjectId,
+              lastWorkspaceJson: workspaceJsonStr,
+              media: sheetMedia
+            });
+            if (regRes && regRes.error === 'EXISTS') {
+              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้ ("' + rawUser + '") มีผู้ใช้งานแล้วใน Google Sheet กรุณาตั้งชื่ออื่น หรือสลับไปแท็บ "เข้าสู่ระบบ"');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+            if (regRes && regRes.ok) {
+              handledByGoogleSheet = true;
+            }
+          } else {
+            const loginRes = await callGoogleSheetApi('login', {
+              username: rawUser,
+              password: rawPass
+            });
+            if (loginRes && loginRes.error === 'NOT_FOUND') {
+              showAuthFeedback('❌ ไม่พบชื่อผู้ใช้ "' + rawUser + '" ในฐานข้อมูล Google Sheet กรุณากดแท็บ "สมัครสมาชิกใหม่" ด้านบน');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+            if (loginRes && loginRes.error === 'WRONG_PASSWORD') {
+              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้องสำหรับบัญชี "' + rawUser + '"');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+            if (loginRes && loginRes.ok && loginRes.account) {
+              handledByGoogleSheet = true;
+              const acc = loginRes.account;
+              loggedInUser = rawUser;
+              if (acc.lastProjectTitle) currentProjectTitle = acc.lastProjectTitle;
+              if (acc.lastProjectId) currentProjectId = acc.lastProjectId;
+
+              memoryUsers[rawUser] = {
+                username: rawUser,
+                password: rawPass,
+                lastProjectTitle: currentProjectTitle,
+                lastProjectId: currentProjectId,
+                lastWorkspaceJson: acc.lastWorkspaceJson,
+                media: acc.media
+              };
+
+              if (Array.isArray(loginRes.projects)) {
+                memoryProjects = loginRes.projects;
+                userProjectsList = loginRes.projects.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+              }
+
+              await saveDeviceSession(rawUser, rawPass, rememberMe);
+              updateAuthUI();
+              subscribeUserProjects(rawUser);
+              await loadWorkspaceFromAccountData(rawUser, acc);
+              showAuthFeedback('', '✅ เข้าสู่ระบบผ่าน Google Sheet สำเร็จ!');
+              setTimeout(() => closeAuthModal(), 500);
+              return;
+            }
+          }
+        }
+
+        if (db && firebaseUser) {
+          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', rawUser);
+          const snap = await getDoc(userDocRef);
+
+          if (currentAuthMode === 'register') {
+            if (snap.exists() && !handledByGoogleSheet) {
+              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้มีผู้ใช้งานแล้ว กรุณาตั้งชื่ออื่นหรือสลับไปเข้าสู่ระบบ');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+
+            await saveMediaLayersToCloud('user_' + rawUser);
+            const newAccData = {
+              username: rawUser,
+              password: rawPass,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+              lastWorkspaceJson: workspaceJsonStr,
+              lastProjectTitle: currentProjectTitle,
+              lastProjectId: currentProjectId
+            };
+            await setDoc(userDocRef, newAccData);
+            memoryUsers[rawUser] = { ...newAccData, media: sheetMedia };
+
+            loggedInUser = rawUser;
+            await saveDeviceSession(rawUser, rawPass, rememberMe);
+            updateAuthUI();
+            subscribeUserProjects(rawUser);
+            showAuthFeedback('', '✅ สมัครสมาชิกสำเร็จ!');
+            setTimeout(() => closeAuthModal(), 600);
+          } else {
+            if (!snap.exists() && !memoryUsers[rawUser]) {
+              showAuthFeedback('❌ ไม่พบชื่อผู้ใช้ "' + rawUser + '" กรุณาสมัครสมาชิกใหม่ก่อน');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+
+            const data = snap.exists() ? snap.data() : memoryUsers[rawUser];
+            if (data.password !== rawPass) {
+              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้อง');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+
+            loggedInUser = rawUser;
+            if (data.lastProjectTitle) currentProjectTitle = data.lastProjectTitle;
+            if (data.lastProjectId) currentProjectId = data.lastProjectId;
+            memoryUsers[rawUser] = data;
+
+            await saveDeviceSession(rawUser, rawPass, rememberMe);
+            updateAuthUI();
+            subscribeUserProjects(rawUser);
+            await loadWorkspaceFromAccountData(rawUser, data);
+
+            showAuthFeedback('', '✅ เข้าสู่ระบบสำเร็จ!');
+            setTimeout(() => closeAuthModal(), 500);
+          }
+        } else {
+          if (currentAuthMode === 'register') {
+            if (memoryUsers[rawUser] && !handledByGoogleSheet) {
+              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้มีอยู่แล้ว');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+            memoryUsers[rawUser] = {
+              username: rawUser,
+              password: rawPass,
+              lastProjectTitle: currentProjectTitle,
+              lastProjectId: currentProjectId,
+              lastWorkspaceJson: workspaceJsonStr,
+              media: sheetMedia
+            };
+            await saveMediaLayersToCloud('user_' + rawUser);
+            loggedInUser = rawUser;
+            await saveDeviceSession(rawUser, rawPass, rememberMe);
+            updateAuthUI();
+            subscribeUserProjects(rawUser);
+            showAuthFeedback('', '✅ สมัครสมาชิกสำเร็จ!');
+            setTimeout(() => closeAuthModal(), 500);
+          } else {
+            if (!memoryUsers[rawUser]) {
+              showAuthFeedback('❌ ไม่พบบัญชีผู้ใช้ กรุณาสมัครสมาชิกใหม่ก่อน');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+            if (memoryUsers[rawUser].password !== rawPass) {
+              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้อง');
+              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+              return;
+            }
+            loggedInUser = rawUser;
+            const uData = memoryUsers[rawUser];
+            if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
+            if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
+            await saveDeviceSession(rawUser, rawPass, rememberMe);
+            updateAuthUI();
+            subscribeUserProjects(rawUser);
+            await loadWorkspaceFromAccountData(rawUser, uData);
+            showAuthFeedback('', '✅ เข้าสู่ระบบสำเร็จ!');
+            setTimeout(() => closeAuthModal(), 500);
+          }
+        }
+      } catch (e) {
+        showAuthFeedback('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+      } finally {
+        if (submitBtn) {
+          submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+        }
+      }
+    };
+
+    window.logoutAccount = async function() {
+      loggedInUser = null;
+      currentProjectId = null;
+      currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
+      if (unsubscribeProjects) {
+        unsubscribeProjects();
+        unsubscribeProjects = null;
+      }
+      userProjectsList = [];
+      persistTabSessionCache();
+      if (db && firebaseUser) {
+        try {
+          const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
+          await setDoc(sessionRef, { activeUsername: null, updatedAt: Date.now() }, { merge: true });
+          const devKey = getStableDeviceKey();
+          const pubSessionRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_sessions', devKey);
+          await setDoc(pubSessionRef, { activeUsername: null, updatedAt: Date.now() }, { merge: true });
+        } catch (e) {}
+      }
+      updateAuthUI();
+    };
+
+    function updateAuthUI() {
+      const guestBar = document.getElementById('guestStatusBar');
+      const userBar = document.getElementById('userStatusBar');
+      const activeProjBar = document.getElementById('activeProjectBar');
+      const userLabel = document.getElementById('loggedInUsernameDisplay');
+      const projNameLabel = document.getElementById('currentProjectNameLabel');
+
+      if (loggedInUser) {
+        if (guestBar) { guestBar.classList.add('hidden'); guestBar.classList.remove('flex'); }
+        if (userBar) { userBar.classList.remove('hidden'); userBar.classList.add('flex'); }
+        if (activeProjBar) { activeProjBar.classList.remove('hidden'); activeProjBar.classList.add('flex'); }
+        if (userLabel) userLabel.textContent = loggedInUser;
+        if (projNameLabel) projNameLabel.textContent = currentProjectTitle;
+      } else {
+        if (guestBar) { guestBar.classList.remove('hidden'); guestBar.classList.add('flex'); }
+        if (userBar) { userBar.classList.remove('flex'); userBar.classList.add('hidden'); }
+        if (activeProjBar) { activeProjBar.classList.remove('flex'); activeProjBar.classList.add('hidden'); }
+      }
+    }
+
+    function subscribeUserProjects(username) {
+      if (unsubscribeProjects) {
+        unsubscribeProjects();
+        unsubscribeProjects = null;
+      }
+
+      if (db && firebaseUser) {
+        const projCol = collection(db, 'artifacts', appId, 'public', 'data', 'aofta_projects');
+        unsubscribeProjects = onSnapshot(
+          projCol,
+          (snapshot) => {
+            const list = [];
+            snapshot.forEach((docSnap) => {
+              const d = docSnap.data();
+              if (d.owner === username) {
+                list.push({ id: docSnap.id, ...d });
+              }
+            });
+            list.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+            userProjectsList = list;
+            const badge = document.getElementById('projectCountBadge');
+            if (badge) badge.textContent = list.length;
+            renderHistoryList();
+          },
+          (err) => {}
+        );
+      } else {
+        userProjectsList = memoryProjects.filter(p => p.owner === username);
+        const badge = document.getElementById('projectCountBadge');
+        if (badge) badge.textContent = userProjectsList.length;
+        renderHistoryList();
+      }
+    }
+
+    async function performCloudWorkspaceSync(includeMedia = false) {
+      if (!loggedInUser || window.isRestoringFromCloud) return;
+      const statusText = document.getElementById('autoSaveStatusText');
+      if (statusText) statusText.textContent = '• ⏳ กำลังซิงค์ข้อมูลขึ้นคลาวด์...';
+
+      try {
+        const workspaceObj = exportLightweightWorkspace();
+        const payloadStr = JSON.stringify(workspaceObj);
+        const sheetMedia = includeMedia ? getSheetSafeMediaBundle() : undefined;
+
+        if (!memoryUsers[loggedInUser]) {
+          memoryUsers[loggedInUser] = { username: loggedInUser };
+        }
+        memoryUsers[loggedInUser].lastWorkspaceJson = payloadStr;
+        memoryUsers[loggedInUser].lastProjectTitle = currentProjectTitle;
+        memoryUsers[loggedInUser].lastProjectId = currentProjectId;
+        if (sheetMedia) memoryUsers[loggedInUser].media = sheetMedia;
+        persistTabSessionCache();
+
+        if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
+          await callGoogleSheetApi('syncWorkspace', {
+            username: loggedInUser,
+            lastProjectTitle: currentProjectTitle,
+            lastProjectId: currentProjectId,
+            lastWorkspaceJson: payloadStr,
+            media: sheetMedia
+          });
+        }
+
+        if (db && firebaseUser) {
+          if (includeMedia) {
+            await saveMediaLayersToCloud('user_' + loggedInUser);
+          }
+          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', loggedInUser);
+          await setDoc(userDocRef, {
+            username: loggedInUser,
+            lastWorkspaceJson: payloadStr,
+            lastProjectTitle: currentProjectTitle,
+            lastProjectId: currentProjectId,
+            updatedAt: Date.now()
+          }, { merge: true });
+
+          if (currentProjectId) {
+            if (includeMedia) {
+              await saveMediaLayersToCloud(currentProjectId);
+            }
+            const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', currentProjectId);
+            await setDoc(projRef, {
+              owner: loggedInUser,
+              title: currentProjectTitle,
+              aspect: currentAspectName,
+              thumbnail: generateThumbnailDataUrl(),
+              payloadJson: payloadStr,
+              updatedAt: Date.now()
+            }, { merge: true });
+          }
+        }
+        if (statusText) {
+          const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          statusText.textContent = `✓ ซิงค์ฐานข้อมูลอัตโนมัติแล้ว (${timeStr})`;
+        }
+      } catch (e) {
+        if (statusText) statusText.textContent = '⚠️ ซิงค์คลาวด์ขัดข้อง กดซิงค์ทันทีเพื่อลองใหม่';
+      }
+    }
+
+    window.triggerCloudAutoSave = function(includeMedia = false) {
+      if (!loggedInUser || window.isRestoringFromCloud) return;
+      const statusText = document.getElementById('autoSaveStatusText');
+      if (statusText) statusText.textContent = '• ⏳ กำลังเตรียมบันทึก...';
+
+      if (autoSaveTimer) clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        performCloudWorkspaceSync(includeMedia);
+      }, 650);
+    };
+
+    window.forceManualCloudSync = async function() {
+      if (!loggedInUser) {
+        openAuthModal('login');
+        return;
+      }
+      await performCloudWorkspaceSync(true);
+    };
+
+    const origSaveHistory = window.saveHistoryState;
+    window.saveHistoryState = function() {
+      if (origSaveHistory) origSaveHistory();
+      if (window.triggerCloudAutoSave && !window.isRestoringFromCloud) {
+        window.triggerCloudAutoSave(true);
+      }
+    };
+
+    window.openSaveProjectModal = function() {
+      if (!loggedInUser) {
+        openAuthModal('login');
+        return;
+      }
+      const input = document.getElementById('projectTitleInput');
+      const defaultTitle = currentProjectTitle !== 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)'
+        ? currentProjectTitle
+        : (document.getElementById('textLine1')?.value || 'ข่าวประชาสัมพันธ์') + ' - ' + (document.getElementById('textDate')?.value || 'งานใหม่');
+      if (input) input.value = defaultTitle;
+
+      const overwriteBtn = document.getElementById('saveOverwriteBtn');
+      if (overwriteBtn) {
+        overwriteBtn.style.display = currentProjectId ? 'inline-block' : 'none';
+      }
+
+      const modal = document.getElementById('saveProjectModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    };
+
+    window.closeSaveProjectModal = function() {
+      const modal = document.getElementById('saveProjectModal');
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+    };
+
+    window.confirmSaveProject = async function(saveAsNew = true) {
+      if (!loggedInUser) return;
+      const input = document.getElementById('projectTitleInput');
+      const title = (input?.value || '').trim() || 'งานประชาสัมพันธ์';
+      const projId = (!saveAsNew && currentProjectId) ? currentProjectId : ('proj_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
+
+      const workspaceObj = exportLightweightWorkspace();
+      const payloadStr = JSON.stringify(workspaceObj);
+      const thumb = generateThumbnailDataUrl();
+      const sheetMedia = getSheetSafeMediaBundle();
+
+      const projectData = {
+        id: projId,
+        owner: loggedInUser,
+        title: title,
+        aspect: currentAspectName,
+        thumbnail: thumb,
+        payloadJson: payloadStr,
+        media: sheetMedia,
+        updatedAt: Date.now()
+      };
+
+      try {
+        if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
+          await callGoogleSheetApi('saveProject', projectData);
+        }
+
+        if (db && firebaseUser) {
+          await saveMediaLayersToCloud(projId);
+          const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
+          await setDoc(projRef, projectData);
+        } else {
+          await saveMediaLayersToCloud(projId);
+        }
+
+        const existingIdx = memoryProjects.findIndex(p => p.id === projId);
+        if (existingIdx >= 0) memoryProjects[existingIdx] = projectData;
+        else memoryProjects.unshift(projectData);
+        persistTabSessionCache();
+        subscribeUserProjects(loggedInUser);
+
+        currentProjectId = projId;
+        currentProjectTitle = title;
+        updateAuthUI();
+        await performCloudWorkspaceSync(true);
+        closeSaveProjectModal();
+      } catch (e) {}
+    };
+
+    window.startNewBlankProject = function() {
+      currentProjectId = null;
+      currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
+      fg1Loaded = false;
+      fg2Loaded = false;
+      customLogoImg = null;
+      resetTextPositions();
+      applyPreset(1);
+      updateAuthUI();
+      performCloudWorkspaceSync(true);
+    };
+
+    window.openHistoryModal = function() {
+      if (!loggedInUser) {
+        openAuthModal('login');
+        return;
+      }
+      const uEl = document.getElementById('historyModalUsername');
+      if (uEl) uEl.textContent = loggedInUser;
+      renderHistoryList();
+      const modal = document.getElementById('historyModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    };
+
+    window.closeHistoryModal = function() {
+      const modal = document.getElementById('historyModal');
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+    };
+
+    function renderHistoryList() {
+      const container = document.getElementById('historyListContainer');
+      if (!container) return;
+
+      if (!userProjectsList || userProjectsList.length === 0) {
+        container.innerHTML = `<div class="text-center text-slate-400 text-xs py-12">ยังไม่มีประวัติงานที่บันทึกไว้ กดปุ่ม "💾 บันทึกงาน" เพื่อเก็บงานของคุณได้เลย</div>`;
+        return;
+      }
+
+      container.innerHTML = userProjectsList.map((proj) => {
+        const dateStr = new Date(proj.updatedAt || Date.now()).toLocaleString('th-TH');
+        const safeTitle = (proj.title || 'ไม่มีชื่อ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const isCurrent = proj.id === currentProjectId;
+        return `
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-2xl border ${isCurrent ? 'border-indigo-500 bg-indigo-50/60' : 'border-slate-200 bg-slate-50/70'} hover:border-indigo-300 transition">
+            <div class="flex items-center gap-3">
+              ${proj.thumbnail ? `<img src="${proj.thumbnail}" class="w-14 h-14 object-cover rounded-xl border border-slate-300 bg-white flex-shrink-0">` : `<div class="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">PR</div>`}
+              <div>
+                <div class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                  <span>${safeTitle}</span>
+                  ${isCurrent ? `<span class="bg-indigo-600 text-white text-[10px] px-2 py-0.5 rounded-full">กำลังเปิดใช้งาน</span>` : ''}
+                </div>
+                <div class="text-[11px] text-slate-500">สัดส่วน: ${proj.aspect || '1:1'} • แก้ไขล่าสุด: ${dateStr}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+              <button onclick="loadProjectFromHistory('${proj.id}')" class="flex-1 sm:flex-none bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs transition cursor-pointer">
+                ✏️ เปิดแก้ไข
+              </button>
+              <button onclick="deleteProjectFromHistory('${proj.id}')" class="bg-red-50 hover:bg-red-100 text-red-600 font-semibold px-3 py-2 rounded-xl text-xs border border-red-200 transition cursor-pointer">
+                🗑️ ลบ
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.loadProjectFromHistory = async function(projId) {
+      const found = userProjectsList.find(p => p.id === projId);
+      if (!found || !found.payloadJson) return;
+      try {
+        window.isRestoringFromCloud = true;
+        window.hasRestoredCloudWorkspace = true;
+        const parsed = JSON.parse(found.payloadJson);
+        currentProjectId = found.id;
+        currentProjectTitle = found.title || 'งานที่บันทึกไว้';
+        importLightweightWorkspace(parsed);
+        if (found.media && (found.media.bg || found.media.fg1 || found.media.fg2 || found.media.logo)) {
+          await applyMediaBundle(found.media, parsed.mediaFlags);
+        } else {
+          await loadMediaLayersFromCloud(projId, parsed.mediaFlags);
+        }
+        updateAuthUI();
+        window.isRestoringFromCloud = false;
+        performCloudWorkspaceSync(true);
+        closeHistoryModal();
+      } catch (e) {
+        window.isRestoringFromCloud = false;
+      }
+    };
+
+    window.deleteProjectFromHistory = async function(projId) {
+      try {
+        if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
+          await callGoogleSheetApi('deleteProject', { id: projId });
+        }
+        if (db && firebaseUser) {
+          const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
+          await deleteDoc(projRef);
+        }
+        memoryProjects = memoryProjects.filter(p => p.id !== projId);
+        persistTabSessionCache();
+        subscribeUserProjects(loggedInUser);
+        if (currentProjectId === projId) {
+          currentProjectId = null;
+          currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
+          updateAuthUI();
+        }
+      } catch (e) {}
+    };
   </script>
 </body>
 </html>
