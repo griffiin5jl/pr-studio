@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V22.1</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V22.3</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V22.1</h1>
+              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V22.3</h1>
               <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud & Mobile</span>
             </div>
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
@@ -213,7 +213,7 @@
           <span>🎨</span> เลือกเทมเพลต
         </button>
         <button id="tabBtn2" onclick="switchTab(2)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>🖼️</span> เลเยอร์ภาพ & โลโก้
+          <span>🖼️</span> เลเยอร์ภาพ & ฟิลเตอร์
         </button>
         <button id="tabBtn3" onclick="switchTab(3)" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
           <span>✍️</span> จัดการข้อความ
@@ -277,7 +277,7 @@
           </div>
 
           <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 pt-1">
-            <button onclick="setFadeColors('#031B59', '#010922')" class="p-2 rounded-xl border border-slate-200 hover:scale-105 transition flex flex-col items-center gap-1 cursor-pointer bg-slate-50" title="น้ำเงิน อบจ.">
+            <button onclick="setFadeColors('#031B59', '#010922')" class="p-2 rounded-xl border border-slate-200 hover:scale-105 transition flex flex-col items-center gap-1 cursor-pointer bg-slate-550" title="น้ำเงิน อบจ.">
               <span class="w-6 h-6 rounded-full bg-gradient-to-b from-[#031B59] to-[#010922] border border-white shadow"></span>
               <span class="text-[10px] font-bold text-slate-700">น้ำเงิน</span>
             </button>
@@ -318,14 +318,14 @@
             <span>📖</span> คู่มือการใช้งานเบื้องต้น
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ระบบล็อกอินจดจำงาน:</strong> กดปุ่ม <strong>"🔐 เข้าสู่ระบบ"</strong> ด้านบนเพื่อบันทึกงานและดูประวัติงานเก่า เปิดเครื่องไหนก็ทำต่อได้</li>
-            <li><strong>เปลี่ยนสีเฟดด้านล่าง:</strong> เลือกโทนสีเฟดด้านบน หรือปรับแต่งสีอย่างละเอียดที่แท็บจัดการข้อความ หัวข้อที่ 4</li>
+            <li><strong>ตั้งค่าเลเยอร์และฟิลเตอร์:</strong> ไปที่แท็บ "เลเยอร์ภาพ & ฟิลเตอร์" เพื่อปรับความเบลอพื้นหลัง (Blur) และความสว่างภาพบุคคลได้ตามต้องการ</li>
+            <li><strong>ระบบล็อกอินจดจำงาน:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อบันทึกงานและดูประวัติงานเก่า เปิดเครื่องไหนก็ทำต่อได้</li>
             <li><strong>ดาวน์โหลดลงมือถือ:</strong> กดปุ่มดาวน์โหลดภาพ ระบบจะเปิดหน้าต่างรองรับทั้ง iOS / Android และแอป LINE</li>
           </ul>
         </div>
       </div>
 
-      <!-- TAB 2: IMAGE LAYERS & LOGOS -->
+      <!-- TAB 2: IMAGE LAYERS & FILTERS -->
       <div id="tabContent2" class="space-y-4 hidden">
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           <div class="flex items-center justify-between">
@@ -381,6 +381,29 @@
                 <span id="glowVal" class="text-slate-500 font-bold">35%</span>
               </div>
               <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+            </div>
+          </div>
+
+          <!-- ADVANCED FILTERS (BLUR & BRIGHTNESS) -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
+              <span>✨ ปรับแต่งฟิลเตอร์ภาพ (ความเบลอ & ความสว่าง)</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-600 font-medium">ความเบลอพื้นหลัง (Background Blur)</span>
+                  <span id="bgBlurVal" class="font-bold text-indigo-600">0px</span>
+                </div>
+                <input type="range" id="bgBlurRange" min="0" max="25" value="0" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-600 font-medium">ความสว่างภาพบุคคล (Person Brightness)</span>
+                  <span id="personBrightVal" class="font-bold text-indigo-600">100%</span>
+                </div>
+                <input type="range" id="personBrightRange" min="50" max="180" value="100" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-indigo-600 cursor-pointer">
+              </div>
             </div>
           </div>
         </div>
@@ -938,7 +961,9 @@
           topGlow: document.getElementById('topGlow')?.value || 35,
           gradHeight: document.getElementById('gradHeight')?.value || 55,
           dividerOffsetY: document.getElementById('dividerOffsetY')?.value || 0,
-          dividerWidth: document.getElementById('dividerWidth')?.value || 928
+          dividerWidth: document.getElementById('dividerWidth')?.value || 928,
+          bgBlurRange: document.getElementById('bgBlurRange')?.value || 0,
+          personBrightRange: document.getElementById('personBrightRange')?.value || 100
         }
       };
     }
@@ -974,8 +999,10 @@
     }
 
     function updateUndoRedoButtons() {
-      document.getElementById('undoBtn').disabled = historyStep <= 0;
-      document.getElementById('redoBtn').disabled = historyStep >= historyStack.length - 1;
+      const undoBtn = document.getElementById('undoBtn');
+      const redoBtn = document.getElementById('redoBtn');
+      if (undoBtn) undoBtn.disabled = historyStep <= 0;
+      if (redoBtn) redoBtn.disabled = historyStep >= historyStack.length - 1;
     }
 
     function restoreState(state) {
@@ -1037,6 +1064,8 @@
         setElVal('gradHeight', inp.gradHeight);
         setElVal('dividerOffsetY', inp.dividerOffsetY);
         setElVal('dividerWidth', inp.dividerWidth);
+        setElVal('bgBlurRange', inp.bgBlurRange);
+        setElVal('personBrightRange', inp.personBrightRange);
       }
     }
 
@@ -1049,10 +1078,12 @@
 
       ['1:1', '16:9', '9:16'].forEach((asp, idx) => {
         const btn = document.getElementById('ratioBtn' + (idx + 1));
-        if (asp === aspectName) {
-          btn.className = 'py-2 px-2 rounded-xl font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
-        } else {
-          btn.className = 'py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        if (btn) {
+          if (asp === aspectName) {
+            btn.className = 'py-2 px-2 rounded-xl font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+          } else {
+            btn.className = 'py-2 px-2 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+          }
         }
       });
 
@@ -1074,11 +1105,15 @@
 
     function switchTab(tabNum) {
       [1, 2, 3].forEach(n => {
-        document.getElementById('tabContent' + n).classList.add('hidden');
-        document.getElementById('tabBtn' + n).className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        const content = document.getElementById('tabContent' + n);
+        const btn = document.getElementById('tabBtn' + n);
+        if (content) content.classList.add('hidden');
+        if (btn) btn.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
       });
-      document.getElementById('tabContent' + tabNum).classList.remove('hidden');
-      document.getElementById('tabBtn' + tabNum).className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+      const activeContent = document.getElementById('tabContent' + tabNum);
+      const activeBtn = document.getElementById('tabBtn' + tabNum);
+      if (activeContent) activeContent.classList.remove('hidden');
+      if (activeBtn) activeBtn.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
     }
 
     function drawNongKhaiEmblem(ctx, cx, cy, radius) {
@@ -1598,6 +1633,14 @@
       const size4 = parseInt(getVal('size4Range', 35), 10);
       const sizeOrg = parseInt(getVal('sizeOrgRange', 31), 10);
 
+      const bgBlur = parseInt(getVal('bgBlurRange', 0), 10);
+      const personBright = parseInt(getVal('personBrightRange', 100), 10);
+
+      const bgBlurValEl = document.getElementById('bgBlurVal');
+      if (bgBlurValEl) bgBlurValEl.textContent = bgBlur + 'px';
+      const personBrightValEl = document.getElementById('personBrightVal');
+      if (personBrightValEl) personBrightValEl.textContent = personBright + '%';
+
       const size1ValEl = document.getElementById('size1Val');
       if (size1ValEl) size1ValEl.textContent = size1 + 'px';
       const size2ValEl = document.getElementById('size2Val');
@@ -1635,6 +1678,9 @@
       ctx.save();
       if (!isTransparent && bgLoaded) {
         ctx.save();
+        if (bgBlur > 0) {
+          ctx.filter = `blur(${bgBlur}px)`;
+        }
         const imgRatio = bgImg.width / bgImg.height;
         let drawW = canvasWidth, drawH = canvasHeight;
         if (imgRatio > (canvasWidth / canvasHeight)) drawH = canvasWidth / imgRatio;
@@ -1657,6 +1703,13 @@
 
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, canvasWidth, canvasHeight - gradStartY);
+
+      if (!isTransparent && (fg1Loaded || fg2Loaded)) {
+        ctx.save();
+        if (personBright !== 100) {
+          ctx.filter = `brightness(${personBright}%)`;
+        }
+      }
 
       if (!isTransparent && fg1Loaded) {
         ctx.save();
@@ -1681,6 +1734,10 @@
         const fgX = (canvasWidth - fgW) / 2 + fg2State.x;
         const fgY = (canvasHeight - fgH) / 2 + (70 * scaleY) + fg2State.y;
         ctx.drawImage(fg2Img, fgX, fgY, fgW, fgH);
+        ctx.restore();
+      }
+
+      if (!isTransparent && (fg1Loaded || fg2Loaded)) {
         ctx.restore();
       }
 
