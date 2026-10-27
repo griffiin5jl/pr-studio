@@ -63,16 +63,10 @@
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
           </div>
         </div>
-
-        <div class="flex lg:hidden items-center gap-1.5">
-          <button id="mobileLoginBtn" onclick="openAuthModal('login')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1 cursor-pointer shadow">
-            <span>🔐</span> <span id="mobileAuthLabel">เข้าสู่ระบบ</span>
-          </button>
-        </div>
       </div>
 
       <div class="flex items-center justify-between lg:justify-end gap-2 flex-wrap">
-        <div id="guestStatusBar" class="hidden sm:flex items-center gap-2 bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
+        <div id="guestStatusBar" class="flex items-center gap-2 bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-xl text-xs flex-wrap">
           <span class="w-2 h-2 rounded-full bg-slate-400"></span>
           <span class="text-slate-300">โหมดผู้เยี่ยมชม (ไม่จำประวัติ)</span>
           <button onclick="openAuthModal('login')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer ml-1">
@@ -97,30 +91,6 @@
           </button>
           <button onclick="logoutAccount()" class="bg-slate-800 hover:bg-red-900/80 text-slate-300 hover:text-white font-semibold px-2 py-1 rounded-lg text-[11px] transition cursor-pointer">
             ออกจากระบบ
-          </button>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between lg:justify-end gap-2 flex-wrap">
-        <div id="guestStatusBar" class="hidden sm:flex items-center gap-2 bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
-          <span class="w-2 h-2 rounded-full bg-slate-400"></span>
-          <span class="text-slate-300">โหมดผู้เยี่ยมชม (ไม่จำประวัติ)</span>
-          <button onclick="openAuthModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer ml-1">
-            🔐 เข้าสู่ระบบ / สมัคร
-          </button>
-        </div>
-
-        <div id="userStatusBar" class="hidden items-center gap-1.5 bg-indigo-950/90 border border-indigo-700/70 px-3 py-1.5 rounded-xl text-xs flex-wrap">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span class="text-indigo-200 font-semibold mr-1">👤 <strong id="loggedInUsernameDisplay" class="text-white">-</strong></span>
-          <button onclick="openSaveProjectModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer flex items-center gap-1">
-            💾 บันทึกงาน
-          </button>
-          <button onclick="openHistoryModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer flex items-center gap-1">
-            📂 ประวัติงาน (<span id="projectCountBadge">0</span>)
-          </button>
-          <button onclick="logoutAccount()" class="bg-slate-800 hover:bg-red-900/80 text-slate-300 hover:text-white font-semibold px-2 py-1 rounded-lg text-[11px] transition cursor-pointer">
-            ออก
           </button>
         </div>
 
@@ -2219,6 +2189,50 @@
       }
     }
 
+    function downloadPNG(transparentOnly = false) {
+      renderCanvas(transparentOnly);
+      const fileName = transparentOnly
+        ? `canva-overlay-${currentAspectName.replace(':', '-')}.png`
+        : `pr-nongkhai-${currentAspectName.replace(':', '-')}.png`;
+      const dataUrl = canvas.toDataURL('image/png');
+
+      canvas.toBlob((blob) => {
+        lastGeneratedBlob = blob;
+        const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 768;
+
+        if (blob) {
+          const blobUrl = URL.createObjectURL(blob);
+          const directLink = document.getElementById('directBlobDownloadLink');
+          if (directLink) {
+            directLink.href = blobUrl;
+            directLink.download = fileName;
+          }
+          const previewImg = document.getElementById('mobileSavePreviewImg');
+          if (previewImg) {
+            previewImg.src = dataUrl;
+          }
+
+          if (isMobileDevice) {
+            openMobileDownloadModal();
+          } else {
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = blobUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        } else {
+          const link = document.createElement('a');
+          link.download = fileName;
+          link.href = dataUrl;
+          link.click();
+        }
+      }, 'image/png');
+
+      renderCanvas(false);
+    }
+
     function openMobileDownloadModal() {
       const modal = document.getElementById('mobileDownloadModal');
       if (modal) {
@@ -2651,21 +2665,18 @@
       const userBar = document.getElementById('userStatusBar');
       const activeProjBar = document.getElementById('activeProjectBar');
       const userLabel = document.getElementById('loggedInUsernameDisplay');
-      const mobileAuthLabel = document.getElementById('mobileAuthLabel');
       const projNameLabel = document.getElementById('currentProjectNameLabel');
 
       if (loggedInUser) {
-        if (guestBar) { guestBar.classList.add('hidden'); guestBar.classList.remove('sm:flex'); }
+        if (guestBar) { guestBar.classList.add('hidden'); guestBar.classList.remove('flex'); }
         if (userBar) { userBar.classList.remove('hidden'); userBar.classList.add('flex'); }
         if (activeProjBar) { activeProjBar.classList.remove('hidden'); activeProjBar.classList.add('flex'); }
         if (userLabel) userLabel.textContent = loggedInUser;
-        if (mobileAuthLabel) mobileAuthLabel.textContent = loggedInUser;
         if (projNameLabel) projNameLabel.textContent = currentProjectTitle;
       } else {
-        if (guestBar) { guestBar.classList.remove('hidden'); guestBar.classList.add('sm:flex'); }
+        if (guestBar) { guestBar.classList.remove('hidden'); guestBar.classList.add('flex'); }
         if (userBar) { userBar.classList.remove('flex'); userBar.classList.add('hidden'); }
         if (activeProjBar) { activeProjBar.classList.remove('flex'); activeProjBar.classList.add('hidden'); }
-        if (mobileAuthLabel) mobileAuthLabel.textContent = 'เข้าสู่ระบบ';
       }
     }
 
