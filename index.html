@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V23</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V25.0</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,16 +57,46 @@
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V23</h1>
-              <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud & Mobile Pro</span>
+              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V25.0</h1>
+              <span class="bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud Account Edition</span>
             </div>
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
           </div>
         </div>
 
         <div class="flex lg:hidden items-center gap-1.5">
-          <button id="mobileLoginBtn" onclick="openAuthModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1 cursor-pointer shadow">
-            <span>🔐</span> <span id="mobileAuthLabel">ล็อกอิน</span>
+          <button id="mobileLoginBtn" onclick="openAuthModal('login')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1 cursor-pointer shadow">
+            <span>🔐</span> <span id="mobileAuthLabel">เข้าสู่ระบบ</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between lg:justify-end gap-2 flex-wrap">
+        <div id="guestStatusBar" class="hidden sm:flex items-center gap-2 bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
+          <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+          <span class="text-slate-300">โหมดผู้เยี่ยมชม (ไม่จำประวัติ)</span>
+          <button onclick="openAuthModal('login')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer ml-1">
+            🔐 เข้าสู่ระบบ
+          </button>
+          <button onclick="openAuthModal('register')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer">
+            📝 สมัครสมาชิก
+          </button>
+        </div>
+
+        <div id="userStatusBar" class="hidden items-center gap-1.5 bg-indigo-950/90 border border-indigo-700/70 px-3 py-1.5 rounded-xl text-xs flex-wrap">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-indigo-200 font-semibold mr-1">👤 บัญชี: <strong id="loggedInUsernameDisplay" class="text-white">-</strong></span>
+          <button onclick="forceManualCloudSync()" class="bg-indigo-800/80 hover:bg-indigo-700 text-indigo-100 font-semibold px-2.5 py-1 rounded-lg text-[11px] transition cursor-pointer flex items-center gap-1" title="ซิงค์งานปัจจุบันขึ้นคลาวด์ทันที">
+            ☁️ ซิงค์ทันที
+          </button>
+          <button onclick="openSaveProjectModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer flex items-center gap-1">
+            💾 บันทึกงาน
+          </button>
+          <button onclick="openHistoryModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition cursor-pointer flex items-center gap-1">
+            📂 ประวัติงาน (<span id="projectCountBadge">0</span>)
+          </button>
+          <button onclick="logoutAccount()" class="bg-slate-800 hover:bg-red-900/80 text-slate-300 hover:text-white font-semibold px-2 py-1 rounded-lg text-[11px] transition cursor-pointer">
+            ออกจากระบบ
           </button>
         </div>
       </div>
@@ -110,7 +140,7 @@
   <!-- ACTIVE PROJECT BANNER -->
   <div id="activeProjectBar" class="hidden bg-indigo-50 border-b border-indigo-200 px-4 sm:px-8 py-2 text-xs text-indigo-950 items-center justify-between gap-2 flex-wrap">
     <div class="flex items-center gap-2">
-      <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md text-[10px]">สถานะซิงค์ข้อมูล</span>
+      <span class="bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md text-[10px]">สถานะคลาวด์ซิงค์</span>
       <span>กำลังแก้ไขโปรเจกต์: <strong id="currentProjectNameLabel">งานใหม่ (ยังไม่ได้ตั้งชื่อ)</strong></span>
       <span id="autoSaveStatusText" class="text-[11px] text-emerald-700 font-medium"></span>
     </div>
@@ -315,17 +345,17 @@
         <!-- USER GUIDE CARD -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
-            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Cloud & Pro Edition)
+            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Cloud Sync Edition)
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ล็อกอินบันทึกงาน:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อสมัครหรือเข้าสู่ระบบ งานของคุณจะถูกบันทึกและซิงค์อัตโนมัติ</li>
-            <li><strong>หมวดแต่งภาพแยกอิสระ:</strong> ไปที่แท็บ "แต่งภาพ & ฟิลเตอร์แยกหมวด" เพื่อปรับความเบลอ ความสว่าง และความคมชัดของฉากหลังและภาพบุคคลแยกกันได้เลย</li>
-            <li><strong>ดาวน์โหลดภาพ:</strong> รองรับการดาวน์โหลดความคมชัดสูง PNG HD ทั้งบนคอมพิวเตอร์และมือถือ</li>
+            <li><strong>ล็อกอินจดจำงาน:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อสมัครหรือเข้าสู่ระบบ งานของคุณจะถูกซิงค์เข้าคลาวด์อัตโนมัติ</li>
+            <li><strong>แสงฟุ้งหลังตัวบุคคล (Halo Aura):</strong> ไปที่แท็บแต่งภาพเพื่อเปิดแสงฟุ้งด้านหลังตัวบุคคล ทำให้ตัวบุคคลโดดเด่นสะดุดตา</li>
+            <li><strong>ดาวน์โหลดบนมือถือ:</strong> รองรับการกดแชร์บันทึกรูปเข้าอัลบั้มมือถือ หรือแตะค้างที่รูปเพื่อบันทึกได้ทันที</li>
           </ul>
         </div>
       </div>
 
-      <!-- TAB 2: IMAGE LAYERS & FILTER CATEGORIES (SEPARATE BG & PERSON) -->
+      <!-- TAB 2: IMAGE LAYERS & FILTER CATEGORIES -->
       <div id="tabContent2" class="space-y-4 hidden">
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           <div class="flex items-center justify-between">
@@ -415,11 +445,11 @@
           </div>
         </div>
 
-        <!-- CATEGORY B: PERSON / FOREGROUND FILTERS -->
+        <!-- CATEGORY B: PERSON FILTERS & HALO GLOW -->
         <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-4">
           <div class="text-xs font-extrabold text-emerald-900 uppercase tracking-wider flex items-center gap-2">
             <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">B</span>
-            หมวดปรับแต่งภาพบุคคล (Person / Foreground Adjustments)
+            หมวดปรับแต่งภาพบุคคล & แสงฟุ้งด้านหลัง (Halo Glow)
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -450,6 +480,33 @@
                 <span id="glowVal" class="font-bold text-emerald-600">35%</span>
               </div>
               <input type="range" id="topGlow" min="0" max="100" value="35" oninput="renderCanvas(); saveHistoryState();" class="w-full accent-emerald-600 cursor-pointer">
+            </div>
+          </div>
+
+          <!-- BEHIND-PERSON HALO GLOW EFFECT -->
+          <div class="p-3.5 bg-emerald-50/60 rounded-2xl border border-emerald-200 space-y-2 mt-2">
+            <div class="flex items-center justify-between">
+              <label class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-950 cursor-pointer">
+                <input type="checkbox" id="showHaloGlow" checked onchange="renderCanvas(); saveHistoryState();" class="rounded text-emerald-600">
+                ✨ เปิดแสงฟุ้งด้านหลังตัวบุคคล (Halo Aura)
+              </label>
+              <input type="color" id="haloColor" value="#FFFFFF" oninput="renderCanvas()" onchange="saveHistoryState()" class="h-6 w-8 rounded border border-emerald-300 cursor-pointer bg-white p-0.5" title="สีแสงฟุ้ง">
+            </div>
+            <div class="grid grid-cols-2 gap-3 pt-1">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-600 font-medium">ความเข้มแสงฟุ้ง</span>
+                  <span id="haloIntensityVal" class="font-bold text-emerald-600">60%</span>
+                </div>
+                <input type="range" id="haloIntensity" min="0" max="100" value="60" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-emerald-600 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-600 font-medium">ขนาดวงแสง</span>
+                  <span id="haloSizeVal" class="font-bold text-emerald-600">120px</span>
+                </div>
+                <input type="range" id="haloSize" min="40" max="250" value="120" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-emerald-600 cursor-pointer">
+              </div>
             </div>
           </div>
         </div>
@@ -600,7 +657,7 @@
               </select>
             </div>
 
-            <!-- Line 4 (Sub-divider text) -->
+            <!-- Line 4 -->
             <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
               <div class="flex items-center justify-between">
                 <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
@@ -613,7 +670,7 @@
               <input type="range" id="size4Range" min="20" max="60" value="35" oninput="renderCanvas()" onchange="saveHistoryState()" class="w-full accent-indigo-600 cursor-pointer">
             </div>
 
-            <!-- Org Name / Position -->
+            <!-- Org Name -->
             <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
               <div class="flex items-center justify-between">
                 <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
@@ -790,37 +847,72 @@
     <div class="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 flex flex-col gap-4 shadow-2xl relative">
       <div class="flex items-center justify-between pb-2 border-b border-slate-100">
         <h3 class="text-slate-900 font-extrabold text-base flex items-center gap-2">
-          <span>🔐</span> เข้าสู่ระบบ / สมัครใช้งานเพื่อจำประวัติงาน
+          <span>🔐</span> ระบบบัญชีผู้ใช้งานคลาวด์ (Cloud Account)
         </h3>
         <button onclick="closeAuthModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center transition cursor-pointer">
           ✕
         </button>
       </div>
 
-      <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-3 text-xs text-indigo-900 space-y-1">
-        <p class="font-bold">✨ สิทธิพิเศษเมื่อล็อกอิน:</p>
-        <p>• จดจำงานล่าสุดที่คุณทำค้างไว้โดยอัตโนมัติ เปิดเครื่องไหนก็ทำต่อได้</p>
-        <p>• บันทึกประวัติงานเก่าและกดกลับมาแก้ไขใหม่ได้ตลอดเวลา</p>
+      <!-- MODE SWITCH TABS: LOGIN VS REGISTER -->
+      <div class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 text-xs">
+        <button id="tabAuthLogin" onclick="switchAuthTab('login')" class="py-2.5 px-3 rounded-xl font-bold bg-indigo-600 text-white shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5">
+          🔑 เข้าสู่ระบบ (มีรหัสแล้ว)
+        </button>
+        <button id="tabAuthRegister" onclick="switchAuthTab('register')" class="py-2.5 px-3 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5">
+          📝 สมัครสมาชิกใหม่
+        </button>
+      </div>
+
+      <!-- SAVED ACCOUNTS QUICK LOGIN -->
+      <div id="savedAccountsBox" class="hidden bg-slate-50 border border-slate-200 rounded-2xl p-3 space-y-2">
+        <div class="text-[11px] font-bold text-slate-600 flex items-center justify-between">
+          <span>⚡ บัญชีที่บันทึกไว้ในเครื่องนี้ (คลิกเพื่อเข้าสู่ระบบทันที):</span>
+        </div>
+        <div id="savedAccountsList" class="flex flex-wrap gap-1.5"></div>
+      </div>
+
+      <div id="authModeBanner" class="bg-indigo-50 border border-indigo-100 rounded-2xl p-3 text-xs text-indigo-900 space-y-1">
+        <p id="authModeTitle" class="font-bold">🔑 เข้าสู่ระบบด้วยรหัสที่คุณเคยสมัครไว้:</p>
+        <p id="authModeDesc">• ดึงงานล่าสุดที่คุณทำค้างไว้และประวัติงานทั้งหมดกลับมาทันที ไม่ว่าจะเข้าจากมือถือหรือคอมเครื่องไหนก็ตาม</p>
       </div>
 
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block font-bold text-slate-700 mb-1">ชื่อผู้ใช้ (Username)</label>
-          <input type="text" id="authUsernameInput" placeholder="เช่น aofta01 หรือ pr_nongkhai" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-indigo-600">
+          <label class="block font-bold text-slate-700 mb-1">ชื่อผู้ใช้ (Username ภาษาอังกฤษหรือตัวเลข)</label>
+          <input type="text" id="authUsernameInput" placeholder="เช่น aofta01 หรือ pr_nongkhai" autocomplete="username" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-indigo-600">
         </div>
         <div>
-          <label class="block font-bold text-slate-700 mb-1">รหัสผ่าน (Password)</label>
-          <input type="password" id="authPasswordInput" placeholder="กรอกรหัสผ่านของคุณ" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-indigo-600">
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-bold text-slate-700">รหัสผ่าน (Password)</label>
+            <button type="button" onclick="toggleAuthPasswordVisibility()" class="text-[11px] text-indigo-600 hover:underline font-semibold cursor-pointer">
+              👁️ แสดง/ซ่อนรหัสผ่าน
+            </button>
+          </div>
+          <input type="password" id="authPasswordInput" placeholder="กรอกรหัสผ่านของคุณ" autocomplete="current-password" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-indigo-600">
         </div>
-        <div id="authErrorMsg" class="text-red-600 font-bold text-xs hidden"></div>
+        <div id="authConfirmPasswordBox" class="hidden">
+          <label class="block font-bold text-slate-700 mb-1">ยืนยันรหัสผ่านอีกครั้ง (Confirm Password)</label>
+          <input type="password" id="authConfirmPasswordInput" placeholder="กรอกรหัสผ่านเดิมอีกครั้งเพื่อยืนยัน" autocomplete="new-password" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-emerald-600">
+        </div>
+
+        <div class="flex items-center justify-between pt-1">
+          <label class="inline-flex items-center gap-2 font-semibold text-slate-700 cursor-pointer select-none">
+            <input type="checkbox" id="authRememberMe" checked class="rounded text-indigo-600 focus:ring-indigo-500">
+            จดจำรหัสผ่านและค้างสถานะเข้าสู่ระบบอัตโนมัติ
+          </label>
+        </div>
+
+        <div id="authErrorMsg" class="text-red-600 bg-red-50 border border-red-200 rounded-xl p-2.5 font-bold text-xs hidden"></div>
+        <div id="authSuccessMsg" class="text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 font-bold text-xs hidden"></div>
       </div>
 
-      <div class="flex items-center justify-end gap-2 pt-2">
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
         <button onclick="closeAuthModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2.5 rounded-xl text-xs transition cursor-pointer">
-          ใช้งานแบบไม่ล็อกอิน
+          ไว้ทีหลัง
         </button>
-        <button id="authSubmitBtn" onclick="handleUserLogin()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-indigo-600/20">
-          เข้าสู่ระบบ / สมัครใหม่
+        <button id="authSubmitBtn" onclick="handleUserAuthSubmit()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-indigo-600/20">
+          🔑 เข้าสู่ระบบ
         </button>
       </div>
     </div>
@@ -976,6 +1068,7 @@
 
     function captureState() {
       return {
+        currentStyle,
         canvasWidth,
         canvasHeight,
         currentAspectName,
@@ -983,40 +1076,57 @@
         fg1State: { ...fg1State },
         fg2State: { ...fg2State },
         textOffsets: JSON.parse(JSON.stringify(textOffsets)),
+        colorsAndFonts: {
+          font1: document.getElementById('font1')?.value ?? 'Prompt',
+          font2: document.getElementById('font2')?.value ?? 'Prompt',
+          font3: document.getElementById('font3')?.value ?? 'Prompt',
+          colorLine1: document.getElementById('colorLine1')?.value ?? '#FFE600',
+          colorGoldText: document.getElementById('colorGoldText')?.value ?? '#FFCC00',
+          gradColor1: document.getElementById('gradColor1')?.value ?? '#031B59',
+          gradColor2: document.getElementById('gradColor2')?.value ?? '#010922',
+          dividerStyle: document.getElementById('dividerStyle')?.value ?? 'gold',
+          dividerColor: document.getElementById('dividerColor')?.value ?? '#E0B236',
+          footerMode: document.getElementById('footerMode')?.value ?? 'style1',
+          ribbonColor: document.getElementById('ribbonColor')?.value ?? '#EA580C',
+          haloColor: document.getElementById('haloColor')?.value ?? '#FFFFFF'
+        },
         inputs: {
-          textLine1: document.getElementById('textLine1')?.value || '',
-          textLine2: document.getElementById('textLine2')?.value || '',
-          textLine3: document.getElementById('textLine3')?.value || '',
-          textLine4: document.getElementById('textLine4')?.value || '',
-          textOrg: document.getElementById('textOrg')?.value || '',
-          textDate: document.getElementById('textDate')?.value || '',
-          ribbonText: document.getElementById('ribbonText')?.value || '',
-          showDateRibbon: document.getElementById('showDateRibbon')?.checked || false,
-          showLogo: document.getElementById('showLogo')?.checked || true,
-          logoTopLeft: document.getElementById('logoTopLeft')?.checked || false,
-          logoBottomFooter: document.getElementById('logoBottomFooter')?.checked || false,
-          showSocial: document.getElementById('showSocial')?.checked || true,
-          showAllText: document.getElementById('showAllText')?.checked || true,
-          showFooterSection: document.getElementById('showFooterSection')?.checked || true,
-          showSubDividerText: document.getElementById('showSubDividerText')?.checked || true,
-          showOrgText: document.getElementById('showOrgText')?.checked || true,
-          strokeLine1: document.getElementById('strokeLine1')?.checked || false,
-          size1Range: document.getElementById('size1Range')?.value || 92,
-          size2Range: document.getElementById('size2Range')?.value || 46,
-          size3Range: document.getElementById('size3Range')?.value || 42,
-          size4Range: document.getElementById('size4Range')?.value || 35,
-          sizeOrgRange: document.getElementById('sizeOrgRange')?.value || 31,
-          topGlow: document.getElementById('topGlow')?.value || 35,
-          gradHeight: document.getElementById('gradHeight')?.value || 55,
-          dividerOffsetY: document.getElementById('dividerOffsetY')?.value || 0,
-          dividerWidth: document.getElementById('dividerWidth')?.value || 928,
-          bgBlurRange: document.getElementById('bgBlurRange')?.value || 0,
-          bgBrightRange: document.getElementById('bgBrightRange')?.value || 100,
-          bgContrastRange: document.getElementById('bgContrastRange')?.value || 100,
-          bgSatRange: document.getElementById('bgSatRange')?.value || 100,
-          personBrightRange: document.getElementById('personBrightRange')?.value || 100,
-          personContrastRange: document.getElementById('personContrastRange')?.value || 100,
-          personWarmRange: document.getElementById('personWarmRange')?.value || 0
+          textLine1: document.getElementById('textLine1')?.value ?? '',
+          textLine2: document.getElementById('textLine2')?.value ?? '',
+          textLine3: document.getElementById('textLine3')?.value ?? '',
+          textLine4: document.getElementById('textLine4')?.value ?? '',
+          textOrg: document.getElementById('textOrg')?.value ?? '',
+          textDate: document.getElementById('textDate')?.value ?? '',
+          ribbonText: document.getElementById('ribbonText')?.value ?? '',
+          showDateRibbon: document.getElementById('showDateRibbon')?.checked ?? false,
+          showLogo: document.getElementById('showLogo')?.checked ?? true,
+          logoTopLeft: document.getElementById('logoTopLeft')?.checked ?? false,
+          logoBottomFooter: document.getElementById('logoBottomFooter')?.checked ?? false,
+          showSocial: document.getElementById('showSocial')?.checked ?? true,
+          showAllText: document.getElementById('showAllText')?.checked ?? true,
+          showFooterSection: document.getElementById('showFooterSection')?.checked ?? true,
+          showSubDividerText: document.getElementById('showSubDividerText')?.checked ?? true,
+          showOrgText: document.getElementById('showOrgText')?.checked ?? true,
+          strokeLine1: document.getElementById('strokeLine1')?.checked ?? false,
+          showHaloGlow: document.getElementById('showHaloGlow')?.checked ?? true,
+          size1Range: document.getElementById('size1Range')?.value ?? 92,
+          size2Range: document.getElementById('size2Range')?.value ?? 46,
+          size3Range: document.getElementById('size3Range')?.value ?? 42,
+          size4Range: document.getElementById('size4Range')?.value ?? 35,
+          sizeOrgRange: document.getElementById('sizeOrgRange')?.value ?? 31,
+          topGlow: document.getElementById('topGlow')?.value ?? 35,
+          haloIntensity: document.getElementById('haloIntensity')?.value ?? 60,
+          haloSize: document.getElementById('haloSize')?.value ?? 120,
+          gradHeight: document.getElementById('gradHeight')?.value ?? 55,
+          dividerOffsetY: document.getElementById('dividerOffsetY')?.value ?? 0,
+          dividerWidth: document.getElementById('dividerWidth')?.value ?? 928,
+          bgBlurRange: document.getElementById('bgBlurRange')?.value ?? 0,
+          bgBrightRange: document.getElementById('bgBrightRange')?.value ?? 100,
+          bgContrastRange: document.getElementById('bgContrastRange')?.value ?? 100,
+          bgSatRange: document.getElementById('bgSatRange')?.value ?? 100,
+          personBrightRange: document.getElementById('personBrightRange')?.value ?? 100,
+          personContrastRange: document.getElementById('personContrastRange')?.value ?? 100,
+          personWarmRange: document.getElementById('personWarmRange')?.value ?? 0
         }
       };
     }
@@ -1059,9 +1169,23 @@
     }
 
     function restoreState(state) {
-      canvasWidth = state.canvasWidth;
-      canvasHeight = state.canvasHeight;
-      currentAspectName = state.currentAspectName;
+      if (!state) return;
+      if (state.currentStyle) {
+        currentStyle = state.currentStyle;
+        [1, 2, 3].forEach(n => {
+          const btn = document.getElementById('btnStyle' + n);
+          if (btn) {
+            if (n === currentStyle) {
+              btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50 transition flex items-center gap-4 cursor-pointer hover:shadow-md';
+            } else {
+              btn.className = 'template-btn text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-300 bg-white transition flex items-center gap-4 cursor-pointer hover:shadow-md';
+            }
+          }
+        });
+      }
+      canvasWidth = state.canvasWidth || 1080;
+      canvasHeight = state.canvasHeight || 1080;
+      currentAspectName = state.currentAspectName || '1:1';
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
@@ -1077,20 +1201,37 @@
         document.getElementById('canvasDimLabel').textContent = '1080 x 1920 px';
       }
 
-      bgState = { ...state.bgState };
-      fg1State = { ...state.fg1State };
-      fg2State = { ...state.fg2State };
-      textOffsets = JSON.parse(JSON.stringify(state.textOffsets));
+      if (state.bgState) bgState = { ...state.bgState };
+      if (state.fg1State) fg1State = { ...state.fg1State };
+      if (state.fg2State) fg2State = { ...state.fg2State };
+      if (state.textOffsets) textOffsets = JSON.parse(JSON.stringify(state.textOffsets));
+
+      const setElVal = (id, val, isChecked = false) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined) {
+          if (isChecked) el.checked = Boolean(val);
+          else el.value = val;
+        }
+      };
+
+      if (state.colorsAndFonts) {
+        const cf = state.colorsAndFonts;
+        setElVal('font1', cf.font1);
+        setElVal('font2', cf.font2);
+        setElVal('font3', cf.font3);
+        setElVal('colorLine1', cf.colorLine1);
+        setElVal('colorGoldText', cf.colorGoldText);
+        setElVal('gradColor1', cf.gradColor1);
+        setElVal('gradColor2', cf.gradColor2);
+        setElVal('dividerStyle', cf.dividerStyle);
+        setElVal('dividerColor', cf.dividerColor);
+        setElVal('footerMode', cf.footerMode);
+        setElVal('ribbonColor', cf.ribbonColor);
+        setElVal('haloColor', cf.haloColor);
+      }
 
       const inp = state.inputs;
       if (inp) {
-        const setElVal = (id, val, isChecked = false) => {
-          const el = document.getElementById(id);
-          if (el) {
-            if (isChecked) el.checked = val;
-            else el.value = val;
-          }
-        };
         setElVal('textLine1', inp.textLine1);
         setElVal('textLine2', inp.textLine2);
         setElVal('textLine3', inp.textLine3);
@@ -1108,12 +1249,15 @@
         setElVal('showSubDividerText', inp.showSubDividerText, true);
         setElVal('showOrgText', inp.showOrgText, true);
         setElVal('strokeLine1', inp.strokeLine1, true);
+        setElVal('showHaloGlow', inp.showHaloGlow, true);
         setElVal('size1Range', inp.size1Range);
         setElVal('size2Range', inp.size2Range);
         setElVal('size3Range', inp.size3Range);
         setElVal('size4Range', inp.size4Range);
         setElVal('sizeOrgRange', inp.sizeOrgRange);
         setElVal('topGlow', inp.topGlow);
+        setElVal('haloIntensity', inp.haloIntensity);
+        setElVal('haloSize', inp.haloSize);
         setElVal('gradHeight', inp.gradHeight);
         setElVal('dividerOffsetY', inp.dividerOffsetY);
         setElVal('dividerWidth', inp.dividerWidth);
@@ -1697,10 +1841,14 @@
       const bgContrast = parseInt(getVal('bgContrastRange', 100), 10);
       const bgSat = parseInt(getVal('bgSatRange', 100), 10);
 
-      // Category B: Person Filters
+      // Category B: Person Filters & Halo
       const personBright = parseInt(getVal('personBrightRange', 100), 10);
       const personContrast = parseInt(getVal('personContrastRange', 100), 10);
       const personWarm = parseInt(getVal('personWarmRange', 0), 10);
+      const showHalo = getCheck('showHaloGlow', true);
+      const haloColor = getVal('haloColor', '#FFFFFF');
+      const haloIntensity = parseInt(getVal('haloIntensity', 60), 10);
+      const haloSize = parseInt(getVal('haloSize', 120), 10);
 
       // Update UI labels
       const setLbl = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
@@ -1711,6 +1859,8 @@
       setLbl('personBrightVal', personBright + '%');
       setLbl('personContrastVal', personContrast + '%');
       setLbl('personWarmVal', personWarm + '%');
+      setLbl('haloIntensityVal', haloIntensity + '%');
+      setLbl('haloSizeVal', haloSize + 'px');
 
       setLbl('size1Val', size1 + 'px');
       setLbl('size2Val', size2 + 'px');
@@ -1768,6 +1918,38 @@
 
       ctx.fillStyle = mainGrad;
       ctx.fillRect(0, gradStartY, canvasWidth, canvasHeight - gradStartY);
+
+      // BEHIND-PERSON HALO GLOW EFFECT
+      if (!isTransparent && showHalo && (fg1Loaded || fg2Loaded)) {
+        ctx.save();
+        const haloAlpha = (haloIntensity / 100) * 0.75;
+        
+        let targets = [];
+        if (fg1Loaded) {
+          const fgRatio = fg1Img.width / fg1Img.height;
+          let fgW = 600 * scaleX * fg1State.scale;
+          let fgH = (600 / fgRatio) * scaleY * fg1State.scale;
+          targets.push({ x: (canvasWidth / 2) + fg1State.x, y: (canvasHeight / 2) + (70 * scaleY) + fg1State.y + (fgH * 0.45), r: haloSize * Math.min(scaleX, scaleY) * (fgW / 500) });
+        }
+        if (fg2Loaded) {
+          const fgRatio = fg2Img.width / fg2Img.height;
+          let fgW = 600 * scaleX * fg2State.scale;
+          let fgH = (600 / fgRatio) * scaleY * fg2State.scale;
+          targets.push({ x: (canvasWidth / 2) + fg2State.x, y: (canvasHeight / 2) + (70 * scaleY) + fg2State.y + (fgH * 0.45), r: haloSize * Math.min(scaleX, scaleY) * (fgW / 500) });
+        }
+
+        targets.forEach(t => {
+          const haloGrad = ctx.createRadialGradient(t.x, t.y, t.r * 0.1, t.x, t.y, t.r * 2.2);
+          haloGrad.addColorStop(0, hexToRgba(haloColor, haloAlpha));
+          haloGrad.addColorStop(0.4, hexToRgba(haloColor, haloAlpha * 0.5));
+          haloGrad.addColorStop(1, hexToRgba(haloColor, 0));
+          ctx.fillStyle = haloGrad;
+          ctx.beginPath();
+          ctx.arc(t.x, t.y, t.r * 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.restore();
+      }
 
       if (!isTransparent && (fg1Loaded || fg2Loaded)) {
         ctx.save();
@@ -2031,62 +2213,9 @@
         }
       }
       ctx.restore();
-    }
 
-    function isMobileDevice() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
-    }
-
-    function downloadPNG(transparentOnly = false) {
-      renderCanvas(transparentOnly);
-      const fileName = transparentOnly ? `canva-overlay-${currentAspectName.replace(':', '-')}.png` : `pr-nongkhai-${currentAspectName.replace(':', '-')}.png`;
-      const dataUrl = canvas.toDataURL('image/png');
-
-      if (canvas.toBlob) {
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            fallbackDataUrlDownload(dataUrl, fileName);
-            return;
-          }
-          lastGeneratedBlob = blob;
-          const blobUrl = URL.createObjectURL(blob);
-
-          const previewImg = document.getElementById('mobileSavePreviewImg');
-          if (previewImg) previewImg.src = dataUrl;
-
-          const directLink = document.getElementById('directBlobDownloadLink');
-          if (directLink) {
-            directLink.href = blobUrl;
-            directLink.download = fileName;
-          }
-
-          if (isMobileDevice()) {
-            openMobileDownloadModal();
-          } else {
-            const link = document.createElement('a');
-            link.download = fileName;
-            link.href = blobUrl;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
-        }, 'image/png');
-      } else {
-        fallbackDataUrlDownload(dataUrl, fileName);
-      }
-      renderCanvas(false);
-    }
-
-    function fallbackDataUrlDownload(dataUrl, fileName) {
-      const previewImg = document.getElementById('mobileSavePreviewImg');
-      if (previewImg) previewImg.src = dataUrl;
-      if (isMobileDevice()) {
-        openMobileDownloadModal();
-      } else {
-        const link = document.createElement('a');
-        link.download = fileName;
-        link.href = dataUrl;
-        link.click();
+      if (!forceTransparent && window.triggerCloudAutoSave && !window.isRestoringFromCloud) {
+        window.triggerCloudAutoSave();
       }
     }
 
@@ -2127,8 +2256,10 @@
     }
 
     document.fonts.ready.then(() => {
-      applyPreset(1);
-      saveHistoryState();
+      if (!window.hasRestoredCloudWorkspace) {
+        applyPreset(1);
+        saveHistoryState();
+      }
     });
   </script>
 
@@ -2141,13 +2272,19 @@
     let db = null;
     let auth = null;
     let firebaseUser = null;
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'aofta-studio-pro-v23';
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'aofta-studio-pro-v24';
 
     const memoryUsers = {};
+    const memoryMedia = {};
     let memoryProjects = [];
     let userProjectsList = [];
+    let savedAccountsList = [];
     let unsubscribeProjects = null;
     let autoSaveTimer = null;
+    let currentAuthMode = 'login'; // 'login' | 'register'
+
+    window.isRestoringFromCloud = false;
+    window.hasRestoredCloudWorkspace = false;
 
     async function initCloudConnection() {
       try {
@@ -2163,18 +2300,154 @@
             await signInAnonymously(auth);
           }
 
-          onAuthStateChanged(auth, (user) => {
+          onAuthStateChanged(auth, async (user) => {
             firebaseUser = user;
+            if (user) {
+              await restoreDeviceSession(user.uid);
+            }
           });
         }
-      } catch (err) {}
+      } catch (err) {
+        console.error("Cloud connection init error:", err);
+      }
     }
+
+    // Restore active login session & saved accounts for this device/browser automatically on refresh
+    async function restoreDeviceSession(uid) {
+      if (!db || !uid) return;
+      try {
+        const sessionRef = doc(db, 'artifacts', appId, 'users', uid, 'session', 'active');
+        const sessionSnap = await getDoc(sessionRef);
+        if (sessionSnap.exists()) {
+          const sData = sessionSnap.data();
+          if (Array.isArray(sData.savedAccounts)) {
+            savedAccountsList = sData.savedAccounts;
+            renderSavedAccountsUI();
+          }
+          if (sData.activeUsername && sData.rememberMe) {
+            const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', sData.activeUsername);
+            const userSnap = await getDoc(userDocRef);
+            if (userSnap.exists()) {
+              const uData = userSnap.data();
+              loggedInUser = sData.activeUsername;
+              if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
+              if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
+              updateAuthUI();
+              subscribeUserProjects(loggedInUser);
+              await loadWorkspaceFromAccountData(sData.activeUsername, uData);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Session restore error:", e);
+      }
+    }
+
+    async function saveDeviceSession(activeUsername, passwordToSave, rememberMe) {
+      if (!db || !firebaseUser) return;
+      try {
+        if (activeUsername && rememberMe && passwordToSave) {
+          const existingIdx = savedAccountsList.findIndex(a => a.username === activeUsername);
+          if (existingIdx >= 0) {
+            savedAccountsList[existingIdx].password = passwordToSave;
+          } else {
+            savedAccountsList.unshift({ username: activeUsername, password: passwordToSave });
+          }
+          savedAccountsList = savedAccountsList.slice(0, 5);
+        }
+        renderSavedAccountsUI();
+        const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
+        await setDoc(sessionRef, {
+          activeUsername: rememberMe ? (activeUsername || null) : null,
+          rememberMe: Boolean(rememberMe),
+          savedAccounts: savedAccountsList,
+          updatedAt: Date.now()
+        }, { merge: true });
+      } catch (e) {}
+    }
+
+    function renderSavedAccountsUI() {
+      const box = document.getElementById('savedAccountsBox');
+      const listEl = document.getElementById('savedAccountsList');
+      if (!box || !listEl) return;
+      if (!savedAccountsList || savedAccountsList.length === 0) {
+        box.classList.add('hidden');
+        return;
+      }
+      box.classList.remove('hidden');
+      listEl.innerHTML = savedAccountsList.map((acc) => {
+        const safeUser = (acc.username || '').replace(/[^a-zA-Z0-9_.-]/g, '');
+        return `
+          <button type="button" onclick="quickLoginSavedAccount('${safeUser}')" class="bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5 shadow-sm">
+            <span>👤 ${safeUser}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    window.quickLoginSavedAccount = function(username) {
+      const found = savedAccountsList.find(a => a.username === username);
+      if (!found) return;
+      switchAuthTab('login');
+      const uIn = document.getElementById('authUsernameInput');
+      const pIn = document.getElementById('authPasswordInput');
+      if (uIn) uIn.value = found.username;
+      if (pIn) pIn.value = found.password || '';
+      handleUserAuthSubmit();
+    };
 
     initCloudConnection();
 
-    window.openAuthModal = function() {
+    window.switchAuthTab = function(mode) {
+      currentAuthMode = mode === 'register' ? 'register' : 'login';
+      const tabLogin = document.getElementById('tabAuthLogin');
+      const tabReg = document.getElementById('tabAuthRegister');
+      const confirmBox = document.getElementById('authConfirmPasswordBox');
+      const submitBtn = document.getElementById('authSubmitBtn');
+      const banner = document.getElementById('authModeBanner');
+      const title = document.getElementById('authModeTitle');
+      const desc = document.getElementById('authModeDesc');
       const errEl = document.getElementById('authErrorMsg');
+      const okEl = document.getElementById('authSuccessMsg');
+
       if (errEl) errEl.classList.add('hidden');
+      if (okEl) okEl.classList.add('hidden');
+
+      if (currentAuthMode === 'login') {
+        if (tabLogin) tabLogin.className = 'py-2.5 px-3 rounded-xl font-bold bg-indigo-600 text-white shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+        if (tabReg) tabReg.className = 'py-2.5 px-3 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        if (confirmBox) confirmBox.classList.add('hidden');
+        if (submitBtn) {
+          submitBtn.textContent = '🔑 เข้าสู่ระบบ';
+          submitBtn.className = 'bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-indigo-600/20';
+        }
+        if (banner) banner.className = 'bg-indigo-50 border border-indigo-100 rounded-2xl p-3 text-xs text-indigo-900 space-y-1';
+        if (title) title.textContent = '🔑 เข้าสู่ระบบด้วยรหัสที่คุณเคยสมัครไว้:';
+        if (desc) desc.textContent = '• ดึงงานล่าสุดที่คุณทำค้างไว้และประวัติงานทั้งหมดกลับมาทันที ไม่ว่าจะเข้าจากมือถือหรือคอมเครื่องไหนก็ตาม';
+      } else {
+        if (tabReg) tabReg.className = 'py-2.5 px-3 rounded-xl font-bold bg-emerald-600 text-white shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
+        if (tabLogin) tabLogin.className = 'py-2.5 px-3 rounded-xl font-semibold text-slate-600 hover:text-slate-900 transition cursor-pointer flex items-center justify-center gap-1.5';
+        if (confirmBox) confirmBox.classList.remove('hidden');
+        if (submitBtn) {
+          submitBtn.textContent = '📝 ยืนยันการสมัครสมาชิก';
+          submitBtn.className = 'bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition cursor-pointer shadow-lg shadow-emerald-600/20';
+        }
+        if (banner) banner.className = 'bg-emerald-50 border border-emerald-100 rounded-2xl p-3 text-xs text-emerald-900 space-y-1';
+        if (title) title.textContent = '📝 สมัครสมาชิกใหม่ฟรี (จำงานข้ามเครื่อง):';
+        if (desc) desc.textContent = '• ตั้งชื่อผู้ใช้และรหัสผ่านของคุณเพื่อผูกกับระบบคลาวด์ งานปัจจุบันของคุณจะถูกบันทึกเข้าบัญชีนี้ทันที';
+      }
+    };
+
+    window.toggleAuthPasswordVisibility = function() {
+      const p1 = document.getElementById('authPasswordInput');
+      const p2 = document.getElementById('authConfirmPasswordInput');
+      if (p1) p1.type = p1.type === 'password' ? 'text' : 'password';
+      if (p2) p2.type = p2.type === 'password' ? 'text' : 'password';
+    };
+
+    window.openAuthModal = function(defaultMode = 'login') {
+      switchAuthTab(defaultMode);
+      renderSavedAccountsUI();
       const modal = document.getElementById('authModal');
       if (modal) {
         modal.classList.remove('hidden');
@@ -2190,94 +2463,172 @@
       }
     };
 
-    window.handleUserLogin = async function() {
+    function showAuthFeedback(errorText, successText = '') {
+      const errEl = document.getElementById('authErrorMsg');
+      const okEl = document.getElementById('authSuccessMsg');
+      if (errEl) {
+        if (errorText) {
+          errEl.textContent = errorText;
+          errEl.classList.remove('hidden');
+        } else {
+          errEl.classList.add('hidden');
+        }
+      }
+      if (okEl) {
+        if (successText) {
+          okEl.textContent = successText;
+          okEl.classList.remove('hidden');
+        } else {
+          okEl.classList.add('hidden');
+        }
+      }
+    }
+
+    window.handleUserAuthSubmit = async function() {
       const usernameInput = document.getElementById('authUsernameInput');
       const passwordInput = document.getElementById('authPasswordInput');
-      const errEl = document.getElementById('authErrorMsg');
+      const confirmInput = document.getElementById('authConfirmPasswordInput');
+      const rememberCheck = document.getElementById('authRememberMe');
       const submitBtn = document.getElementById('authSubmitBtn');
 
       const rawUser = (usernameInput?.value || '').trim().toLowerCase();
       const rawPass = (passwordInput?.value || '').trim();
+      const rawConfirm = (confirmInput?.value || '').trim();
+      const rememberMe = rememberCheck ? rememberCheck.checked : true;
+
+      showAuthFeedback('');
 
       if (!rawUser || !rawPass) {
-        if (errEl) {
-          errEl.textContent = '⚠️ กรุณากรอกทั้งชื่อผู้ใช้และรหัสผ่าน';
-          errEl.classList.remove('hidden');
-        }
+        showAuthFeedback('⚠️ กรุณากรอกทั้งชื่อผู้ใช้ (Username) และรหัสผ่าน (Password)');
         return;
       }
 
-      if (submitBtn) submitBtn.textContent = 'กำลังตรวจสอบ...';
+      if (rawUser.length < 3) {
+        showAuthFeedback('⚠️ ชื่อผู้ใช้ต้องมีความยาวอย่างน้อย 3 ตัวอักษร');
+        return;
+      }
+
+      if (currentAuthMode === 'register') {
+        if (rawPass.length < 4) {
+          showAuthFeedback('⚠️ รหัสผ่านต้องมีความยาวอย่างน้อย 4 ตัวอักษร');
+          return;
+        }
+        if (rawPass !== rawConfirm) {
+          showAuthFeedback('❌ รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง');
+          return;
+        }
+      }
+
+      if (submitBtn) submitBtn.textContent = '⏳ กำลังเชื่อมต่อฐานข้อมูลคลาวด์...';
 
       try {
+        if (db && !firebaseUser) {
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+          firebaseUser = auth.currentUser;
+        }
+
         if (db && firebaseUser) {
           const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', rawUser);
           const snap = await getDoc(userDocRef);
 
-          if (snap.exists()) {
-            const data = snap.data();
-            if (data.password !== rawPass) {
-              if (errEl) {
-                errEl.textContent = '❌ รหัสผ่านไม่ถูกต้องสำหรับชื่อผู้ใช้นี้';
-                errEl.classList.remove('hidden');
-              }
-              if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / สมัครใหม่';
+          if (currentAuthMode === 'register') {
+            if (snap.exists()) {
+              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้ ("' + rawUser + '") มีผู้ใช้งานแล้ว กรุณาตั้งชื่ออื่น หรือกดสลับไปแท็บ "เข้าสู่ระบบ"');
+              if (submitBtn) submitBtn.textContent = '📝 ยืนยันการสมัครสมาชิก';
               return;
             }
-            if (data.lastWorkspaceJson) {
-              try {
-                const parsed = JSON.parse(data.lastWorkspaceJson);
-                importFullProjectPayload(parsed);
-              } catch (e) {}
-            }
-            if (data.lastProjectTitle) currentProjectTitle = data.lastProjectTitle;
-            if (data.lastProjectId) currentProjectId = data.lastProjectId;
-          } else {
-            const currentPayload = JSON.stringify(exportFullProjectPayload());
+
+            const workspaceObj = exportLightweightWorkspace();
+            await saveMediaLayersToCloud('user_' + rawUser);
+
             await setDoc(userDocRef, {
               username: rawUser,
               password: rawPass,
               createdAt: Date.now(),
-              lastWorkspaceJson: currentPayload,
+              updatedAt: Date.now(),
+              lastWorkspaceJson: JSON.stringify(workspaceObj),
               lastProjectTitle: currentProjectTitle,
               lastProjectId: currentProjectId
             });
+
+            loggedInUser = rawUser;
+            await saveDeviceSession(rawUser, rawPass, rememberMe);
+            updateAuthUI();
+            subscribeUserProjects(rawUser);
+            showAuthFeedback('', '✅ สมัครสมาชิกและเข้าสู่ระบบสำเร็จ! ระบบได้ผูกงานของคุณเข้ากับคลาวด์แล้ว');
+            setTimeout(() => closeAuthModal(), 700);
+          } else {
+            // LOGIN MODE
+            if (!snap.exists()) {
+              showAuthFeedback('❌ ไม่พบชื่อผู้ใช้ "' + rawUser + '" ในระบบ กรุณาตรวจสอบความถูกต้อง หรือกดแท็บ "สมัครสมาชิกใหม่" ด้านบน');
+              if (submitBtn) submitBtn.textContent = '🔑 เข้าสู่ระบบ';
+              return;
+            }
+
+            const data = snap.data();
+            if (data.password !== rawPass) {
+              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้องสำหรับบัญชี "' + rawUser + '" กรุณาลองอีกครั้ง');
+              if (submitBtn) submitBtn.textContent = '🔑 เข้าสู่ระบบ';
+              return;
+            }
+
+            loggedInUser = rawUser;
+            if (data.lastProjectTitle) currentProjectTitle = data.lastProjectTitle;
+            if (data.lastProjectId) currentProjectId = data.lastProjectId;
+
+            await saveDeviceSession(rawUser, rawPass, rememberMe);
+            updateAuthUI();
+            subscribeUserProjects(rawUser);
+            await loadWorkspaceFromAccountData(rawUser, data);
+
+            showAuthFeedback('', '✅ เข้าสู่ระบบสำเร็จ! ดึงข้อมูลงานล่าสุดของคุณเรียบร้อยแล้ว');
+            setTimeout(() => closeAuthModal(), 500);
           }
         } else {
-          if (memoryUsers[rawUser] && memoryUsers[rawUser].password !== rawPass) {
-            if (errEl) {
-              errEl.textContent = '❌ รหัสผ่านไม่ถูกต้อง';
-              errEl.classList.remove('hidden');
+          // Fallback if offline
+          if (currentAuthMode === 'register') {
+            if (memoryUsers[rawUser]) {
+              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้มีอยู่แล้ว กรุณาสลับไปแท็บเข้าสู่ระบบ');
+              return;
             }
-            if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / สมัครใหม่';
-            return;
-          }
-          if (!memoryUsers[rawUser]) {
             memoryUsers[rawUser] = {
               username: rawUser,
               password: rawPass,
-              lastWorkspaceJson: JSON.stringify(exportFullProjectPayload())
+              lastWorkspaceJson: JSON.stringify(exportLightweightWorkspace())
             };
-          } else if (memoryUsers[rawUser].lastWorkspaceJson) {
-            importFullProjectPayload(JSON.parse(memoryUsers[rawUser].lastWorkspaceJson));
+          } else {
+            if (!memoryUsers[rawUser]) {
+              showAuthFeedback('❌ ไม่พบบัญชีผู้ใช้นี้ กรุณาสมัครสมาชิกก่อน');
+              return;
+            }
+            if (memoryUsers[rawUser].password !== rawPass) {
+              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้อง');
+              return;
+            }
+            if (memoryUsers[rawUser].lastWorkspaceJson) {
+              importLightweightWorkspace(JSON.parse(memoryUsers[rawUser].lastWorkspaceJson));
+            }
           }
+          loggedInUser = rawUser;
+          updateAuthUI();
+          subscribeUserProjects(rawUser);
+          closeAuthModal();
         }
-
-        loggedInUser = rawUser;
-        updateAuthUI();
-        subscribeUserProjects(rawUser);
-        closeAuthModal();
       } catch (e) {
-        if (errEl) {
-          errEl.textContent = 'เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองอีกครั้ง';
-          errEl.classList.remove('hidden');
-        }
+        console.error("Auth error:", e);
+        showAuthFeedback('เกิดข้อผิดพลาดในการเชื่อมต่อคลาวด์ กรุณาลองใหม่อีกครั้ง');
       } finally {
-        if (submitBtn) submitBtn.textContent = 'เข้าสู่ระบบ / สมัครใหม่';
+        if (submitBtn) {
+          submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
+        }
       }
     };
 
-    window.logoutAccount = function() {
+    window.logoutAccount = async function() {
       loggedInUser = null;
       currentProjectId = null;
       currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
@@ -2286,6 +2637,12 @@
         unsubscribeProjects = null;
       }
       userProjectsList = [];
+      if (db && firebaseUser) {
+        try {
+          const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
+          await setDoc(sessionRef, { activeUsername: null, updatedAt: Date.now() }, { merge: true });
+        } catch (e) {}
+      }
       updateAuthUI();
     };
 
@@ -2308,7 +2665,7 @@
         if (guestBar) { guestBar.classList.remove('hidden'); guestBar.classList.add('sm:flex'); }
         if (userBar) { userBar.classList.remove('flex'); userBar.classList.add('hidden'); }
         if (activeProjBar) { activeProjBar.classList.remove('flex'); activeProjBar.classList.add('hidden'); }
-        if (mobileAuthLabel) mobileAuthLabel.textContent = 'ล็อกอิน';
+        if (mobileAuthLabel) mobileAuthLabel.textContent = 'เข้าสู่ระบบ';
       }
     }
 
@@ -2336,7 +2693,9 @@
             if (badge) badge.textContent = list.length;
             renderHistoryList();
           },
-          (err) => {}
+          (err) => {
+            console.error("Projects snapshot error:", err);
+          }
         );
       } else {
         userProjectsList = memoryProjects.filter(p => p.owner === username);
@@ -2346,43 +2705,86 @@
       }
     }
 
-    window.triggerCloudAutoSave = function() {
-      if (!loggedInUser) return;
+    async function performCloudWorkspaceSync(includeMedia = false) {
+      if (!loggedInUser || window.isRestoringFromCloud) return;
       const statusText = document.getElementById('autoSaveStatusText');
-      if (statusText) statusText.textContent = '• กำลังซิงค์ข้อมูลล่าสุด...';
+      if (statusText) statusText.textContent = '• ⏳ กำลังซิงค์ข้อมูลขึ้นคลาวด์...';
 
-      if (autoSaveTimer) clearTimeout(autoSaveTimer);
-      autoSaveTimer = setTimeout(async () => {
-        try {
-          const payloadStr = JSON.stringify(exportFullProjectPayload());
-          if (db && firebaseUser) {
-            const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', loggedInUser);
-            await setDoc(userDocRef, {
-              username: loggedInUser,
-              lastWorkspaceJson: payloadStr,
-              lastProjectTitle: currentProjectTitle,
-              lastProjectId: currentProjectId,
+      try {
+        const workspaceObj = exportLightweightWorkspace();
+        const payloadStr = JSON.stringify(workspaceObj);
+
+        if (db && firebaseUser) {
+          if (includeMedia) {
+            await saveMediaLayersToCloud('user_' + loggedInUser);
+          }
+          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', loggedInUser);
+          await setDoc(userDocRef, {
+            username: loggedInUser,
+            lastWorkspaceJson: payloadStr,
+            lastProjectTitle: currentProjectTitle,
+            lastProjectId: currentProjectId,
+            updatedAt: Date.now()
+          }, { merge: true });
+
+          // If user is currently editing an existing saved project, auto-sync it as well!
+          if (currentProjectId) {
+            if (includeMedia) {
+              await saveMediaLayersToCloud(currentProjectId);
+            }
+            const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', currentProjectId);
+            await setDoc(projRef, {
+              owner: loggedInUser,
+              title: currentProjectTitle,
+              aspect: currentAspectName,
+              thumbnail: generateThumbnailDataUrl(),
+              payloadJson: payloadStr,
               updatedAt: Date.now()
             }, { merge: true });
-          } else if (memoryUsers[loggedInUser]) {
-            memoryUsers[loggedInUser].lastWorkspaceJson = payloadStr;
           }
-          if (statusText) statusText.textContent = '✓ จดจำสถานะงานล่าสุดแล้ว';
-        } catch (e) {
-          if (statusText) statusText.textContent = '';
+        } else if (memoryUsers[loggedInUser]) {
+          memoryUsers[loggedInUser].lastWorkspaceJson = payloadStr;
         }
-      }, 900);
+        if (statusText) {
+          const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          statusText.textContent = `✓ ซิงค์คลาวด์อัตโนมัติแล้ว (${timeStr})`;
+        }
+      } catch (e) {
+        console.error("Auto-save error:", e);
+        if (statusText) statusText.textContent = '⚠️ ซิงค์คลาวด์ขัดข้อง กดซิงค์ทันทีเพื่อลองใหม่';
+      }
+    }
+
+    window.triggerCloudAutoSave = function(includeMedia = false) {
+      if (!loggedInUser || window.isRestoringFromCloud) return;
+      const statusText = document.getElementById('autoSaveStatusText');
+      if (statusText) statusText.textContent = '• ⏳ กำลังเตรียมบันทึก...';
+
+      if (autoSaveTimer) clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        performCloudWorkspaceSync(includeMedia);
+      }, 650);
+    };
+
+    window.forceManualCloudSync = async function() {
+      if (!loggedInUser) {
+        openAuthModal('login');
+        return;
+      }
+      await performCloudWorkspaceSync(true);
     };
 
     const origSaveHistory = window.saveHistoryState;
     window.saveHistoryState = function() {
       if (origSaveHistory) origSaveHistory();
-      if (window.triggerCloudAutoSave) window.triggerCloudAutoSave();
+      if (window.triggerCloudAutoSave && !window.isRestoringFromCloud) {
+        window.triggerCloudAutoSave(true);
+      }
     };
 
     window.openSaveProjectModal = function() {
       if (!loggedInUser) {
-        openAuthModal();
+        openAuthModal('login');
         return;
       }
       const input = document.getElementById('projectTitleInput');
@@ -2417,7 +2819,8 @@
       const title = (input?.value || '').trim() || 'งานประชาสัมพันธ์';
       const projId = (!saveAsNew && currentProjectId) ? currentProjectId : ('proj_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
 
-      const payloadStr = JSON.stringify(exportFullProjectPayload());
+      const workspaceObj = exportLightweightWorkspace();
+      const payloadStr = JSON.stringify(workspaceObj);
       const thumb = generateThumbnailDataUrl();
 
       const projectData = {
@@ -2431,6 +2834,7 @@
 
       try {
         if (db && firebaseUser) {
+          await saveMediaLayersToCloud(projId);
           const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
           await setDoc(projRef, projectData);
         } else {
@@ -2443,9 +2847,11 @@
         currentProjectId = projId;
         currentProjectTitle = title;
         updateAuthUI();
-        triggerCloudAutoSave();
+        await performCloudWorkspaceSync(true);
         closeSaveProjectModal();
-      } catch (e) {}
+      } catch (e) {
+        console.error("Save project error:", e);
+      }
     };
 
     window.startNewBlankProject = function() {
@@ -2457,12 +2863,12 @@
       resetTextPositions();
       applyPreset(1);
       updateAuthUI();
-      triggerCloudAutoSave();
+      performCloudWorkspaceSync(true);
     };
 
     window.openHistoryModal = function() {
       if (!loggedInUser) {
-        openAuthModal();
+        openAuthModal('login');
         return;
       }
       const uEl = document.getElementById('historyModalUsername');
@@ -2495,12 +2901,16 @@
       container.innerHTML = userProjectsList.map((proj) => {
         const dateStr = new Date(proj.updatedAt || Date.now()).toLocaleString('th-TH');
         const safeTitle = (proj.title || 'ไม่มีชื่อ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const isCurrent = proj.id === currentProjectId;
         return `
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-2xl border border-slate-200 hover:border-indigo-300 bg-slate-50/70 transition">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-2xl border ${isCurrent ? 'border-indigo-500 bg-indigo-50/60' : 'border-slate-200 bg-slate-50/70'} hover:border-indigo-300 transition">
             <div class="flex items-center gap-3">
               ${proj.thumbnail ? `<img src="${proj.thumbnail}" class="w-14 h-14 object-cover rounded-xl border border-slate-300 bg-white flex-shrink-0">` : `<div class="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">PR</div>`}
               <div>
-                <div class="font-bold text-sm text-slate-900">${safeTitle}</div>
+                <div class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                  <span>${safeTitle}</span>
+                  ${isCurrent ? `<span class="bg-indigo-600 text-white text-[10px] px-2 py-0.5 rounded-full">กำลังเปิดใช้งาน</span>` : ''}
+                </div>
                 <div class="text-[11px] text-slate-500">สัดส่วน: ${proj.aspect || '1:1'} • แก้ไขล่าสุด: ${dateStr}</div>
               </div>
             </div>
@@ -2517,18 +2927,24 @@
       }).join('');
     }
 
-    window.loadProjectFromHistory = function(projId) {
+    window.loadProjectFromHistory = async function(projId) {
       const found = userProjectsList.find(p => p.id === projId);
       if (!found || !found.payloadJson) return;
       try {
+        window.isRestoringFromCloud = true;
+        window.hasRestoredCloudWorkspace = true;
         const parsed = JSON.parse(found.payloadJson);
         currentProjectId = found.id;
         currentProjectTitle = found.title || 'งานที่บันทึกไว้';
-        importFullProjectPayload(parsed);
+        importLightweightWorkspace(parsed);
+        await loadMediaLayersFromCloud(projId, parsed.mediaFlags);
         updateAuthUI();
-        triggerCloudAutoSave();
+        window.isRestoringFromCloud = false;
+        performCloudWorkspaceSync(true);
         closeHistoryModal();
-      } catch (e) {}
+      } catch (e) {
+        window.isRestoringFromCloud = false;
+      }
     };
 
     window.deleteProjectFromHistory = async function(projId) {
@@ -2548,7 +2964,7 @@
       } catch (e) {}
     };
 
-    function getCompressedImageData(imgEl, isLoaded, maxDim = 550) {
+    function getCompressedImageData(imgEl, isLoaded, maxDim = 520, preferJpeg = false) {
       if (!isLoaded || !imgEl || !imgEl.src) return null;
       try {
         const tempCanvas = document.createElement('canvas');
@@ -2562,7 +2978,19 @@
         tempCanvas.height = h;
         const tCtx = tempCanvas.getContext('2d');
         tCtx.drawImage(imgEl, 0, 0, w, h);
-        return tempCanvas.toDataURL('image/webp', 0.78);
+        if (preferJpeg) {
+          return tempCanvas.toDataURL('image/jpeg', 0.72);
+        }
+        const webpData = tempCanvas.toDataURL('image/webp', 0.75);
+        if (webpData.length > 750000) {
+          // Downscale further if browser fell back to uncompressed PNG
+          const smallCanvas = document.createElement('canvas');
+          smallCanvas.width = Math.round(w * 0.65);
+          smallCanvas.height = Math.round(h * 0.65);
+          smallCanvas.getContext('2d').drawImage(tempCanvas, 0, 0, smallCanvas.width, smallCanvas.height);
+          return smallCanvas.toDataURL('image/png');
+        }
+        return webpData;
       } catch (e) {
         return null;
       }
@@ -2571,62 +2999,117 @@
     function generateThumbnailDataUrl() {
       try {
         const thumbCanvas = document.createElement('canvas');
-        thumbCanvas.width = 220;
-        thumbCanvas.height = Math.round(220 * (canvasHeight / canvasWidth));
+        thumbCanvas.width = 200;
+        thumbCanvas.height = Math.round(200 * (canvasHeight / canvasWidth));
         const tCtx = thumbCanvas.getContext('2d');
         tCtx.drawImage(canvas, 0, 0, thumbCanvas.width, thumbCanvas.height);
-        return thumbCanvas.toDataURL('image/jpeg', 0.7);
+        return thumbCanvas.toDataURL('image/jpeg', 0.65);
       } catch (e) {
         return '';
       }
     }
 
-    function exportFullProjectPayload() {
+    // Export lightweight workspace state (text, sliders, positions, colors)
+    function exportLightweightWorkspace() {
       const baseState = captureState();
-      baseState.currentStyle = currentStyle;
-      baseState.colorsAndFonts = {
-        font1: document.getElementById('font1')?.value || 'Prompt',
-        font2: document.getElementById('font2')?.value || 'Prompt',
-        font3: document.getElementById('font3')?.value || 'Prompt',
-        colorLine1: document.getElementById('colorLine1')?.value || '#FFE600',
-        colorGoldText: document.getElementById('colorGoldText')?.value || '#FFCC00',
-        gradColor1: document.getElementById('gradColor1')?.value || '#031B59',
-        gradColor2: document.getElementById('gradColor2')?.value || '#010922',
-        dividerStyle: document.getElementById('dividerStyle')?.value || 'gold',
-        dividerColor: document.getElementById('dividerColor')?.value || '#E0B236',
-        footerMode: document.getElementById('footerMode')?.value || 'style1',
-        ribbonColor: document.getElementById('ribbonColor')?.value || '#EA580C'
-      };
-      baseState.images = {
-        bgData: getCompressedImageData(bgImg, bgLoaded, 600),
-        fg1Data: getCompressedImageData(fg1Img, fg1Loaded, 500),
-        fg2Data: getCompressedImageData(fg2Img, fg2Loaded, 500),
-        logoData: customLogoImg ? getCompressedImageData(customLogoImg, true, 240) : null
+      baseState.mediaFlags = {
+        hasBg: Boolean(bgLoaded),
+        hasFg1: Boolean(fg1Loaded),
+        hasFg2: Boolean(fg2Loaded),
+        hasLogo: Boolean(customLogoImg)
       };
       return baseState;
     }
 
-    function importFullProjectPayload(payload) {
-      if (!payload) return;
-      currentStyle = payload.currentStyle || 1;
-      restoreState(payload);
+    // Save heavy image layers into separate Firestore documents under aofta_media
+    async function saveMediaLayersToCloud(prefixKey) {
+      const layers = [
+        { key: 'bg', data: getCompressedImageData(bgImg, bgLoaded, 640, true) },
+        { key: 'fg1', data: getCompressedImageData(fg1Img, fg1Loaded, 480, false) },
+        { key: 'fg2', data: getCompressedImageData(fg2Img, fg2Loaded, 480, false) },
+        { key: 'logo', data: customLogoImg ? getCompressedImageData(customLogoImg, true, 240, false) : null }
+      ];
 
-      if (payload.colorsAndFonts) {
-        const cf = payload.colorsAndFonts;
-        const setVal = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.value = val; };
-        setVal('font1', cf.font1);
-        setVal('font2', cf.font2);
-        setVal('font3', cf.font3);
-        setVal('colorLine1', cf.colorLine1);
-        setVal('colorGoldText', cf.colorGoldText);
-        setVal('gradColor1', cf.gradColor1);
-        setVal('gradColor2', cf.gradColor2);
-        setVal('dividerStyle', cf.dividerStyle);
-        setVal('dividerColor', cf.dividerColor);
-        setVal('footerMode', cf.footerMode);
-        setVal('ribbonColor', cf.ribbonColor);
+      for (const item of layers) {
+        const docId = `${prefixKey}_${item.key}`;
+        if (db && firebaseUser) {
+          const mediaRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_media', docId);
+          await setDoc(mediaRef, {
+            dataUrl: item.data || null,
+            updatedAt: Date.now()
+          });
+        } else {
+          memoryMedia[docId] = item.data || null;
+        }
       }
+    }
 
+    async function loadMediaLayersFromCloud(prefixKey, mediaFlags = {}) {
+      const keys = ['bg', 'fg1', 'fg2', 'logo'];
+      for (const k of keys) {
+        const docId = `${prefixKey}_${k}`;
+        let dataUrl = null;
+        if (db && firebaseUser) {
+          try {
+            const mediaRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_media', docId);
+            const snap = await getDoc(mediaRef);
+            if (snap.exists()) {
+              dataUrl = snap.data().dataUrl || null;
+            }
+          } catch (e) {}
+        } else {
+          dataUrl = memoryMedia[docId] || null;
+        }
+
+        if (k === 'bg' && dataUrl) {
+          await new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => { bgImg = img; bgLoaded = true; resolve(); };
+            img.onerror = () => resolve();
+            img.src = dataUrl;
+          });
+        } else if (k === 'fg1') {
+          if (dataUrl && (mediaFlags.hasFg1 !== false)) {
+            await new Promise((resolve) => {
+              const img = new Image();
+              img.onload = () => { fg1Img = img; fg1Loaded = true; resolve(); };
+              img.onerror = () => resolve();
+              img.src = dataUrl;
+            });
+          } else {
+            fg1Loaded = false;
+          }
+        } else if (k === 'fg2') {
+          if (dataUrl && (mediaFlags.hasFg2 !== false)) {
+            await new Promise((resolve) => {
+              const img = new Image();
+              img.onload = () => { fg2Img = img; fg2Loaded = true; resolve(); };
+              img.onerror = () => resolve();
+              img.src = dataUrl;
+            });
+          } else {
+            fg2Loaded = false;
+          }
+        } else if (k === 'logo') {
+          if (dataUrl && (mediaFlags.hasLogo !== false)) {
+            await new Promise((resolve) => {
+              const img = new Image();
+              img.onload = () => { customLogoImg = img; resolve(); };
+              img.onerror = () => resolve();
+              img.src = dataUrl;
+            });
+          } else {
+            customLogoImg = null;
+          }
+        }
+      }
+      renderCanvas();
+    }
+
+    function importLightweightWorkspace(payload) {
+      if (!payload) return;
+      restoreState(payload);
+      // Also support legacy embedded images if present
       if (payload.images) {
         if (payload.images.bgData) {
           const img = new Image();
@@ -2637,26 +3120,33 @@
           const img1 = new Image();
           img1.onload = () => { fg1Img = img1; fg1Loaded = true; renderCanvas(); };
           img1.src = payload.images.fg1Data;
-        } else {
-          fg1Loaded = false;
         }
         if (payload.images.fg2Data) {
           const img2 = new Image();
           img2.onload = () => { fg2Img = img2; fg2Loaded = true; renderCanvas(); };
           img2.src = payload.images.fg2Data;
-        } else {
-          fg2Loaded = false;
         }
         if (payload.images.logoData) {
           const lImg = new Image();
           lImg.onload = () => { customLogoImg = lImg; renderCanvas(); };
           lImg.src = payload.images.logoData;
-        } else {
-          customLogoImg = null;
         }
       }
-
       renderCanvas();
+    }
+
+    async function loadWorkspaceFromAccountData(username, accountData) {
+      if (!accountData || !accountData.lastWorkspaceJson) return;
+      try {
+        window.isRestoringFromCloud = true;
+        window.hasRestoredCloudWorkspace = true;
+        const parsed = JSON.parse(accountData.lastWorkspaceJson);
+        importLightweightWorkspace(parsed);
+        await loadMediaLayersFromCloud('user_' + username, parsed.mediaFlags);
+        window.isRestoringFromCloud = false;
+      } catch (e) {
+        window.isRestoringFromCloud = false;
+      }
     }
   </script>
 </body>
