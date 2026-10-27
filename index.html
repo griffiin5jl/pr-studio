@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V26.1</title>
+  <title>เครื่องมือสร้างภาพประชาสัมพันธ์ AOFTA STUDIO PRO V26.2</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,8 +57,8 @@
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V26.1</h1>
-              <span class="bg-emerald-400/15 text-emerald-300 border border-emerald-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Google Sheet DB Edition</span>
+              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO V26.2</h1>
+              <span class="bg-emerald-400/15 text-emerald-300 border border-emerald-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Cloud Sync Edition</span>
             </div>
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
           </div>
@@ -66,7 +66,7 @@
       </div>
 
       <div class="flex items-center justify-between lg:justify-end gap-2 flex-wrap">
-        <!-- GOOGLE SHEET DB SETUP BUTTON (HIDDEN FROM UI AS REQUESTED) -->
+        <!-- GOOGLE SHEET DB SETUP BUTTON -->
         <button onclick="openSheetConfigModal()" id="sheetStatusBtn" class="hidden bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 font-bold px-2.5 py-1.5 rounded-xl text-[11px] transition items-center gap-1.5 cursor-pointer" title="ตั้งค่าฐานข้อมูล Google Sheet ส่วนตัว">
           <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
           <span id="sheetStatusLabel">📊 ฐานข้อมูล Google Sheet</span>
@@ -145,6 +145,7 @@
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
             พื้นที่แสดงผลตัวอย่าง (<span id="canvasDimLabel">1080 x 1080 px</span>)
           </span>
+
           <div class="flex items-center gap-2">
             <button onclick="openFullscreenModal()" class="text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-xl border border-indigo-200 transition flex items-center gap-1 cursor-pointer">
               🔍 ดูภาพเต็มจอ
@@ -321,10 +322,10 @@
         <!-- USER GUIDE CARD -->
         <div class="bg-slate-50 border border-slate-200 rounded-3xl p-4 space-y-2 text-xs text-slate-700 shadow-sm">
           <div class="font-bold text-slate-900 flex items-center gap-1.5">
-            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Google Sheet DB Edition)
+            <span>📖</span> คู่มือการใช้งานเบื้องต้น (Cloud Account & Sync)
           </div>
           <ul class="list-disc pl-4 space-y-1 text-slate-600">
-            <li><strong>ล็อกอินส่วนตัว:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อสมัครหรือเข้าสู่ระบบ งานจะถูกบันทึกเชื่อมโยงกับ Google Sheet ของคุณ</li>
+            <li><strong>ล็อกอินส่วนตัว:</strong> กดปุ่ม "🔐 เข้าสู่ระบบ" ด้านบนเพื่อซิงค์ข้อมูลและดึงประวัติงานจาก Google Sheet ส่วนตัวของคุณ</li>
             <li><strong>แสงฟุ้งหลังตัวบุคคล (Halo Aura):</strong> ไปที่แท็บแต่งภาพเพื่อเปิดแสงฟุ้งด้านหลังตัวบุคคล ทำให้ภาพดูโดดเด่นสะดุดตา</li>
             <li><strong>บันทึกรูปบนมือถือ:</strong> รองรับการกดแชร์บันทึกรูปเข้าอัลบั้มมือถือ หรือแตะค้างที่รูปเพื่อบันทึกได้ทันที</li>
           </ul>
@@ -865,7 +866,7 @@
               👁️ แสดง/ซ่อนรหัสผ่าน
             </button>
           </div>
-          <input type="password" id="authPasswordInput" placeholder="กรอกรหัสผ่านของคุณ" autocomplete="current-password" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-indigo-600">
+          <input type="password" id="authPasswordInput" placeholder="กรอกรหัสผ่านของคุณ (รองรับเลข 0 นำหน้า)" autocomplete="current-password" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:border-indigo-600">
         </div>
         <div id="authConfirmPasswordBox" class="hidden">
           <label class="block font-bold text-slate-700 mb-1">ยืนยันรหัสผ่านอีกครั้ง (Confirm Password)</label>
@@ -2526,7 +2527,7 @@
 
     window.copyGoogleAppsScriptCode = function() {
       const scriptCode = `// ====================================================================
-// โค้ดฐานข้อมูลส่วนตัว AOFTA STUDIO PRO V26.1 สำหรับ Google Sheet
+// โค้ดฐานข้อมูลส่วนตัว AOFTA STUDIO PRO V26.2 สำหรับ Google Sheet
 // วิธีใช้: วางโค้ดนี้ใน Extensions > Apps Script ของ Google Sheet ของคุณ
 // เฉพาะคุณเท่านั้นที่เปิดดู Google Sheet นี้ได้!
 // ====================================================================
@@ -2541,6 +2542,7 @@ function setupSheets() {
     accSheet.getRange('A1:L1').setBackground('#0F172A').setFontColor('#FFFFFF').setFontWeight('bold');
     accSheet.setFrozenRows(1);
   }
+  accSheet.getRange('C:C').setNumberFormat('@');
 
   let projSheet = ss.getSheetByName('Projects');
   if (!projSheet) {
@@ -2590,10 +2592,11 @@ function doPost(e) {
         }
       }
       const m = body.media || {};
+      const passwordStr = "'" + String(body.password || '');
       accSheet.appendRow([
         u,
         body.displayUsername || u,
-        String(body.password || ''),
+        passwordStr,
         nowStr,
         nowStr,
         body.lastProjectTitle || 'งานใหม่',
@@ -2612,7 +2615,7 @@ function doPost(e) {
       const rows = accSheet.getDataRange().getValues();
       for (let i = 1; i < rows.length; i++) {
         if (String(rows[i][0]).trim().toLowerCase() === u) {
-          const savedPass = String(rows[i][2]);
+          const savedPass = String(rows[i][2]).replace(/^'/, '');
           if (action === 'login' && savedPass !== String(body.password || '')) {
             return jsonOut({ ok: false, error: 'WRONG_PASSWORD' });
           }
@@ -2785,13 +2788,6 @@ function jsonOut(obj) {
             updateAuthUI();
             await loadWorkspaceFromAccountData(loggedInUser, acc);
           }
-        } else if (memoryUsers[loggedInUser] && memoryUsers[loggedInUser].lastWorkspaceJson) {
-          const uData = memoryUsers[loggedInUser];
-          if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
-          if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
-          updateAuthUI();
-          subscribeUserProjects(loggedInUser);
-          await loadWorkspaceFromAccountData(loggedInUser, uData);
         }
       }
 
@@ -2827,13 +2823,6 @@ function jsonOut(obj) {
           if (firebaseUser) {
             await restoreDeviceSession(firebaseUser.uid);
           }
-
-          onAuthStateChanged(auth, async (user) => {
-            firebaseUser = user;
-            if (user && !loggedInUser) {
-              await restoreDeviceSession(user.uid);
-            }
-          });
         }
       } catch (err) {
         console.error("Cloud connection init error:", err);
@@ -2850,10 +2839,6 @@ function jsonOut(obj) {
         const pubSnap = await getDoc(pubSessionRef);
         if (pubSnap.exists()) {
           sData = pubSnap.data();
-        } else {
-          const sessionRef = doc(db, 'artifacts', appId, 'users', uid, 'session', 'active');
-          const sessionSnap = await getDoc(sessionRef);
-          if (sessionSnap.exists()) sData = sessionSnap.data();
         }
 
         if (sData) {
@@ -2872,30 +2857,20 @@ function jsonOut(obj) {
                 const acc = sheetRes.account;
                 if (acc.lastProjectTitle) currentProjectTitle = acc.lastProjectTitle;
                 if (acc.lastProjectId) currentProjectId = acc.lastProjectId;
+                if (Array.isArray(sheetRes.projects)) {
+                  memoryProjects = sheetRes.projects;
+                  userProjectsList = sheetRes.projects.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+                  const badge = document.getElementById('projectCountBadge');
+                  if (badge) badge.textContent = userProjectsList.length;
+                  renderHistoryList();
+                }
                 updateAuthUI();
                 await loadWorkspaceFromAccountData(targetUser, acc);
               }
             }
-
-            const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', targetUser);
-            const userSnap = await getDoc(userDocRef);
-            if (userSnap.exists()) {
-              const uData = userSnap.data();
-              if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
-              if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
-              memoryUsers[targetUser] = uData;
-              persistTabSessionCache();
-              updateAuthUI();
-              subscribeUserProjects(loggedInUser);
-              if (!window.hasRestoredCloudWorkspace) {
-                await loadWorkspaceFromAccountData(targetUser, uData);
-              }
-            }
           }
         }
-      } catch (e) {
-        console.error("Session restore error:", e);
-      }
+      } catch (e) {}
     }
 
     async function saveDeviceSession(activeUsername, passwordToSave, rememberMe) {
@@ -2919,9 +2894,6 @@ function jsonOut(obj) {
           savedAccounts: savedAccountsList,
           updatedAt: Date.now()
         };
-        const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
-        await setDoc(sessionRef, payload, { merge: true });
-
         const devKey = getStableDeviceKey();
         const pubSessionRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_sessions', devKey);
         await setDoc(pubSessionRef, payload, { merge: true });
@@ -3148,131 +3120,18 @@ function jsonOut(obj) {
       return baseState;
     }
 
-    async function saveMediaLayersToCloud(prefixKey) {
-      const layers = [
-        { key: 'bg', data: getCompressedImageData(bgImg, bgLoaded, 640, true) },
-        { key: 'fg1', data: getCompressedImageData(fg1Img, fg1Loaded, 480, false) },
-        { key: 'fg2', data: getCompressedImageData(fg2Img, fg2Loaded, 480, false) },
-        { key: 'logo', data: customLogoImg ? getCompressedImageData(customLogoImg, true, 240, false) : null }
-      ];
-
-      for (const item of layers) {
-        const docId = `${prefixKey}_${item.key}`;
-        if (db && firebaseUser) {
-          const mediaRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_media', docId);
-          await setDoc(mediaRef, {
-            dataUrl: item.data || null,
-            updatedAt: Date.now()
-          });
-        } else {
-          memoryMedia[docId] = item.data || null;
-        }
-      }
-    }
-
-    async function loadMediaLayersFromCloud(prefixKey, mediaFlags = {}) {
-      const keys = ['bg', 'fg1', 'fg2', 'logo'];
-      for (const k of keys) {
-        const docId = `${prefixKey}_${k}`;
-        let dataUrl = null;
-        if (db && firebaseUser) {
-          try {
-            const mediaRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_media', docId);
-            const snap = await getDoc(mediaRef);
-            if (snap.exists()) {
-              dataUrl = snap.data().dataUrl || null;
-            }
-          } catch (e) {}
-        } else {
-          dataUrl = memoryMedia[docId] || null;
-        }
-
-        if (k === 'bg' && dataUrl) {
-          await new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => { bgImg = img; bgLoaded = true; resolve(); };
-            img.onerror = () => resolve();
-            img.src = dataUrl;
-          });
-        } else if (k === 'fg1') {
-          if (dataUrl && (mediaFlags.hasFg1 !== false)) {
-            await new Promise((resolve) => {
-              const img = new Image();
-              img.onload = () => { fg1Img = img; fg1Loaded = true; resolve(); };
-              img.onerror = () => resolve();
-              img.src = dataUrl;
-            });
-          } else {
-            fg1Loaded = false;
-          }
-        } else if (k === 'fg2') {
-          if (dataUrl && (mediaFlags.hasFg2 !== false)) {
-            await new Promise((resolve) => {
-              const img = new Image();
-              img.onload = () => { fg2Img = img; fg2Loaded = true; resolve(); };
-              img.onerror = () => resolve();
-              img.src = dataUrl;
-            });
-          } else {
-            fg2Loaded = false;
-          }
-        } else if (k === 'logo') {
-          if (dataUrl && (mediaFlags.hasLogo !== false)) {
-            await new Promise((resolve) => {
-              const img = new Image();
-              img.onload = () => { customLogoImg = img; resolve(); };
-              img.onerror = () => resolve();
-              img.src = dataUrl;
-            });
-          } else {
-            customLogoImg = null;
-          }
-        }
-      }
-      renderCanvas();
-    }
-
-    function importLightweightWorkspace(payload) {
-      if (!payload) return;
-      restoreState(payload);
-      if (payload.images) {
-        if (payload.images.bgData) {
-          const img = new Image();
-          img.onload = () => { bgImg = img; bgLoaded = true; renderCanvas(); };
-          img.src = payload.images.bgData;
-        }
-        if (payload.images.fg1Data) {
-          const img1 = new Image();
-          img1.onload = () => { fg1Img = img1; fg1Loaded = true; renderCanvas(); };
-          img1.src = payload.images.fg1Data;
-        }
-        if (payload.images.fg2Data) {
-          const img2 = new Image();
-          img2.onload = () => { fg2Img = img2; fg2Loaded = true; renderCanvas(); };
-          img2.src = payload.images.fg2Data;
-        }
-        if (payload.images.logoData) {
-          const lImg = new Image();
-          lImg.onload = () => { customLogoImg = lImg; renderCanvas(); };
-          lImg.src = payload.images.logoData;
-        }
-      }
-      renderCanvas();
-    }
-
     async function loadWorkspaceFromAccountData(username, accountData) {
       if (!accountData || !accountData.lastWorkspaceJson) return;
       try {
         window.isRestoringFromCloud = true;
         window.hasRestoredCloudWorkspace = true;
         const parsed = JSON.parse(accountData.lastWorkspaceJson);
-        importLightweightWorkspace(parsed);
+        restoreState(parsed);
         if (accountData.media && (accountData.media.bg || accountData.media.fg1 || accountData.media.fg2 || accountData.media.logo)) {
           await applyMediaBundle(accountData.media, parsed.mediaFlags);
-        } else {
-          await loadMediaLayersFromCloud('user_' + username, parsed.mediaFlags);
         }
         window.isRestoringFromCloud = false;
+        renderCanvas();
       } catch (e) {
         window.isRestoringFromCloud = false;
       }
@@ -3285,7 +3144,7 @@ function jsonOut(obj) {
       const rememberMeEl = document.getElementById('authRememberMe');
       const submitBtn = document.getElementById('authSubmitBtn');
 
-      const rawUser = (usernameInput?.value || '').trim();
+      const rawUser = (usernameInput?.value || '').trim().toLowerCase();
       const rawPass = (passwordInput?.value || '').trim();
       const rawConfirm = (confirmPasswordInput?.value || '').trim();
       const rememberMe = rememberMeEl ? rememberMeEl.checked : true;
@@ -3303,24 +3162,10 @@ function jsonOut(obj) {
       if (submitBtn) submitBtn.textContent = '⏳ กำลังตรวจสอบข้อมูล...';
 
       try {
-        if (db && !firebaseUser) {
-          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            try {
-              await signInWithCustomToken(auth, __initial_auth_token);
-            } catch (tokenErr) {
-              await signInAnonymously(auth);
-            }
-          } else {
-            await signInAnonymously(auth);
-          }
-          firebaseUser = auth.currentUser;
-        }
-
         const workspaceObj = exportLightweightWorkspace();
         const workspaceJsonStr = JSON.stringify(workspaceObj);
         const sheetMedia = getSheetSafeMediaBundle();
 
-        let handledByGoogleSheet = false;
         if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
           if (currentAuthMode === 'register') {
             const regRes = await callGoogleSheetApi('register', {
@@ -3338,7 +3183,12 @@ function jsonOut(obj) {
               return;
             }
             if (regRes && regRes.ok) {
-              handledByGoogleSheet = true;
+              loggedInUser = rawUser;
+              await saveDeviceSession(rawUser, rawPass, rememberMe);
+              updateAuthUI();
+              showAuthFeedback('', '✅ สมัครสมาชิกสำเร็จ!');
+              setTimeout(() => closeAuthModal(), 500);
+              return;
             }
           } else {
             const loginRes = await callGoogleSheetApi('login', {
@@ -3356,137 +3206,24 @@ function jsonOut(obj) {
               return;
             }
             if (loginRes && loginRes.ok && loginRes.account) {
-              handledByGoogleSheet = true;
               const acc = loginRes.account;
               loggedInUser = rawUser;
               if (acc.lastProjectTitle) currentProjectTitle = acc.lastProjectTitle;
               if (acc.lastProjectId) currentProjectId = acc.lastProjectId;
-
-              memoryUsers[rawUser] = {
-                username: rawUser,
-                password: rawPass,
-                lastProjectTitle: currentProjectTitle,
-                lastProjectId: currentProjectId,
-                lastWorkspaceJson: acc.lastWorkspaceJson,
-                media: acc.media
-              };
-
               if (Array.isArray(loginRes.projects)) {
                 memoryProjects = loginRes.projects;
                 userProjectsList = loginRes.projects.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+                const badge = document.getElementById('projectCountBadge');
+                if (badge) badge.textContent = userProjectsList.length;
+                renderHistoryList();
               }
-
               await saveDeviceSession(rawUser, rawPass, rememberMe);
               updateAuthUI();
-              subscribeUserProjects(rawUser);
               await loadWorkspaceFromAccountData(rawUser, acc);
               showAuthFeedback('', '✅ เข้าสู่ระบบผ่าน Google Sheet สำเร็จ!');
               setTimeout(() => closeAuthModal(), 500);
               return;
             }
-          }
-        }
-
-        if (db && firebaseUser) {
-          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', rawUser);
-          const snap = await getDoc(userDocRef);
-
-          if (currentAuthMode === 'register') {
-            if (snap.exists() && !handledByGoogleSheet) {
-              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้มีผู้ใช้งานแล้ว กรุณาตั้งชื่ออื่นหรือสลับไปเข้าสู่ระบบ');
-              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-              return;
-            }
-
-            await saveMediaLayersToCloud('user_' + rawUser);
-            const newAccData = {
-              username: rawUser,
-              password: rawPass,
-              createdAt: Date.now(),
-              updatedAt: Date.now(),
-              lastWorkspaceJson: workspaceJsonStr,
-              lastProjectTitle: currentProjectTitle,
-              lastProjectId: currentProjectId
-            };
-            await setDoc(userDocRef, newAccData);
-            memoryUsers[rawUser] = { ...newAccData, media: sheetMedia };
-
-            loggedInUser = rawUser;
-            await saveDeviceSession(rawUser, rawPass, rememberMe);
-            updateAuthUI();
-            subscribeUserProjects(rawUser);
-            showAuthFeedback('', '✅ สมัครสมาชิกสำเร็จ!');
-            setTimeout(() => closeAuthModal(), 600);
-          } else {
-            if (!snap.exists() && !memoryUsers[rawUser]) {
-              showAuthFeedback('❌ ไม่พบชื่อผู้ใช้ "' + rawUser + '" กรุณาสมัครสมาชิกใหม่ก่อน');
-              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-              return;
-            }
-
-            const data = snap.exists() ? snap.data() : memoryUsers[rawUser];
-            if (data.password !== rawPass) {
-              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้อง');
-              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-              return;
-            }
-
-            loggedInUser = rawUser;
-            if (data.lastProjectTitle) currentProjectTitle = data.lastProjectTitle;
-            if (data.lastProjectId) currentProjectId = data.lastProjectId;
-            memoryUsers[rawUser] = data;
-
-            await saveDeviceSession(rawUser, rawPass, rememberMe);
-            updateAuthUI();
-            subscribeUserProjects(rawUser);
-            await loadWorkspaceFromAccountData(rawUser, data);
-
-            showAuthFeedback('', '✅ เข้าสู่ระบบสำเร็จ!');
-            setTimeout(() => closeAuthModal(), 500);
-          }
-        } else {
-          if (currentAuthMode === 'register') {
-            if (memoryUsers[rawUser] && !handledByGoogleSheet) {
-              showAuthFeedback('⚠️ ชื่อผู้ใช้นี้มีอยู่แล้ว');
-              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-              return;
-            }
-            memoryUsers[rawUser] = {
-              username: rawUser,
-              password: rawPass,
-              lastProjectTitle: currentProjectTitle,
-              lastProjectId: currentProjectId,
-              lastWorkspaceJson: workspaceJsonStr,
-              media: sheetMedia
-            };
-            await saveMediaLayersToCloud('user_' + rawUser);
-            loggedInUser = rawUser;
-            await saveDeviceSession(rawUser, rawPass, rememberMe);
-            updateAuthUI();
-            subscribeUserProjects(rawUser);
-            showAuthFeedback('', '✅ สมัครสมาชิกสำเร็จ!');
-            setTimeout(() => closeAuthModal(), 500);
-          } else {
-            if (!memoryUsers[rawUser]) {
-              showAuthFeedback('❌ ไม่พบบัญชีผู้ใช้ กรุณาสมัครสมาชิกใหม่ก่อน');
-              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-              return;
-            }
-            if (memoryUsers[rawUser].password !== rawPass) {
-              showAuthFeedback('❌ รหัสผ่านไม่ถูกต้อง');
-              if (submitBtn) submitBtn.textContent = currentAuthMode === 'register' ? '📝 ยืนยันการสมัครสมาชิก' : '🔑 เข้าสู่ระบบ';
-              return;
-            }
-            loggedInUser = rawUser;
-            const uData = memoryUsers[rawUser];
-            if (uData.lastProjectTitle) currentProjectTitle = uData.lastProjectTitle;
-            if (uData.lastProjectId) currentProjectId = uData.lastProjectId;
-            await saveDeviceSession(rawUser, rawPass, rememberMe);
-            updateAuthUI();
-            subscribeUserProjects(rawUser);
-            await loadWorkspaceFromAccountData(rawUser, uData);
-            showAuthFeedback('', '✅ เข้าสู่ระบบสำเร็จ!');
-            setTimeout(() => closeAuthModal(), 500);
           }
         }
       } catch (e) {
@@ -3502,21 +3239,8 @@ function jsonOut(obj) {
       loggedInUser = null;
       currentProjectId = null;
       currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
-      if (unsubscribeProjects) {
-        unsubscribeProjects();
-        unsubscribeProjects = null;
-      }
       userProjectsList = [];
       persistTabSessionCache();
-      if (db && firebaseUser) {
-        try {
-          const sessionRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'session', 'active');
-          await setDoc(sessionRef, { activeUsername: null, updatedAt: Date.now() }, { merge: true });
-          const devKey = getStableDeviceKey();
-          const pubSessionRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_sessions', devKey);
-          await setDoc(pubSessionRef, { activeUsername: null, updatedAt: Date.now() }, { merge: true });
-        } catch (e) {}
-      }
       updateAuthUI();
     };
 
@@ -3540,40 +3264,6 @@ function jsonOut(obj) {
       }
     }
 
-    function subscribeUserProjects(username) {
-      if (unsubscribeProjects) {
-        unsubscribeProjects();
-        unsubscribeProjects = null;
-      }
-
-      if (db && firebaseUser) {
-        const projCol = collection(db, 'artifacts', appId, 'public', 'data', 'aofta_projects');
-        unsubscribeProjects = onSnapshot(
-          projCol,
-          (snapshot) => {
-            const list = [];
-            snapshot.forEach((docSnap) => {
-              const d = docSnap.data();
-              if (d.owner === username) {
-                list.push({ id: docSnap.id, ...d });
-              }
-            });
-            list.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-            userProjectsList = list;
-            const badge = document.getElementById('projectCountBadge');
-            if (badge) badge.textContent = list.length;
-            renderHistoryList();
-          },
-          (err) => {}
-        );
-      } else {
-        userProjectsList = memoryProjects.filter(p => p.owner === username);
-        const badge = document.getElementById('projectCountBadge');
-        if (badge) badge.textContent = userProjectsList.length;
-        renderHistoryList();
-      }
-    }
-
     async function performCloudWorkspaceSync(includeMedia = false) {
       if (!loggedInUser || window.isRestoringFromCloud) return;
       const statusText = document.getElementById('autoSaveStatusText');
@@ -3584,13 +3274,6 @@ function jsonOut(obj) {
         const payloadStr = JSON.stringify(workspaceObj);
         const sheetMedia = includeMedia ? getSheetSafeMediaBundle() : undefined;
 
-        if (!memoryUsers[loggedInUser]) {
-          memoryUsers[loggedInUser] = { username: loggedInUser };
-        }
-        memoryUsers[loggedInUser].lastWorkspaceJson = payloadStr;
-        memoryUsers[loggedInUser].lastProjectTitle = currentProjectTitle;
-        memoryUsers[loggedInUser].lastProjectId = currentProjectId;
-        if (sheetMedia) memoryUsers[loggedInUser].media = sheetMedia;
         persistTabSessionCache();
 
         if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
@@ -3603,34 +3286,6 @@ function jsonOut(obj) {
           });
         }
 
-        if (db && firebaseUser) {
-          if (includeMedia) {
-            await saveMediaLayersToCloud('user_' + loggedInUser);
-          }
-          const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_accounts', loggedInUser);
-          await setDoc(userDocRef, {
-            username: loggedInUser,
-            lastWorkspaceJson: payloadStr,
-            lastProjectTitle: currentProjectTitle,
-            lastProjectId: currentProjectId,
-            updatedAt: Date.now()
-          }, { merge: true });
-
-          if (currentProjectId) {
-            if (includeMedia) {
-              await saveMediaLayersToCloud(currentProjectId);
-            }
-            const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', currentProjectId);
-            await setDoc(projRef, {
-              owner: loggedInUser,
-              title: currentProjectTitle,
-              aspect: currentAspectName,
-              thumbnail: generateThumbnailDataUrl(),
-              payloadJson: payloadStr,
-              updatedAt: Date.now()
-            }, { merge: true });
-          }
-        }
         if (statusText) {
           const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
           statusText.textContent = `✓ ซิงค์ฐานข้อมูลอัตโนมัติแล้ว (${timeStr})`;
@@ -3725,19 +3380,14 @@ function jsonOut(obj) {
           await callGoogleSheetApi('saveProject', projectData);
         }
 
-        if (db && firebaseUser) {
-          await saveMediaLayersToCloud(projId);
-          const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
-          await setDoc(projRef, projectData);
-        } else {
-          await saveMediaLayersToCloud(projId);
-        }
-
         const existingIdx = memoryProjects.findIndex(p => p.id === projId);
         if (existingIdx >= 0) memoryProjects[existingIdx] = projectData;
         else memoryProjects.unshift(projectData);
+        userProjectsList = memoryProjects.filter(p => p.owner === loggedInUser);
+        const badge = document.getElementById('projectCountBadge');
+        if (badge) badge.textContent = userProjectsList.length;
+
         persistTabSessionCache();
-        subscribeUserProjects(loggedInUser);
 
         currentProjectId = projId;
         currentProjectTitle = title;
@@ -3829,14 +3479,13 @@ function jsonOut(obj) {
         const parsed = JSON.parse(found.payloadJson);
         currentProjectId = found.id;
         currentProjectTitle = found.title || 'งานที่บันทึกไว้';
-        importLightweightWorkspace(parsed);
+        restoreState(parsed);
         if (found.media && (found.media.bg || found.media.fg1 || found.media.fg2 || found.media.logo)) {
           await applyMediaBundle(found.media, parsed.mediaFlags);
-        } else {
-          await loadMediaLayersFromCloud(projId, parsed.mediaFlags);
         }
         updateAuthUI();
         window.isRestoringFromCloud = false;
+        renderCanvas();
         performCloudWorkspaceSync(true);
         closeHistoryModal();
       } catch (e) {
@@ -3849,13 +3498,12 @@ function jsonOut(obj) {
         if (googleSheetApiUrl && googleSheetApiUrl.startsWith('https://script.google.com/')) {
           await callGoogleSheetApi('deleteProject', { id: projId });
         }
-        if (db && firebaseUser) {
-          const projRef = doc(db, 'artifacts', appId, 'public', 'data', 'aofta_projects', projId);
-          await deleteDoc(projRef);
-        }
         memoryProjects = memoryProjects.filter(p => p.id !== projId);
+        userProjectsList = memoryProjects.filter(p => p.owner === loggedInUser);
+        const badge = document.getElementById('projectCountBadge');
+        if (badge) badge.textContent = userProjectsList.length;
         persistTabSessionCache();
-        subscribeUserProjects(loggedInUser);
+        renderHistoryList();
         if (currentProjectId === projId) {
           currentProjectId = null;
           currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
