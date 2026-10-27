@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title> AOFTA STUDIO</title>
+  <title>AOFTA STUDIO PRO</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,13 +52,14 @@
     <div class="w-full px-3 sm:px-8 py-3 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/20 flex-shrink-0">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-slate-950 font-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <!-- UPDATED LOGO FROM IMAGE 3 -->
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-950 flex items-center justify-center shadow-lg shadow-indigo-500/20 flex-shrink-0 overflow-hidden border border-indigo-500/30">
+            <img src="AOFTA STUDIO.jpg" alt="AOFTA STUDIO Logo" class="w-full h-full object-cover">
           </div>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO</h1>
-              <span class="bg-emerald-400/15 text-emerald-300 border border-emerald-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Good Luck</span>
+              <h1 class="text-sm sm:text-lg font-bold tracking-tight">AOFTA STUDIO PRO</h1>
+              <span class="bg-emerald-400/15 text-emerald-300 border border-emerald-400/30 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">GOOD LUCK</span>
             </div>
             <p class="text-[11px] text-slate-400">ระบบนี้อ๊อฟต้าสร้างมาเพื่อความสะดวก ห้ามเคลม!!</p>
           </div>
@@ -66,7 +67,6 @@
       </div>
 
       <div class="flex items-center justify-between lg:justify-end gap-2 flex-wrap">
-        <!-- GOOGLE SHEET DB SETUP BUTTON -->
         <button onclick="openSheetConfigModal()" id="sheetStatusBtn" class="hidden bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 font-bold px-2.5 py-1.5 rounded-xl text-[11px] transition items-center gap-1.5 cursor-pointer" title="ตั้งค่าฐานข้อมูล Google Sheet ส่วนตัว">
           <span id="sheetStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
           <span id="sheetStatusLabel">📊 ฐานข้อมูล Google Sheet</span>
@@ -1027,7 +1027,9 @@
     const ctx = canvas.getContext('2d');
 
     let currentStyle = 1;
-    let customLogoImg = null;
+    let customLogoImg = new Image();
+    customLogoImg.src = "AOFTA STUDIO.jpg"; // ตั้งค่าโลโก้เริ่มต้นเป็นรูปที่ 3 อัตโนมัติ
+    let customLogoLoaded = true;
     let activeLayer = 'bg';
 
     let currentAspectName = '1:1';
@@ -1364,13 +1366,13 @@
       if (activeBtn) activeBtn.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-900 shadow-sm transition cursor-pointer flex items-center justify-center gap-1.5';
     }
 
-    function drawNongKhaiEmblem(ctx, cx, cy, radius) {
+    function drawStudioLogo(ctx, cx, cy, radius) {
       ctx.save();
       ctx.shadowColor = 'rgba(0,0,0,0.45)';
       ctx.shadowBlur = 10;
       ctx.shadowOffsetY = 3;
 
-      if (customLogoImg) {
+      if (customLogoImg && customLogoLoaded) {
         ctx.beginPath();
         ctx.arc(cx, cy, radius, 0, Math.PI * 2);
         ctx.closePath();
@@ -1379,66 +1381,6 @@
         ctx.restore();
         return;
       }
-
-      const ringGrad = ctx.createRadialGradient(cx - radius * 0.2, cy - radius * 0.2, radius * 0.1, cx, cy, radius);
-      ringGrad.addColorStop(0, '#FFE875');
-      ringGrad.addColorStop(0.75, '#EAB308');
-      ringGrad.addColorStop(1, '#CA8A04');
-      ctx.fillStyle = ringGrad;
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.shadowColor = 'transparent';
-      ctx.strokeStyle = '#713F12';
-      ctx.lineWidth = Math.max(1.5, radius * 0.03);
-      ctx.stroke();
-
-      const innerR = radius * 0.66;
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
-      ctx.clip();
-
-      const skyGrad = ctx.createLinearGradient(cx, cy - innerR, cx, cy + innerR);
-      skyGrad.addColorStop(0, '#38BDF8');
-      skyGrad.addColorStop(0.55, '#BAE6FD');
-      skyGrad.addColorStop(0.56, '#15803D');
-      skyGrad.addColorStop(1, '#FACC15');
-      ctx.fillStyle = skyGrad;
-      ctx.fillRect(cx - innerR, cy - innerR, innerR * 2, innerR * 2);
-
-      ctx.fillStyle = '#065F46';
-      ctx.beginPath();
-      ctx.arc(cx + innerR * 0.55, cy - innerR * 0.2, innerR * 0.65, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-
-      ctx.strokeStyle = '#1E293B';
-      ctx.lineWidth = Math.max(1.2, radius * 0.025);
-      ctx.beginPath();
-      ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
-      ctx.stroke();
-
-      const rimText = "องค์การบริหารส่วนจังหวัดหนองคาย";
-      ctx.fillStyle = '#422006';
-      ctx.font = `700 ${Math.round(radius * 0.155)}px Prompt, sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      const totalAngle = Math.PI * 1.18;
-      const startAngle = Math.PI / 2 + totalAngle / 2;
-      const textRadius = radius * 0.83;
-
-      for (let i = 0; i < rimText.length; i++) {
-        const ch = rimText[i];
-        const angle = startAngle - (i / (rimText.length - 1)) * totalAngle;
-        ctx.save();
-        ctx.translate(cx + Math.cos(angle) * textRadius, cy + Math.sin(angle) * textRadius);
-        ctx.rotate(angle - Math.PI / 2);
-        ctx.fillText(ch, 0, 0);
-        ctx.restore();
-      }
-
       ctx.restore();
     }
 
@@ -1497,23 +1439,23 @@
         setCheck('logoBottomFooter', false);
         setCheck('showDateRibbon', false);
 
-        setVal('textLine1', 'อบจ.หนองคาย');
+        setVal('textLine1', 'AOFTA STUDIO');
         setVal('colorLine1', '#FFE600');
         setCheck('strokeLine1', false);
         setVal('size1Range', 92);
 
-        setVal('textLine2', 'ร่วมประชุมผู้บริหารองค์กรปกครองส่วนท้องถิ่น');
+        setVal('textLine2', 'สร้างสรรค์ภาพกราฟิกและสื่อประชาสัมพันธ์ระดับโปร');
         setVal('size2Range', 46);
 
-        setVal('textLine3', 'ครั้งที่ 5/2569');
+        setVal('textLine3', 'V26.2 Cloud Edition');
         setVal('colorGoldText', '#FFCC00');
         setVal('size3Range', 42);
 
         setVal('dividerStyle', 'gold');
         setVal('footerMode', 'style1');
-        setVal('textLine4', 'ณ ห้องประชุมปทุมเทวาภิบาล ชั้น 4 ศาลากลางจังหวัดหนองคาย');
-        setVal('textOrg', 'องค์การบริหารส่วนจังหวัดหนองคาย');
-        setVal('textDate', '15/10/2569');
+        setVal('textLine4', 'ระบบจัดการคลาวด์และ Google Sheet ส่วนตัว');
+        setVal('textOrg', 'AOFTA STUDIO PRO');
+        setVal('textDate', '2026');
         setCheck('showSocial', true);
         setCheck('showFooterSection', true);
         setCheck('showSubDividerText', true);
@@ -1529,23 +1471,23 @@
         setCheck('logoBottomFooter', false);
         setCheck('showDateRibbon', false);
 
-        setVal('textLine1', 'นายก อบจ.หนองคาย');
+        setVal('textLine1', 'DESIGN STUDIO');
         setVal('colorLine1', '#FFFFFF');
         setCheck('strokeLine1', true);
         setVal('size1Range', 85);
 
-        setVal('textLine2', 'ให้สัมภาษณ์สื่อเพื่อประชาสัมพันธ์\nงานเทศกาลออกพรรษาและ\nบั้งไฟพญานาคโลก ประจำปี 2569');
+        setVal('textLine2', 'นวัตกรรมการออกแบบสื่อประชาสัมพันธ์ยุคใหม่\nสะดวกรวดเร็ว ปลอดภัย และแม่นยำ');
         setVal('size2Range', 42);
 
-        setVal('textLine3', 'โดยชี้แจงถึงบทบาทและการสนับสนุนของ\nองค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('textLine3', 'โดยทีมงาน AOFTA STUDIO PRO');
         setVal('colorGoldText', '#FFCC00');
         setVal('size3Range', 36);
 
         setVal('dividerStyle', 'red');
         setVal('footerMode', 'style2');
-        setVal('textLine4', '"นายวุฒิไกร ช่างเหล็ก"');
-        setVal('textOrg', 'นายกองค์การบริหารส่วนจังหวัดหนองคาย');
-        setVal('textDate', '14/10/2569');
+        setVal('textLine4', '"AOFTA STUDIO PRO"');
+        setVal('textOrg', 'ผู้พัฒนาโปรแกรมกราฟิกอัจฉริยะ');
+        setVal('textDate', '2026');
         setCheck('showSocial', false);
         setCheck('showFooterSection', true);
         setCheck('showSubDividerText', true);
@@ -1561,22 +1503,22 @@
         setCheck('logoBottomFooter', true);
         setCheck('showDateRibbon', true);
         setVal('ribbonColor', '#EA580C');
-        setVal('ribbonText', 'วันพุธที่ 07 ตุลาคม พ.ศ. 2569');
+        setVal('ribbonText', 'AOFTA STUDIO PRO V26.2');
 
         setVal('textLine1', '');
         setCheck('strokeLine1', false);
 
-        setVal('textLine2', 'การประชุมคณะกรรมการที่ปรึกษาเพื่อสนับสนุน\nการขับเคลื่อนนโยบายองค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('textLine2', 'ระบบสร้างภาพประชาสัมพันธ์และซิงค์คลาวด์อัตโนมัติ');
         setVal('size2Range', 44);
 
-        setVal('textLine3', 'เพื่อติดตามการดำเนินงานของกองช่าง');
+        setVal('textLine3', 'เสถียร รวดเร็ว ปลอดภัย 100%');
         setVal('colorGoldText', '#F5B800');
         setVal('size3Range', 40);
 
         setVal('dividerStyle', 'red');
         setVal('footerMode', 'style3');
         setVal('textLine4', '');
-        setVal('textOrg', 'องค์การบริหารส่วนจังหวัดหนองคาย');
+        setVal('textOrg', 'AOFTA STUDIO PRO');
         setVal('textDate', '');
         setCheck('showSocial', false);
         setCheck('showFooterSection', true);
@@ -1655,6 +1597,7 @@
         const img = new Image();
         img.onload = function() {
           customLogoImg = img;
+          customLogoLoaded = true;
           const showLogoEl = document.getElementById('showLogo');
           if (showLogoEl) showLogoEl.checked = true;
           renderCanvas();
@@ -1666,7 +1609,9 @@
     }
 
     function clearCustomLogo() {
-      customLogoImg = null;
+      customLogoImg = new Image();
+      customLogoImg.src = "AOFTA STUDIO.jpg";
+      customLogoLoaded = true;
       const showLogoEl = document.getElementById('showLogo');
       if (showLogoEl) showLogoEl.checked = true;
       renderCanvas();
@@ -2039,7 +1984,7 @@
       }
 
       if (getCheck('showLogo', true) && getCheck('logoTopLeft', false)) {
-        drawNongKhaiEmblem(ctx, 76 * scaleX, 76 * scaleY, 62 * Math.min(scaleX, scaleY));
+        drawStudioLogo(ctx, 76 * scaleX, 76 * scaleY, 62 * Math.min(scaleX, scaleY));
       }
 
       const showRibbon = getCheck('showDateRibbon', false);
@@ -2231,7 +2176,7 @@
           const centerY = (995 * scaleY) + footerOffsetY;
 
           if (showBottomLogo) {
-            drawNongKhaiEmblem(ctx, startX + logoR, centerY, logoR);
+            drawStudioLogo(ctx, startX + logoR, centerY, logoR);
           }
           if (orgText) {
             ctx.fillStyle = '#FFFFFF';
@@ -2262,7 +2207,7 @@
       renderCanvas(transparentOnly);
       const fileName = transparentOnly
         ? `canva-overlay-${currentAspectName.replace(':', '-')}.png`
-        : `pr-nongkhai-${currentAspectName.replace(':', '-')}.png`;
+        : `aofta-studio-${currentAspectName.replace(':', '-')}.png`;
       const dataUrl = canvas.toDataURL('image/png');
 
       canvas.toBlob((blob) => {
@@ -2319,14 +2264,14 @@
     }
 
     async function shareOrSaveMobileImage() {
-      const fileName = `pr-nongkhai-${currentAspectName.replace(':', '-')}.png`;
+      const fileName = `aofta-studio-${currentAspectName.replace(':', '-')}.png`;
       if (lastGeneratedBlob && navigator.canShare) {
         const file = new File([lastGeneratedBlob], fileName, { type: 'image/png' });
         if (navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
               files: [file],
-              title: 'ภาพข่าวประชาสัมพันธ์ อบจ.หนองคาย'
+              title: 'ภาพจาก AOFTA STUDIO PRO'
             });
             return;
           } catch (err) {}
@@ -2527,7 +2472,7 @@
 
     window.copyGoogleAppsScriptCode = function() {
       const scriptCode = `// ====================================================================
-// โค้ดฐานข้อมูลส่วนตัว AOFTA STUDIO สำหรับ Google Sheet
+// โค้ดฐานข้อมูลส่วนตัว AOFTA STUDIO PRO V26.2 สำหรับ Google Sheet
 // วิธีใช้: วางโค้ดนี้ใน Extensions > Apps Script ของ Google Sheet ของคุณ
 // เฉพาะคุณเท่านั้นที่เปิดดู Google Sheet นี้ได้!
 // ====================================================================
@@ -3055,7 +3000,7 @@ function jsonOut(obj) {
       if (mediaObj.logo && mediaFlags.hasLogo !== false) {
         await new Promise((res) => {
           const img = new Image();
-          img.onload = () => { customLogoImg = img; res(); };
+          img.onload = () => { customLogoImg = img; customLogoLoaded = true; res(); };
           img.onerror = () => res();
           img.src = mediaObj.logo;
         });
@@ -3402,7 +3347,9 @@ function jsonOut(obj) {
       currentProjectTitle = 'งานใหม่ (ยังไม่ได้ตั้งชื่อ)';
       fg1Loaded = false;
       fg2Loaded = false;
-      customLogoImg = null;
+      customLogoImg = new Image();
+      customLogoImg.src = "AOFTA STUDIO.jpg";
+      customLogoLoaded = true;
       resetTextPositions();
       applyPreset(1);
       updateAuthUI();
